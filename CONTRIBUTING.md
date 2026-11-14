@@ -19,11 +19,17 @@ Boshqa faylga tegish kerak bo'lsa — avval Xayrullaga yozing.
 
 ## Sevinchoy va Dilfuza uchun: qadamma-qadam
 
+Sizda asosiy repoga faqat **o'qish** huquqi bor. Siz o'z nusxangizda (fork) ishlaysiz va o'zgarishni pull request bilan yuborasiz. Shuning uchun asosiy kodni tasodifan buzib qo'yish imkonsiz.
+
 Bir marta:
 
+1. GitHub'da asosiy repo sahifasida **Fork** tugmasini bosing.
+2. Terminalda:
+
 ```bash
-git clone <repo havolasi>
+git clone https://github.com/<SIZNING_LOGIN>/lex-dispetcher.git
 cd lex-dispetcher
+git remote add upstream https://github.com/<TASHKILOT>/lex-dispetcher.git
 pnpm install
 cp .env.example .env
 ```
@@ -32,15 +38,15 @@ Har safar yangi ish boshlaganda:
 
 ```bash
 git checkout main
-git pull
+git pull upstream main               # eng yangi kodni olish
 git checkout -b web/chat-dizayn      # Dilfuza: bot/matnlar
-# ... fayllarni o'zgartiring ...
+# ... faqat o'zingizga ruxsat berilgan fayllarni o'zgartiring ...
 git add .
 git commit -m "Chat sahifasi ranglari"
 git push -u origin web/chat-dizayn
 ```
 
-Keyin GitHub sahifasida **Compare & pull request** tugmasini bosing.
+Keyin GitHub'da o'z nusxangiz sahifasida **Compare & pull request** tugmasini bosing. Xayrulla yoki Jayhun ko'rib chiqib qo'shadi.
 
 ## Ishga tushirish
 
