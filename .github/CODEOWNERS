@@ -1,0 +1,16 @@
+# Har bir papka egasi. GITHUB_USERNAME larni haqiqiy loginlar bilan almashtiring.
+# Eslatma: majburiy tasdiq faqat branch protection yoqilganda ishlaydi (README ga qarang).
+
+*                                   @XAYRULLA_GITHUB @JAYHUN_GITHUB
+
+/apps/api/                          @XAYRULLA_GITHUB
+/libs/ai/                           @JAYHUN_GITHUB
+/libs/contracts/                    @XAYRULLA_GITHUB @JAYHUN_GITHUB
+/data/                              @XAYRULLA_GITHUB @JAYHUN_GITHUB
+
+# Sevinchoy va Dilfuza o'zgartirishi mumkin bo'lgan fayllar (baribir Xayrulla tasdiqlaydi)
+/apps/web/src/content/              @XAYRULLA_GITHUB @SEVINCHOY_GITHUB
+/apps/web/src/components/ui/        @XAYRULLA_GITHUB @SEVINCHOY_GITHUB
+/apps/web/src/styles/               @XAYRULLA_GITHUB @SEVINCHOY_GITHUB
+/apps/bot/src/texts.uz.ts           @XAYRULLA_GITHUB @DILFUZA_GITHUB
+/apps/bot/src/keyboards.ts          @XAYRULLA_GITHUB @DILFUZA_GITHUB

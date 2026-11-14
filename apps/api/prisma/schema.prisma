@@ -1,0 +1,92 @@
+// Ma'lumotlar bazasi sxemasi (Xayrulla). Hozircha API xotirada ishlaydi;
+// `npx prisma migrate dev` bilan bazaga o'tkaziladi.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [vector]
+}
+
+model Case {
+  id         String    @id @default(uuid())
+  channel    String
+  status     String    @default("open")
+  createdAt  DateTime  @default(now())
+  messages   Message[]
+  analyses   Analysis[]
+  appeals    Appeal[]
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  caseId    String
+  role      String
+  text      String
+  audioUrl  String?
+  createdAt DateTime @default(now())
+  case      Case     @relation(fields: [caseId], references: [id])
+}
+
+model Analysis {
+  id        String   @id @default(uuid())
+  caseId    String
+  result    Json     // AnalysisResult
+  route     Json     // RoutePlan
+  createdAt DateTime @default(now())
+  case      Case     @relation(fields: [caseId], references: [id])
+}
+
+model Agency {
+  id             String  @id          // mehnat_inspeksiyasi
+  name           String
+  competence     String
+  notHandled     String?
+  channel        String?
+  phone          String?
+  responseDays   Int?
+  source         String?
+}
+
+model Route {
+  id        String @id @default(uuid())
+  subcase   String
+  order     Int
+  agencyId  String
+  action    String
+  deadline  Int?
+  template  String?
+}
+
+model Appeal {
+  id          String        @id @default(uuid())
+  externalId  String
+  caseId      String
+  agencyId    String
+  status      String
+  submittedAt DateTime      @default(now())
+  dueAt       DateTime
+  case        Case          @relation(fields: [caseId], references: [id])
+  events      AppealEvent[]
+}
+
+model AppealEvent {
+  id        String   @id @default(uuid())
+  appealId  String
+  status    String
+  at        DateTime @default(now())
+  appeal    Appeal   @relation(fields: [appealId], references: [id])
+}
+
+model LawArticle {
+  id          String                       @id   // MK-333
+  document    String
+  article     String
+  text        String
+  url         String
+  editionDate DateTime?
+  embedding   Unsupported("vector(1024)")?
+}

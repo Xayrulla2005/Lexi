@@ -1,0 +1,21 @@
+{
+  "name": "lex-dispetcher",
+  "private": true,
+  "packageManager": "pnpm@10.28.0",
+  "scripts": {
+    "dev:api": "pnpm --filter @lex/api dev",
+    "dev:web": "pnpm --filter @lex/web dev",
+    "dev:bot": "pnpm --filter @lex/bot dev",
+    "mock": "prism mock libs/contracts/openapi.yaml -p 4010",
+    "typecheck": "pnpm -r typecheck",
+    "build": "pnpm -r build",
+    "import:data": "pnpm --filter @lex/data-import start"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild", "prisma", "@prisma/engines"]
+  },
+  "devDependencies": {
+    "@stoplight/prism-cli": "^5.12.0",
+    "typescript": "^5.6.3"
+  }
+}
