@@ -8,6 +8,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@lex/contracts": "workspace:*",
     "grammy": "^1.30.0"
   },
   "devDependencies": {

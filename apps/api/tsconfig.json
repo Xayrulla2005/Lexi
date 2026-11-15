@@ -1,11 +1,13 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "src",
+    "noEmit": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "declaration": false
+    "declaration": false,
+    "types": ["node", "jest"],
+    "baseUrl": ".",
+    "paths": { "*": ["node_modules/*", "node_modules/@types/*"] }
   },
-  "include": ["src"]
+  "include": ["src", "../../tests/integration"]
 }

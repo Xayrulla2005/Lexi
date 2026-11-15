@@ -1,9 +1,33 @@
+# Dependencies
 node_modules/
+
+# Build outputs
 dist/
 .next/
+out/
+*.tsbuildinfo
+coverage/
+
+# Environment and secrets — never commit real credentials
 .env
-.env.local
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+secrets/
+credentials*.json
+
+# Private / personal data
+data/raw/*.private.csv
+legal-knowledge/**/*.private.*
+
+# Logs and OS files
 *.log
 .DS_Store
-coverage/
-data/raw/*.private.csv
+Thumbs.db
+
+# Editors
+.idea/
+.vscode/*
+!.vscode/extensions.json

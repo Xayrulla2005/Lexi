@@ -1,0 +1,25 @@
+{
+  "$comment": "Synthetic demo stories only — never real personal data. Expectations describe the current placeholder pipeline, not legal correctness.",
+  "scenarios": [
+    {
+      "id": "S01-unpaid-wages",
+      "input": "3 oydan beri oylik berishmayapti, direktor kelasi oy deyapti",
+      "expected": { "riskLevel": "NORMAL", "subcase": "UNPAID_WAGES", "routeType": "RULE_BASED", "agencyId": "mehnat_inspeksiyasi" }
+    },
+    {
+      "id": "S02-neighbor-dispute",
+      "input": "Qo'shnim har kecha baland ovozda musiqa qo'yadi",
+      "expected": { "riskLevel": "NORMAL", "subcase": "NEIGHBOR_DISPUTE", "routeType": "RULE_BASED", "agencyId": "profilaktika_inspektori" }
+    },
+    {
+      "id": "S03-domestic-violence-emergency",
+      "input": "Erim pichoq bilan qo'rqityapti, hozir uyda",
+      "expected": { "riskLevel": "CRITICAL", "subcase": "DOMESTIC_VIOLENCE", "routeType": "EMERGENCY", "agencyId": "iiv_102" }
+    },
+    {
+      "id": "S04-unknown",
+      "input": "Universitetdan hujjatlarimni bermayapti",
+      "expected": { "riskLevel": "NORMAL", "subcase": null, "routeType": "FALLBACK", "agencyId": null }
+    }
+  ]
+}

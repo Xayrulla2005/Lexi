@@ -5,9 +5,22 @@ on:
   push:
     branches: [main]
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+# No secrets are used: the AI pipeline runs offline and no paid APIs are called.
+env:
+  HF_TOKEN: ""
+  DATABASE_URL: ""
+
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -15,8 +28,24 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @lex/contracts --filter @lex/ai build
-      - run: pnpm typecheck
-      - name: Ma'lumotlarni tekshirish
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build shared packages
+        run: pnpm build:packages
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm -r typecheck
+
+      - name: Unit and integration tests
+        run: pnpm -r test
+
+      - name: Build
+        run: pnpm build
+
+      - name: Validate team data (CSV)
         run: pnpm import:data

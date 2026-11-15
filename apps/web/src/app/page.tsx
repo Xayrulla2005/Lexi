@@ -1,7 +1,9 @@
 "use client";
 /** XAYRULLA: sahifa mantig'i. Sevinchoy ko'rinishni components/ui va styles orqali o'zgartiradi. */
 import { useState } from "react";
-import { api, type AppealView, type CaseView } from "@/lib/api";
+import type { AgencySubmission, Case } from "@lex/contracts";
+import { api } from "@/lib/api";
+import { riskTone, routeKind } from "@/lib/view";
 import { texts } from "@/content/texts.uz";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
@@ -10,18 +12,25 @@ import { RiskBadge } from "@/components/ui/RiskBadge";
 export default function ChatPage() {
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
-  const [result, setResult] = useState<CaseView | null>(null);
-  const [appeal, setAppeal] = useState<AppealView | null>(null);
+  const [result, setResult] = useState<Case | null>(null);
+  const [submission, setSubmission] = useState<AgencySubmission | null>(null);
 
   async function onSend() {
     if (!text.trim()) return;
-    setBusy(true); setAppeal(null);
-    try { setResult(await api.ask(text)); } finally { setBusy(false); }
+    setBusy(true);
+    setSubmission(null);
+    try {
+      setResult(await api.ask(text));
+    } finally {
+      setBusy(false);
+    }
   }
 
-  async function onSubmitAppeal() {
-    const step = result?.route?.steps.find((s) => s.agency_id !== "ish_beruvchi") ?? result?.route?.steps[0];
-    if (result && step) setAppeal(await api.submit(result.id, step.agency_id));
+  const decision = result?.routingDecision;
+  const canSubmit = decision?.routeType !== "EMERGENCY" && !!decision?.agencyId;
+
+  async function onSubmit() {
+    if (result && decision?.agencyId) setSubmission(await api.submit(result.id, decision.agencyId));
   }
 
   return (
@@ -47,25 +56,31 @@ export default function ChatPage() {
         </div>
       </Card>
 
-      {result?.analysis && (
+      {result?.analysis && decision && (
         <Card>
-          <RiskBadge level={result.analysis.risk.level} />
-          {result.route && <p style={{ color: "var(--muted)" }}>{texts.routeKind[result.route.kind]}</p>}
+          <RiskBadge level={riskTone(result.analysis.risk.level)} />
+          <p style={{ color: "var(--muted)" }}>{texts.routeKind[routeKind(decision)]}</p>
           <h3>{texts.resultTitle}</h3>
-          <ol>{result.route?.steps.map((s) => <li key={s.order}>{s.action}</li>)}</ol>
-          {!!result.analysis.rights?.length && (
+          <ol>{decision.steps.map((s) => <li key={s.order}>{s.action}</li>)}</ol>
+          {result.analysis.legalReferences.length > 0 && (
             <>
               <h3>{texts.lawTitle}</h3>
-              <ul>{result.analysis.rights.map((r) => <li key={r.source_id}>{r.text}</li>)}</ul>
+              <ul>
+                {result.analysis.legalReferences.map((r) => (
+                  <li key={r.documentId}>
+                    <a href={r.sourceUrl} target="_blank" rel="noreferrer">{r.documentName}, {r.article}</a>
+                  </li>
+                ))}
+              </ul>
             </>
           )}
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            <Button onClick={onSubmitAppeal}>{texts.sendAppeal}</Button>
-            {result.analysis.needs_lawyer && (
+            {canSubmit && <Button onClick={onSubmit}>{texts.sendAppeal}</Button>}
+            {decision.requiresHumanReview && (
               <a href="https://advice.uz" target="_blank" rel="noreferrer"><Button tone="plain">{texts.lawyer}</Button></a>
             )}
           </div>
-          {appeal && <p>✅ {texts.sent} <b>{appeal.external_id}</b></p>}
+          {submission && <p>✅ {texts.sent} <b>{submission.receiptId}</b></p>}
         </Card>
       )}
     </main>

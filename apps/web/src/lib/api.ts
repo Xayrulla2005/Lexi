@@ -1,4 +1,6 @@
 /** XAYRULLA: API bilan aloqa. Sevinchoy bu faylga tegmaydi. */
+import type { AgencySubmission, Case, SubmitToAgencyRequest } from "@lex/contracts";
+
 const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
 
 async function call<T>(path: string, body?: unknown): Promise<T> {
@@ -12,21 +14,16 @@ async function call<T>(path: string, body?: unknown): Promise<T> {
   return res.json() as Promise<T>;
 }
 
-export type Risk = "red" | "orange" | "yellow" | "green";
-export interface CaseView {
-  id: string;
-  analysis?: { risk: { level: Risk }; needs_lawyer: boolean; rights?: { text: string; source_id: string }[] };
-  route?: { kind: "emergency" | "verified" | "generic"; steps: { order: number; agency_id: string; action: string }[] };
-}
-export interface AppealView { id: string; external_id: string; agency_id: string; status: string; submitted_at: string }
-
 export const api = {
-  async ask(text: string): Promise<CaseView> {
-    const c = await call<CaseView>("/cases", { channel: "web" });
+  async ask(text: string): Promise<Case> {
+    const c = await call<Case>("/cases", { channel: "web" });
     await call(`/cases/${c.id}/messages`, { text });
-    return call<CaseView>(`/cases/${c.id}/analyze`, {});
+    return call<Case>(`/cases/${c.id}/analyze`, {});
   },
-  submit: (caseId: string, agencyId: string) =>
-    call<AppealView>("/appeals", { case_id: caseId, agency_id: agencyId, document_id: "draft", consent: true }),
-  simulator: (agency: string) => call<AppealView[]>(`/simulator/${agency}/appeals`),
+  /** Call only after an explicit user action (button press) — that is the consent. */
+  submit: (caseId: string, agencyId: string) => {
+    const body: SubmitToAgencyRequest = { caseId, agencyId, consent: true };
+    return call<AgencySubmission>("/submissions", body);
+  },
+  simulator: (agencyId: string) => call<AgencySubmission[]>(`/simulator/${agencyId}/submissions`),
 };

@@ -1,4 +1,6 @@
 /** XAYRULLA: API bilan aloqa. Dilfuza bu faylga tegmaydi. */
+import type { AgencySubmission, Case, RiskLevel, SubmitToAgencyRequest } from "@lex/contracts";
+
 const API = process.env.API_URL ?? "http://localhost:3001";
 
 async function call<T>(path: string, body?: unknown, method = body ? "POST" : "GET"): Promise<T> {
@@ -11,22 +13,21 @@ async function call<T>(path: string, body?: unknown, method = body ? "POST" : "G
   return res.json() as Promise<T>;
 }
 
-export interface CaseView {
-  id: string;
-  analysis?: {
-    risk: { level: "red" | "orange" | "yellow" | "green" };
-    needs_lawyer: boolean;
-    rights?: { text: string; source_id: string }[];
-  };
-  route?: { kind: string; steps: { order: number; agency_id: string; action: string }[] };
-}
+/** Maps contract risk levels to the keys used in texts.uz.ts. */
+export const RISK_TONE: Record<RiskLevel, "red" | "orange" | "yellow" | "green"> = {
+  CRITICAL: "red",
+  HIGH: "orange",
+  NORMAL: "yellow",
+  LOW: "green",
+};
 
 export const api = {
-  createCase: (userId: string) => call<CaseView>("/cases", { channel: "bot", external_user_id: userId }),
+  createCase: (userId: string) => call<Case>("/cases", { channel: "bot", userId }),
   addMessage: (id: string, text: string) => call(`/cases/${id}/messages`, { text }),
-  analyze: (id: string) => call<CaseView>(`/cases/${id}/analyze`, {}),
-  submitAppeal: (caseId: string, agencyId: string) =>
-    call<{ id: string; external_id: string }>("/appeals", {
-      case_id: caseId, agency_id: agencyId, document_id: "draft", consent: true,
-    }),
+  analyze: (id: string) => call<Case>(`/cases/${id}/analyze`, {}),
+  /** Call only after the user pressed the explicit consent button. */
+  submit: (caseId: string, agencyId: string) => {
+    const body: SubmitToAgencyRequest = { caseId, agencyId, consent: true };
+    return call<AgencySubmission>("/submissions", body);
+  },
 };

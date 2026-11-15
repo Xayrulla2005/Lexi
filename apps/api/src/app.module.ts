@@ -1,19 +1,25 @@
 import { Module } from "@nestjs/common";
-import { CasesController } from "./cases/cases.controller";
-import { CasesService } from "./cases/cases.service";
-import { RoutingService } from "./routing/routing.service";
-import { AppealsController } from "./appeals/appeals.controller";
-import { SimulatorController } from "./simulator/simulator.controller";
-import { AGENCY_GATEWAY } from "./simulator/agency-gateway";
-import { MockAgencyAdapter } from "./simulator/mock-agency.adapter";
+import { ActionPlansModule } from "./action-plans/action-plans.module";
+import { AgencyGatewayModule } from "./agency-gateway/agency-gateway.module";
+import { AiAnalysisModule } from "./ai-analysis/ai-analysis.module";
+import { CaseTrackingModule } from "./case-tracking/case-tracking.module";
+import { CasesModule } from "./cases/cases.module";
+import { DatabaseModule } from "./database/database.module";
+import { HealthModule } from "./health/health.module";
+import { LegalKnowledgeModule } from "./legal-knowledge/legal-knowledge.module";
+import { LegalRoutingModule } from "./legal-routing/legal-routing.module";
 
 @Module({
-  controllers: [CasesController, AppealsController, SimulatorController],
-  providers: [
-    CasesService,
-    RoutingService,
-    // Haqiqiy integratsiyada faqat shu qator almashadi: useClass: RealAgencyAdapter
-    { provide: AGENCY_GATEWAY, useClass: MockAgencyAdapter },
+  imports: [
+    DatabaseModule.forRoot(),
+    HealthModule,
+    CasesModule,
+    AiAnalysisModule,
+    LegalKnowledgeModule,
+    LegalRoutingModule,
+    ActionPlansModule,
+    AgencyGatewayModule,
+    CaseTrackingModule,
   ],
 })
 export class AppModule {}
