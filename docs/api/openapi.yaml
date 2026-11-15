@@ -1,0 +1,253 @@
+openapi: 3.0.3
+info:
+  title: LEX-DISPATCHER API
+  version: 0.2.0
+  description: |
+    HTTP API used by apps/web and apps/bot.
+    Source of truth for payload shapes: packages/contracts (zod). Keep this file in sync.
+    Mock server for client development: `pnpm mock` -> http://localhost:4010
+servers:
+  - url: http://localhost:3001
+paths:
+  /health:
+    get:
+      summary: Liveness
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string, enum: [ok] }
+                  uptimeSeconds: { type: integer }
+  /cases:
+    post:
+      summary: Create a case
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                channel: { type: string, enum: [web, bot], default: web }
+                userId: { type: string }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Case" }
+        "400": { $ref: "#/components/responses/ValidationError" }
+  /cases/{id}:
+    get:
+      summary: Get a case with analysis and routing decision
+      parameters: [{ $ref: "#/components/parameters/Id" }]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Case" }
+        "404": { description: Not found }
+  /cases/{id}/messages:
+    post:
+      summary: Add a user message
+      parameters: [{ $ref: "#/components/parameters/Id" }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [text]
+              properties:
+                text: { type: string, minLength: 1, maxLength: 5000, example: "3 oydan beri oylik berishmayapti" }
+      responses:
+        "201":
+          description: Added
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CaseMessage" }
+        "400": { $ref: "#/components/responses/ValidationError" }
+  /cases/{id}/analyze:
+    post:
+      summary: Run AI analysis, then deterministic routing
+      parameters: [{ $ref: "#/components/parameters/Id" }]
+      responses:
+        "200":
+          description: Analyzed
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Case" }
+        "400": { description: Case has no user messages }
+  /submissions:
+    post:
+      summary: Submit to an agency (MOCK only). Requires explicit consent.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [caseId, agencyId, consent]
+              properties:
+                caseId: { type: string, format: uuid }
+                agencyId: { type: string, example: mehnat_inspeksiyasi }
+                documentId: { type: string }
+                consent: { type: boolean, enum: [true] }
+      responses:
+        "201":
+          description: Submitted to the simulator
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/AgencySubmission" }
+        "400": { $ref: "#/components/responses/ValidationError" }
+  /submissions/{id}:
+    get:
+      summary: Submission status (case tracking)
+      parameters: [{ $ref: "#/components/parameters/Id" }]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/AgencySubmission" }
+        "404": { description: Not found }
+  /simulator/{agencyId}/submissions:
+    get:
+      summary: Simulator panel — submissions received by a mock agency
+      parameters:
+        - { name: agencyId, in: path, required: true, schema: { type: string, example: mehnat_inspeksiyasi } }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/AgencySubmission" }
+components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+  responses:
+    ValidationError:
+      description: Payload does not match the contract
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message: { type: string }
+              issues:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    path: { type: string }
+                    message: { type: string }
+  schemas:
+    VerificationStatus: { type: string, enum: [VERIFIED, PENDING, REJECTED] }
+    LegalReference:
+      type: object
+      required: [documentId, documentName, article, sourceUrl, verificationStatus, lastVerifiedAt]
+      properties:
+        documentId: { type: string }
+        documentName: { type: string }
+        article: { type: string }
+        sourceUrl: { type: string, format: uri }
+        verificationStatus: { $ref: "#/components/schemas/VerificationStatus" }
+        lastVerifiedAt: { type: string, format: date-time, nullable: true }
+    AnalysisResult:
+      type: object
+      required: [schemaVersion, caseSummary, classification, risk, facts, missingInformation, legalReferences, followUpQuestions, needsHumanReview]
+      properties:
+        schemaVersion: { type: string, enum: ["1.0"] }
+        caseSummary: { type: string }
+        classification:
+          type: object
+          required: [domain, subcase, confidence]
+          properties:
+            domain: { type: string, example: mehnat }
+            subcase: { type: string, nullable: true, enum: [UNPAID_WAGES, NEIGHBOR_DISPUTE, DOMESTIC_VIOLENCE, null] }
+            confidence: { type: number, minimum: 0, maximum: 1 }
+        risk:
+          type: object
+          required: [level, signals, requiresImmediateAction]
+          properties:
+            level: { type: string, enum: [LOW, NORMAL, HIGH, CRITICAL] }
+            signals: { type: array, items: { type: string } }
+            requiresImmediateAction: { type: boolean }
+        facts:
+          type: array
+          items:
+            type: object
+            required: [statement, source]
+            properties:
+              statement: { type: string }
+              source: { type: string, enum: [USER_REPORTED, ASSUMPTION] }
+        missingInformation: { type: array, items: { type: string } }
+        legalReferences: { type: array, items: { $ref: "#/components/schemas/LegalReference" } }
+        followUpQuestions: { type: array, items: { type: string } }
+        needsHumanReview: { type: boolean }
+    RouteStep:
+      type: object
+      required: [order, action, agencyId, deadlineDays, documentTemplateId]
+      properties:
+        order: { type: integer, minimum: 1 }
+        action: { type: string }
+        agencyId: { type: string, nullable: true }
+        deadlineDays: { type: integer, nullable: true }
+        documentTemplateId: { type: string, nullable: true }
+    RoutingDecision:
+      type: object
+      required: [routeType, routeId, agencyId, steps, requiresHumanReview]
+      properties:
+        routeType: { type: string, enum: [EMERGENCY, RULE_BASED, FALLBACK] }
+        routeId: { type: string, nullable: true }
+        agencyId: { type: string, nullable: true }
+        steps: { type: array, items: { $ref: "#/components/schemas/RouteStep" } }
+        requiresHumanReview: { type: boolean }
+    CaseMessage:
+      type: object
+      required: [id, role, text, createdAt]
+      properties:
+        id: { type: string, format: uuid }
+        role: { type: string, enum: [user, assistant] }
+        text: { type: string }
+        createdAt: { type: string, format: date-time }
+    Case:
+      type: object
+      required: [id, userId, channel, status, messages, analysis, routingDecision, createdAt, updatedAt]
+      properties:
+        id: { type: string, format: uuid }
+        userId: { type: string, nullable: true }
+        channel: { type: string, enum: [web, bot] }
+        status: { type: string, enum: [OPEN, ANALYZED, SUBMITTED, CLOSED] }
+        messages: { type: array, items: { $ref: "#/components/schemas/CaseMessage" } }
+        analysis:
+          allOf: [{ $ref: "#/components/schemas/AnalysisResult" }]
+          nullable: true
+        routingDecision:
+          allOf: [{ $ref: "#/components/schemas/RoutingDecision" }]
+          nullable: true
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    AgencySubmission:
+      type: object
+      required: [id, caseId, agencyId, adapterType, status, receiptId, submittedAt, dueAt]
+      properties:
+        id: { type: string, format: uuid }
+        caseId: { type: string, format: uuid }
+        agencyId: { type: string }
+        adapterType: { type: string, enum: [MOCK, OFFICIAL] }
+        status: { type: string, enum: [SUBMITTED, RECEIVED, IN_REVIEW, ANSWERED, OVERDUE, ESCALATED] }
+        receiptId: { type: string, example: SIM-MI-00451 }
+        submittedAt: { type: string, format: date-time }
+        dueAt: { type: string, format: date-time, nullable: true }

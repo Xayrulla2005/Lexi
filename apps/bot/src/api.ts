@@ -1,0 +1,33 @@
+/** XAYRULLA: API bilan aloqa. Dilfuza bu faylga tegmaydi. */
+import type { AgencySubmission, Case, RiskLevel, SubmitToAgencyRequest } from "@lex/contracts";
+
+const API = process.env.API_URL ?? "http://localhost:3001";
+
+async function call<T>(path: string, body?: unknown, method = body ? "POST" : "GET"): Promise<T> {
+  const res = await fetch(`${API}${path}`, {
+    method,
+    headers: { "content-type": "application/json" },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  if (!res.ok) throw new Error(`${method} ${path}: ${res.status}`);
+  return res.json() as Promise<T>;
+}
+
+/** Maps contract risk levels to the keys used in texts.uz.ts. */
+export const RISK_TONE: Record<RiskLevel, "red" | "orange" | "yellow" | "green"> = {
+  CRITICAL: "red",
+  HIGH: "orange",
+  NORMAL: "yellow",
+  LOW: "green",
+};
+
+export const api = {
+  createCase: (userId: string) => call<Case>("/cases", { channel: "bot", userId }),
+  addMessage: (id: string, text: string) => call(`/cases/${id}/messages`, { text }),
+  analyze: (id: string) => call<Case>(`/cases/${id}/analyze`, {}),
+  /** Call only after the user pressed the explicit consent button. */
+  submit: (caseId: string, agencyId: string) => {
+    const body: SubmitToAgencyRequest = { caseId, agencyId, consent: true };
+    return call<AgencySubmission>("/submissions", body);
+  },
+};

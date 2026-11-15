@@ -1,0 +1,20 @@
+# Har bir papka egasi. GITHUB_USERNAME larni haqiqiy loginlar bilan almashtiring.
+# Replace the *_GITHUB placeholders with real GitHub logins.
+# Required reviews are enforced only when branch protection is enabled on main.
+
+*                                   @XAYRULLA_GITHUB @JAYHUN_GITHUB
+
+/apps/api/                          @XAYRULLA_GITHUB
+/ai/                                @JAYHUN_GITHUB
+/packages/contracts/                @XAYRULLA_GITHUB @JAYHUN_GITHUB
+/packages/legal-engine/             @XAYRULLA_GITHUB @JAYHUN_GITHUB
+/legal-knowledge/                   @XAYRULLA_GITHUB @JAYHUN_GITHUB
+/data/                              @XAYRULLA_GITHUB @JAYHUN_GITHUB
+/.github/                           @XAYRULLA_GITHUB
+
+# Sevinchoy va Dilfuza o'zgartirishi mumkin bo'lgan fayllar (baribir Xayrulla tasdiqlaydi)
+/apps/web/src/content/              @XAYRULLA_GITHUB @SEVINCHOY_GITHUB
+/apps/web/src/components/ui/        @XAYRULLA_GITHUB @SEVINCHOY_GITHUB
+/apps/web/src/styles/               @XAYRULLA_GITHUB @SEVINCHOY_GITHUB
+/apps/bot/src/texts.uz.ts           @XAYRULLA_GITHUB @DILFUZA_GITHUB
+/apps/bot/src/keyboards.ts          @XAYRULLA_GITHUB @DILFUZA_GITHUB
