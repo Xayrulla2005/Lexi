@@ -1,6 +1,7 @@
-# LEX-DISPATCHER
+# LexHakaton — LEX-DISPATCHER
 
-AI-powered **legal action navigator** for Uzbekistan. LexHackathon 2026 — "Legal services" track.
+AI-powered Legal Action Navigator for Uzbekistan. Understand legal problems, retrieve verified legal information,
+and guide citizens through practical legal actions. LexHackathon 2026 — "Legal services" track.
 
 A citizen describes a problem in their own words. The system asks short
 clarifying questions, assesses risk, classifies the situation, retrieves
