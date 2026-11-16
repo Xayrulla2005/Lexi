@@ -6,6 +6,7 @@
  * TypeScript type with the same name. Changing a contract is a breaking
  * change for all consumers: update docs/api/contracts.md in the same PR.
  */
+export * from "./generated/catalog";
 export * from "./common";
 export * from "./classification";
 export * from "./analysis";

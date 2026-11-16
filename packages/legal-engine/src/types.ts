@@ -4,7 +4,7 @@ import type {
   RouteStep,
   RouteType,
   RoutingDecision,
-  Subcase,
+  ProblemId,
   VerificationStatus,
 } from "@lex/contracts";
 
@@ -29,8 +29,9 @@ export interface LegalRoute {
   id: string;
   version: number;
   domain: LegalDomain;
-  subcase: Subcase | null;
-  /** Primary agency id (data/raw/agencies.csv), or null. */
+  /** Catalog problem type this route serves; null for emergency/fallback. */
+  problemId: ProblemId | null;
+  /** Primary agency id (data/agencies.csv), or null. */
   agencyId: string | null;
   steps: readonly RouteStep[];
   verification: VerificationMetadata;

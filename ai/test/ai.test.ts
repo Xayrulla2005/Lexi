@@ -26,7 +26,7 @@ const doc: LegalSourceDocument = {
 describe("analyze (offline stub)", () => {
   it("returns a contract-valid result and never cites without sources", async () => {
     const r = await analyze({ text: "3 oydan beri oylik berishmayapti" });
-    expect(r.classification.subcase).toBe("UNPAID_WAGES");
+    expect(r.classification.problemId).toBe("P12");
     expect(r.legalReferences).toEqual([]);
     expect(r.facts[0]?.source).toBe("USER_REPORTED");
   });
@@ -40,7 +40,7 @@ describe("analyze (offline stub)", () => {
 describe("keywordRisk", () => {
   it("detects critical signals", () => {
     const r = keywordRisk("u pichoq bilan qo'rqityapti");
-    expect(r.level).toBe("CRITICAL");
+    expect(r.level).toBe("red");
     expect(r.requiresImmediateAction).toBe(true);
   });
 });
@@ -54,14 +54,14 @@ describe("AllowlistCitationValidator", () => {
       documentName: "Made-up law",
       article: "999",
       sourceUrl: "https://example.org/x",
-      verificationStatus: "VERIFIED",
+      status: "VERIFIED",
       lastVerifiedAt: null,
     };
     const spoofed: LegalReference = { ...invented, documentId: doc.documentId };
     const { accepted, rejected } = validator.validate([invented, spoofed], [{ document: doc, score: 1 }]);
     expect(rejected).toEqual([invented]);
     expect(accepted).toHaveLength(1);
-    expect(accepted[0]?.verificationStatus).toBe("PENDING");
+    expect(accepted[0]?.status).toBe("DRAFT");
     expect(accepted[0]?.article).toBe("1");
   });
 });

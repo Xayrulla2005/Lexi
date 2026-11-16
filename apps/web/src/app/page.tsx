@@ -66,11 +66,14 @@ export default function ChatPage() {
             <>
               <h3>{texts.lawTitle}</h3>
               <ul>
-                {result.analysis.legalReferences.map((r) => (
-                  <li key={r.documentId}>
-                    <a href={r.sourceUrl} target="_blank" rel="noreferrer">{r.documentName}, {r.article}</a>
-                  </li>
-                ))}
+                {result.analysis.legalReferences.map((r) => {
+                  const label = r.article ? `${r.documentName}, ${r.article}` : r.documentName;
+                  return (
+                    <li key={r.documentId ?? r.documentName}>
+                      {r.sourceUrl ? <a href={r.sourceUrl} target="_blank" rel="noreferrer">{label}</a> : label}
+                    </li>
+                  );
+                })}
               </ul>
             </>
           )}

@@ -13,8 +13,8 @@ const decision = (overrides: Partial<RoutingDecision>): RoutingDecision => ({
 
 describe("view mappings", () => {
   it("maps risk levels to UI tones", () => {
-    expect(riskTone("CRITICAL")).toBe("red");
-    expect(riskTone("LOW")).toBe("green");
+    expect(riskTone("red")).toBe("red");
+    expect(riskTone("green")).toBe("green");
   });
 
   it("never labels a route as verified while human review is required", () => {

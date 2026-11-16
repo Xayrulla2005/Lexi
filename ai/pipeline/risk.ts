@@ -6,21 +6,21 @@ import type { RiskAssessment, RiskLevel } from "@lex/contracts";
  * Layer 2 (TODO, Jayhun): LLM risk assessment; take the higher of the two levels.
  * Input is expected to be normalized (lowercase latin) — see normalize.ts.
  */
-const CRITICAL = [
+const RED = [
   "o'ldiraman", "o'ldirmoqchi", "pichoq", "qurol", "o'zimni o'ldir",
   "hozir uryapti", "urayapti", "qamab qo'ydi", "yordam bering tez",
 ];
-const HIGH = ["urdi", "tahdid", "qo'rqyapman", "qo'rqaman", "urib qo'yaman"];
+const ORANGE = ["urdi", "tahdid", "qo'rqyapman", "qo'rqaman", "urib qo'yaman"];
 
-const ORDER: readonly RiskLevel[] = ["LOW", "NORMAL", "HIGH", "CRITICAL"];
+const ORDER: readonly RiskLevel[] = ["green", "yellow", "orange", "red"];
 export const maxRisk = (a: RiskLevel, b: RiskLevel): RiskLevel => (ORDER.indexOf(a) >= ORDER.indexOf(b) ? a : b);
 
 export function keywordRisk(text: string): RiskAssessment {
   const signals: string[] = [];
-  let level: RiskLevel = "NORMAL";
+  let level: RiskLevel = "yellow";
 
-  for (const w of CRITICAL) if (text.includes(w)) { level = maxRisk(level, "CRITICAL"); signals.push(w); }
-  for (const w of HIGH) if (text.includes(w)) { level = maxRisk(level, "HIGH"); signals.push(w); }
+  for (const w of RED) if (text.includes(w)) { level = maxRisk(level, "red"); signals.push(w); }
+  for (const w of ORANGE) if (text.includes(w)) { level = maxRisk(level, "orange"); signals.push(w); }
 
-  return { level, signals, requiresImmediateAction: level === "CRITICAL" };
+  return { level, signals, requiresImmediateAction: level === "red" };
 }

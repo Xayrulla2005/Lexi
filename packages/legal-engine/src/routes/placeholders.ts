@@ -6,7 +6,7 @@
  * marked PENDING. A qualified legal reviewer must replace them with verified
  * content (with sourceDocumentIds from legal-knowledge/) before real use.
  *
- * Agency ids refer to the team-maintained registry in data/raw/agencies.csv.
+ * Agency ids refer to the team-maintained registry in data/agencies.csv.
  */
 import type { LegalRoute, LegalRule, VerificationMetadata } from "../types";
 
@@ -22,13 +22,13 @@ export const EMERGENCY_ROUTE: LegalRoute = {
   id: "EMERGENCY",
   version: 1,
   domain: "zoravonlik",
-  subcase: null,
-  agencyId: "iiv_102",
+  problemId: null,
+  agencyId: "iiv",
   steps: [
     {
       order: 1,
       action: "Darhol favqulodda xizmatga qo'ng'iroq qiling va xavfsiz joyga o'ting",
-      agencyId: "iiv_102",
+      agencyId: "iiv",
       deadlineDays: null,
       documentTemplateId: null,
     },
@@ -41,7 +41,7 @@ export const FALLBACK_ROUTE: LegalRoute = {
   id: "FALLBACK",
   version: 1,
   domain: "davlat_organlari",
-  subcase: null,
+  problemId: null,
   agencyId: null,
   steps: [
     {
@@ -60,7 +60,7 @@ export const PLACEHOLDER_ROUTES: readonly LegalRoute[] = [
     id: "UNPAID_WAGES",
     version: 1,
     domain: "mehnat",
-    subcase: "UNPAID_WAGES",
+    problemId: "P12",
     agencyId: "mehnat_inspeksiyasi",
     steps: [
       { order: 1, action: "Ish beruvchiga yozma talabnoma yuborish", agencyId: null, deadlineDays: null, documentTemplateId: null },
@@ -73,7 +73,7 @@ export const PLACEHOLDER_ROUTES: readonly LegalRoute[] = [
     id: "NEIGHBOR_DISPUTE",
     version: 1,
     domain: "qoshnichilik",
-    subcase: "NEIGHBOR_DISPUTE",
+    problemId: "P44",
     agencyId: "profilaktika_inspektori",
     steps: [
       { order: 1, action: "Profilaktika inspektoriga murojaat qilish", agencyId: "profilaktika_inspektori", deadlineDays: null, documentTemplateId: null },
@@ -84,7 +84,7 @@ export const PLACEHOLDER_ROUTES: readonly LegalRoute[] = [
     id: "DOMESTIC_VIOLENCE",
     version: 1,
     domain: "zoravonlik",
-    subcase: "DOMESTIC_VIOLENCE",
+    problemId: "P25",
     agencyId: "profilaktika_inspektori",
     steps: [
       { order: 1, action: "Profilaktika inspektoriga murojaat qilish", agencyId: "profilaktika_inspektori", deadlineDays: null, documentTemplateId: null },
@@ -94,12 +94,12 @@ export const PLACEHOLDER_ROUTES: readonly LegalRoute[] = [
   },
 ];
 
-/** One rule per placeholder route: match on classified sub-case. */
+/** One rule per placeholder route: match on classified problem id. Interim — replaced by the catalog loader. */
 export const PLACEHOLDER_RULES: readonly LegalRule[] = PLACEHOLDER_ROUTES.map((route, i) => ({
   id: `rule.${route.id}`,
-  description: `classification.subcase === ${route.subcase}`,
+  description: `classification.problemId === ${route.problemId}`,
   priority: 100 + i,
   routeId: route.id,
-  matches: ({ analysis }) => analysis.classification.subcase === route.subcase,
+  matches: ({ analysis }) => analysis.classification.problemId === route.problemId,
   verification: PENDING,
 }));

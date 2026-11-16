@@ -7,6 +7,7 @@
   },
   "scripts": {
     "build:packages": "pnpm --filter @lex/contracts --filter @lex/legal-engine --filter @lex/ai build",
+    "gen:contracts": "node packages/contracts/scripts/generate-catalog.mjs",
     "dev:api": "pnpm --filter @lex/api dev",
     "dev:web": "pnpm --filter @lex/web dev",
     "dev:bot": "pnpm --filter @lex/bot dev",
@@ -21,7 +22,9 @@
     "eval:ai": "pnpm --filter @lex/ai eval"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild"]
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

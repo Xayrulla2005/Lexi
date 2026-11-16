@@ -1,10 +1,12 @@
 import { z } from "zod";
 import { Classification } from "./classification";
-import { IsoDateTime, Slug, VerificationStatus } from "./common";
+import { IsoDateTime, ReviewStatus, Slug } from "./common";
 
-export const ANALYSIS_SCHEMA_VERSION = "1.0" as const;
+/** 2.0: catalog-based classification (problemId), catalog risk levels, LegalReference.status. */
+export const ANALYSIS_SCHEMA_VERSION = "2.0" as const;
 
-export const RiskLevel = z.enum(["LOW", "NORMAL", "HIGH", "CRITICAL"]);
+/** Risk levels as used in the legal catalog (`xavf`). `red` forces the emergency route. */
+export const RiskLevel = z.enum(["red", "orange", "yellow", "green"]);
 export type RiskLevel = z.infer<typeof RiskLevel>;
 
 export const RiskAssessment = z.object({
@@ -16,13 +18,20 @@ export const RiskAssessment = z.object({
 });
 export type RiskAssessment = z.infer<typeof RiskAssessment>;
 
+/**
+ * A law cited for a case. Catalog laws (`qonunlar`) are plain citations such as
+ * "Mehnat kodeksi 253-modda" — they have no document id, separate article or URL yet.
+ */
 export const LegalReference = z.object({
-  /** Id of the source document in legal-knowledge/ — required for traceability. */
-  documentId: Slug,
+  /** Id of a source document in legal-knowledge/ when one exists; null for catalog citations. */
+  documentId: Slug.nullable(),
+  /** Citation text exactly as in the source (catalog: the full `qonunlar` entry). */
   documentName: z.string().min(1),
-  article: z.string().min(1),
-  sourceUrl: z.string().url(),
-  verificationStatus: VerificationStatus,
+  /** Article number when known separately; null otherwise. */
+  article: z.string().min(1).nullable(),
+  sourceUrl: z.string().url().nullable(),
+  /** Legal review status. Anything other than VERIFIED must be shown with a review notice. */
+  status: ReviewStatus,
   /** null while never verified. */
   lastVerifiedAt: IsoDateTime.nullable(),
 });

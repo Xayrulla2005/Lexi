@@ -4,10 +4,10 @@ import { createDefaultRoutingEngine, DeterministicRoutingEngine, PLACEHOLDER_ROU
 
 function analysis(overrides: Partial<AnalysisResult> = {}): AnalysisResult {
   return {
-    schemaVersion: "1.0",
+    schemaVersion: "2.0",
     caseSummary: "",
-    classification: { domain: "mehnat", subcase: "UNPAID_WAGES", confidence: 0.9 },
-    risk: { level: "NORMAL", signals: [], requiresImmediateAction: false },
+    classification: { domain: "mehnat", problemId: "P12", confidence: 0.9 },
+    risk: { level: "yellow", signals: [], requiresImmediateAction: false },
     facts: [],
     missingInformation: [],
     legalReferences: [],
@@ -20,7 +20,7 @@ function analysis(overrides: Partial<AnalysisResult> = {}): AnalysisResult {
 describe("DeterministicRoutingEngine", () => {
   const engine = createDefaultRoutingEngine();
 
-  it("routes a known sub-case to its rule-based route", () => {
+  it("routes a known problem id to its rule-based route", () => {
     const { decision, matchedRuleId } = engine.route({ analysis: analysis() });
     expect(decision.routeType).toBe("RULE_BASED");
     expect(decision.routeId).toBe("UNPAID_WAGES");
@@ -32,13 +32,13 @@ describe("DeterministicRoutingEngine", () => {
   });
 
   it("emergency overrides any matching rule", () => {
-    const risk: AnalysisResult["risk"] = { level: "CRITICAL", signals: ["pichoq"], requiresImmediateAction: true };
+    const risk: AnalysisResult["risk"] = { level: "red", signals: ["pichoq"], requiresImmediateAction: true };
     const { decision } = engine.route({ analysis: analysis({ risk }) });
     expect(decision.routeType).toBe("EMERGENCY");
   });
 
   it("falls back when no rule matches", () => {
-    const classification = { domain: "talim", subcase: null, confidence: 0.9 } as const;
+    const classification = { domain: "talim", problemId: null, confidence: 0.9 } as const;
     const { decision } = engine.route({ analysis: analysis({ classification }) });
     expect(decision.routeType).toBe("FALLBACK");
     expect(decision.routeId).toBeNull();

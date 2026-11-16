@@ -33,14 +33,14 @@ sequenceDiagram
    Whisper is planned (`SpeechToTextProvider`), not wired yet.
 2. **AI analysis** (`ai/pipeline/analyze.ts`).
    - `normalize` — Cyrillic → Latin, whitespace.
-   - `keywordRisk` — LLM-independent safety net; `CRITICAL` sets `requiresImmediateAction`.
+   - `keywordRisk` — LLM-independent safety net; `red` sets `requiresImmediateAction`.
    - `retrieve` — documents from `legal-knowledge/` (empty corpus today).
    - `classify` — keyword stub today; Qwen via `prompts/analysis.prompt.ts` later.
    - Clarification: missing facts go to `missingInformation` / `followUpQuestions`.
 3. **Validation.**
    - `CitationValidator` drops references to documents that were not retrieved
      and copies verification metadata from the source, never from the model.
-   - `AnalysisResult.parse()` rejects anything off-contract (unknown sub-case,
+   - `AnalysisResult.parse()` rejects anything off-contract (unknown problem id,
      bad risk level, etc.).
 4. **Legal routing** (`packages/legal-engine`). Emergency override → first
    matching rule by priority → fallback. Any non-`VERIFIED` rule/route, low

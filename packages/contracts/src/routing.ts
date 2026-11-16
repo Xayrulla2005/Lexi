@@ -13,7 +13,7 @@ export const RouteStep = z.object({
   order: z.number().int().positive(),
   /** User-facing action text. */
   action: z.string().min(1),
-  /** Agency id from the agency registry (data/raw/agencies.csv); null when no agency is involved. */
+  /** Agency id from the agency registry (data/agencies.csv); null when no agency is involved. */
   agencyId: Slug.nullable(),
   /** Only set when the deadline is backed by a VERIFIED source. */
   deadlineDays: z.number().int().nonnegative().nullable(),

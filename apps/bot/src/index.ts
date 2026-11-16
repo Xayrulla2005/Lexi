@@ -31,7 +31,9 @@ bot.on("message:text", async (ctx) => {
     }
 
     const steps = decision.steps.map((s) => `${s.order}. ${s.action}`).join("\n");
-    const law = r.analysis.legalReferences.map((x) => `• ${x.documentName}, ${x.article}`).join("\n");
+    const law = r.analysis.legalReferences
+      .map((x) => `• ${x.article ? `${x.documentName}, ${x.article}` : x.documentName}`)
+      .join("\n");
     await ctx.reply(`${texts.riskLabels[RISK_TONE[r.analysis.risk.level]]}\n\n${texts.resultTitle}\n${steps}\n\n${law}`);
 
     if (decision.requiresHumanReview) await ctx.reply(texts.lawyer);

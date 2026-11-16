@@ -48,7 +48,7 @@ export async function analyze(input: AnalyzeInput, deps: AnalyzeDependencies = d
     missingInformation: [],
     legalReferences: accepted,
     followUpQuestions: [],
-    needsHumanReview: classification.confidence < HUMAN_REVIEW_CONFIDENCE || classification.subcase === null,
+    needsHumanReview: classification.confidence < HUMAN_REVIEW_CONFIDENCE || classification.problemId === null,
   };
 
   // Throws if the result violates the contract — invalid data never reaches the API.

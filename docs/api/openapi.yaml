@@ -153,35 +153,35 @@ components:
                     path: { type: string }
                     message: { type: string }
   schemas:
-    VerificationStatus: { type: string, enum: [VERIFIED, PENDING, REJECTED] }
+    ReviewStatus: { type: string, enum: [DRAFT, VERIFIED_PENDING, VERIFIED] }
     LegalReference:
       type: object
-      required: [documentId, documentName, article, sourceUrl, verificationStatus, lastVerifiedAt]
+      required: [documentId, documentName, article, sourceUrl, status, lastVerifiedAt]
       properties:
-        documentId: { type: string }
-        documentName: { type: string }
-        article: { type: string }
-        sourceUrl: { type: string, format: uri }
-        verificationStatus: { $ref: "#/components/schemas/VerificationStatus" }
+        documentId: { type: string, nullable: true }
+        documentName: { type: string, example: "Mehnat kodeksi 253-modda" }
+        article: { type: string, nullable: true }
+        sourceUrl: { type: string, format: uri, nullable: true }
+        status: { $ref: "#/components/schemas/ReviewStatus" }
         lastVerifiedAt: { type: string, format: date-time, nullable: true }
     AnalysisResult:
       type: object
       required: [schemaVersion, caseSummary, classification, risk, facts, missingInformation, legalReferences, followUpQuestions, needsHumanReview]
       properties:
-        schemaVersion: { type: string, enum: ["1.0"] }
+        schemaVersion: { type: string, enum: ["2.0"] }
         caseSummary: { type: string }
         classification:
           type: object
-          required: [domain, subcase, confidence]
+          required: [domain, problemId, confidence]
           properties:
-            domain: { type: string, example: mehnat }
-            subcase: { type: string, nullable: true, enum: [UNPAID_WAGES, NEIGHBOR_DISPUTE, DOMESTIC_VIOLENCE, null] }
+            domain: { type: string, example: mehnat, description: "Catalog domain id (sohalar); see packages/contracts/src/generated/catalog.ts" }
+            problemId: { type: string, nullable: true, pattern: "^P\\d{2}$", example: P12, description: "P01–P65 or null" }
             confidence: { type: number, minimum: 0, maximum: 1 }
         risk:
           type: object
           required: [level, signals, requiresImmediateAction]
           properties:
-            level: { type: string, enum: [LOW, NORMAL, HIGH, CRITICAL] }
+            level: { type: string, enum: [green, yellow, orange, red] }
             signals: { type: array, items: { type: string } }
             requiresImmediateAction: { type: boolean }
         facts:

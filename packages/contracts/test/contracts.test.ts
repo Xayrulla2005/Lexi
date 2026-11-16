@@ -1,11 +1,18 @@
 import { describe, expect, it } from "vitest";
-import { AnalysisResult, LegalSourceDocument, SubmitToAgencyRequest } from "../src";
+import {
+  AnalysisResult,
+  LEGAL_DOMAIN_IDS,
+  LegalReference,
+  LegalSourceDocument,
+  PROBLEM_IDS,
+  SubmitToAgencyRequest,
+} from "../src";
 
 const validAnalysis = {
-  schemaVersion: "1.0",
+  schemaVersion: "2.0",
   caseSummary: "Ish haqi 3 oydan beri to'lanmagan",
-  classification: { domain: "mehnat", subcase: "UNPAID_WAGES", confidence: 0.8 },
-  risk: { level: "NORMAL", signals: [], requiresImmediateAction: false },
+  classification: { domain: "mehnat", problemId: "P12", confidence: 0.8 },
+  risk: { level: "yellow", signals: [], requiresImmediateAction: false },
   facts: [{ statement: "3 oydan beri ish haqi to'lanmagan", source: "USER_REPORTED" }],
   missingInformation: ["Mehnat shartnomasi bormi?"],
   legalReferences: [],
@@ -13,16 +20,56 @@ const validAnalysis = {
   needsHumanReview: false,
 };
 
+describe("generated catalog ids", () => {
+  it("contains the 19 catalog domains and 65 problem ids", () => {
+    expect(LEGAL_DOMAIN_IDS).toHaveLength(19);
+    expect(LEGAL_DOMAIN_IDS).toEqual(expect.arrayContaining(["fuqarolik_nizo", "jinoyat", "korrupsiya", "jamoat_tartibi"]));
+    expect(PROBLEM_IDS).toHaveLength(65);
+    expect(PROBLEM_IDS[0]).toBe("P01");
+    expect(PROBLEM_IDS[64]).toBe("P65");
+  });
+});
+
 describe("AnalysisResult", () => {
   it("accepts a well-formed analysis", () => {
     expect(AnalysisResult.safeParse(validAnalysis).success).toBe(true);
   });
 
-  it("rejects unknown risk levels and invented sub-cases", () => {
-    const badRisk = { ...validAnalysis, risk: { ...validAnalysis.risk, level: "red" } };
-    const badSubcase = { ...validAnalysis, classification: { ...validAnalysis.classification, subcase: "INVENTED" } };
+  it("accepts problemId null (fallback)", () => {
+    const none = { ...validAnalysis, classification: { domain: "oila", problemId: null, confidence: 0.3 } };
+    expect(AnalysisResult.safeParse(none).success).toBe(true);
+  });
+
+  it("rejects unknown risk levels, problem ids and domains", () => {
+    const badRisk = { ...validAnalysis, risk: { ...validAnalysis.risk, level: "CRITICAL" } };
+    const badProblem = { ...validAnalysis, classification: { ...validAnalysis.classification, problemId: "P99" } };
+    const badDomain = { ...validAnalysis, classification: { ...validAnalysis.classification, domain: "invented" } };
     expect(AnalysisResult.safeParse(badRisk).success).toBe(false);
-    expect(AnalysisResult.safeParse(badSubcase).success).toBe(false);
+    expect(AnalysisResult.safeParse(badProblem).success).toBe(false);
+    expect(AnalysisResult.safeParse(badDomain).success).toBe(false);
+  });
+
+  it("does not let the AI return an agency in the classification", () => {
+    const parsed = AnalysisResult.parse({
+      ...validAnalysis,
+      classification: { ...validAnalysis.classification, agencyId: "mehnat_inspeksiyasi" },
+    });
+    expect(parsed.classification).not.toHaveProperty("agencyId");
+  });
+});
+
+describe("LegalReference", () => {
+  it("accepts a catalog citation with DRAFT status", () => {
+    const ref = {
+      documentId: null,
+      documentName: "Mehnat kodeksi 253-modda",
+      article: null,
+      sourceUrl: null,
+      status: "DRAFT",
+      lastVerifiedAt: null,
+    };
+    expect(LegalReference.safeParse(ref).success).toBe(true);
+    expect(LegalReference.safeParse({ ...ref, status: "PENDING" }).success).toBe(false);
   });
 });
 

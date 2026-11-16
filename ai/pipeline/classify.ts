@@ -8,19 +8,19 @@ import type { Classification } from "@lex/contracts";
 const RULES: readonly { pattern: RegExp; result: Classification }[] = [
   {
     pattern: /oylik|maosh|ish haqi/,
-    result: { domain: "mehnat", subcase: "UNPAID_WAGES", confidence: 0.8 },
+    result: { domain: "mehnat", problemId: "P12", confidence: 0.8 },
   },
   {
     pattern: /qo'shni/,
-    result: { domain: "qoshnichilik", subcase: "NEIGHBOR_DISPUTE", confidence: 0.7 },
+    result: { domain: "qoshnichilik", problemId: "P44", confidence: 0.7 },
   },
   {
     pattern: /erim|turmush o'rtog'im|qaynona/,
-    result: { domain: "zoravonlik", subcase: "DOMESTIC_VIOLENCE", confidence: 0.6 },
+    result: { domain: "zoravonlik", problemId: "P25", confidence: 0.6 },
   },
 ];
 
 export function classify(text: string): Classification {
   for (const rule of RULES) if (rule.pattern.test(text)) return { ...rule.result };
-  return { domain: "davlat_organlari", subcase: null, confidence: 0.3 };
+  return { domain: "davlat_organlari", problemId: null, confidence: 0.3 };
 }

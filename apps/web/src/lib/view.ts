@@ -7,11 +7,12 @@ import type { RiskLevel, RoutingDecision, SubmissionStatus } from "@lex/contract
 export type RiskTone = "red" | "orange" | "yellow" | "green";
 export type RouteKind = "emergency" | "verified" | "generic";
 
+/** Contract risk levels now equal the UI tone keys; kept explicit so a contract change fails typecheck here. */
 const RISK_TONE: Record<RiskLevel, RiskTone> = {
-  CRITICAL: "red",
-  HIGH: "orange",
-  NORMAL: "yellow",
-  LOW: "green",
+  red: "red",
+  orange: "orange",
+  yellow: "yellow",
+  green: "green",
 };
 
 export const riskTone = (level: RiskLevel): RiskTone => RISK_TONE[level];

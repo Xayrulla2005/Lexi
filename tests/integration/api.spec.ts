@@ -15,7 +15,7 @@ import { AppModule } from "../../apps/api/src/app.module";
 interface Scenario {
   id: string;
   input: string;
-  expected: { riskLevel: string; subcase: string | null; routeType: string; agencyId: string | null };
+  expected: { riskLevel: string; problemId: string | null; routeType: string; agencyId: string | null };
 }
 
 const { scenarios } = JSON.parse(
@@ -51,7 +51,7 @@ describe("API (integration)", () => {
   it.each(scenarios.map((s) => [s.id, s] as const))("scenario %s", async (_id, s) => {
     const c = await analyzedCase(s.input);
     expect(c.analysis.risk.level).toBe(s.expected.riskLevel);
-    expect(c.analysis.classification.subcase).toBe(s.expected.subcase);
+    expect(c.analysis.classification.problemId).toBe(s.expected.problemId);
     expect(c.routingDecision.routeType).toBe(s.expected.routeType);
     expect(c.routingDecision.agencyId).toBe(s.expected.agencyId);
     expect(c.routingDecision.requiresHumanReview).toBe(true); // all routes are PENDING placeholders

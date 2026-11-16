@@ -15,7 +15,7 @@ HTTP endpoints using these shapes: [openapi.yaml](openapi.yaml).
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| `schemaVersion` | `"1.0"` | Bump on breaking change. |
+| `schemaVersion` | `"2.0"` | Bump on breaking change. |
 | `caseSummary` | `string` | Neutral summary. |
 | `classification` | `Classification` | See below. |
 | `risk` | `RiskAssessment` | See below. |
@@ -23,21 +23,25 @@ HTTP endpoints using these shapes: [openapi.yaml](openapi.yaml).
 | `missingInformation` | `string[]` | Gaps that block a reliable answer. |
 | `legalReferences` | `LegalReference[]` | Only retrieved documents (enforced by `CitationValidator`). |
 | `followUpQuestions` | `string[]` | Short clarification questions. |
-| `needsHumanReview` | `boolean` | Low confidence, unknown sub-case or complex case. |
+| `needsHumanReview` | `boolean` | Low confidence, unknown problem type or complex case. |
 
 ### Classification
 
 | Field | Type |
 | --- | --- |
-| `domain` | `LegalDomain` — team taxonomy ids (`mehnat`, `qoshnichilik`, `zoravonlik`, …) |
-| `subcase` | `"UNPAID_WAGES" \| "NEIGHBOR_DISPUTE" \| "DOMESTIC_VIOLENCE" \| null` |
+| `domain` | `LegalDomain` — the 19 catalog domains (`sohalar`: `fuqarolik_nizo`, `mehnat`, …, `jamoat_tartibi`) |
+| `problemId` | `ProblemId` (`"P01"` … `"P65"`) \| `null` — `null` routes to the fallback |
 | `confidence` | `number` in [0, 1] |
+
+The AI classifies only; it never returns an agency. `LegalDomain` and `ProblemId` are generated from
+`legal-knowledge/catalog/problems.json` into `packages/contracts/src/generated/catalog.ts` by
+`pnpm gen:contracts` (CI runs `pnpm gen:contracts --check`).
 
 ### RiskAssessment
 
 | Field | Type |
 | --- | --- |
-| `level` | `"LOW" \| "NORMAL" \| "HIGH" \| "CRITICAL"` |
+| `level` | `"green" \| "yellow" \| "orange" \| "red"` — same values as the catalog `xavf`; `red` forces EMERGENCY |
 | `signals` | `string[]` |
 | `requiresImmediateAction` | `boolean` — forces the EMERGENCY route |
 
@@ -45,11 +49,11 @@ HTTP endpoints using these shapes: [openapi.yaml](openapi.yaml).
 
 | Field | Type |
 | --- | --- |
-| `documentId` | `string` — id in `legal-knowledge/` (traceability) |
-| `documentName` | `string` |
-| `article` | `string` |
-| `sourceUrl` | `string` (URL) |
-| `verificationStatus` | `"VERIFIED" \| "PENDING" \| "REJECTED"` |
+| `documentId` | `string \| null` — id in `legal-knowledge/` when a source document exists; `null` for catalog citations |
+| `documentName` | `string` — citation text as in the source (catalog: the full `qonunlar` entry) |
+| `article` | `string \| null` |
+| `sourceUrl` | `string` (URL) \| `null` |
+| `status` | `ReviewStatus`: `"DRAFT" \| "VERIFIED_PENDING" \| "VERIFIED"` |
 | `lastVerifiedAt` | ISO date-time \| `null` |
 
 ## RoutingDecision — produced only by `@lex/legal-engine`
@@ -58,7 +62,7 @@ HTTP endpoints using these shapes: [openapi.yaml](openapi.yaml).
 | --- | --- | --- |
 | `routeType` | `"EMERGENCY" \| "RULE_BASED" \| "FALLBACK"` | |
 | `routeId` | `string \| null` | `null` for FALLBACK |
-| `agencyId` | `string \| null` | Agency registry id (`data/raw/agencies.csv`) |
+| `agencyId` | `string \| null` | Agency registry id (`data/agencies.csv`) |
 | `steps` | `RouteStep[]` | `{ order, action, agencyId, deadlineDays, documentTemplateId }` |
 | `requiresHumanReview` | `boolean` | True unless rule, route are VERIFIED and analysis is confident |
 

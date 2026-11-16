@@ -13,12 +13,12 @@ async function call<T>(path: string, body?: unknown, method = body ? "POST" : "G
   return res.json() as Promise<T>;
 }
 
-/** Maps contract risk levels to the keys used in texts.uz.ts. */
+/** Maps contract risk levels to the keys used in texts.uz.ts (identical today; explicit so contract changes fail typecheck). */
 export const RISK_TONE: Record<RiskLevel, "red" | "orange" | "yellow" | "green"> = {
-  CRITICAL: "red",
-  HIGH: "orange",
-  NORMAL: "yellow",
-  LOW: "green",
+  red: "red",
+  orange: "orange",
+  yellow: "yellow",
+  green: "green",
 };
 
 export const api = {

@@ -9,7 +9,7 @@ export const MIN_CONFIDENCE = 0.6;
  * Deterministic first-match rule engine.
  *
  * Order of evaluation:
- *   1. Emergency override (risk CRITICAL or requiresImmediateAction).
+ *   1. Emergency override (risk red or requiresImmediateAction).
  *   2. Rules sorted by (priority, id); first match wins.
  *   3. Fallback route.
  *
@@ -33,7 +33,7 @@ export class DeterministicRoutingEngine implements LegalRoutingEngine {
     const { analysis } = context;
     const trace: string[] = [];
 
-    if (analysis.risk.level === "CRITICAL" || analysis.risk.requiresImmediateAction) {
+    if (analysis.risk.level === "red" || analysis.risk.requiresImmediateAction) {
       trace.push(`emergency override: risk=${analysis.risk.level}, immediate=${analysis.risk.requiresImmediateAction}`);
       return { decision: this.decide("EMERGENCY", EMERGENCY_ROUTE, context, trace), matchedRuleId: null, trace };
     }

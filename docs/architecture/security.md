@@ -43,14 +43,14 @@
 - The model can be wrong, biased or manipulated by the user's text. The prompt
   fences user text as data, and outputs are schema-validated.
 - AI output is advisory. The AI never makes the final routing decision or authorizes a submission.
-- Low confidence (< 0.6) or unknown sub-cases ⇒ human review.
+- Low confidence (< 0.6) or unknown problem type (`problemId: null`) ⇒ human review.
 - The product does not replace a lawyer; the UI points users to legal aid when review is required.
 
 ## Emergency escalation
 
 - Keyword risk detection runs without the LLM, so emergencies are caught even if
   the model is down.
-- `CRITICAL` risk or `requiresImmediateAction` overrides every rule and returns the
+- `red` risk or `requiresImmediateAction` overrides every rule and returns the
   `EMERGENCY` route.
 - Emergency guidance is shown even though its contact details are still pending
   verification: safety takes precedence. Contact numbers must be verified by the legal team.

@@ -1,5 +1,5 @@
 /**
- * Accuracy check: runs every story in data/raw/test_cases.csv through
+ * Accuracy check: runs every story in ai/eval/datasets/test_cases.csv through
  * analyze() + the routing engine and compares with the expected answers.
  * Run: pnpm eval:ai   (offline; makes no paid API calls)
  */
@@ -29,7 +29,7 @@ function parseCsv(raw: string): Record<string, string>[] {
 }
 
 async function main() {
-  const file = join(__dirname, "../../data/raw/test_cases.csv");
+  const file = join(__dirname, "datasets/test_cases.csv");
   const cases = parseCsv(readFileSync(file, "utf8")).filter((c) => c.hikoya);
   const engine = createDefaultRoutingEngine();
 
@@ -39,7 +39,7 @@ async function main() {
     const { decision } = engine.route({ analysis });
     if (analysis.classification.domain === c.soha) domain++;
     if (decision.agencyId === c.birinchi_idora) agency++;
-    if (c.xavf === "qizil") { criticalTotal++; if (analysis.risk.level === "CRITICAL") criticalCaught++; }
+    if (c.xavf === "qizil") { criticalTotal++; if (analysis.risk.level === "red") criticalCaught++; }
   }
 
   const pct = (a: number, b: number) => (b ? Math.round((a / b) * 100) : 0);

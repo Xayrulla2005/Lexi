@@ -32,6 +32,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Generated contracts are up to date with the legal catalog
+        run: pnpm gen:contracts --check
+
       - name: Build shared packages
         run: pnpm build:packages
 
@@ -47,5 +50,5 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Validate team data (CSV)
+      - name: Validate legal data (agencies, test cases vs catalog)
         run: pnpm import:data
