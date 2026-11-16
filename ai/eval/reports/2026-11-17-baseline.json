@@ -1,0 +1,4291 @@
+{
+  "label": "baseline",
+  "classifier": "keyword (ai/pipeline/classify.ts)",
+  "generatedAt": "2026-11-16T19:28:48.902Z",
+  "dataset": "ai/eval/datasets/test_cases.csv",
+  "summary": {
+    "cases": 261,
+    "problemIdAccuracy": 5.4,
+    "domainAccuracy": 11.9,
+    "redRecall": 15,
+    "redCases": 20,
+    "firstAgencyAccuracy": 10.7
+  },
+  "perStyle": {
+    "rasmiy": {
+      "cases": 66,
+      "problemIdAccuracy": 4.5,
+      "domainAccuracy": 12.1,
+      "redRecall": 0,
+      "redCases": 5,
+      "firstAgencyAccuracy": 12.1
+    },
+    "qisqa": {
+      "cases": 65,
+      "problemIdAccuracy": 6.2,
+      "domainAccuracy": 12.3,
+      "redRecall": 20,
+      "redCases": 5,
+      "firstAgencyAccuracy": 10.8
+    },
+    "sheva": {
+      "cases": 65,
+      "problemIdAccuracy": 6.2,
+      "domainAccuracy": 12.3,
+      "redRecall": 20,
+      "redCases": 5,
+      "firstAgencyAccuracy": 10.8
+    },
+    "aralash": {
+      "cases": 33,
+      "problemIdAccuracy": 0,
+      "domainAccuracy": 9.1,
+      "redRecall": 0,
+      "redCases": 3,
+      "firstAgencyAccuracy": 6.1
+    },
+    "kirill": {
+      "cases": 32,
+      "problemIdAccuracy": 9.4,
+      "domainAccuracy": 12.5,
+      "redRecall": 50,
+      "redCases": 2,
+      "firstAgencyAccuracy": 12.5
+    }
+  },
+  "errors": [
+    {
+      "id": "P01_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P01",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P02_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P02",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P03_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P03",
+        "domain": "yer_mulk",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P04_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P04",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P05_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P05",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": "P44",
+        "domain": "qoshnichilik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "profilaktika_inspektori"
+      }
+    },
+    {
+      "id": "P06_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P06",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": "P44",
+        "domain": "qoshnichilik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "profilaktika_inspektori"
+      }
+    },
+    {
+      "id": "P07_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P07",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P08_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P08",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "bank"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P09_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P09",
+        "domain": "yer_mulk",
+        "red": false,
+        "firstAgency": "notarius"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P10_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P10",
+        "domain": "uy_joy_ijara",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P11_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P11",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": "P12",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      }
+    },
+    {
+      "id": "P13_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P13",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P14_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P14",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P15_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P15",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P16_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P16",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P17_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P17",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P18_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P18",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P19_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P19",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P20_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P20",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P21_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P21",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "mib"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P22_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P22",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P23_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P23",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P24_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P24",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "notarius"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P25_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P25",
+        "domain": "zoravonlik",
+        "red": true,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": "P42",
+        "domain": "jamoat_tartibi",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P26_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P26",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": "P44",
+        "domain": "qoshnichilik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "profilaktika_inspektori"
+      }
+    },
+    {
+      "id": "P27_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P27",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P28_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P28",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P29_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P29",
+        "domain": "zoravonlik",
+        "red": false,
+        "firstAgency": "profilaktika_inspektori"
+      },
+      "predicted": {
+        "problemId": "P42",
+        "domain": "jamoat_tartibi",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P30_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P30",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P31_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P31",
+        "domain": "jinoyat",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P32_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P32",
+        "domain": "jinoyat",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P33_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P33",
+        "domain": "jinoyat",
+        "red": true,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P34_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P34",
+        "domain": "jinoyat",
+        "red": true,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": "P25",
+        "domain": "zoravonlik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P35_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P35",
+        "domain": "zoravonlik",
+        "red": true,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": "P44",
+        "domain": "qoshnichilik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "profilaktika_inspektori"
+      }
+    },
+    {
+      "id": "P36_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P36",
+        "domain": "korrupsiya",
+        "red": false,
+        "firstAgency": "dxx"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P37_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P37",
+        "domain": "korrupsiya",
+        "red": false,
+        "firstAgency": "dxx"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P38_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P38",
+        "domain": "korrupsiya",
+        "red": false,
+        "firstAgency": "dxx"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P39_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P39",
+        "domain": "jinoyat",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P40_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P40",
+        "domain": "jinoyat",
+        "red": false,
+        "firstAgency": "iiv_kiber"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P41_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P41",
+        "domain": "bank_firibgarlik",
+        "red": false,
+        "firstAgency": "bank"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P43_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P43",
+        "domain": "jamoat_tartibi",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P45_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P45",
+        "domain": "jamoat_tartibi",
+        "red": false,
+        "firstAgency": "soliq"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P46_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P46",
+        "domain": "jamoat_tartibi",
+        "red": false,
+        "firstAgency": "ekologiya"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P47_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P47",
+        "domain": "ijtimoiy_taminot",
+        "red": false,
+        "firstAgency": "ijtimoiy_himoya"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P48_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P48",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P49_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P49",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": "P12",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      }
+    },
+    {
+      "id": "P49_A2",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P49",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": "P12",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      }
+    },
+    {
+      "id": "P50_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P50",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": "P25",
+        "domain": "zoravonlik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P51_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P51",
+        "domain": "istemolchi",
+        "red": false,
+        "firstAgency": "raqobat_qomitasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P52_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P52",
+        "domain": "istemolchi",
+        "red": false,
+        "firstAgency": "raqobat_qomitasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P53_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P53",
+        "domain": "uy_joy_ijara",
+        "red": false,
+        "firstAgency": "raqobat_qomitasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P54_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P54",
+        "domain": "bank_firibgarlik",
+        "red": false,
+        "firstAgency": "bank"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P55_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P55",
+        "domain": "bank_firibgarlik",
+        "red": false,
+        "firstAgency": "bank"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P56_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P56",
+        "domain": "ijtimoiy_taminot",
+        "red": false,
+        "firstAgency": "pensiya"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P57_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P57",
+        "domain": "ijtimoiy_taminot",
+        "red": false,
+        "firstAgency": "ijtimoiy_himoya"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P58_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P58",
+        "domain": "davlat_organlari",
+        "red": false,
+        "firstAgency": "yuqori_organ"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P59_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P59",
+        "domain": "davlat_organlari",
+        "red": false,
+        "firstAgency": "davlat_xizmatlari"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P60_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P60",
+        "domain": "chet_eldagilar",
+        "red": false,
+        "firstAgency": "konsullik"
+      },
+      "predicted": {
+        "problemId": "P12",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      }
+    },
+    {
+      "id": "P61_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P61",
+        "domain": "chet_eldagilar",
+        "red": true,
+        "firstAgency": "konsullik"
+      },
+      "predicted": {
+        "problemId": "P12",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      }
+    },
+    {
+      "id": "P62_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P62",
+        "domain": "talim",
+        "red": false,
+        "firstAgency": "talim_boshqarmasi"
+      },
+      "predicted": {
+        "problemId": "P42",
+        "domain": "jamoat_tartibi",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P63_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P63",
+        "domain": "talim",
+        "red": false,
+        "firstAgency": "talim_boshqarmasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P64_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P64",
+        "domain": "sogliq",
+        "red": false,
+        "firstAgency": "sogliq_boshqarmasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P65_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P65",
+        "domain": "yol_harakati",
+        "red": false,
+        "firstAgency": "yhxx"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P01_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P01",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P01_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P01",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P01_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P01",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P02_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P02",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P02_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P02",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P02_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P02",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P03_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P03",
+        "domain": "yer_mulk",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P03_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P03",
+        "domain": "yer_mulk",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P03_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P03",
+        "domain": "yer_mulk",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P04_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P04",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P04_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P04",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P04_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P04",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P05_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P05",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": "P44",
+        "domain": "qoshnichilik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "profilaktika_inspektori"
+      }
+    },
+    {
+      "id": "P05_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P05",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": "P44",
+        "domain": "qoshnichilik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "profilaktika_inspektori"
+      }
+    },
+    {
+      "id": "P05_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P05",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": "P44",
+        "domain": "qoshnichilik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "profilaktika_inspektori"
+      }
+    },
+    {
+      "id": "P06_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P06",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": "P44",
+        "domain": "qoshnichilik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "profilaktika_inspektori"
+      }
+    },
+    {
+      "id": "P06_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P06",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": "P44",
+        "domain": "qoshnichilik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "profilaktika_inspektori"
+      }
+    },
+    {
+      "id": "P06_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P06",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": "P44",
+        "domain": "qoshnichilik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "profilaktika_inspektori"
+      }
+    },
+    {
+      "id": "P07_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P07",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P07_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P07",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P07_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P07",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P08_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P08",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "bank"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P08_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P08",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "bank"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P08_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P08",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "bank"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P09_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P09",
+        "domain": "yer_mulk",
+        "red": false,
+        "firstAgency": "notarius"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P09_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P09",
+        "domain": "yer_mulk",
+        "red": false,
+        "firstAgency": "notarius"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P09_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P09",
+        "domain": "yer_mulk",
+        "red": false,
+        "firstAgency": "notarius"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P10_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P10",
+        "domain": "uy_joy_ijara",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P10_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P10",
+        "domain": "uy_joy_ijara",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P10_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P10",
+        "domain": "uy_joy_ijara",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P11_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P11",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P11_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P11",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P11_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P11",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P13_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P13",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P13_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P13",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P13_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P13",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P14_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P14",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P14_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P14",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P14_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P14",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P15_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P15",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P15_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P15",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P15_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P15",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P16_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P16",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P16_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P16",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P16_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P16",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P17_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P17",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P17_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P17",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P17_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P17",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P18_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P18",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P18_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P18",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P18_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P18",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P19_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P19",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P19_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P19",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P19_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P19",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": "P12",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      }
+    },
+    {
+      "id": "P20_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P20",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P20_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P20",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P20_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P20",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P21_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P21",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "mib"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P21_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P21",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "mib"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P21_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P21",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "mib"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P22_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P22",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P22_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P22",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P22_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P22",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P23_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P23",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P23_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P23",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P23_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P23",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P24_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P24",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "notarius"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P24_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P24",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "notarius"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P24_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P24",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "notarius"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P25_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P25",
+        "domain": "zoravonlik",
+        "red": true,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": "P25",
+        "domain": "zoravonlik",
+        "riskLevel": "orange",
+        "routeType": "RULE_BASED",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P25_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P25",
+        "domain": "zoravonlik",
+        "red": true,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": "P25",
+        "domain": "zoravonlik",
+        "riskLevel": "orange",
+        "routeType": "RULE_BASED",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P25_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P25",
+        "domain": "zoravonlik",
+        "red": true,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P26_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P26",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": "P44",
+        "domain": "qoshnichilik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "profilaktika_inspektori"
+      }
+    },
+    {
+      "id": "P26_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P26",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": "P44",
+        "domain": "qoshnichilik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "profilaktika_inspektori"
+      }
+    },
+    {
+      "id": "P26_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P26",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": "P44",
+        "domain": "qoshnichilik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "profilaktika_inspektori"
+      }
+    },
+    {
+      "id": "P27_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P27",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P27_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P27",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P27_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P27",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P28_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P28",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P28_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P28",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P28_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P28",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P29_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P29",
+        "domain": "zoravonlik",
+        "red": false,
+        "firstAgency": "profilaktika_inspektori"
+      },
+      "predicted": {
+        "problemId": "P42",
+        "domain": "jamoat_tartibi",
+        "riskLevel": "red",
+        "routeType": "EMERGENCY",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P29_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P29",
+        "domain": "zoravonlik",
+        "red": false,
+        "firstAgency": "profilaktika_inspektori"
+      },
+      "predicted": {
+        "problemId": "P42",
+        "domain": "jamoat_tartibi",
+        "riskLevel": "red",
+        "routeType": "EMERGENCY",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P29_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P29",
+        "domain": "zoravonlik",
+        "red": false,
+        "firstAgency": "profilaktika_inspektori"
+      },
+      "predicted": {
+        "problemId": "P42",
+        "domain": "jamoat_tartibi",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P30_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P30",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": "P44",
+        "domain": "qoshnichilik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "profilaktika_inspektori"
+      }
+    },
+    {
+      "id": "P30_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P30",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": "P44",
+        "domain": "qoshnichilik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "profilaktika_inspektori"
+      }
+    },
+    {
+      "id": "P30_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P30",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P31_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P31",
+        "domain": "jinoyat",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P31_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P31",
+        "domain": "jinoyat",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P31_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P31",
+        "domain": "jinoyat",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P32_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P32",
+        "domain": "jinoyat",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P32_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P32",
+        "domain": "jinoyat",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P32_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P32",
+        "domain": "jinoyat",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P33_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P33",
+        "domain": "jinoyat",
+        "red": true,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P33_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P33",
+        "domain": "jinoyat",
+        "red": true,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P33_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P33",
+        "domain": "jinoyat",
+        "red": true,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P34_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P34",
+        "domain": "jinoyat",
+        "red": true,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "red",
+        "routeType": "EMERGENCY",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P34_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P34",
+        "domain": "jinoyat",
+        "red": true,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "red",
+        "routeType": "EMERGENCY",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P34_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P34",
+        "domain": "jinoyat",
+        "red": true,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "red",
+        "routeType": "EMERGENCY",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P35_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P35",
+        "domain": "zoravonlik",
+        "red": true,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": "P25",
+        "domain": "zoravonlik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P35_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P35",
+        "domain": "zoravonlik",
+        "red": true,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": "P25",
+        "domain": "zoravonlik",
+        "riskLevel": "orange",
+        "routeType": "RULE_BASED",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P35_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P35",
+        "domain": "zoravonlik",
+        "red": true,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P36_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P36",
+        "domain": "korrupsiya",
+        "red": false,
+        "firstAgency": "dxx"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P36_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P36",
+        "domain": "korrupsiya",
+        "red": false,
+        "firstAgency": "dxx"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P36_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P36",
+        "domain": "korrupsiya",
+        "red": false,
+        "firstAgency": "dxx"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P37_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P37",
+        "domain": "korrupsiya",
+        "red": false,
+        "firstAgency": "dxx"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P37_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P37",
+        "domain": "korrupsiya",
+        "red": false,
+        "firstAgency": "dxx"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P37_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P37",
+        "domain": "korrupsiya",
+        "red": false,
+        "firstAgency": "dxx"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P38_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P38",
+        "domain": "korrupsiya",
+        "red": false,
+        "firstAgency": "dxx"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P38_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P38",
+        "domain": "korrupsiya",
+        "red": false,
+        "firstAgency": "dxx"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P38_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P38",
+        "domain": "korrupsiya",
+        "red": false,
+        "firstAgency": "dxx"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P39_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P39",
+        "domain": "jinoyat",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P39_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P39",
+        "domain": "jinoyat",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P39_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P39",
+        "domain": "jinoyat",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P40_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P40",
+        "domain": "jinoyat",
+        "red": false,
+        "firstAgency": "iiv_kiber"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P40_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P40",
+        "domain": "jinoyat",
+        "red": false,
+        "firstAgency": "iiv_kiber"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P40_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P40",
+        "domain": "jinoyat",
+        "red": false,
+        "firstAgency": "iiv_kiber"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P41_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P41",
+        "domain": "bank_firibgarlik",
+        "red": false,
+        "firstAgency": "bank"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P41_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P41",
+        "domain": "bank_firibgarlik",
+        "red": false,
+        "firstAgency": "bank"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P41_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P41",
+        "domain": "bank_firibgarlik",
+        "red": false,
+        "firstAgency": "bank"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P43_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P43",
+        "domain": "jamoat_tartibi",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P43_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P43",
+        "domain": "jamoat_tartibi",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P43_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P43",
+        "domain": "jamoat_tartibi",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P45_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P45",
+        "domain": "jamoat_tartibi",
+        "red": false,
+        "firstAgency": "soliq"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P45_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P45",
+        "domain": "jamoat_tartibi",
+        "red": false,
+        "firstAgency": "soliq"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P45_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P45",
+        "domain": "jamoat_tartibi",
+        "red": false,
+        "firstAgency": "soliq"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P46_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P46",
+        "domain": "jamoat_tartibi",
+        "red": false,
+        "firstAgency": "ekologiya"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P46_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P46",
+        "domain": "jamoat_tartibi",
+        "red": false,
+        "firstAgency": "ekologiya"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P46_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P46",
+        "domain": "jamoat_tartibi",
+        "red": false,
+        "firstAgency": "ekologiya"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P47_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P47",
+        "domain": "ijtimoiy_taminot",
+        "red": false,
+        "firstAgency": "ijtimoiy_himoya"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P47_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P47",
+        "domain": "ijtimoiy_taminot",
+        "red": false,
+        "firstAgency": "ijtimoiy_himoya"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P47_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P47",
+        "domain": "ijtimoiy_taminot",
+        "red": false,
+        "firstAgency": "ijtimoiy_himoya"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P48_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P48",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P48_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P48",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P48_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P48",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P49_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P49",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": "P12",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      }
+    },
+    {
+      "id": "P49_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P49",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": "P12",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      }
+    },
+    {
+      "id": "P49_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P49",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": "P12",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      }
+    },
+    {
+      "id": "P50_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P50",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": "P25",
+        "domain": "zoravonlik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P50_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P50",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": "P25",
+        "domain": "zoravonlik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P50_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P50",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": "P44",
+        "domain": "qoshnichilik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "profilaktika_inspektori"
+      }
+    },
+    {
+      "id": "P51_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P51",
+        "domain": "istemolchi",
+        "red": false,
+        "firstAgency": "raqobat_qomitasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P51_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P51",
+        "domain": "istemolchi",
+        "red": false,
+        "firstAgency": "raqobat_qomitasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P51_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P51",
+        "domain": "istemolchi",
+        "red": false,
+        "firstAgency": "raqobat_qomitasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P52_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P52",
+        "domain": "istemolchi",
+        "red": false,
+        "firstAgency": "raqobat_qomitasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P52_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P52",
+        "domain": "istemolchi",
+        "red": false,
+        "firstAgency": "raqobat_qomitasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P52_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P52",
+        "domain": "istemolchi",
+        "red": false,
+        "firstAgency": "raqobat_qomitasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P53_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P53",
+        "domain": "uy_joy_ijara",
+        "red": false,
+        "firstAgency": "raqobat_qomitasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P53_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P53",
+        "domain": "uy_joy_ijara",
+        "red": false,
+        "firstAgency": "raqobat_qomitasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P53_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P53",
+        "domain": "uy_joy_ijara",
+        "red": false,
+        "firstAgency": "raqobat_qomitasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P54_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P54",
+        "domain": "bank_firibgarlik",
+        "red": false,
+        "firstAgency": "bank"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P54_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P54",
+        "domain": "bank_firibgarlik",
+        "red": false,
+        "firstAgency": "bank"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P54_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P54",
+        "domain": "bank_firibgarlik",
+        "red": false,
+        "firstAgency": "bank"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P55_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P55",
+        "domain": "bank_firibgarlik",
+        "red": false,
+        "firstAgency": "bank"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P55_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P55",
+        "domain": "bank_firibgarlik",
+        "red": false,
+        "firstAgency": "bank"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P55_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P55",
+        "domain": "bank_firibgarlik",
+        "red": false,
+        "firstAgency": "bank"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P56_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P56",
+        "domain": "ijtimoiy_taminot",
+        "red": false,
+        "firstAgency": "pensiya"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P56_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P56",
+        "domain": "ijtimoiy_taminot",
+        "red": false,
+        "firstAgency": "pensiya"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P56_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P56",
+        "domain": "ijtimoiy_taminot",
+        "red": false,
+        "firstAgency": "pensiya"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P57_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P57",
+        "domain": "ijtimoiy_taminot",
+        "red": false,
+        "firstAgency": "ijtimoiy_himoya"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P57_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P57",
+        "domain": "ijtimoiy_taminot",
+        "red": false,
+        "firstAgency": "ijtimoiy_himoya"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P57_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P57",
+        "domain": "ijtimoiy_taminot",
+        "red": false,
+        "firstAgency": "ijtimoiy_himoya"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P58_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P58",
+        "domain": "davlat_organlari",
+        "red": false,
+        "firstAgency": "yuqori_organ"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P58_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P58",
+        "domain": "davlat_organlari",
+        "red": false,
+        "firstAgency": "yuqori_organ"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P58_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P58",
+        "domain": "davlat_organlari",
+        "red": false,
+        "firstAgency": "yuqori_organ"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P59_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P59",
+        "domain": "davlat_organlari",
+        "red": false,
+        "firstAgency": "davlat_xizmatlari"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P59_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P59",
+        "domain": "davlat_organlari",
+        "red": false,
+        "firstAgency": "davlat_xizmatlari"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "orange",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P59_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P59",
+        "domain": "davlat_organlari",
+        "red": false,
+        "firstAgency": "davlat_xizmatlari"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P60_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P60",
+        "domain": "chet_eldagilar",
+        "red": false,
+        "firstAgency": "konsullik"
+      },
+      "predicted": {
+        "problemId": "P12",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      }
+    },
+    {
+      "id": "P60_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P60",
+        "domain": "chet_eldagilar",
+        "red": false,
+        "firstAgency": "konsullik"
+      },
+      "predicted": {
+        "problemId": "P12",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      }
+    },
+    {
+      "id": "P60_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P60",
+        "domain": "chet_eldagilar",
+        "red": false,
+        "firstAgency": "konsullik"
+      },
+      "predicted": {
+        "problemId": "P12",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      }
+    },
+    {
+      "id": "P61_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P61",
+        "domain": "chet_eldagilar",
+        "red": true,
+        "firstAgency": "konsullik"
+      },
+      "predicted": {
+        "problemId": "P12",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      }
+    },
+    {
+      "id": "P61_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P61",
+        "domain": "chet_eldagilar",
+        "red": true,
+        "firstAgency": "konsullik"
+      },
+      "predicted": {
+        "problemId": "P12",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      }
+    },
+    {
+      "id": "P61_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P61",
+        "domain": "chet_eldagilar",
+        "red": true,
+        "firstAgency": "konsullik"
+      },
+      "predicted": {
+        "problemId": "P12",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      }
+    },
+    {
+      "id": "P62_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P62",
+        "domain": "talim",
+        "red": false,
+        "firstAgency": "talim_boshqarmasi"
+      },
+      "predicted": {
+        "problemId": "P42",
+        "domain": "jamoat_tartibi",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P62_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P62",
+        "domain": "talim",
+        "red": false,
+        "firstAgency": "talim_boshqarmasi"
+      },
+      "predicted": {
+        "problemId": "P42",
+        "domain": "jamoat_tartibi",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P62_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P62",
+        "domain": "talim",
+        "red": false,
+        "firstAgency": "talim_boshqarmasi"
+      },
+      "predicted": {
+        "problemId": "P42",
+        "domain": "jamoat_tartibi",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "iiv"
+      }
+    },
+    {
+      "id": "P63_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P63",
+        "domain": "talim",
+        "red": false,
+        "firstAgency": "talim_boshqarmasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P63_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P63",
+        "domain": "talim",
+        "red": false,
+        "firstAgency": "talim_boshqarmasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P63_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P63",
+        "domain": "talim",
+        "red": false,
+        "firstAgency": "talim_boshqarmasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P64_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P64",
+        "domain": "sogliq",
+        "red": false,
+        "firstAgency": "sogliq_boshqarmasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P64_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P64",
+        "domain": "sogliq",
+        "red": false,
+        "firstAgency": "sogliq_boshqarmasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P64_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P64",
+        "domain": "sogliq",
+        "red": false,
+        "firstAgency": "sogliq_boshqarmasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P65_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P65",
+        "domain": "yol_harakati",
+        "red": false,
+        "firstAgency": "yhxx"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P65_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P65",
+        "domain": "yol_harakati",
+        "red": false,
+        "firstAgency": "yhxx"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    },
+    {
+      "id": "P65_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P65",
+        "domain": "yol_harakati",
+        "red": false,
+        "firstAgency": "yhxx"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      }
+    }
+  ]
+}
