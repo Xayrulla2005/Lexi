@@ -1,12 +1,13 @@
 "use client";
 /** XAYRULLA: sahifa mantig'i. Sevinchoy ko'rinishni components/ui va styles orqali o'zgartiradi. */
 import { useState } from "react";
-import type { AgencySubmission, Case } from "@lex/contracts";
+import type { AgencyContact, AgencySubmission, Case } from "@lex/contracts";
 import { api } from "@/lib/api";
-import { riskTone, routeKind } from "@/lib/view";
+import { isUrl, lawNames, phoneParts, riskTone, routeKind } from "@/lib/view";
 import { texts } from "@/content/texts.uz";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { Notice } from "@/components/ui/Notice";
 import { RiskBadge } from "@/components/ui/RiskBadge";
 
 export default function ChatPage() {
@@ -28,6 +29,7 @@ export default function ChatPage() {
 
   const decision = result?.routingDecision;
   const canSubmit = decision?.routeType !== "EMERGENCY" && !!decision?.agencyId;
+  const laws = decision && result?.analysis ? lawNames(decision, result.analysis.legalReferences) : [];
 
   async function onSubmit() {
     if (result && decision?.agencyId) setSubmission(await api.submit(result.id, decision.agencyId));
@@ -60,21 +62,25 @@ export default function ChatPage() {
         <Card>
           <RiskBadge level={riskTone(result.analysis.risk.level)} />
           <p style={{ color: "var(--muted)" }}>{texts.routeKind[routeKind(decision)]}</p>
+          {decision.reviewNotice && <Notice title={texts.reviewWarningTitle}>{decision.reviewNotice}</Notice>}
           <h3>{texts.resultTitle}</h3>
           <ol>{decision.steps.map((s) => <li key={s.order}>{s.action}</li>)}</ol>
-          {result.analysis.legalReferences.length > 0 && (
+          {decision.agencies.length > 0 && (
+            <>
+              <h3>{texts.agenciesTitle}</h3>
+              <AgencyList agencies={decision.agencies} />
+            </>
+          )}
+          {decision.escalation.length > 0 && (
+            <>
+              <h3>{texts.escalationTitle}</h3>
+              <AgencyList agencies={decision.escalation} />
+            </>
+          )}
+          {laws.length > 0 && (
             <>
               <h3>{texts.lawTitle}</h3>
-              <ul>
-                {result.analysis.legalReferences.map((r) => {
-                  const label = r.article ? `${r.documentName}, ${r.article}` : r.documentName;
-                  return (
-                    <li key={r.documentId ?? r.documentName}>
-                      {r.sourceUrl ? <a href={r.sourceUrl} target="_blank" rel="noreferrer">{label}</a> : label}
-                    </li>
-                  );
-                })}
-              </ul>
+              <ul>{laws.map((name) => <li key={name}>{name}</li>)}</ul>
             </>
           )}
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
@@ -87,5 +93,31 @@ export default function ChatPage() {
         </Card>
       )}
     </main>
+  );
+}
+
+/** Agency name with its catalog phone(s) and link, shown verbatim. */
+function AgencyList({ agencies }: { agencies: readonly AgencyContact[] }) {
+  return (
+    <ul>
+      {agencies.map((a) => (
+        <li key={a.id}>
+          <b>{a.name}</b>
+          {a.phone &&
+            phoneParts(a.phone).map((p) => (
+              <span key={p.label}>
+                {" · "}
+                {p.href ? <a href={p.href}>{p.label}</a> : p.label}
+              </span>
+            ))}
+          {a.link && (
+            <>
+              {" · "}
+              {isUrl(a.link) ? <a href={a.link} target="_blank" rel="noreferrer">{a.link}</a> : a.link}
+            </>
+          )}
+        </li>
+      ))}
+    </ul>
   );
 }

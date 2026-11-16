@@ -16,6 +16,10 @@ describe("CasesService", () => {
     expect(analyzed.analysis?.classification.problemId).toBe("P12");
     expect(analyzed.routingDecision?.routeId).toBe("P12");
     expect(analyzed.routingDecision?.requiresHumanReview).toBe(true);
+    expect(analyzed.routingDecision?.agencies.map((a) => a.id)).toContain("mehnat_inspeksiyasi");
+    expect(analyzed.routingDecision?.legalReferences.length).toBeGreaterThan(0);
+    expect(analyzed.routingDecision?.reviewStatus).toBe("VERIFIED_PENDING");
+    expect(analyzed.routingDecision?.reviewNotice).not.toBeNull();
   });
 
   it("refuses to analyze an empty case", async () => {

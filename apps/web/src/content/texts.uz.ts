@@ -14,6 +14,9 @@ export const texts = {
   sendAppeal: "Arizani yuborish",
   lawyer: "Yuristga murojaat",
   sent: "Yuborildi. Ariza raqami:",
+  agenciesTitle: "Qayerga murojaat qilish",
+  escalationTitle: "Natija bo'lmasa",
+  reviewWarningTitle: "Diqqat",
   riskLabels: {
     red: "Qizil — juda xavfli",
     orange: "To'q sariq — jiddiy",

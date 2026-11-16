@@ -205,14 +205,30 @@ components:
         agencyId: { type: string, nullable: true }
         deadlineDays: { type: integer, nullable: true }
         documentTemplateId: { type: string, nullable: true }
+    AgencyContact:
+      type: object
+      required: [id, name, phone, link]
+      properties:
+        id: { type: string, example: mehnat_inspeksiyasi }
+        name: { type: string }
+        phone: { type: string, nullable: true, description: "Catalog text; may hold several numbers separated by ';'" }
+        link: { type: string, nullable: true, description: "URL or app name, as in the catalog" }
     RoutingDecision:
       type: object
-      required: [routeType, routeId, agencyId, steps, requiresHumanReview]
+      required: [routeType, routeId, problemId, title, agencyId, steps, agencies, escalation, legalReferences, templateId, reviewStatus, reviewNotice, requiresHumanReview]
       properties:
         routeType: { type: string, enum: [EMERGENCY, RULE_BASED, FALLBACK] }
-        routeId: { type: string, nullable: true }
+        routeId: { type: string, nullable: true, example: P12 }
+        problemId: { type: string, nullable: true, pattern: "^P\\d{2}$" }
+        title: { type: string, nullable: true }
         agencyId: { type: string, nullable: true }
         steps: { type: array, items: { $ref: "#/components/schemas/RouteStep" } }
+        agencies: { type: array, items: { $ref: "#/components/schemas/AgencyContact" } }
+        escalation: { type: array, items: { $ref: "#/components/schemas/AgencyContact" } }
+        legalReferences: { type: array, items: { $ref: "#/components/schemas/LegalReference" } }
+        templateId: { type: string, nullable: true, example: T12 }
+        reviewStatus: { $ref: "#/components/schemas/ReviewStatus" }
+        reviewNotice: { type: string, nullable: true, example: "Bu yo'l hali yurist tomonidan tekshirilmagan" }
         requiresHumanReview: { type: boolean }
     CaseMessage:
       type: object

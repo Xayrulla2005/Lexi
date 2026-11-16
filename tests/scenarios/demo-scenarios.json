@@ -14,7 +14,7 @@
     {
       "id": "S03-domestic-violence-emergency",
       "input": "Erim pichoq bilan qo'rqityapti, hozir uyda",
-      "expected": { "riskLevel": "red", "problemId": "P25", "routeType": "EMERGENCY", "agencyId": "iiv" }
+      "expected": { "riskLevel": "red", "problemId": null, "routeType": "EMERGENCY", "agencyId": "iiv" }
     },
     {
       "id": "S04-unknown",

@@ -10,5 +10,5 @@ export function normalize(text: string): string {
   const lower = text.toLowerCase();
   let out = "";
   for (const ch of lower) out += MAP[ch] ?? ch;
-  return out.replace(/[ʻʼ`’]/g, "'").replace(/\s+/g, " ").trim();
+  return out.replace(/[ʻʼ`’‘]/g, "'").replace(/\s+/g, " ").trim();
 }

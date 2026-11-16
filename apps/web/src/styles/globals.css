@@ -10,6 +10,8 @@
   --orange: #d35400;
   --yellow: #b7950b;
   --green: #1e8449;
+  --warning-bg: #fff6d6;
+  --warning-border: #e3a82b;
   --radius: 14px;
   --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }

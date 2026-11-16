@@ -42,7 +42,7 @@ flowchart LR
 | `cases` | Case lifecycle; orchestrates analysis → routing | In-memory storage |
 | `ai-analysis` | Wraps `@lex/ai` `analyze()` | Offline stub pipeline |
 | `legal-knowledge` | Source registry for RAG and citations | Placeholder (empty) |
-| `legal-routing` | Wraps `@lex/legal-engine` | Placeholder rules (PENDING) |
+| `legal-routing` | Wraps `@lex/legal-engine` | Catalog routes P01–P65 (DRAFT / VERIFIED_PENDING) |
 | `action-plans` | Action plans and application drafts | Placeholder |
 | `agency-gateway` | Consent-gated `POST /submissions`; simulator view | Mock adapter only |
 | `case-tracking` | `GET /submissions/:id` status | Basic |

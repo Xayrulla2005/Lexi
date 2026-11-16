@@ -60,13 +60,25 @@ The AI classifies only; it never returns an agency. `LegalDomain` and `ProblemId
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| `routeType` | `"EMERGENCY" \| "RULE_BASED" \| "FALLBACK"` | |
-| `routeId` | `string \| null` | `null` for FALLBACK |
-| `agencyId` | `string \| null` | Agency registry id (`data/agencies.csv`) |
-| `steps` | `RouteStep[]` | `{ order, action, agencyId, deadlineDays, documentTemplateId }` |
-| `requiresHumanReview` | `boolean` | True unless rule, route are VERIFIED and analysis is confident |
+Built from `legal-knowledge/catalog/problems.json`; every text, phone and law is copied verbatim from the catalog.
 
-`deadlineDays` must stay `null` unless backed by a VERIFIED source.
+| Field | Type | Notes |
+| --- | --- | --- |
+| `routeType` | `"EMERGENCY" \| "RULE_BASED" \| "FALLBACK"` | red risk → EMERGENCY; `problemId` → RULE_BASED; otherwise FALLBACK |
+| `routeId` | `string \| null` | `P01`–`P65` or `EMERGENCY`; `null` for FALLBACK |
+| `problemId` | `ProblemId \| null` | `null` for EMERGENCY/FALLBACK |
+| `title` | `string \| null` | catalog `nom` |
+| `agencyId` | `string \| null` | First route agency that is not `qarshi_taraf`; `null` for FALLBACK |
+| `steps` | `RouteStep[]` | `{ order, action, agencyId, deadlineDays, documentTemplateId }`; step 1 = `birinchi_qadam`, then one step per agency |
+| `agencies` | `AgencyContact[]` | `{ id, name, phone, link }` — catalog `organlar` |
+| `escalation` | `AgencyContact[]` | catalog `eskalatsiya` |
+| `legalReferences` | `LegalReference[]` | catalog `qonunlar`, always `DRAFT` |
+| `templateId` | `string \| null` | catalog `shablon_id` (`T01`…) |
+| `reviewStatus` | `ReviewStatus` | from `legal-knowledge/catalog/review-status.json` |
+| `reviewNotice` | `string \| null` | User-facing warning; `null` only for VERIFIED |
+| `requiresHumanReview` | `boolean` | True unless the route is VERIFIED and the analysis is confident |
+
+`deadlineDays` must stay `null` unless backed by a VERIFIED source. `AgencyContact.phone` and `link` are catalog strings (`link` may be an app name, not a URL).
 
 ## Case
 

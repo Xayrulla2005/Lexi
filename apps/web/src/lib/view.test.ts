@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { RoutingDecision } from "@lex/contracts";
-import { riskTone, routeKind, statusKey } from "./view";
+import { isUrl, lawNames, phoneParts, riskTone, routeKind, statusKey } from "./view";
 
 const decision = (overrides: Partial<RoutingDecision>): RoutingDecision => ({
   routeType: "RULE_BASED",
@@ -33,5 +33,24 @@ describe("view mappings", () => {
 
   it("maps submission status to text keys", () => {
     expect(statusKey("IN_REVIEW")).toBe("in_review");
+  });
+
+  it("splits catalog phone fields into tel: links without changing the text", () => {
+    expect(phoneParts("1176; +998 71 200-06-00")).toEqual([
+      { label: "1176", href: "tel:1176" },
+      { label: "+998 71 200-06-00", href: "tel:+998712000600" },
+    ]);
+    expect(phoneParts("+998 71 207-97-37 (ishonch)")[0]?.href).toBe("tel:+998712079737");
+  });
+
+  it("distinguishes URLs from app names", () => {
+    expect(isUrl("https://advice.uz")).toBe(true);
+    expect(isUrl("Mening inspektorim ilovasi")).toBe(false);
+  });
+
+  it("lists catalog laws first and drops duplicates", () => {
+    const ref = { documentId: null, documentName: "Mehnat kodeksi 253-modda", article: null, sourceUrl: null, status: "DRAFT", lastVerifiedAt: null } as const;
+    const d = decision({ legalReferences: [ref] });
+    expect(lawNames(d, [ref, { documentName: "Boshqa", article: "1" }])).toEqual(["Mehnat kodeksi 253-modda", "Boshqa, 1"]);
   });
 });
