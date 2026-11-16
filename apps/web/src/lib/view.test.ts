@@ -4,9 +4,17 @@ import { riskTone, routeKind, statusKey } from "./view";
 
 const decision = (overrides: Partial<RoutingDecision>): RoutingDecision => ({
   routeType: "RULE_BASED",
-  routeId: "UNPAID_WAGES",
+  routeId: "P12",
+  problemId: "P12",
+  title: "Ish haqini o'z vaqtida to'lamaslik",
   agencyId: "mehnat_inspeksiyasi",
   steps: [],
+  agencies: [],
+  escalation: [],
+  legalReferences: [],
+  templateId: "T12",
+  reviewStatus: "DRAFT",
+  reviewNotice: "Bu yo'l hali yurist tomonidan tekshirilmagan",
   requiresHumanReview: true,
   ...overrides,
 });

@@ -54,7 +54,7 @@ describe("API (integration)", () => {
     expect(c.analysis.classification.problemId).toBe(s.expected.problemId);
     expect(c.routingDecision.routeType).toBe(s.expected.routeType);
     expect(c.routingDecision.agencyId).toBe(s.expected.agencyId);
-    expect(c.routingDecision.requiresHumanReview).toBe(true); // all routes are PENDING placeholders
+    expect(c.routingDecision.requiresHumanReview).toBe(true); // no catalog route is VERIFIED yet
   });
 
   it("rejects submission without explicit consent", async () => {

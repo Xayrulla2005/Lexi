@@ -2,16 +2,27 @@
  * @lex/legal-engine — deterministic legal routing.
  *
  * The AI produces an AnalysisResult; this package alone turns it into a
- * RoutingDecision. It must never call an LLM or any network service.
+ * RoutingDecision, using routes loaded from legal-knowledge/catalog/.
+ * It must never call an LLM or any network service.
  */
+import { loadCatalog } from "./catalog";
 import { DeterministicRoutingEngine } from "./engine";
-import { PLACEHOLDER_ROUTES, PLACEHOLDER_RULES, EMERGENCY_ROUTE, FALLBACK_ROUTE } from "./routes/placeholders";
 
 export * from "./types";
-export { DeterministicRoutingEngine, MIN_CONFIDENCE } from "./engine";
-export { PLACEHOLDER_ROUTES, PLACEHOLDER_RULES, EMERGENCY_ROUTE, FALLBACK_ROUTE };
+export { DeterministicRoutingEngine, MIN_CONFIDENCE, REVIEW_NOTICES } from "./engine";
+export {
+  buildCatalog,
+  CatalogError,
+  DEFAULT_CATALOG_PATH,
+  EMERGENCY_AGENCY_IDS,
+  EMERGENCY_SAFETY_TEXT,
+  FALLBACK_AGENCY_ID,
+  loadCatalog,
+  OTHER_PARTY_ID,
+  REVIEW_STATUS_FILE,
+} from "./catalog";
 
-/** Engine wired with the current (placeholder, PENDING) rule set. */
-export function createDefaultRoutingEngine(): DeterministicRoutingEngine {
-  return new DeterministicRoutingEngine(PLACEHOLDER_RULES, PLACEHOLDER_ROUTES);
+/** Engine wired with the repository catalog (legal-knowledge/catalog/problems.json). */
+export function createDefaultRoutingEngine(catalogPath?: string): DeterministicRoutingEngine {
+  return new DeterministicRoutingEngine(loadCatalog(catalogPath));
 }

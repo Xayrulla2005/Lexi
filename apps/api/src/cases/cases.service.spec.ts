@@ -14,7 +14,7 @@ describe("CasesService", () => {
     const analyzed = await s.analyze(c.id);
     expect(analyzed.status).toBe("ANALYZED");
     expect(analyzed.analysis?.classification.problemId).toBe("P12");
-    expect(analyzed.routingDecision?.routeId).toBe("UNPAID_WAGES");
+    expect(analyzed.routingDecision?.routeId).toBe("P12");
     expect(analyzed.routingDecision?.requiresHumanReview).toBe(true);
   });
 

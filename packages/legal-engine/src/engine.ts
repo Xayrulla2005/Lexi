@@ -1,32 +1,35 @@
-import type { RoutingDecision } from "@lex/contracts";
-import { EMERGENCY_ROUTE, FALLBACK_ROUTE } from "./routes/placeholders";
-import type { LegalRoute, LegalRule, LegalRoutingEngine, RoutingContext, RoutingResult } from "./types";
+import type { ReviewStatus, RoutingDecision } from "@lex/contracts";
+import type { LegalCatalog, LegalRoute, LegalRoutingEngine, RoutingContext, RoutingResult } from "./types";
 
 /** Below this classification confidence the decision always needs human review. */
 export const MIN_CONFIDENCE = 0.6;
 
+/** User-facing review warnings (Uzbek, latin). VERIFIED routes show no warning. */
+export const REVIEW_NOTICES: Readonly<Record<ReviewStatus, string | null>> = {
+  DRAFT: "Bu yo'l hali yurist tomonidan tekshirilmagan",
+  VERIFIED_PENDING: "Bu yo'l yurist tekshiruvida, hali tasdiqlanmagan",
+  VERIFIED: null,
+};
+
 /**
- * Deterministic first-match rule engine.
+ * Deterministic catalog router.
  *
  * Order of evaluation:
- *   1. Emergency override (risk red or requiresImmediateAction).
- *   2. Rules sorted by (priority, id); first match wins.
- *   3. Fallback route.
+ *   1. risk red (or requiresImmediateAction) -> EMERGENCY route;
+ *   2. classification.problemId -> catalog route with the same id;
+ *   3. otherwise -> FALLBACK route (free legal advice).
  *
  * The same context always yields the same result. No LLM, network, clock or randomness.
  */
 export class DeterministicRoutingEngine implements LegalRoutingEngine {
-  private readonly rules: readonly LegalRule[];
   private readonly routes: ReadonlyMap<string, LegalRoute>;
+  private readonly emergency: LegalRoute;
+  private readonly fallback: LegalRoute;
 
-  constructor(rules: readonly LegalRule[], routes: readonly LegalRoute[]) {
-    this.routes = new Map(routes.map((r) => [r.id, r]));
-    for (const rule of rules) {
-      if (!this.routes.has(rule.routeId)) {
-        throw new Error(`Rule ${rule.id} references unknown route ${rule.routeId}`);
-      }
-    }
-    this.rules = [...rules].sort((a, b) => a.priority - b.priority || a.id.localeCompare(b.id));
+  constructor(catalog: LegalCatalog) {
+    this.routes = new Map(catalog.routes.map((r) => [r.id, r]));
+    this.emergency = catalog.emergency;
+    this.fallback = catalog.fallback;
   }
 
   route(context: RoutingContext): RoutingResult {
@@ -35,46 +38,49 @@ export class DeterministicRoutingEngine implements LegalRoutingEngine {
 
     if (analysis.risk.level === "red" || analysis.risk.requiresImmediateAction) {
       trace.push(`emergency override: risk=${analysis.risk.level}, immediate=${analysis.risk.requiresImmediateAction}`);
-      return { decision: this.decide("EMERGENCY", EMERGENCY_ROUTE, context, trace), matchedRuleId: null, trace };
+      return this.result("EMERGENCY", this.emergency, context, trace);
     }
 
-    for (const rule of this.rules) {
-      if (rule.verification.status === "REJECTED") {
-        trace.push(`skip ${rule.id}: REJECTED`);
-        continue;
-      }
-      if (rule.matches(context)) {
-        const route = this.routes.get(rule.routeId) as LegalRoute;
-        trace.push(`matched ${rule.id} -> ${route.id}@v${route.version} (${route.verification.status})`);
-        return { decision: this.decide("RULE_BASED", route, context, trace, rule), matchedRuleId: rule.id, trace };
-      }
+    const { problemId } = analysis.classification;
+    const route = problemId === null ? undefined : this.routes.get(problemId);
+    if (route) {
+      trace.push(`problemId ${problemId} -> route ${route.id} (catalog ${route.catalogVersion}, ${route.reviewStatus})`);
+      return this.result("RULE_BASED", route, context, trace);
     }
 
-    trace.push("no rule matched -> fallback");
-    return { decision: this.decide("FALLBACK", FALLBACK_ROUTE, context, trace), matchedRuleId: null, trace };
+    trace.push(problemId === null ? "problemId null -> fallback" : `no route for ${problemId} -> fallback`);
+    return this.result("FALLBACK", this.fallback, context, trace);
   }
 
-  private decide(
+  private result(
     routeType: RoutingDecision["routeType"],
     route: LegalRoute,
     { analysis }: RoutingContext,
     trace: string[],
-    rule?: LegalRule,
-  ): RoutingDecision {
+  ): RoutingResult {
     const reasons: string[] = [];
-    if (route.verification.status !== "VERIFIED") reasons.push(`route ${route.verification.status}`);
-    if (rule && rule.verification.status !== "VERIFIED") reasons.push(`rule ${rule.verification.status}`);
+    if (route.reviewStatus !== "VERIFIED") reasons.push(`route ${route.reviewStatus}`);
     if (analysis.needsHumanReview) reasons.push("analysis.needsHumanReview");
     if (analysis.classification.confidence < MIN_CONFIDENCE) reasons.push(`confidence < ${MIN_CONFIDENCE}`);
     if (routeType === "FALLBACK") reasons.push("fallback");
     if (reasons.length) trace.push(`human review required: ${reasons.join(", ")}`);
 
-    return {
+    const reviewNotice = REVIEW_NOTICES[route.reviewStatus];
+    const decision: RoutingDecision = {
       routeType,
       routeId: routeType === "FALLBACK" ? null : route.id,
+      problemId: route.problemId,
+      title: route.title,
       agencyId: route.agencyId,
       steps: route.steps.map((s) => ({ ...s })),
+      agencies: route.agencies.map((a) => ({ ...a })),
+      escalation: route.escalation.map((a) => ({ ...a })),
+      legalReferences: route.legalReferences.map((r) => ({ ...r })),
+      templateId: route.templateId,
+      reviewStatus: route.reviewStatus,
+      reviewNotice,
       requiresHumanReview: reasons.length > 0,
     };
+    return { decision, reviewStatus: route.reviewStatus, reviewNotice, trace };
   }
 }

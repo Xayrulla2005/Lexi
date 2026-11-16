@@ -1,40 +1,61 @@
 import type {
+  AgencyContact,
   AnalysisResult,
   LegalDomain,
+  LegalReference,
+  ProblemId,
+  ReviewStatus,
+  RiskLevel,
   RouteStep,
   RouteType,
   RoutingDecision,
-  ProblemId,
-  VerificationStatus,
 } from "@lex/contracts";
 
 /**
- * Verification metadata required on every rule and route.
- * Anything that is not VERIFIED forces `requiresHumanReview: true`.
+ * A route the user should follow, built from legal-knowledge/catalog/problems.json.
+ * Catalog routes have id P01–P65; the built-in ones are EMERGENCY and FALLBACK.
+ * Every text field is copied from the catalog — nothing here is generated.
  */
-export interface VerificationMetadata {
-  status: VerificationStatus;
-  /** ISO timestamp of the last legal review; null if never reviewed. */
-  lastVerifiedAt: string | null;
-  /** Legal reviewer name/handle; null if never reviewed. */
-  reviewer: string | null;
-  /** documentIds from legal-knowledge/ that justify this rule/route. */
-  sourceDocumentIds: readonly string[];
-  /** Free-text note, e.g. why something is still pending. */
-  note?: string;
-}
-
-/** A named, versioned sequence of steps the user should take. */
 export interface LegalRoute {
   id: string;
-  version: number;
-  domain: LegalDomain;
-  /** Catalog problem type this route serves; null for emergency/fallback. */
+  /** Catalog version (`versiya`) the route was built from. */
+  catalogVersion: string;
+  /** Catalog problem type; null for EMERGENCY/FALLBACK. */
   problemId: ProblemId | null;
-  /** Primary agency id (data/agencies.csv), or null. */
+  /** Problem title (`nom`); null for EMERGENCY/FALLBACK. */
+  title: string | null;
+  /** Catalog domain (`soha`); null for EMERGENCY/FALLBACK, which serve every domain. */
+  domain: LegalDomain | null;
+  /** Catalog risk level (`xavf`); null for EMERGENCY/FALLBACK. */
+  riskLevel: RiskLevel | null;
+  /** First step text (`birinchi_qadam`); null for EMERGENCY/FALLBACK. */
+  firstStep: string | null;
+  /** Primary agency: first of `agencies` that is not the other party; null when none. */
   agencyId: string | null;
+  /** `organlar`, resolved against the agency catalog, in catalog order. */
+  agencies: readonly AgencyContact[];
+  /** `eskalatsiya`, resolved against the agency catalog. */
+  escalation: readonly AgencyContact[];
+  /** `hali_erta`: agencies that are too early to contact at this stage. */
+  notYet: readonly AgencyContact[];
   steps: readonly RouteStep[];
-  verification: VerificationMetadata;
+  /** `qonunlar` as catalog citations (status DRAFT). */
+  legalReferences: readonly LegalReference[];
+  /** Application template id (`shablon_id`); null when none. */
+  templateId: string | null;
+  /** Reviewer notes (`tekshir`): what the legal reviewer still has to check. */
+  reviewNotes: readonly string[];
+  /** From legal-knowledge/catalog/review-status.json. */
+  reviewStatus: ReviewStatus;
+}
+
+/** Everything loaded from the catalog: 65 problem routes plus the two built-in routes. */
+export interface LegalCatalog {
+  version: string;
+  /** Catalog routes P01–P65 (EMERGENCY and FALLBACK are not included). */
+  routes: readonly LegalRoute[];
+  emergency: LegalRoute;
+  fallback: LegalRoute;
 }
 
 /** Everything the engine is allowed to look at. No free text, no LLM calls. */
@@ -42,24 +63,12 @@ export interface RoutingContext {
   analysis: AnalysisResult;
 }
 
-/**
- * A deterministic predicate that selects a route.
- * `matches` must be a pure function of the context (no I/O, no randomness, no clock).
- */
-export interface LegalRule {
-  id: string;
-  description: string;
-  /** Lower number = evaluated first. Ties are broken by rule id for determinism. */
-  priority: number;
-  routeId: string;
-  matches(context: RoutingContext): boolean;
-  verification: VerificationMetadata;
-}
-
 export interface RoutingResult {
   decision: RoutingDecision;
-  /** Rule that produced the decision; null for built-in emergency/fallback. */
-  matchedRuleId: string | null;
+  /** Same as decision.reviewStatus; exposed for logs and callers that do not read the decision. */
+  reviewStatus: ReviewStatus;
+  /** Same as decision.reviewNotice. */
+  reviewNotice: string | null;
   /** Ordered, human-readable explanation of how the decision was reached (for audit logs). */
   trace: readonly string[];
 }
