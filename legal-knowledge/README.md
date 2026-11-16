@@ -3,13 +3,34 @@
 Versioned, traceable legal sources used by retrieval (`ai/rag`) and citation
 validation. **Nothing in this directory is verified yet.**
 
+## Legal data catalog
+
+| | |
+| --- | --- |
+| **Source** | Team dataset `huquq-data` (version `2026-11-15`), built from three PDFs supplied by a team member (problem table, stories, application samples) and cleaned/extended; see [catalog/README.md](catalog/README.md). Original PDFs: [docs/legal-sources/pdf/](../docs/legal-sources/pdf/). Rebuild scripts: [tools/legal-data/](../tools/legal-data/). |
+| **Status** | **DRAFT — awaiting legal review.** Parts of the data may originate from ChatGPT; articles for P51–P65 are named without article numbers. Nothing here may be presented as verified. |
+| **Review checklist** | [TEKSHIRISH.md](TEKSHIRISH.md) (for the legal reviewer). |
+
+| Path | Content |
+| --- | --- |
+| `catalog/problems.json` | 19 domains (`sohalar`), 33 agencies (`idoralar`), 65 problem types P01–P65 (laws, agencies, escalation, first step, "too early" agencies, review notes, template id) |
+| `templates/T01.md … T65.md` | Application templates with `{{fio}}`, `{{summa}}`, `{{malumot_N}}` fields |
+| `TEKSHIRISH.md` | Items that must be checked on lex.uz / official sites |
+
+Related data: agencies `data/agencies.csv`, evaluation stories `ai/eval/datasets/test_cases.csv`.
+`pnpm import:data` validates both against `catalog/problems.json`.
+
+Files in `catalog/`, `templates/` and `TEKSHIRISH.md` are kept verbatim from the
+dataset. Do not edit legal content (articles, phone numbers, deadlines) by hand —
+report issues to the legal reviewer.
+
 ## Layout
 
-| Folder | Domain id (`@lex/contracts` `LegalDomain`) | Related sub-case |
+| Folder | Domain id (`@lex/contracts` `LegalDomain`) | Example catalog problem |
 | --- | --- | --- |
-| `labor/` | `mehnat` | `UNPAID_WAGES` |
-| `neighborhood/` | `qoshnichilik` | `NEIGHBOR_DISPUTE` |
-| `family-violence/` | `zoravonlik` | `DOMESTIC_VIOLENCE` |
+| `labor/` | `mehnat` | `P12` |
+| `neighborhood/` | `qoshnichilik` | `P44` |
+| `family-violence/` | `zoravonlik` | `P25` |
 
 ## File format
 

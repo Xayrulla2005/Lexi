@@ -19,7 +19,7 @@ secrets/
 credentials*.json
 
 # Private / personal data
-data/raw/*.private.csv
+data/**/*.private.csv
 legal-knowledge/**/*.private.*
 
 # Logs and OS files
@@ -31,3 +31,7 @@ Thumbs.db
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# Temporary extraction of legal data archives
+.tmp-import/
+*.zip

@@ -1,7 +1,7 @@
 # Neighborhood disputes (qoshnichilik)
 
 - Domain id: `qoshnichilik`
-- Sub-case: NEIGHBOR_DISPUTE — noise, boundaries, shared property between neighbors
+- Catalog problem: P44 (Fuqarolar tinchligi va osoyishtaligini buzish) — see `../catalog/problems.json`
 - Status: **empty — no documents yet. Nothing here is verified.**
 
 Add one JSON file per article following [../README.md](../README.md).

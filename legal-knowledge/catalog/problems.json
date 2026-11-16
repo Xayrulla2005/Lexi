@@ -1,0 +1,1799 @@
+{
+ "versiya": "2026-11-15",
+ "sohalar": {
+  "fuqarolik_nizo": "Fuqarolik nizolari (qarz, shartnoma, zarar)",
+  "mehnat": "Mehnat huquqlari",
+  "oila": "Oila va bolalar",
+  "zoravonlik": "Zo'ravonlik va xavfsizlik",
+  "qoshnichilik": "Qo'shnichilik va mahalla",
+  "uy_joy_ijara": "Uy-joy, ijara va kommunal",
+  "istemolchi": "Iste'molchi huquqlari",
+  "bank_firibgarlik": "Bank, kredit va firibgarlik",
+  "ijtimoiy_taminot": "Ijtimoiy ta'minot (pensiya, nafaqa, nogironlik)",
+  "davlat_organlari": "Davlat organlari va xizmatlar",
+  "ijro": "Sud qarorlari ijrosi",
+  "chet_eldagilar": "Chet eldagilar va mehnat migratsiyasi",
+  "talim": "Ta'lim",
+  "sogliq": "Sog'liqni saqlash",
+  "yer_mulk": "Yer, mulk va meros",
+  "yol_harakati": "Yo'l harakati",
+  "jinoyat": "Jinoyatlar (o'g'irlik, firibgarlik va boshqalar)",
+  "korrupsiya": "Korrupsiya (pora)",
+  "jamoat_tartibi": "Jamoat tartibi va ekologiya"
+ },
+ "idoralar": {
+  "qarshi_taraf": {
+   "nomi": "Qarshi taraf (qarzdor, sotuvchi, ish beruvchi va h.k.)",
+   "telefon": "",
+   "havola": "",
+   "izoh": "Ko'p nizolarda birinchi qadam — yozma talabnoma",
+   "tekshir": false
+  },
+  "sud_fuqarolik": {
+   "nomi": "Fuqarolik ishlari bo'yicha tumanlararo sud",
+   "telefon": "+998 71 207-73-77 (devonxona); +998 71 207-97-37 (ishonch)",
+   "havola": "https://my.sud.uz",
+   "izoh": "Da'vo arizasi onlayn my.sud.uz orqali",
+   "tekshir": true
+  },
+  "sud_iqtisodiy": {
+   "nomi": "Iqtisodiy sud",
+   "telefon": "+998 71 207-73-77",
+   "havola": "https://my.sud.uz",
+   "izoh": "Tadbirkorlar o'rtasidagi nizolar",
+   "tekshir": true
+  },
+  "sud_yuqori": {
+   "nomi": "Yuqori turuvchi sud (viloyat sudi)",
+   "telefon": "",
+   "havola": "https://my.sud.uz",
+   "izoh": "Tuman sudi qaroriga shikoyat",
+   "tekshir": true
+  },
+  "mehnat_inspeksiyasi": {
+   "nomi": "Davlat mehnat inspeksiyasi",
+   "telefon": "1176; +998 71 200-06-00",
+   "havola": "https://dmi.mehnat.uz",
+   "izoh": "",
+   "tekshir": false
+  },
+  "bandlik_vazirligi": {
+   "nomi": "Kambag'allikni qisqartirish va bandlik vazirligi",
+   "telefon": "",
+   "havola": "https://mehnat.uz",
+   "izoh": "Mehnat inspeksiyasining yuqori turuvchi organi",
+   "tekshir": true
+  },
+  "prokuratura": {
+   "nomi": "Bosh prokuratura yoki hududiy prokuratura",
+   "telefon": "1007",
+   "havola": "https://prokuratura.uz",
+   "izoh": "Organlar qonunni buzganda yoki javob bermaganda",
+   "tekshir": false
+  },
+  "iiv": {
+   "nomi": "Tuman (shahar) ichki ishlar organi",
+   "telefon": "102",
+   "havola": "",
+   "izoh": "Jinoyat va ma'muriy huquqbuzarliklar",
+   "tekshir": false
+  },
+  "iiv_kiber": {
+   "nomi": "IIV kiberjinoyatlarga qarshi kurashish bo'linmasi",
+   "telefon": "102",
+   "havola": "",
+   "izoh": "",
+   "tekshir": true
+  },
+  "profilaktika_inspektori": {
+   "nomi": "Profilaktika inspektori (Mening inspektorim)",
+   "telefon": "102",
+   "havola": "Mening inspektorim ilovasi",
+   "izoh": "Mahalladagi nizolar, himoya orderi",
+   "tekshir": false
+  },
+  "ishonch_1146": {
+   "nomi": "Xotin-qizlar uchun ishonch telefoni",
+   "telefon": "1146",
+   "havola": "",
+   "izoh": "Tazyiq va zo'ravonlik",
+   "tekshir": false
+  },
+  "tez_yordam": {
+   "nomi": "Tez tibbiy yordam",
+   "telefon": "103",
+   "havola": "",
+   "izoh": "",
+   "tekshir": false
+  },
+  "dxx": {
+   "nomi": "Davlat xavfsizlik xizmati",
+   "telefon": "1520",
+   "havola": "",
+   "izoh": "Korrupsiya, giyohvandlik",
+   "tekshir": true
+  },
+  "mib": {
+   "nomi": "Majburiy ijro byurosi",
+   "telefon": "1107",
+   "havola": "https://mib.uz",
+   "izoh": "Sud qarorlari ijrosi, aliment undirish",
+   "tekshir": true
+  },
+  "vasiylik": {
+   "nomi": "Vasiylik va homiylik organi",
+   "telefon": "1140; +998 71 202-06-00",
+   "havola": "https://advice.uz",
+   "izoh": "Bolalar huquqlari",
+   "tekshir": true
+  },
+  "ijtimoiy_himoya": {
+   "nomi": "Ijtimoiy himoya milliy agentligi (hududiy boshqarma)",
+   "telefon": "+998 71 202-06-00",
+   "havola": "",
+   "izoh": "Nogironlik, nafaqa, ijtimoiy yordam",
+   "tekshir": true
+  },
+  "notarius": {
+   "nomi": "Notarius",
+   "telefon": "",
+   "havola": "https://e-notarius.uz/notary",
+   "izoh": "Kelishuv mavjud bo'lsa",
+   "tekshir": false
+  },
+  "adliya": {
+   "nomi": "Adliya vazirligi (bepul maslahat)",
+   "telefon": "1008",
+   "havola": "https://advice.uz",
+   "izoh": "",
+   "tekshir": true
+  },
+  "soliq": {
+   "nomi": "Hududiy soliq organi",
+   "telefon": "",
+   "havola": "https://soliq.uz",
+   "izoh": "Tadbirkorlikni ro'yxatdan o'tkazish",
+   "tekshir": true
+  },
+  "ekologiya": {
+   "nomi": "Ekologiya va iqlim o'zgarishi milliy qo'mitasi (hududiy boshqarma)",
+   "telefon": "",
+   "havola": "",
+   "izoh": "",
+   "tekshir": true
+  },
+  "virtual_qabulxona": {
+   "nomi": "Prezident virtual qabulxonasi",
+   "telefon": "1000",
+   "havola": "https://pm.gov.uz",
+   "izoh": "Oldingi organlar hal qilmaganda",
+   "tekshir": false
+  },
+  "raqobat_qomitasi": {
+   "nomi": "Raqobatni rivojlantirish va iste'molchilar huquqlarini himoya qilish qo'mitasi",
+   "telefon": "",
+   "havola": "",
+   "izoh": "Iste'molchi murojaati tizimi",
+   "tekshir": true
+  },
+  "bank": {
+   "nomi": "Bank (kartani bergan bank)",
+   "telefon": "",
+   "havola": "",
+   "izoh": "Kartani bloklash, nizoli operatsiya",
+   "tekshir": false
+  },
+  "markaziy_bank": {
+   "nomi": "Markaziy bank",
+   "telefon": "",
+   "havola": "https://cbu.uz",
+   "izoh": "Bankdan javob olinmasa; murojaat ro'yxat raqami bilan kuzatiladi",
+   "tekshir": true
+  },
+  "pensiya": {
+   "nomi": "Pensiya jamg'armasi / Ijtimoiy himoya milliy agentligi",
+   "telefon": "",
+   "havola": "https://my.gov.uz",
+   "izoh": "Pensiya tayinlash va hisoblash",
+   "tekshir": true
+  },
+  "davlat_xizmatlari": {
+   "nomi": "Davlat xizmatlari agentligi (my.gov.uz)",
+   "telefon": "1242; 1148",
+   "havola": "https://my.gov.uz",
+   "izoh": "Davlat xizmati rad etilganda",
+   "tekshir": true
+  },
+  "yuqori_organ": {
+   "nomi": "Yuqori turuvchi organ",
+   "telefon": "",
+   "havola": "",
+   "izoh": "Javob bermagan organning yuqori organi",
+   "tekshir": false
+  },
+  "konsullik": {
+   "nomi": "O'zbekiston elchixonasi yoki konsulligi",
+   "telefon": "",
+   "havola": "Consular Services ilovasi",
+   "izoh": "Chet eldagi fuqarolar",
+   "tekshir": true
+  },
+  "migratsiya_agentligi": {
+   "nomi": "Tashqi mehnat migratsiyasi agentligi",
+   "telefon": "",
+   "havola": "",
+   "izoh": "",
+   "tekshir": true
+  },
+  "talim_boshqarmasi": {
+   "nomi": "Tuman (shahar) maktabgacha va maktab ta'limi bo'limi",
+   "telefon": "",
+   "havola": "",
+   "izoh": "",
+   "tekshir": true
+  },
+  "sogliq_boshqarmasi": {
+   "nomi": "Hududiy sog'liqni saqlash boshqarmasi",
+   "telefon": "",
+   "havola": "",
+   "izoh": "",
+   "tekshir": true
+  },
+  "yhxx": {
+   "nomi": "IIV Yo'l harakati xavfsizligi xizmati",
+   "telefon": "102",
+   "havola": "",
+   "izoh": "",
+   "tekshir": true
+  },
+  "sugurta": {
+   "nomi": "Sug'urta kompaniyasi",
+   "telefon": "",
+   "havola": "",
+   "izoh": "Yo'l-transport hodisasi zarari",
+   "tekshir": false
+  }
+ },
+ "muammolar": [
+  {
+   "id": "P01",
+   "nom": "Qarz pulini vaqtida qaytarmaslik",
+   "soha": "fuqarolik_nizo",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Fuqarolik kodeksi 735-modda"
+   ],
+   "organlar": [
+    "qarshi_taraf",
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Qarzdorga yozma talabnoma yuborish, keyin sudga da'vo arizasi",
+   "hali_erta": [
+    "prokuratura",
+    "virtual_qabulxona"
+   ],
+   "tekshir": [],
+   "shablon_id": "T01",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P02",
+   "nom": "Shartnoma shartlarini bajarmaslik",
+   "soha": "fuqarolik_nizo",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Fuqarolik kodeksi 238-modda"
+   ],
+   "organlar": [
+    "qarshi_taraf",
+    "sud_fuqarolik",
+    "sud_iqtisodiy"
+   ],
+   "eskalatsiya": [
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Tashkilotga yozma talabnoma (pretenziya), keyin sud",
+   "hali_erta": [
+    "prokuratura"
+   ],
+   "tekshir": [],
+   "shablon_id": "T02",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P03",
+   "nom": "Ko'chmas mulkni noqonuniy egallash yoki undan foydalanish",
+   "soha": "yer_mulk",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Fuqarolik kodeksi 166-modda"
+   ],
+   "organlar": [
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Mulk hujjatlarini yig'ish, egallab olgan shaxsga yozma talab, keyin sud",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T03",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P04",
+   "nom": "Oldi-sotdi shartnomasi bo'yicha majburiyatlarni bajarmaslik",
+   "soha": "fuqarolik_nizo",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Fuqarolik kodeksi 386, 388, 389, 390, 391-moddalar"
+   ],
+   "organlar": [
+    "qarshi_taraf",
+    "sud_fuqarolik",
+    "iiv"
+   ],
+   "eskalatsiya": [
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Sotuvchiga yozma talab; aldov belgisi bo'lsa — IIB (firibgarlik)",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T04",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P05",
+   "nom": "Yetkazilgan moddiy zararni qoplamaslik",
+   "soha": "fuqarolik_nizo",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Fuqarolik kodeksi 14, 324, 985-moddalar"
+   ],
+   "organlar": [
+    "qarshi_taraf",
+    "sud_fuqarolik",
+    "sud_iqtisodiy"
+   ],
+   "eskalatsiya": [
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Zararni hujjatlashtirish (foto, dalolatnoma, baholash), yozma talab, keyin sud",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T05",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P06",
+   "nom": "Birovning mol-mulkiga zarar yetkazish",
+   "soha": "fuqarolik_nizo",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Fuqarolik kodeksi 14, 985-moddalar"
+   ],
+   "organlar": [
+    "iiv",
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Hodisani IIBda qayd ettirish, zararni baholash, keyin sudga da'vo",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T06",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P07",
+   "nom": "Mualliflik huquqini buzish",
+   "soha": "fuqarolik_nizo",
+   "xavf": "green",
+   "qonunlar": [
+    "Fuqarolik kodeksi 1040, 1051, 1056, 1058, 1059-moddalar"
+   ],
+   "organlar": [
+    "qarshi_taraf",
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Dalillarni saqlash (skrinshot, asl fayllar), buzuvchiga yozma talab, keyin sud",
+   "hali_erta": [],
+   "tekshir": [
+    "Jadvalda '1 040' deb yozilgan — 1040 deb tuzatildi"
+   ],
+   "shablon_id": "T07",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P08",
+   "nom": "Asossiz ravishda birovning hisobidan boyish",
+   "soha": "fuqarolik_nizo",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Fuqarolik kodeksi 1023, 1025, 1026, 1029-moddalar"
+   ],
+   "organlar": [
+    "bank",
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Bankka murojaat qilib o'tkazmani qayd ettirish, oluvchiga yozma talab, keyin sud",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T08",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P09",
+   "nom": "Meros mulkini taqsimlashda huquqlarning buzilishi",
+   "soha": "yer_mulk",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Fuqarolik kodeksi 1114, 1115-moddalar"
+   ],
+   "organlar": [
+    "notarius",
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Notariusga meros ishi bo'yicha murojaat; nizo bo'lsa — sud",
+   "hali_erta": [],
+   "tekshir": [
+    "Meros ochilgan joydagi notariusni birinchi qadam sifatida qo'shish tavsiya etiladi"
+   ],
+   "shablon_id": "T09",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P10",
+   "nom": "Uy-joyni ijaraga berish shartlarini buzish",
+   "soha": "uy_joy_ijara",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Fuqarolik kodeksi 535-modda"
+   ],
+   "organlar": [
+    "qarshi_taraf",
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Ijarachiga yozma talabnoma; o'zboshimchalik bilan chiqarib yubormaslik",
+   "hali_erta": [
+    "prokuratura"
+   ],
+   "tekshir": [
+    "Haqiqat ko'zgusi: uy egasi ijarachini o'zi chiqarib yuborsa yoki narsalarini olib qo'ysa, o'zi huquqbuzar bo'ladi"
+   ],
+   "shablon_id": "T10",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P11",
+   "nom": "Xodimni mehnat shartnomasisiz ishlatish",
+   "soha": "mehnat",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Mehnat kodeksi 106, 126-moddalar"
+   ],
+   "organlar": [
+    "mehnat_inspeksiyasi"
+   ],
+   "eskalatsiya": [
+    "bandlik_vazirligi",
+    "prokuratura",
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Ish faktini tasdiqlovchi dalillarni yig'ish, Davlat mehnat inspeksiyasiga ariza",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T11",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P12",
+   "nom": "Ish haqini o'z vaqtida to'lamaslik",
+   "soha": "mehnat",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Mehnat kodeksi 253-modda",
+    "Mehnat kodeksi 333-modda (kechiktirish uchun kompensatsiya)"
+   ],
+   "organlar": [
+    "qarshi_taraf",
+    "mehnat_inspeksiyasi",
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "bandlik_vazirligi",
+    "prokuratura",
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Ish beruvchiga yozma talabnoma, keyin Davlat mehnat inspeksiyasi; murojaat muddati — 3 oy",
+   "hali_erta": [
+    "virtual_qabulxona",
+    "prokuratura"
+   ],
+   "tekshir": [
+    "333-modda (kompensatsiya) qo'shildi — oldingi tadqiqotdan"
+   ],
+   "shablon_id": "T12",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P13",
+   "nom": "Ish vaqtidan tashqari ishlatib, haq to'lamaslik",
+   "soha": "mehnat",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Mehnat kodeksi 189-modda"
+   ],
+   "organlar": [
+    "mehnat_inspeksiyasi",
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "bandlik_vazirligi",
+    "prokuratura",
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Ish vaqtini qayd etish (tabel, xabarlar), Davlat mehnat inspeksiyasiga ariza",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T13",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P14",
+   "nom": "Xodimni noqonuniy ishdan bo'shatish",
+   "soha": "mehnat",
+   "xavf": "orange",
+   "qonunlar": [
+    "Mehnat kodeksi 161-modda"
+   ],
+   "organlar": [
+    "sud_fuqarolik",
+    "mehnat_inspeksiyasi"
+   ],
+   "eskalatsiya": [
+    "bandlik_vazirligi",
+    "prokuratura",
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "O'z xohishi bilan ariza yozmaslik; buyruq nusxasini olish; ishga tiklash uchun sudga 1 oy ichida",
+   "hali_erta": [
+    "virtual_qabulxona"
+   ],
+   "tekshir": [],
+   "shablon_id": "T14",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P15",
+   "nom": "Mehnat ta'tilini bermaslik",
+   "soha": "mehnat",
+   "xavf": "green",
+   "qonunlar": [
+    "Mehnat kodeksi 216, 223, 228-moddalar"
+   ],
+   "organlar": [
+    "mehnat_inspeksiyasi",
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "bandlik_vazirligi",
+    "prokuratura",
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Ta'til so'ralgan arizaning nusxasini saqlash, Davlat mehnat inspeksiyasiga ariza",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T15",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P16",
+   "nom": "Homilador ayollar va voyaga yetmaganlarning mehnat huquqlarini buzish",
+   "soha": "mehnat",
+   "xavf": "orange",
+   "qonunlar": [
+    "Mehnat kodeksi 396, 408, 417, 421-moddalar"
+   ],
+   "organlar": [
+    "mehnat_inspeksiyasi",
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "bandlik_vazirligi",
+    "prokuratura",
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Tibbiy ma'lumotnoma va yozishmalarni saqlash, Davlat mehnat inspeksiyasiga ariza",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T16",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P17",
+   "nom": "Mehnat muhofazasi qoidalariga rioya qilmaslik",
+   "soha": "mehnat",
+   "xavf": "orange",
+   "qonunlar": [
+    "Mehnat kodeksi 355, 356, 359-moddalar",
+    "Jinoyat kodeksi 257-modda"
+   ],
+   "organlar": [
+    "mehnat_inspeksiyasi",
+    "iiv"
+   ],
+   "eskalatsiya": [
+    "bandlik_vazirligi",
+    "prokuratura",
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Davlat mehnat inspeksiyasiga ariza; jarohat bo'lsa — IIB va tez yordam",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T17",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P18",
+   "nom": "Ishga qabul qilishda qonunga xilof ravishda kamsitish",
+   "soha": "mehnat",
+   "xavf": "green",
+   "qonunlar": [
+    "Mehnat kodeksi 4, 119-moddalar"
+   ],
+   "organlar": [
+    "mehnat_inspeksiyasi",
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "bandlik_vazirligi",
+    "prokuratura",
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Rad javobini yozma so'rash, Davlat mehnat inspeksiyasiga ariza",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T18",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P19",
+   "nom": "Ish beruvchining xodimdan moddiy javobgarlikni noqonuniy talab qilishi",
+   "soha": "mehnat",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Mehnat kodeksi 269, 337, 338-moddalar"
+   ],
+   "organlar": [
+    "mehnat_inspeksiyasi"
+   ],
+   "eskalatsiya": [
+    "bandlik_vazirligi",
+    "prokuratura",
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Tekshiruv natijasini yozma so'rash, hech narsani imzolamaslik, Davlat mehnat inspeksiyasiga ariza",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T19",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P20",
+   "nom": "Ish beruvchining xodimga mehnat sharoitlarini yaratib bermasligi",
+   "soha": "mehnat",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Mehnat kodeksi 355, 356, 359-moddalar"
+   ],
+   "organlar": [
+    "mehnat_inspeksiyasi"
+   ],
+   "eskalatsiya": [
+    "bandlik_vazirligi",
+    "prokuratura",
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Sharoitni suratga olish, jamoaviy yozma murojaat, Davlat mehnat inspeksiyasi",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T20",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P21",
+   "nom": "Aliment to'lashdan bo'yin tovlash",
+   "soha": "oila",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Oila kodeksi 96, 109-moddalar",
+    "Ma'muriy javobgarlik to'g'risidagi kodeks 47⁴-modda",
+    "Jinoyat kodeksi 122-modda"
+   ],
+   "organlar": [
+    "mib",
+    "sud_fuqarolik",
+    "iiv"
+   ],
+   "eskalatsiya": [
+    "prokuratura",
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Sud qarori bo'lsa — Majburiy ijro byurosiga; bo'lmasa — avval sudga da'vo",
+   "hali_erta": [
+    "virtual_qabulxona"
+   ],
+   "tekshir": [
+    "Jadvalda '474' — 47⁴ deb tiklandi"
+   ],
+   "shablon_id": "T21",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P22",
+   "nom": "Ota yoki onaning bola tarbiyasida ishtirok etmasligi",
+   "soha": "oila",
+   "xavf": "green",
+   "qonunlar": [
+    "Oila kodeksi 96, 109-moddalar"
+   ],
+   "organlar": [
+    "vasiylik",
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "prokuratura",
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Vasiylik va homiylik organiga murojaat",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T22",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P23",
+   "nom": "Nikohni bekor qilish bilan bog'liq nizolar",
+   "soha": "oila",
+   "xavf": "green",
+   "qonunlar": [
+    "Oila kodeksi 38, 39, 40-moddalar"
+   ],
+   "organlar": [
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Er-xotin rozi bo'lmasa — sudga da'vo arizasi",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T23",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P24",
+   "nom": "Er-xotinning umumiy mol-mulkini bo'lish",
+   "soha": "oila",
+   "xavf": "green",
+   "qonunlar": [
+    "Oila kodeksi 23–28-moddalar"
+   ],
+   "organlar": [
+    "notarius",
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "sud_yuqori",
+    "prokuratura"
+   ],
+   "birinchi_qadam": "Kelishuv bo'lsa — notarius; bo'lmasa — sud",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T24",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P25",
+   "nom": "Oilaviy-maishiy zo'ravonlik",
+   "soha": "zoravonlik",
+   "xavf": "red",
+   "qonunlar": [
+    "Ma'muriy javobgarlik to'g'risidagi kodeks 59²-modda",
+    "Jinoyat kodeksi 126¹-modda",
+    "Xotin-qizlarni tazyiq va zo'ravonlikdan himoya qilish to'g'risidagi qonun"
+   ],
+   "organlar": [
+    "iiv",
+    "profilaktika_inspektori",
+    "ishonch_1146"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "Xavf bo'lsa darhol 102; himoya orderi uchun profilaktika inspektoriga",
+   "hali_erta": [],
+   "tekshir": [
+    "Jadvalda '592' va '1261' — 59² va 126¹ deb tiklandi"
+   ],
+   "shablon_id": "T25",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P26",
+   "nom": "Farzandni qarovsiz qoldirish va ota-onalik majburiyatlarini bajarmaslik",
+   "soha": "oila",
+   "xavf": "orange",
+   "qonunlar": [
+    "Oila kodeksi 73, 75, 79-moddalar",
+    "Ma'muriy javobgarlik to'g'risidagi kodeks 47-modda"
+   ],
+   "organlar": [
+    "vasiylik",
+    "iiv",
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "prokuratura",
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Vasiylik va homiylik organiga; bola xavf ostida bo'lsa — 102",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T26",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P27",
+   "nom": "Bolaning yashash joyi yuzasidan ota-onalar o'rtasidagi nizo",
+   "soha": "oila",
+   "xavf": "green",
+   "qonunlar": [
+    "Oila kodeksi 75-modda"
+   ],
+   "organlar": [
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Sudga da'vo; vasiylik organi xulosasi olinadi",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T27",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P28",
+   "nom": "Bolani ota-onasi bilan ko'rishishiga to'sqinlik qilish",
+   "soha": "oila",
+   "xavf": "green",
+   "qonunlar": [
+    "Oila kodeksi 66, 76-moddalar"
+   ],
+   "organlar": [
+    "vasiylik",
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "prokuratura",
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Vasiylik va homiylik organiga, kelishilmasa — sud",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T28",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P29",
+   "nom": "Xotinni haqoratlash, qo'rqitish va ruhiy bosim o'tkazish",
+   "soha": "zoravonlik",
+   "xavf": "orange",
+   "qonunlar": [
+    "Ma'muriy javobgarlik to'g'risidagi kodeks 59²-modda",
+    "Jinoyat kodeksi 126¹-modda"
+   ],
+   "organlar": [
+    "profilaktika_inspektori",
+    "iiv",
+    "ishonch_1146"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "Profilaktika inspektori yoki 1146; tahdid bo'lsa — 102; himoya orderi",
+   "hali_erta": [],
+   "tekshir": [
+    "59² va 126¹ tiklandi"
+   ],
+   "shablon_id": "T29",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P30",
+   "nom": "Nikoh yoshi to'g'risidagi qonunchilikni yoki nikoh tuzish tartibini buzish",
+   "soha": "oila",
+   "xavf": "orange",
+   "qonunlar": [
+    "Ma'muriy javobgarlik to'g'risidagi kodeks 47³-modda",
+    "Jinoyat kodeksi 125¹-modda"
+   ],
+   "organlar": [
+    "iiv",
+    "prokuratura"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "IIB yoki prokuraturaga ariza",
+   "hali_erta": [],
+   "tekshir": [
+    "Jadvalda '473', '1251' — 47³, 125¹ deb tiklandi",
+    "Jadvalda MIB ham ko'rsatilgan — bu holatga aloqasi shubhali, olib tashlandi"
+   ],
+   "shablon_id": "T30",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P31",
+   "nom": "Firibgarlik",
+   "soha": "jinoyat",
+   "xavf": "orange",
+   "qonunlar": [
+    "Jinoyat kodeksi 168-modda"
+   ],
+   "organlar": [
+    "iiv"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "IIBga ariza; pul o'tkazmasi va yozishmalarni saqlash",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T31",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P32",
+   "nom": "O'g'irlik",
+   "soha": "jinoyat",
+   "xavf": "orange",
+   "qonunlar": [
+    "Jinoyat kodeksi 169-modda"
+   ],
+   "organlar": [
+    "iiv"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "Darhol 102 yoki IIBga ariza",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T32",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P33",
+   "nom": "Talonchilik",
+   "soha": "jinoyat",
+   "xavf": "red",
+   "qonunlar": [
+    "Jinoyat kodeksi 166-modda"
+   ],
+   "organlar": [
+    "iiv"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "Darhol 102",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T33",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P34",
+   "nom": "Bosqinchilik",
+   "soha": "jinoyat",
+   "xavf": "red",
+   "qonunlar": [
+    "Jinoyat kodeksi 164-modda"
+   ],
+   "organlar": [
+    "iiv",
+    "tez_yordam"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "Darhol 102 va 103",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T34",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P35",
+   "nom": "Qasddan badanga shikast yetkazish",
+   "soha": "zoravonlik",
+   "xavf": "red",
+   "qonunlar": [
+    "Jinoyat kodeksi 104, 105, 109-moddalar"
+   ],
+   "organlar": [
+    "iiv",
+    "tez_yordam"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "102 va 103; tibbiy ko'rikdan o'tish",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T35",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P36",
+   "nom": "Pora olish",
+   "soha": "korrupsiya",
+   "xavf": "orange",
+   "qonunlar": [
+    "Jinoyat kodeksi 210-modda"
+   ],
+   "organlar": [
+    "dxx",
+    "prokuratura"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "DXX (1520) yoki prokuratura (1007)",
+   "hali_erta": [],
+   "tekshir": [
+    "Jadvalda onlayn havola sifatida pm.gov.uz berilgan — prokuratura yoki DXX rasmiy kanali tavsiya"
+   ],
+   "shablon_id": "T36",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P37",
+   "nom": "Pora berish",
+   "soha": "korrupsiya",
+   "xavf": "orange",
+   "qonunlar": [
+    "Jinoyat kodeksi 211-modda"
+   ],
+   "organlar": [
+    "dxx",
+    "prokuratura"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "DXX yoki prokuraturaga ixtiyoriy xabar berish",
+   "hali_erta": [],
+   "tekshir": [
+    "Haqiqat ko'zgusi: foydalanuvchi o'zi pora bergan bo'lishi mumkin — ixtiyoriy xabar berish holatini yurist tekshirsin"
+   ],
+   "shablon_id": "T37",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P38",
+   "nom": "Pora olish va berishda vositachilik qilish",
+   "soha": "korrupsiya",
+   "xavf": "orange",
+   "qonunlar": [
+    "Jinoyat kodeksi 212-modda"
+   ],
+   "organlar": [
+    "dxx",
+    "prokuratura"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "DXX yoki prokuratura",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T38",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P39",
+   "nom": "Giyohvandlik vositalarini sotish, olish va o'tkazish",
+   "soha": "jinoyat",
+   "xavf": "orange",
+   "qonunlar": [
+    "Jinoyat kodeksi 270–276-moddalar"
+   ],
+   "organlar": [
+    "iiv",
+    "dxx"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "IIB (102) yoki DXX (1520)",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T39",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P40",
+   "nom": "Kiberjinoyatchilik (kompyuter tizimlariga noqonuniy kirish)",
+   "soha": "jinoyat",
+   "xavf": "orange",
+   "qonunlar": [
+    "Jinoyat kodeksi 278¹-modda"
+   ],
+   "organlar": [
+    "iiv_kiber"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "IIV kiberjinoyatlar bo'linmasiga ariza; parollarni almashtirish",
+   "hali_erta": [],
+   "tekshir": [
+    "'2781' — 278¹ deb tiklandi; 278²–278⁷ moddalarini ham ko'rib chiqish"
+   ],
+   "shablon_id": "T40",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P41",
+   "nom": "Bank kartalari orqali firibgarlik",
+   "soha": "bank_firibgarlik",
+   "xavf": "orange",
+   "qonunlar": [
+    "Jinoyat kodeksi 168, 169, 278¹-moddalar"
+   ],
+   "organlar": [
+    "bank",
+    "iiv_kiber"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "Darhol kartani bloklash va bankka xabar, keyin IIV kiberjinoyatlar bo'linmasi",
+   "hali_erta": [],
+   "tekshir": [
+    "Bank e'tiborsizligi bo'lsa zarar bank hisobidan undirilishi mumkin — yurist tekshirsin"
+   ],
+   "shablon_id": "T41",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P42",
+   "nom": "Jamoat joylarida haqoratli so'zlar ishlatish",
+   "soha": "jamoat_tartibi",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Ma'muriy javobgarlik to'g'risidagi kodeks 183-modda",
+    "Ma'muriy javobgarlik to'g'risidagi kodeks 41-modda (haqorat)"
+   ],
+   "organlar": [
+    "iiv",
+    "profilaktika_inspektori"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "IIB yoki profilaktika inspektori",
+   "hali_erta": [],
+   "tekshir": [
+    "Jadvalda 'Jinoyat kodeksi 41-modda' — haqorat MJtK 41-modda, jinoiy javobgarlik JK 140-modda; tuzatildi, tekshirilsin"
+   ],
+   "shablon_id": "T42",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P43",
+   "nom": "Jamoat joylarida alkogol mahsulotlarini iste'mol qilish",
+   "soha": "jamoat_tartibi",
+   "xavf": "green",
+   "qonunlar": [
+    "Ma'muriy javobgarlik to'g'risidagi kodeks 187-modda"
+   ],
+   "organlar": [
+    "iiv",
+    "profilaktika_inspektori"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "Profilaktika inspektori yoki IIB",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T43",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P44",
+   "nom": "Fuqarolar tinchligi va osoyishtaligini buzish",
+   "soha": "qoshnichilik",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Ma'muriy javobgarlik to'g'risidagi kodeks 192-modda"
+   ],
+   "organlar": [
+    "profilaktika_inspektori",
+    "iiv"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "Avval qo'shni bilan gaplashish, keyin profilaktika inspektori",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T44",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P45",
+   "nom": "Ro'yxatdan o'tmasdan tadbirkorlik faoliyati bilan shug'ullanish",
+   "soha": "jamoat_tartibi",
+   "xavf": "green",
+   "qonunlar": [
+    "Ma'muriy javobgarlik to'g'risidagi kodeks 176-modda"
+   ],
+   "organlar": [
+    "soliq"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "O'zini ro'yxatdan o'tkazish (o'zini o'zi band qilgan shaxs yoki YaTT) — my.gov.uz",
+   "hali_erta": [],
+   "tekshir": [
+    "Hikoyada foydalanuvchining O'ZI ro'yxatdan o'tmagan — AI unga ro'yxatdan o'tishni maslahat berishi kerak (haqiqat ko'zgusi)",
+    "Jadvalda IIB, ariza namunasida soliq organi — soliq organi qoldirildi"
+   ],
+   "shablon_id": "T45",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P46",
+   "nom": "Daraxt va butalarni noqonuniy kesish",
+   "soha": "jamoat_tartibi",
+   "xavf": "green",
+   "qonunlar": [
+    "Ma'muriy javobgarlik to'g'risidagi kodeks 79-modda"
+   ],
+   "organlar": [
+    "ekologiya",
+    "iiv"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "Ekologiya qo'mitasi hududiy boshqarmasiga",
+   "hali_erta": [],
+   "tekshir": [
+    "Jadvalda IIB, ariza namunasida ekologiya qo'mitasi — ikkalasi qoldirildi"
+   ],
+   "shablon_id": "T46",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P47",
+   "nom": "Nogironligi bo'lgan shaxslarning huquqlarini buzish",
+   "soha": "ijtimoiy_taminot",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Ma'muriy javobgarlik to'g'risidagi kodeks 51¹-modda",
+    "Nogironligi bo'lgan shaxslarning huquqlari to'g'risidagi qonun"
+   ],
+   "organlar": [
+    "ijtimoiy_himoya",
+    "prokuratura"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "Ijtimoiy himoya milliy agentligi hududiy boshqarmasiga",
+   "hali_erta": [],
+   "tekshir": [
+    "'511' — 51¹ deb tiklandi",
+    "Jadvalda IIB, ariza namunasida Ijtimoiy himoya agentligi"
+   ],
+   "shablon_id": "T47",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P48",
+   "nom": "Xodimlarni majburiy mehnatga jalb qilish",
+   "soha": "mehnat",
+   "xavf": "orange",
+   "qonunlar": [
+    "Ma'muriy javobgarlik to'g'risidagi kodeks 51-modda"
+   ],
+   "organlar": [
+    "mehnat_inspeksiyasi",
+    "prokuratura"
+   ],
+   "eskalatsiya": [
+    "bandlik_vazirligi",
+    "prokuratura",
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Davlat mehnat inspeksiyasi va prokuratura",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T48",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P49",
+   "nom": "Ish beruvchining mehnat qonunchiligini buzishi va ish haqini bermasligi",
+   "soha": "mehnat",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Ma'muriy javobgarlik to'g'risidagi kodeks 49-modda"
+   ],
+   "organlar": [
+    "mehnat_inspeksiyasi"
+   ],
+   "eskalatsiya": [
+    "bandlik_vazirligi",
+    "prokuratura",
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Barcha buzilishlarni ro'yxat qilib Davlat mehnat inspeksiyasiga bitta ariza",
+   "hali_erta": [],
+   "tekshir": [],
+   "shablon_id": "T49",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P50",
+   "nom": "Ota-onalik huquqini suiiste'mol qilish",
+   "soha": "oila",
+   "xavf": "orange",
+   "qonunlar": [
+    "Oila kodeksi (ota-onalik huquqlari) — moddalar ⚠️"
+   ],
+   "organlar": [
+    "vasiylik",
+    "prokuratura",
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "Vasiylik va homiylik organiga; bola xavf ostida bo'lsa — 102",
+   "hali_erta": [],
+   "tekshir": [
+    "Bu tur faqat ariza namunasida bor, jadvalda va hikoyalarda yo'q — moddalar va hikoya qo'shildi, Mirjalol tekshirsin"
+   ],
+   "shablon_id": "T50",
+   "manba": "do'st jadvali"
+  },
+  {
+   "id": "P51",
+   "nom": "Sifatsiz tovarni almashtirmaslik yoki pulini qaytarmaslik",
+   "soha": "istemolchi",
+   "xavf": "green",
+   "qonunlar": [
+    "Iste'molchilarning huquqlarini himoya qilish to'g'risidagi qonun"
+   ],
+   "organlar": [
+    "qarshi_taraf",
+    "raqobat_qomitasi",
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Chek va tovarni saqlash, sotuvchiga yozma talab, javob bo'lmasa iste'molchilar huquqlarini himoya qilish organiga",
+   "hali_erta": [
+    "prokuratura",
+    "virtual_qabulxona"
+   ],
+   "tekshir": [
+    "Qonun nomi berilgan, aniq modda raqamini lex.uz dan qo'shish kerak"
+   ],
+   "shablon_id": "T51",
+   "manba": "yangi"
+  },
+  {
+   "id": "P52",
+   "nom": "Internet orqali xarid qilingan tovarni yetkazmaslik yoki pulini qaytarmaslik",
+   "soha": "istemolchi",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Iste'molchilarning huquqlarini himoya qilish to'g'risidagi qonun",
+    "Elektron tijorat to'g'risidagi qonun"
+   ],
+   "organlar": [
+    "qarshi_taraf",
+    "raqobat_qomitasi",
+    "iiv"
+   ],
+   "eskalatsiya": [
+    "sud_fuqarolik"
+   ],
+   "birinchi_qadam": "To'lov cheki va yozishmalarni saqlash, sotuvchiga yozma talab; sotuvchi yo'qolib qolsa — IIB (firibgarlik)",
+   "hali_erta": [
+    "virtual_qabulxona"
+   ],
+   "tekshir": [
+    "Qonun nomi berilgan, aniq modda raqamini lex.uz dan qo'shish kerak"
+   ],
+   "shablon_id": "T52",
+   "manba": "yangi"
+  },
+  {
+   "id": "P53",
+   "nom": "Kommunal xizmatlar uchun noto'g'ri hisob-kitob",
+   "soha": "uy_joy_ijara",
+   "xavf": "green",
+   "qonunlar": [
+    "Iste'molchilarning huquqlarini himoya qilish to'g'risidagi qonun",
+    "Kommunal xizmatlardan foydalanish qoidalari"
+   ],
+   "organlar": [
+    "qarshi_taraf",
+    "raqobat_qomitasi"
+   ],
+   "eskalatsiya": [
+    "yuqori_organ",
+    "sud_fuqarolik"
+   ],
+   "birinchi_qadam": "Hisoblagich ko'rsatkichini suratga olish, xizmat ko'rsatuvchi tashkilotga yozma qayta hisob-kitob talabi",
+   "hali_erta": [
+    "prokuratura",
+    "virtual_qabulxona"
+   ],
+   "tekshir": [
+    "Qonun nomi berilgan, aniq modda raqamini lex.uz dan qo'shish kerak"
+   ],
+   "shablon_id": "T53",
+   "manba": "yangi"
+  },
+  {
+   "id": "P54",
+   "nom": "Bank kartadan pulni noto'g'ri yechishi yoki kredit shartlarini buzishi",
+   "soha": "bank_firibgarlik",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Banklar va bank faoliyati to'g'risidagi qonun",
+    "Bank xizmatlari iste'molchilarining huquqlarini himoya qilish to'g'risidagi qonun"
+   ],
+   "organlar": [
+    "bank",
+    "markaziy_bank"
+   ],
+   "eskalatsiya": [
+    "sud_fuqarolik"
+   ],
+   "birinchi_qadam": "Bankka yozma murojaat va ro'yxat raqamini olish; javob bo'lmasa — Markaziy bank",
+   "hali_erta": [
+    "prokuratura",
+    "virtual_qabulxona"
+   ],
+   "tekshir": [
+    "Qonun nomi berilgan, aniq modda raqamini lex.uz dan qo'shish kerak"
+   ],
+   "shablon_id": "T54",
+   "manba": "yangi"
+  },
+  {
+   "id": "P55",
+   "nom": "Olinmagan kredit bo'yicha qarzdor qilish",
+   "soha": "bank_firibgarlik",
+   "xavf": "orange",
+   "qonunlar": [
+    "Jinoyat kodeksi 168-modda (firibgarlik)",
+    "Banklar va bank faoliyati to'g'risidagi qonun"
+   ],
+   "organlar": [
+    "bank",
+    "iiv_kiber",
+    "markaziy_bank"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "Bankka darhol yozma murojaat, kredit tarixini olish, IIBga ariza; o'z nomiga kredit olishni taqiqlash xizmatidan foydalanish",
+   "hali_erta": [
+    "virtual_qabulxona"
+   ],
+   "tekshir": [
+    "Qonun nomi berilgan, aniq modda raqamini lex.uz dan qo'shish kerak"
+   ],
+   "shablon_id": "T55",
+   "manba": "yangi"
+  },
+  {
+   "id": "P56",
+   "nom": "Pensiyani noto'g'ri hisoblash yoki tayinlamaslik",
+   "soha": "ijtimoiy_taminot",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Fuqarolarning davlat pensiya ta'minoti to'g'risidagi qonun"
+   ],
+   "organlar": [
+    "pensiya",
+    "davlat_xizmatlari"
+   ],
+   "eskalatsiya": [
+    "yuqori_organ",
+    "sud_fuqarolik"
+   ],
+   "birinchi_qadam": "Mehnat daftarchasi va ish haqi ma'lumotnomalarini yig'ish, pensiya organiga qayta hisoblash arizasi (my.gov.uz)",
+   "hali_erta": [
+    "prokuratura",
+    "virtual_qabulxona"
+   ],
+   "tekshir": [
+    "Qonun nomi berilgan, aniq modda raqamini lex.uz dan qo'shish kerak"
+   ],
+   "shablon_id": "T56",
+   "manba": "yangi"
+  },
+  {
+   "id": "P57",
+   "nom": "Ijtimoiy nafaqa yoki moddiy yordamni asossiz rad etish",
+   "soha": "ijtimoiy_taminot",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Ijtimoiy himoya to'g'risidagi qonun",
+    "Kam ta'minlangan oilalarga ijtimoiy nafaqa tayinlash tartibi (Vazirlar Mahkamasi qarori)"
+   ],
+   "organlar": [
+    "ijtimoiy_himoya",
+    "davlat_xizmatlari"
+   ],
+   "eskalatsiya": [
+    "yuqori_organ",
+    "prokuratura"
+   ],
+   "birinchi_qadam": "Rad javobini yozma so'rash, hujjatlarni to'ldirib qayta ariza; mahalla yettiligi bilan bog'lanish",
+   "hali_erta": [
+    "virtual_qabulxona"
+   ],
+   "tekshir": [
+    "Qonun nomi berilgan, aniq modda raqamini lex.uz dan qo'shish kerak"
+   ],
+   "shablon_id": "T57",
+   "manba": "yangi"
+  },
+  {
+   "id": "P58",
+   "nom": "Davlat organining murojaatga belgilangan muddatda javob bermasligi",
+   "soha": "davlat_organlari",
+   "xavf": "green",
+   "qonunlar": [
+    "Jismoniy va yuridik shaxslarning murojaatlari to'g'risidagi qonun (javob muddati 15 kun, istisno holatda 1 oygacha)"
+   ],
+   "organlar": [
+    "yuqori_organ",
+    "prokuratura"
+   ],
+   "eskalatsiya": [
+    "virtual_qabulxona",
+    "sud_fuqarolik"
+   ],
+   "birinchi_qadam": "Murojaat raqami va sanasini aniqlash; 15 kun (yoki 1 oy) o'tgach yuqori turuvchi organga shikoyat",
+   "hali_erta": [
+    "sud_fuqarolik"
+   ],
+   "tekshir": [
+    "Qonun nomi berilgan, aniq modda raqamini lex.uz dan qo'shish kerak"
+   ],
+   "shablon_id": "T58",
+   "manba": "yangi"
+  },
+  {
+   "id": "P59",
+   "nom": "Davlat xizmatini ko'rsatishni asossiz rad etish yoki kechiktirish",
+   "soha": "davlat_organlari",
+   "xavf": "green",
+   "qonunlar": [
+    "Jismoniy va yuridik shaxslarning murojaatlari to'g'risidagi qonun (javob muddati 15 kun, istisno holatda 1 oygacha)",
+    "Davlat xizmatlarini ko'rsatish to'g'risidagi normativ hujjatlar"
+   ],
+   "organlar": [
+    "davlat_xizmatlari",
+    "yuqori_organ"
+   ],
+   "eskalatsiya": [
+    "prokuratura",
+    "virtual_qabulxona"
+   ],
+   "birinchi_qadam": "Rad javobini yozma olish, my.gov.uz orqali shikoyat yoki Davlat xizmatlari markaziga murojaat",
+   "hali_erta": [
+    "sud_fuqarolik"
+   ],
+   "tekshir": [
+    "Qonun nomi berilgan, aniq modda raqamini lex.uz dan qo'shish kerak"
+   ],
+   "shablon_id": "T59",
+   "manba": "yangi"
+  },
+  {
+   "id": "P60",
+   "nom": "Chet elda ish haqini bermaslik",
+   "soha": "chet_eldagilar",
+   "xavf": "yellow",
+   "qonunlar": [
+    "Aholini ish bilan ta'minlash to'g'risidagi qonun",
+    "Tashqi mehnat migratsiyasi to'g'risidagi normativ hujjatlar",
+    "Ish joyi joylashgan davlat qonunchiligi"
+   ],
+   "organlar": [
+    "konsullik",
+    "migratsiya_agentligi"
+   ],
+   "eskalatsiya": [
+    "yuqori_organ"
+   ],
+   "birinchi_qadam": "Ish shartnomasi, yozishmalar va ish joyi manzilini saqlash, elchixona yoki konsullikka murojaat",
+   "hali_erta": [
+    "sud_fuqarolik"
+   ],
+   "tekshir": [
+    "Qonun nomi berilgan, aniq modda raqamini lex.uz dan qo'shish kerak",
+    "Chet davlatdagi organ (mehnat inspeksiyasi, sud) shu davlat qonuniga ko'ra — AI faqat konsullikka yo'naltirsin"
+   ],
+   "shablon_id": "T60",
+   "manba": "yangi"
+  },
+  {
+   "id": "P61",
+   "nom": "Chet elda pasportni olib qo'yish yoki majburiy mehnat",
+   "soha": "chet_eldagilar",
+   "xavf": "red",
+   "qonunlar": [
+    "Odam savdosiga qarshi kurash to'g'risidagi qonun",
+    "Jinoyat kodeksi 135-modda (odam savdosi)"
+   ],
+   "organlar": [
+    "konsullik",
+    "iiv",
+    "migratsiya_agentligi"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "Xavf bo'lsa — shu davlatning politsiyasi va darhol elchixona yoki konsullik; yaqinlar O'zbekistonda IIBga murojaat qiladi",
+   "hali_erta": [],
+   "tekshir": [
+    "Qonun nomi berilgan, aniq modda raqamini lex.uz dan qo'shish kerak",
+    "Odam savdosi bo'yicha JK moddasi raqamini tekshirish"
+   ],
+   "shablon_id": "T61",
+   "manba": "yangi"
+  },
+  {
+   "id": "P62",
+   "nom": "Maktabda o'quvchiga tazyiq yoki haqorat",
+   "soha": "talim",
+   "xavf": "orange",
+   "qonunlar": [
+    "Bola huquqlarining kafolatlari to'g'risidagi qonun",
+    "Ta'lim to'g'risidagi qonun"
+   ],
+   "organlar": [
+    "talim_boshqarmasi",
+    "vasiylik"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "Maktab direktoriga yozma murojaat; javob bo'lmasa — tuman ta'lim bo'limi; jismoniy zarar bo'lsa — 102",
+   "hali_erta": [
+    "virtual_qabulxona"
+   ],
+   "tekshir": [
+    "Qonun nomi berilgan, aniq modda raqamini lex.uz dan qo'shish kerak"
+   ],
+   "shablon_id": "T62",
+   "manba": "yangi"
+  },
+  {
+   "id": "P63",
+   "nom": "Ta'lim muassasasida noqonuniy pul yig'ish",
+   "soha": "talim",
+   "xavf": "green",
+   "qonunlar": [
+    "Ta'lim to'g'risidagi qonun",
+    "Korrupsiyaga qarshi kurashish to'g'risidagi qonun"
+   ],
+   "organlar": [
+    "talim_boshqarmasi",
+    "prokuratura"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "Pul so'ralgan xabarlarni saqlash, ta'lim bo'limiga yoki prokuratura ishonch telefoniga (1007) xabar",
+   "hali_erta": [
+    "virtual_qabulxona"
+   ],
+   "tekshir": [
+    "Qonun nomi berilgan, aniq modda raqamini lex.uz dan qo'shish kerak"
+   ],
+   "shablon_id": "T63",
+   "manba": "yangi"
+  },
+  {
+   "id": "P64",
+   "nom": "Tibbiy yordam ko'rsatishni rad etish yoki noqonuniy pul talab qilish",
+   "soha": "sogliq",
+   "xavf": "orange",
+   "qonunlar": [
+    "Fuqarolar sog'lig'ini saqlash to'g'risidagi qonun"
+   ],
+   "organlar": [
+    "sogliq_boshqarmasi",
+    "prokuratura"
+   ],
+   "eskalatsiya": [
+    "prokuratura"
+   ],
+   "birinchi_qadam": "Shoshilinch holatda — 103; keyin bosh shifokorga, javob bo'lmasa hududiy sog'liqni saqlash boshqarmasiga",
+   "hali_erta": [
+    "virtual_qabulxona"
+   ],
+   "tekshir": [
+    "Qonun nomi berilgan, aniq modda raqamini lex.uz dan qo'shish kerak"
+   ],
+   "shablon_id": "T64",
+   "manba": "yangi"
+  },
+  {
+   "id": "P65",
+   "nom": "Yo'l harakati qoidasini buzganlik uchun asossiz jarima",
+   "soha": "yol_harakati",
+   "xavf": "green",
+   "qonunlar": [
+    "Ma'muriy javobgarlik to'g'risidagi kodeks (yo'l harakati bo'limi)",
+    "Ma'muriy javobgarlik to'g'risidagi kodeks (qarorlar ustidan shikoyat tartibi)"
+   ],
+   "organlar": [
+    "yhxx",
+    "sud_fuqarolik"
+   ],
+   "eskalatsiya": [
+    "sud_yuqori"
+   ],
+   "birinchi_qadam": "Jarima qarorining nusxasini olish va belgilangan muddatda yuqori turuvchi organ yoki sudga shikoyat",
+   "hali_erta": [
+    "prokuratura",
+    "virtual_qabulxona"
+   ],
+   "tekshir": [
+    "Qonun nomi berilgan, aniq modda raqamini lex.uz dan qo'shish kerak",
+    "Shikoyat muddatini (kunlarda) MJtK dan aniqlash"
+   ],
+   "shablon_id": "T65",
+   "manba": "yangi"
+  }
+ ]
+}

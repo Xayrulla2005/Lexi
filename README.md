@@ -101,8 +101,8 @@ pnpm lint          # ESLint (whole repo)
 pnpm typecheck     # builds packages, then tsc in every workspace
 pnpm test          # builds packages, then Vitest + Jest/Supertest
 pnpm build         # builds everything (incl. next build)
-pnpm import:data   # validates data/raw/*.csv
-pnpm eval:ai       # offline accuracy check on data/raw/test_cases.csv
+pnpm import:data   # validates agencies + test cases against the legal catalog
+pnpm eval:ai       # offline accuracy check on ai/eval/datasets/test_cases.csv
 pnpm format        # Prettier
 ```
 

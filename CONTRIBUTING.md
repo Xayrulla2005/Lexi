@@ -59,7 +59,7 @@ and `docs/api/openapi.yaml` in the same PR.
 | Xayrulla + Jayhun | `packages/contracts`, `packages/legal-engine`, `legal-knowledge/` |
 | Sevinchoy | `apps/web/src/content`, `apps/web/src/components/ui`, `apps/web/src/styles` |
 | Dilfuza | `apps/bot/src/texts.uz.ts`, `apps/bot/src/keyboards.ts` |
-| Mirjalol | Google Sheets → `data/raw/*.csv` (uploaded by Xayrulla or Jayhun) |
+| Mirjalol | Google Sheets → `data/agencies.csv`, `ai/eval/datasets/test_cases.csv`, `legal-knowledge/` (uploaded by Xayrulla or Jayhun) |
 
 If you need to touch someone else's files, ask the owner first.
 

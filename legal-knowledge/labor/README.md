@@ -1,7 +1,7 @@
 # Labor law (mehnat)
 
 - Domain id: `mehnat`
-- Sub-case: UNPAID_WAGES — unpaid or delayed wages
+- Catalog problem: P12 (Ish haqini o'z vaqtida to'lamaslik) — see `../catalog/problems.json`
 - Status: **empty — no documents yet. Nothing here is verified.**
 
 Add one JSON file per article following [../README.md](../README.md).

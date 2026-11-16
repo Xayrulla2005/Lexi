@@ -23,9 +23,11 @@ Applies to documents in `legal-knowledge/` and to rules/routes in
 4. **Re-verification**: when legislation changes, add a new document id for the new
    edition, mark the old one `REJECTED`, and re-review dependent routes.
 
-## Current state (2026-11-15)
+## Current state (2026-11-16)
 
-- No legal documents have been added.
-- All routes (`UNPAID_WAGES`, `NEIGHBOR_DISPUTE`, `DOMESTIC_VIOLENCE`, `EMERGENCY`,
+- Legal data catalog imported: `legal-knowledge/catalog/problems.json` (65 problem types,
+  33 agencies), templates and the reviewer checklist `legal-knowledge/TEKSHIRISH.md`.
+  Status: **DRAFT — awaiting legal review**. Source PDFs are in [pdf/](pdf/).
+- The catalog is not yet wired into the routing engine. Until then, all routes (`UNPAID_WAGES`, `NEIGHBOR_DISPUTE`, `DOMESTIC_VIOLENCE`, `EMERGENCY`,
   `FALLBACK`) are structural placeholders with status `PENDING`.
-- Agency data in `data/raw/agencies.csv` is team-collected and also unverified.
+- Agency data in `data/agencies.csv` is team-collected and also unverified.

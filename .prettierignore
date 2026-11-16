@@ -3,4 +3,10 @@ dist
 .next
 coverage
 pnpm-lock.yaml
-data/raw
+data/*.csv
+ai/eval/datasets
+legal-knowledge/catalog
+legal-knowledge/templates
+legal-knowledge/TEKSHIRISH.md
+docs/legal-sources/pdf
+tools/legal-data
