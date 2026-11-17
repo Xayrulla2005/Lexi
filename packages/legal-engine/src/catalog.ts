@@ -47,6 +47,8 @@ const AgencySource = z
     havola: z.string(),
     izoh: z.string(),
     tekshir: z.boolean(),
+    /** Optional agency response deadline in days. Only the legal reviewer fills it in. */
+    javob_muddati: z.number().int().positive().optional(),
   })
   .strict();
 
@@ -123,7 +125,7 @@ export function buildCatalog(problemsJson: unknown, reviewStatusJson: unknown): 
   const agencies = new Map<string, AgencyContact>(
     Object.entries(src.idoralar).map(([id, a]: [string, AgencySource]) => [
       id,
-      { id, name: a.nomi, phone: orNull(a.telefon), link: orNull(a.havola) },
+      { id, name: a.nomi, phone: orNull(a.telefon), link: orNull(a.havola), responseDays: a.javob_muddati ?? null },
     ]),
   );
   const agency = (id: string, where: string): AgencyContact => {

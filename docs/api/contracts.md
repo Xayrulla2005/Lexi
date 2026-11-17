@@ -78,7 +78,7 @@ Built from `legal-knowledge/catalog/problems.json`; every text, phone and law is
 | `reviewNotice` | `string \| null` | User-facing warning; `null` only for VERIFIED |
 | `requiresHumanReview` | `boolean` | True unless the route is VERIFIED and the analysis is confident |
 
-`deadlineDays` must stay `null` unless backed by a VERIFIED source. `AgencyContact.phone` and `link` are catalog strings (`link` may be an app name, not a URL).
+`deadlineDays` must stay `null` unless backed by a VERIFIED source. `AgencyContact.phone` and `link` are catalog strings (`link` may be an app name, not a URL). `AgencyContact.responseDays` is the optional catalog `javob_muddati` (days); `null` means not set, and the simulator then uses `SIM_RESPONSE_DAYS` (default 15).
 
 ## Case
 

@@ -83,6 +83,18 @@ describe("loadCatalog", () => {
     expect(() => buildCatalog(rawProblems, review)).toThrow(/no status for route "P05"/);
   });
 
+  it("reads the optional agency javob_muddati (null when absent)", () => {
+    const withDays = clone(rawProblems) as RawCatalog & { idoralar: Record<string, Record<string, unknown>> };
+    withDays.idoralar.mehnat_inspeksiyasi!.javob_muddati = 10;
+    const p12 = buildCatalog(withDays, rawReview).routes.find((r) => r.id === "P12")!;
+    expect(p12.agencies.find((a) => a.id === "mehnat_inspeksiyasi")?.responseDays).toBe(10);
+    expect(p12.agencies.find((a) => a.id === "sud_fuqarolik")?.responseDays).toBeNull();
+
+    const bad = clone(rawProblems) as RawCatalog & { idoralar: Record<string, Record<string, unknown>> };
+    bad.idoralar.mehnat_inspeksiyasi!.javob_muddati = 0;
+    expect(() => buildCatalog(bad, rawReview)).toThrow(/idoralar\.mehnat_inspeksiyasi\.javob_muddati/);
+  });
+
   it("fails on a schema error", () => {
     const bad = clone(rawProblems);
     (bad.muammolar[0] as unknown as Record<string, unknown>).xavf = "CRITICAL";

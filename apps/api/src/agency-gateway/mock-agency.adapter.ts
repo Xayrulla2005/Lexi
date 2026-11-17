@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   ConflictException,
+  Inject,
   Injectable,
   Logger,
   NotFoundException,
@@ -12,6 +13,7 @@ import { z } from "zod";
 import { AgencySubmission, SubmissionPackage, type SimClock, type SubmissionStatus } from "@lex/contracts";
 import { JsonStore } from "../common/json-store";
 import { runtimeFile } from "../common/paths";
+import { LegalRoutingService } from "../legal-routing/legal-routing.service";
 import type { AgencyGateway, StatusListener } from "./agency-gateway";
 import { ADVANCE_DAYS, loadSimConfig, type SimConfig } from "./sim-config";
 
@@ -41,6 +43,8 @@ const StoredSubmission = z.object({
   pkg: SubmissionPackage,
   /** Simulated days added with the cabinet button. */
   shiftDays: z.number().nonnegative().default(0),
+  /** Deadline fixed at submission: catalog `javob_muddati` of the agency, else SIM_RESPONSE_DAYS. */
+  responseDays: z.number().positive().nullable().default(null),
 });
 type StoredSubmission = z.infer<typeof StoredSubmission>;
 
@@ -62,6 +66,13 @@ export class MockAgencyAdapter implements AgencyGateway, OnModuleInit, OnModuleD
   private readonly listeners: StatusListener[] = [];
   private readonly config: SimConfig = loadSimConfig();
   private timer: NodeJS.Timeout | null = null;
+
+  constructor(@Inject(LegalRoutingService) private readonly routing: LegalRoutingService) {}
+
+  /** Agency deadline from the catalog (`javob_muddati`), else the simulator default. */
+  responseDaysFor(agencyId: string): number {
+    return this.routing.agencies().find((a) => a.id === agencyId)?.responseDays ?? this.config.responseDays;
+  }
 
   onModuleInit(): void {
     const { msPerDay } = this.config;
@@ -106,7 +117,7 @@ export class MockAgencyAdapter implements AgencyGateway, OnModuleInit, OnModuleD
       history: [{ status: "SUBMITTED", at }],
       response: null,
     };
-    const stored: StoredSubmission = { submission, pkg, shiftDays: 0 };
+    const stored: StoredSubmission = { submission, pkg, shiftDays: 0, responseDays: this.responseDaysFor(pkg.agencyId) };
     this.store.set(submission.id, stored);
     await this.store.persist("gateway.submit");
     return this.view(stored);
@@ -176,7 +187,7 @@ export class MockAgencyAdapter implements AgencyGateway, OnModuleInit, OnModuleD
   /** Marks open submissions whose simulated days reached the deadline as OVERDUE. Idempotent. */
   checkDeadlines(now: number = Date.now()): void {
     for (const s of this.store.values()) {
-      if (OPEN.has(s.submission.status) && this.elapsedDays(s, now) >= this.config.responseDays) {
+      if (OPEN.has(s.submission.status) && this.elapsedDays(s, now) >= this.deadlineDays(s)) {
         this.transition(s, "OVERDUE");
       }
     }
@@ -188,8 +199,14 @@ export class MockAgencyAdapter implements AgencyGateway, OnModuleInit, OnModuleD
     return realDays + s.shiftDays;
   }
 
+  /** Stored per submission; older records without it use the current default. */
+  private deadlineDays(s: StoredSubmission): number {
+    return s.responseDays ?? this.config.responseDays;
+  }
+
   private view(s: StoredSubmission): AgencySubmission {
-    const { msPerDay, responseDays } = this.config;
+    const { msPerDay } = this.config;
+    const responseDays = this.deadlineDays(s);
     const dueAt =
       msPerDay === null
         ? null

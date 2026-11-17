@@ -37,3 +37,8 @@ Do'stingiz yuborgan 3 ta PDF (muammolar jadvali, hikoyalar, ariza namunalari) as
 - **Kodga ulashda yangilanishi kerak bo'lgan joylar:**
   - `Category` ro'yxatiga 4 ta yangi soha qo'shilsin: `fuqarolik_nizo`, `jinoyat`, `korrupsiya`, `jamoat_tartibi`.
   - Import skriptidagi test id formati (`T01`) bu yerdagi `P01_A1` ga moslashtirilsin.
+
+## Idoralar: ixtiyoriy `javob_muddati`
+
+`idoralar.<id>.javob_muddati` — idoraning javob berish muddati (kunda, butun musbat son). Maydon ixtiyoriy va hozir hech bir idorada to'ldirilmagan. Uni faqat yurist, manbasi tekshirilgandan keyin qo'shadi. Maydon bo'lmasa, simulyator `SIM_RESPONSE_DAYS` qiymatini ishlatadi (standart 15). Ariza yuborilgan paytdagi muddat ariza bilan birga saqlanadi.
+

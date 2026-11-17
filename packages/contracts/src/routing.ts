@@ -31,6 +31,12 @@ export const AgencyContact = z.object({
   phone: z.string().min(1).nullable(),
   /** URL or app name exactly as in the catalog (not always a URL); null when none. */
   link: z.string().min(1).nullable(),
+  /**
+   * Agency-specific response deadline in days (catalog `javob_muddati`, optional).
+   * null = not set in the catalog; the simulator then uses SIM_RESPONSE_DAYS (default 15).
+   * Defaults to null so data stored before this field existed still parses.
+   */
+  responseDays: z.number().int().positive().nullable().default(null),
 });
 export type AgencyContact = z.infer<typeof AgencyContact>;
 
