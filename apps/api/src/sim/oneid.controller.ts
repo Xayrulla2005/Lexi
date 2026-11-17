@@ -14,7 +14,7 @@ export class OneIdSimulatorController {
   }
 
   @Post("login")
-  login(@Body(new ZodValidationPipe(SimLoginRequest)) body: SimLoginRequest): SimSession {
+  login(@Body(new ZodValidationPipe(SimLoginRequest)) body: SimLoginRequest): Promise<SimSession> {
     return this.oneId.login(body.citizenId);
   }
 

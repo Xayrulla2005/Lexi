@@ -1,7 +1,8 @@
 import { NotFoundException } from "@nestjs/common";
-import { readFileSync } from "node:fs";
+import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { REPO_ROOT } from "../common/paths";
+import { OperationTimeoutError, withTimeout } from "../common/timeout";
 
 const TEMPLATES_DIR = join(REPO_ROOT, "legal-knowledge/templates");
 const PLACEHOLDER = /\{\{([a-z0-9_]+)\}\}/g;
@@ -9,12 +10,13 @@ const PLACEHOLDER = /\{\{([a-z0-9_]+)\}\}/g;
 const LEADING_COMMENT = /^\s*<!--[\s\S]*?-->\s*\n?/;
 
 /** Reads legal-knowledge/templates/<id>.md. The text is returned unchanged except for the leading comment. */
-export function loadTemplate(templateId: string): string {
+export async function loadTemplate(templateId: string): Promise<string> {
   if (!/^T\d{2}$/.test(templateId)) throw new NotFoundException(`Unknown template ${templateId}`);
   let raw: string;
   try {
-    raw = readFileSync(join(TEMPLATES_DIR, `${templateId}.md`), "utf8");
-  } catch {
+    raw = await withTimeout(readFile(join(TEMPLATES_DIR, `${templateId}.md`), "utf8"), `template:${templateId}`);
+  } catch (e) {
+    if (e instanceof OperationTimeoutError) throw e;
     throw new NotFoundException(`Template ${templateId} not found`);
   }
   return raw.replace(/\r\n/g, "\n").replace(LEADING_COMMENT, "");

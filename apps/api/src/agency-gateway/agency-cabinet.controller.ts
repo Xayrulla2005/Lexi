@@ -45,7 +45,7 @@ export class AgencyCabinetController {
       citizen: pkg.citizen,
       consentAt: pkg.consentAt,
       signature: pkg.signature,
-      signatureCheck: this.eri.verify(Buffer.from(pkg.pdfBase64, "base64"), pkg.signature),
+      signatureCheck: await this.eri.verify(Buffer.from(pkg.pdfBase64, "base64"), pkg.signature),
     };
   }
 

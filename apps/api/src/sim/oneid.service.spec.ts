@@ -13,8 +13,8 @@ describe("OneIdSimulatorService (SIMULATOR)", () => {
     }
   });
 
-  it("logs in and resolves the session by token", () => {
-    const s = oneId.login("test_fuqaro_1");
+  it("logs in and resolves the session by token", async () => {
+    const s = await oneId.login("test_fuqaro_1");
     expect(oneId.session(s.token).citizen.fio).toBe(s.citizen.fio);
   });
 

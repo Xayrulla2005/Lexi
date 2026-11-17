@@ -8,8 +8,10 @@ export class CasesController {
   constructor(@Inject(CasesService) private readonly cases: CasesService) {}
 
   @Post()
-  create(@Body(new ZodValidationPipe(CreateCaseRequest)) body: CreateCaseRequest): Case {
-    return this.cases.create(body.channel, body.userId ?? null);
+  async create(@Body(new ZodValidationPipe(CreateCaseRequest)) body: CreateCaseRequest): Promise<Case> {
+    const c = this.cases.create(body.channel, body.userId ?? null);
+    await this.cases.persist("case.create");
+    return c;
   }
 
   @Get(":id")
@@ -18,17 +20,21 @@ export class CasesController {
   }
 
   @Post(":id/messages")
-  addMessage(
+  async addMessage(
     @Param("id", ParseUUIDPipe) id: string,
     @Body(new ZodValidationPipe(AddMessageRequest)) body: AddMessageRequest,
-  ): CaseMessage {
+  ): Promise<CaseMessage> {
     // TODO(Xayrulla+Jayhun): voice input -> SpeechToTextProvider (ai/models) -> text
-    return this.cases.addMessage(id, body.text);
+    const msg = this.cases.addMessage(id, body.text);
+    await this.cases.persist("case.message");
+    return msg;
   }
 
   @Post(":id/analyze")
   @HttpCode(200)
-  analyze(@Param("id", ParseUUIDPipe) id: string): Promise<Case> {
-    return this.cases.analyze(id);
+  async analyze(@Param("id", ParseUUIDPipe) id: string): Promise<Case> {
+    const c = await this.cases.analyze(id);
+    await this.cases.persist("case.analyze");
+    return c;
   }
 }

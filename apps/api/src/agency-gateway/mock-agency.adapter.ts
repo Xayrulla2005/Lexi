@@ -85,6 +85,7 @@ export class MockAgencyAdapter implements AgencyGateway, OnModuleInit, OnModuleD
       response: null,
     };
     this.store.set(submission.id, { submission, pkg });
+    await this.store.persist("gateway.submit");
     return { ...submission };
   }
 
@@ -110,13 +111,17 @@ export class MockAgencyAdapter implements AgencyGateway, OnModuleInit, OnModuleD
       throw new ConflictException(`Submission is ${s.submission.status}`);
     }
     const at = new Date().toISOString();
-    return this.transition(s, "ANSWERED", { response: { text, respondedAt: at } });
+    const out = this.transition(s, "ANSWERED", { response: { text, respondedAt: at } });
+    await this.store.persist("gateway.respond");
+    return out;
   }
 
   async markEscalated(id: string): Promise<AgencySubmission> {
     const s = this.stored(id);
     if (s.submission.status !== "OVERDUE") throw new ConflictException(`Only OVERDUE submissions can be escalated`);
-    return this.transition(s, "ESCALATED");
+    const out = this.transition(s, "ESCALATED");
+    await this.store.persist("gateway.escalate");
+    return out;
   }
 
   /** SIMULATOR cabinet: "Qabul qilish" (RECEIVED) and "Ko'rib chiqilmoqda" (IN_REVIEW). */
@@ -126,7 +131,9 @@ export class MockAgencyAdapter implements AgencyGateway, OnModuleInit, OnModuleD
     if (!ALLOWED_FROM[status].has(s.submission.status)) {
       throw new BadRequestException(`Cannot go from ${s.submission.status} to ${status}`);
     }
-    return this.transition(s, status);
+    const out = this.transition(s, status);
+    await this.store.persist("gateway.status");
+    return out;
   }
 
   /** SIMULATOR cabinet: the full package (incl. PDF bytes). */

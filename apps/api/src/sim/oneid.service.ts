@@ -33,9 +33,11 @@ export class OneIdSimulatorService {
     return c;
   }
 
-  login(citizenId: string): SimSession {
+  async login(citizenId: string): Promise<SimSession> {
     const session: SimSession = { token: randomUUID(), citizen: this.citizen(citizenId), createdAt: new Date().toISOString() };
-    return this.sessions.set(session.token, session);
+    this.sessions.set(session.token, session);
+    await this.sessions.persist("oneid.login");
+    return session;
   }
 
   /** Resolves the session from the x-sim-session header value. */

@@ -26,14 +26,37 @@ function headers(): Record<string, string> {
 
 type Method = "GET" | "POST" | "PATCH";
 
+/** The browser never waits longer than this for one request; the server bounds each step at 5 s. */
+const REQUEST_TIMEOUT_MS = 15_000;
+
+/** Thrown for failed or timed-out requests; the UI shows "Qayta urinib ko'ring". */
+export class ApiError extends Error {
+  constructor(
+    readonly path: string,
+    readonly status: number | null,
+  ) {
+    super(`${path}: ${status ?? "timeout"}`);
+  }
+}
+
 async function request(path: string, method: Method, body?: unknown): Promise<Response> {
-  const res = await fetch(`${API}${path}`, {
-    method,
-    headers: headers(),
-    body: body === undefined ? undefined : JSON.stringify(body),
-    cache: "no-store",
-  });
-  if (!res.ok) throw new Error(`${path}: ${res.status}`);
+  const abort = new AbortController();
+  const timer = setTimeout(() => abort.abort(), REQUEST_TIMEOUT_MS);
+  let res: Response;
+  try {
+    res = await fetch(`${API}${path}`, {
+      method,
+      headers: headers(),
+      body: body === undefined ? undefined : JSON.stringify(body),
+      cache: "no-store",
+      signal: abort.signal,
+    });
+  } catch {
+    throw new ApiError(path, null);
+  } finally {
+    clearTimeout(timer);
+  }
+  if (!res.ok) throw new ApiError(path, res.status);
   return res;
 }
 

@@ -4,6 +4,7 @@ import {
   ForbiddenException,
   Inject,
   Injectable,
+  Logger,
   NotFoundException,
 } from "@nestjs/common";
 import { randomUUID } from "node:crypto";
@@ -18,6 +19,7 @@ import {
 import { CasesService } from "../cases/cases.service";
 import { JsonStore } from "../common/json-store";
 import { runtimeFile } from "../common/paths";
+import { StepTimer, withTimeout } from "../common/timeout";
 import { renderApplicationPdf } from "./pdf";
 import { fieldKeys, fillTemplate, loadTemplate } from "./template";
 
@@ -54,12 +56,13 @@ interface CreateParams {
  */
 @Injectable()
 export class ApplicationsService {
+  private readonly logger = new Logger(ApplicationsService.name);
   private readonly store = new JsonStore<StoredApplication>(runtimeFile("applications.json"), StoredApplication);
 
   constructor(@Inject(CasesService) private readonly cases: CasesService) {}
 
   /** Returns the open primary draft for this case and citizen, or creates one. */
-  createForCase(caseId: string, citizen: SimCitizen): Application {
+  async createForCase(caseId: string, citizen: SimCitizen): Promise<Application> {
     const d = this.cases.get(caseId).routingDecision;
     if (!d || d.routeType !== "RULE_BASED" || !d.templateId || !d.agencyId) {
       throw new BadRequestException("This case has no catalog route with an application template");
@@ -75,10 +78,15 @@ export class ApplicationsService {
   }
 
   /** Draft of the same application for another agency (escalation). Never submitted automatically. */
-  createEscalationDraft(source: Application, agency: AgencyContact, parentSubmissionId: string, citizen: SimCitizen): Application {
+  async createEscalationDraft(
+    source: Application,
+    agency: AgencyContact,
+    parentSubmissionId: string,
+    citizen: SimCitizen,
+  ): Promise<Application> {
     const existing = this.store.values().find((a) => a.parentSubmissionId === parentSubmissionId);
     if (existing) return this.view(existing);
-    const draft = this.create({
+    const draft = await this.create({
       caseId: source.caseId,
       kind: "ESCALATION",
       parentSubmissionId,
@@ -145,20 +153,41 @@ export class ApplicationsService {
   async pdf(id: string): Promise<Buffer> {
     const app = this.stored(id);
     if (app.signedPdfBase64) return Buffer.from(app.signedPdfBase64, "base64");
-    return renderApplicationPdf(this.text(app));
+    return withTimeout(renderApplicationPdf(this.text(app)), "pdf.render");
+  }
+
+  /** Waits until all application changes are on disk (bounded by the operation timeout). */
+  persist(operation = "applications.persist"): Promise<void> {
+    return this.store.persist(operation);
   }
 
   /**
    * Renders the final PDF and signs it with the (simulated) ERI.
    * Requires every field and a stored consent; the exact signed bytes are frozen.
    */
-  async sign(id: string, citizenId: string, eri: { sign(citizenId: string, pdf: Buffer): EriSignature }): Promise<Application> {
-    const app = this.owned(id, citizenId);
-    this.assertEditable(app);
-    if (app.missingFields.length) throw new BadRequestException(`Fill in the fields first: ${app.missingFields.join(", ")}`);
-    if (!app.consentAt) throw new BadRequestException("Consent is required before signing");
-    const pdf = await renderApplicationPdf(this.text(app));
-    return this.attachSignature(id, pdf, eri.sign(citizenId, pdf));
+  async sign(
+    id: string,
+    citizenId: string,
+    eri: { sign(citizenId: string, pdf: Buffer): Promise<EriSignature> },
+  ): Promise<Application> {
+    const timer = new StepTimer(`sign ${id.slice(0, 8)}`, this.logger);
+    let outcome = "ok";
+    try {
+      const app = await timer.step("load", () => this.owned(id, citizenId));
+      this.assertEditable(app);
+      if (app.missingFields.length) throw new BadRequestException(`Fill in the fields first: ${app.missingFields.join(", ")}`);
+      if (!app.consentAt) throw new BadRequestException("Consent is required before signing");
+      const pdf = await timer.step("pdf", () => renderApplicationPdf(this.text(app)));
+      const signature = await timer.step("eri", () => eri.sign(citizenId, pdf));
+      const signed = await timer.step("save", () => this.attachSignature(id, pdf, signature));
+      await timer.step("persist", () => this.persist("sign.persist"));
+      return signed;
+    } catch (e) {
+      outcome = (e as Error).message;
+      throw e;
+    } finally {
+      timer.done(outcome);
+    }
   }
 
   /** Called by the e-signature step: freezes the PDF bytes together with the signature. */
@@ -177,8 +206,8 @@ export class ApplicationsService {
     return this.view(app);
   }
 
-  private create(p: CreateParams): Application {
-    const template = loadTemplate(p.templateId);
+  private async create(p: CreateParams): Promise<Application> {
+    const template = await loadTemplate(p.templateId);
     const fields = fieldKeys(template).map((key): ApplicationField => {
       const oneId = ONEID_FIELDS[key];
       if (oneId) return { key, value: oneId(p.citizen), source: "ONEID" };

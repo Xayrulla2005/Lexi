@@ -21,8 +21,10 @@ export class ApplicationsController {
   ) {}
 
   @Post("cases/:id/application")
-  create(@Param("id", ParseUUIDPipe) caseId: string, @Headers(SIM_SESSION_HEADER) token?: string): Application {
-    return this.apps.createForCase(caseId, this.oneId.session(token).citizen);
+  async create(@Param("id", ParseUUIDPipe) caseId: string, @Headers(SIM_SESSION_HEADER) token?: string): Promise<Application> {
+    const app = await this.apps.createForCase(caseId, this.oneId.session(token).citizen);
+    await this.apps.persist("application.create");
+    return app;
   }
 
   @Get("applications")
@@ -36,22 +38,26 @@ export class ApplicationsController {
   }
 
   @Patch("applications/:id/fields")
-  update(
+  async update(
     @Param("id", ParseUUIDPipe) id: string,
     @Body(new ZodValidationPipe(UpdateApplicationFieldsRequest)) body: UpdateApplicationFieldsRequest,
     @Headers(SIM_SESSION_HEADER) token?: string,
-  ): Application {
-    return this.apps.updateFields(id, this.oneId.session(token).citizen.id, body.values);
+  ): Promise<Application> {
+    const app = this.apps.updateFields(id, this.oneId.session(token).citizen.id, body.values);
+    await this.apps.persist("application.fields");
+    return app;
   }
 
   /** Body must be `{ consent: true }`; the server stores the consent time. */
   @Post("applications/:id/consent")
-  consent(
+  async consent(
     @Param("id", ParseUUIDPipe) id: string,
     @Body(new ZodValidationPipe(ConsentRequest)) _body: ConsentRequest,
     @Headers(SIM_SESSION_HEADER) token?: string,
-  ): Application {
-    return this.apps.consent(id, this.oneId.session(token).citizen.id);
+  ): Promise<Application> {
+    const app = this.apps.consent(id, this.oneId.session(token).citizen.id);
+    await this.apps.persist("application.consent");
+    return app;
   }
 
   /** SIMULATED ERI: signs the SHA-256 of the final PDF with the test citizen's Ed25519 key. */

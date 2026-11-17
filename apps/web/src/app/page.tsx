@@ -21,6 +21,7 @@ export default function ChatPage() {
   const [session, setSession] = useState<SimSession | null>(null);
   const [application, setApplication] = useState<Application | null>(null);
   const [needLogin, setNeedLogin] = useState(false);
+  const [failed, setFailed] = useState(false);
 
   useEffect(() => setSession(loadSession()), []);
 
@@ -30,8 +31,11 @@ export default function ChatPage() {
     setTracked([]);
     setApplication(null);
     setNeedLogin(false);
+    setFailed(false);
     try {
       setResult(await api.ask(text));
+    } catch {
+      setFailed(true);
     } finally {
       setBusy(false);
     }
@@ -49,7 +53,12 @@ export default function ChatPage() {
       setNeedLogin(true);
       return;
     }
-    setApplication(await api.createApplication(result.id));
+    setFailed(false);
+    try {
+      setApplication(await api.createApplication(result.id));
+    } catch {
+      setFailed(true);
+    }
   }
 
   async function sendApplication(app: Application) {
@@ -92,6 +101,7 @@ export default function ChatPage() {
         <div style={{ marginTop: 12 }}>
           <Button onClick={onSend} disabled={busy}>{busy ? texts.thinking : texts.send}</Button>
         </div>
+        {failed && <p style={{ color: "var(--red)", fontWeight: 600 }}>⚠ {texts.application.retry}</p>}
       </Card>
 
       {result?.analysis && decision && (

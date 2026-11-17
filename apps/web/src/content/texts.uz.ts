@@ -41,6 +41,7 @@ export const texts = {
     openPdf: "PDF ko'rinishini ochish",
     close: "Yopish",
     needLogin: "Arizani yuborish uchun avval kiring:",
+    retry: "Qayta urinib ko'ring",
     loggedInAs: "Kirgan:",
   },
   eri: {

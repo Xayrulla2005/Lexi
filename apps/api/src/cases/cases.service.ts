@@ -67,6 +67,11 @@ export class CasesService {
     return c;
   }
 
+  /** Waits until all case changes are on disk (bounded by the operation timeout). */
+  persist(operation = "cases.persist"): Promise<void> {
+    return this.cases.persist(operation);
+  }
+
   setStatus(id: string, status: CaseStatus): void {
     const c = this.get(id);
     c.status = status;

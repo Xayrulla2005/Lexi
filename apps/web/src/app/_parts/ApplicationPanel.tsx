@@ -21,6 +21,7 @@ export function ApplicationPanel({ application: app, onChange, onSend }: Props) 
   const manual = app.fields.filter((f) => f.source === "MANUAL");
   const [draft, setDraft] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
+  const [failed, setFailed] = useState(false);
   const locked = app.signature !== null || app.submissionId !== null;
 
   useEffect(() => {
@@ -30,9 +31,13 @@ export function ApplicationPanel({ application: app, onChange, onSend }: Props) 
 
   async function run(action: () => Promise<Application | void>) {
     setBusy(true);
+    setFailed(false);
     try {
       const next = await action();
       if (next) onChange(next);
+    } catch {
+      // Timeout or server error: never wait forever, let the user retry.
+      setFailed(true);
     } finally {
       setBusy(false);
     }
@@ -118,6 +123,7 @@ export function ApplicationPanel({ application: app, onChange, onSend }: Props) 
         )}
       </div>
 
+      {failed && <p style={{ color: "var(--red)", fontWeight: 600 }}>⚠ {texts.application.retry}</p>}
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 12 }}>
         <Button
           onClick={() => run(() => onSend(app))}
