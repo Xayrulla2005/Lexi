@@ -1,43 +1,43 @@
 {
-  "generatedAt": "2026-11-17T09:49:43.598Z",
+  "generatedAt": "2026-11-17T10:16:47.397Z",
   "k": 5,
   "model": "local:Xenova/bge-m3:q8:cls",
-  "chunks": 116,
+  "chunks": 120,
   "stories": 261,
-  "evaluated": 205,
-  "excluded": 56,
+  "evaluated": 213,
+  "excluded": 48,
   "modes": {
     "dense": {
       "recall": {
         "JAMI": {
-          "n": 205,
-          "hit": 124,
-          "recall": 60.5
+          "n": 213,
+          "hit": 131,
+          "recall": 61.5
         },
         "rasmiy": {
-          "n": 52,
-          "hit": 37,
-          "recall": 71.2
+          "n": 54,
+          "hit": 39,
+          "recall": 72.2
         },
         "qisqa": {
-          "n": 51,
+          "n": 53,
           "hit": 28,
-          "recall": 54.9
+          "recall": 52.8
         },
         "sheva": {
-          "n": 51,
-          "hit": 30,
-          "recall": 58.8
+          "n": 53,
+          "hit": 33,
+          "recall": 62.3
         },
         "aralash": {
-          "n": 26,
-          "hit": 10,
-          "recall": 38.5
+          "n": 27,
+          "hit": 12,
+          "recall": 44.4
         },
         "kirill": {
-          "n": 25,
+          "n": 26,
           "hit": 19,
-          "recall": 76
+          "recall": 73.1
         }
       },
       "misses": [
@@ -47,10 +47,10 @@
           "problemId": "P02",
           "top": [
             "fuqarolik_kodeksi/389",
+            "murojaatlar_qonuni/31",
             "mehnat_kodeksi/408",
             "fuqarolik_kodeksi/735",
-            "mehnat_kodeksi/161",
-            "mehnat_kodeksi/253"
+            "mehnat_kodeksi/161"
           ]
         },
         {
@@ -96,9 +96,9 @@
           "top": [
             "mehnat_kodeksi/269",
             "fuqarolik_kodeksi/14",
+            "murojaatlar_qonuni/24",
             "mehnat_kodeksi/189",
-            "mehnat_kodeksi/355",
-            "mamuriy_javobgarlik_kodeksi/51¹"
+            "mehnat_kodeksi/355"
           ]
         },
         {
@@ -108,9 +108,9 @@
           "top": [
             "fuqarolik_kodeksi/14",
             "mehnat_kodeksi/269",
-            "fuqarolik_kodeksi/1023",
-            "oila_kodeksi/76",
-            "fuqarolik_kodeksi/735"
+            "murojaatlar_qonuni/24",
+            "murojaatlar_qonuni/31",
+            "fuqarolik_kodeksi/1023"
           ]
         },
         {
@@ -142,11 +142,11 @@
           "style": "rasmiy",
           "problemId": "P36",
           "top": [
-            "mehnat_kodeksi/333",
-            "fuqarolik_kodeksi/14",
-            "mehnat_kodeksi/253",
-            "mehnat_kodeksi/355",
-            "mamuriy_javobgarlik_kodeksi/41"
+            "murojaatlar_qonuni/31",
+            "murojaatlar_qonuni/24",
+            "murojaatlar_qonuni/28",
+            "murojaatlar_qonuni/24",
+            "mehnat_kodeksi/333"
           ]
         },
         {
@@ -179,9 +179,9 @@
           "problemId": "P49",
           "top": [
             "mehnat_kodeksi/253",
+            "mehnat_kodeksi/333",
             "mehnat_kodeksi/223",
             "mehnat_kodeksi/356",
-            "mehnat_kodeksi/333",
             "mehnat_kodeksi/269"
           ]
         },
@@ -194,7 +194,7 @@
             "mehnat_kodeksi/189",
             "mehnat_kodeksi/189",
             "mehnat_kodeksi/253",
-            "mehnat_kodeksi/333"
+            "mehnat_kodeksi/4"
           ]
         },
         {
@@ -205,8 +205,8 @@
             "fuqarolik_kodeksi/735",
             "fuqarolik_kodeksi/324",
             "fuqarolik_kodeksi/14",
-            "fuqarolik_kodeksi/1026",
-            "fuqarolik_kodeksi/1023"
+            "fuqarolik_kodeksi/1023",
+            "fuqarolik_kodeksi/1026"
           ]
         },
         {
@@ -227,10 +227,10 @@
           "problemId": "P01",
           "top": [
             "fuqarolik_kodeksi/14",
+            "fuqarolik_kodeksi/1026",
             "jinoyat_kodeksi/169",
-            "mamuriy_javobgarlik_kodeksi/79",
-            "mamuriy_javobgarlik_kodeksi/79",
-            "jinoyat_kodeksi/212"
+            "jinoyat_kodeksi/211",
+            "fuqarolik_kodeksi/324"
           ]
         },
         {
@@ -238,11 +238,11 @@
           "style": "qisqa",
           "problemId": "P02",
           "top": [
+            "murojaatlar_qonuni/31",
             "fuqarolik_kodeksi/389",
             "fuqarolik_kodeksi/735",
-            "mehnat_kodeksi/333",
             "mehnat_kodeksi/161",
-            "mehnat_kodeksi/161"
+            "mehnat_kodeksi/333"
           ]
         },
         {
@@ -252,9 +252,9 @@
           "top": [
             "fuqarolik_kodeksi/735",
             "oila_kodeksi/40",
+            "murojaatlar_qonuni/31",
             "mehnat_kodeksi/333",
-            "jinoyat_kodeksi/166",
-            "fuqarolik_kodeksi/389"
+            "jinoyat_kodeksi/166"
           ]
         },
         {
@@ -263,10 +263,10 @@
           "problemId": "P02",
           "top": [
             "mehnat_kodeksi/333",
+            "murojaatlar_qonuni/31",
             "fuqarolik_kodeksi/324",
             "fuqarolik_kodeksi/389",
-            "mamuriy_javobgarlik_kodeksi/47⁴",
-            "fuqarolik_kodeksi/14"
+            "murojaatlar_qonuni/28"
           ]
         },
         {
@@ -290,7 +290,7 @@
             "oila_kodeksi/66",
             "mehnat_kodeksi/269",
             "oila_kodeksi/40",
-            "oila_kodeksi/75"
+            "oila_kodeksi/96"
           ]
         },
         {
@@ -302,7 +302,7 @@
             "jinoyat_kodeksi/126¹",
             "jinoyat_kodeksi/126¹",
             "jinoyat_kodeksi/126¹",
-            "mamuriy_javobgarlik_kodeksi/59²"
+            "jinoyat_kodeksi/271"
           ]
         },
         {
@@ -314,7 +314,7 @@
             "fuqarolik_kodeksi/1026",
             "fuqarolik_kodeksi/324",
             "fuqarolik_kodeksi/14",
-            "mehnat_kodeksi/333"
+            "fuqarolik_kodeksi/1023"
           ]
         },
         {
@@ -323,8 +323,8 @@
           "problemId": "P04",
           "top": [
             "fuqarolik_kodeksi/14",
-            "fuqarolik_kodeksi/1026",
             "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/1026",
             "jinoyat_kodeksi/273",
             "jinoyat_kodeksi/210"
           ]
@@ -335,10 +335,10 @@
           "problemId": "P06",
           "top": [
             "jinoyat_kodeksi/126¹",
-            "mamuriy_javobgarlik_kodeksi/59²",
+            "jinoyat_kodeksi/166",
             "jinoyat_kodeksi/126¹",
-            "jinoyat_kodeksi/122",
-            "jinoyat_kodeksi/166"
+            "mamuriy_javobgarlik_kodeksi/59²",
+            "jinoyat_kodeksi/122"
           ]
         },
         {
@@ -350,7 +350,7 @@
             "oila_kodeksi/75",
             "oila_kodeksi/76",
             "jinoyat_kodeksi/126¹",
-            "mamuriy_javobgarlik_kodeksi/47³"
+            "mehnat_kodeksi/396"
           ]
         },
         {
@@ -358,11 +358,11 @@
           "style": "qisqa",
           "problemId": "P09",
           "top": [
-            "oila_kodeksi/28",
             "oila_kodeksi/27",
+            "oila_kodeksi/25",
+            "oila_kodeksi/28",
             "oila_kodeksi/26",
-            "oila_kodeksi/24",
-            "oila_kodeksi/25"
+            "oila_kodeksi/24"
           ]
         },
         {
@@ -372,21 +372,9 @@
           "top": [
             "oila_kodeksi/24",
             "oila_kodeksi/96",
-            "fuqarolik_kodeksi/1023",
-            "mehnat_kodeksi/337",
-            "mamuriy_javobgarlik_kodeksi/183"
-          ]
-        },
-        {
-          "id": "P09_V3",
-          "style": "aralash",
-          "problemId": "P09",
-          "top": [
-            "oila_kodeksi/96",
-            "oila_kodeksi/75",
             "mamuriy_javobgarlik_kodeksi/79",
-            "oila_kodeksi/76",
-            "oila_kodeksi/66"
+            "mamuriy_javobgarlik_kodeksi/183",
+            "oila_kodeksi/75"
           ]
         },
         {
@@ -406,11 +394,11 @@
           "style": "sheva",
           "problemId": "P10",
           "top": [
-            "mamuriy_javobgarlik_kodeksi/192",
             "mamuriy_javobgarlik_kodeksi/183",
+            "mamuriy_javobgarlik_kodeksi/192",
+            "fuqarolik_kodeksi/735",
             "jinoyat_kodeksi/122",
-            "oila_kodeksi/40",
-            "mamuriy_javobgarlik_kodeksi/47⁴"
+            "oila_kodeksi/40"
           ]
         },
         {
@@ -418,11 +406,11 @@
           "style": "kirill",
           "problemId": "P10",
           "top": [
-            "oila_kodeksi/40",
             "mamuriy_javobgarlik_kodeksi/192",
-            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "oila_kodeksi/40",
             "mamuriy_javobgarlik_kodeksi/187",
-            "mamuriy_javobgarlik_kodeksi/183"
+            "mamuriy_javobgarlik_kodeksi/183",
+            "mamuriy_javobgarlik_kodeksi/47⁴"
           ]
         },
         {
@@ -431,10 +419,22 @@
           "problemId": "P11",
           "top": [
             "mehnat_kodeksi/161",
-            "mehnat_kodeksi/408",
             "mehnat_kodeksi/161",
+            "mehnat_kodeksi/408",
+            "mehnat_kodeksi/356",
+            "mehnat_kodeksi/269"
+          ]
+        },
+        {
+          "id": "P11_V3",
+          "style": "aralash",
+          "problemId": "P11",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "mehnat_kodeksi/408",
+            "jinoyat_kodeksi/122",
             "mehnat_kodeksi/269",
-            "mehnat_kodeksi/356"
+            "fuqarolik_kodeksi/389"
           ]
         },
         {
@@ -443,10 +443,10 @@
           "problemId": "P14",
           "top": [
             "mehnat_kodeksi/269",
+            "murojaatlar_qonuni/31",
+            "murojaatlar_qonuni/28",
             "oila_kodeksi/40",
-            "mamuriy_javobgarlik_kodeksi/47⁴",
-            "fuqarolik_kodeksi/1025",
-            "mehnat_kodeksi/119"
+            "mehnat_kodeksi/333"
           ]
         },
         {
@@ -456,9 +456,9 @@
           "top": [
             "mehnat_kodeksi/269",
             "oila_kodeksi/40",
-            "mamuriy_javobgarlik_kodeksi/183",
             "mehnat_kodeksi/119",
-            "fuqarolik_kodeksi/1056"
+            "mehnat_kodeksi/189",
+            "mamuriy_javobgarlik_kodeksi/183"
           ]
         },
         {
@@ -469,8 +469,8 @@
             "mehnat_kodeksi/269",
             "mehnat_kodeksi/189",
             "mehnat_kodeksi/189",
-            "mehnat_kodeksi/417",
-            "mehnat_kodeksi/333"
+            "mehnat_kodeksi/333",
+            "mamuriy_javobgarlik_kodeksi/47⁴"
           ]
         },
         {
@@ -481,7 +481,7 @@
             "mamuriy_javobgarlik_kodeksi/47⁴",
             "jinoyat_kodeksi/122",
             "jinoyat_kodeksi/135",
-            "oila_kodeksi/40",
+            "mehnat_kodeksi/119",
             "jinoyat_kodeksi/212"
           ]
         },
@@ -492,8 +492,8 @@
           "top": [
             "fuqarolik_kodeksi/1023",
             "fuqarolik_kodeksi/14",
-            "fuqarolik_kodeksi/1025",
             "fuqarolik_kodeksi/1029",
+            "fuqarolik_kodeksi/1025",
             "jinoyat_kodeksi/122"
           ]
         },
@@ -503,10 +503,10 @@
           "problemId": "P15",
           "top": [
             "mehnat_kodeksi/161",
-            "mehnat_kodeksi/269",
             "mehnat_kodeksi/161",
             "mehnat_kodeksi/269",
-            "mamuriy_javobgarlik_kodeksi/47⁴"
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/189"
           ]
         },
         {
@@ -516,9 +516,9 @@
           "top": [
             "mamuriy_javobgarlik_kodeksi/187",
             "mehnat_kodeksi/4",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
             "mehnat_kodeksi/4",
-            "mehnat_kodeksi/337",
-            "mamuriy_javobgarlik_kodeksi/47⁴"
+            "jinoyat_kodeksi/122"
           ]
         },
         {
@@ -527,22 +527,10 @@
           "problemId": "P19",
           "top": [
             "fuqarolik_kodeksi/1025",
+            "jinoyat_kodeksi/122",
             "fuqarolik_kodeksi/1026",
             "fuqarolik_kodeksi/1023",
-            "fuqarolik_kodeksi/14",
-            "jinoyat_kodeksi/122"
-          ]
-        },
-        {
-          "id": "P19_V2",
-          "style": "sheva",
-          "problemId": "P19",
-          "top": [
-            "fuqarolik_kodeksi/1029",
-            "fuqarolik_kodeksi/324",
-            "fuqarolik_kodeksi/1026",
-            "fuqarolik_kodeksi/985",
-            "mehnat_kodeksi/333"
+            "mamuriy_javobgarlik_kodeksi/47⁴"
           ]
         },
         {
@@ -551,10 +539,10 @@
           "problemId": "P20",
           "top": [
             "mehnat_kodeksi/189",
-            "mehnat_kodeksi/189",
-            "mehnat_kodeksi/338",
             "mehnat_kodeksi/417",
-            "mehnat_kodeksi/269"
+            "mehnat_kodeksi/338",
+            "oila_kodeksi/40",
+            "mehnat_kodeksi/396"
           ]
         },
         {
@@ -565,8 +553,8 @@
             "oila_kodeksi/40",
             "mehnat_kodeksi/4",
             "mamuriy_javobgarlik_kodeksi/183",
-            "mamuriy_javobgarlik_kodeksi/187",
-            "mamuriy_javobgarlik_kodeksi/47⁴"
+            "murojaatlar_qonuni/28",
+            "mamuriy_javobgarlik_kodeksi/187"
           ]
         },
         {
@@ -574,11 +562,11 @@
           "style": "qisqa",
           "problemId": "P25",
           "top": [
-            "oila_kodeksi/40",
             "mehnat_kodeksi/396",
+            "oila_kodeksi/40",
             "mehnat_kodeksi/216",
             "mamuriy_javobgarlik_kodeksi/79",
-            "mamuriy_javobgarlik_kodeksi/192"
+            "mehnat_kodeksi/228"
           ]
         },
         {
@@ -588,9 +576,9 @@
           "top": [
             "mamuriy_javobgarlik_kodeksi/187",
             "jinoyat_kodeksi/274",
-            "jinoyat_kodeksi/273",
-            "jinoyat_kodeksi/210",
-            "jinoyat_kodeksi/276"
+            "jinoyat_kodeksi/270",
+            "mamuriy_javobgarlik_kodeksi/183",
+            "jinoyat_kodeksi/273"
           ]
         },
         {
@@ -602,7 +590,7 @@
             "mehnat_kodeksi/396",
             "oila_kodeksi/76",
             "oila_kodeksi/40",
-            "oila_kodeksi/109"
+            "mehnat_kodeksi/417"
           ]
         },
         {
@@ -612,9 +600,9 @@
           "top": [
             "oila_kodeksi/66",
             "mehnat_kodeksi/396",
-            "oila_kodeksi/76",
             "oila_kodeksi/109",
-            "oila_kodeksi/96"
+            "oila_kodeksi/96",
+            "oila_kodeksi/76"
           ]
         },
         {
@@ -630,15 +618,27 @@
           ]
         },
         {
+          "id": "P27_V1",
+          "style": "qisqa",
+          "problemId": "P27",
+          "top": [
+            "oila_kodeksi/66",
+            "oila_kodeksi/76",
+            "oila_kodeksi/40",
+            "oila_kodeksi/27",
+            "mamuriy_javobgarlik_kodeksi/47³"
+          ]
+        },
+        {
           "id": "P27_V3",
           "style": "aralash",
           "problemId": "P27",
           "top": [
             "oila_kodeksi/40",
-            "jinoyat_kodeksi/125¹",
             "jinoyat_kodeksi/126¹",
+            "oila_kodeksi/76",
             "jinoyat_kodeksi/126¹",
-            "mamuriy_javobgarlik_kodeksi/47³"
+            "jinoyat_kodeksi/125¹"
           ]
         },
         {
@@ -646,11 +646,23 @@
           "style": "aralash",
           "problemId": "P29",
           "top": [
-            "jinoyat_kodeksi/271",
-            "jinoyat_kodeksi/275",
             "jinoyat_kodeksi/169",
-            "jinoyat_kodeksi/274",
+            "jinoyat_kodeksi/275",
+            "jinoyat_kodeksi/271",
+            "jinoyat_kodeksi/273",
             "jinoyat_kodeksi/273"
+          ]
+        },
+        {
+          "id": "P30_V1",
+          "style": "qisqa",
+          "problemId": "P30",
+          "top": [
+            "oila_kodeksi/40",
+            "jinoyat_kodeksi/270",
+            "jinoyat_kodeksi/135",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "mamuriy_javobgarlik_kodeksi/59²"
           ]
         },
         {
@@ -673,8 +685,8 @@
             "jinoyat_kodeksi/122",
             "mamuriy_javobgarlik_kodeksi/47⁴",
             "fuqarolik_kodeksi/1026",
-            "mehnat_kodeksi/333",
-            "jinoyat_kodeksi/169"
+            "jinoyat_kodeksi/257",
+            "jinoyat_kodeksi/166"
           ]
         },
         {
@@ -684,9 +696,9 @@
           "top": [
             "fuqarolik_kodeksi/1026",
             "fuqarolik_kodeksi/1023",
-            "fuqarolik_kodeksi/1025",
             "fuqarolik_kodeksi/14",
-            "jinoyat_kodeksi/169"
+            "fuqarolik_kodeksi/1025",
+            "fuqarolik_kodeksi/1029"
           ]
         },
         {
@@ -694,11 +706,11 @@
           "style": "aralash",
           "problemId": "P31",
           "top": [
+            "murojaatlar_qonuni/31",
             "fuqarolik_kodeksi/1025",
-            "fuqarolik_kodeksi/1029",
-            "mamuriy_javobgarlik_kodeksi/47⁴",
-            "fuqarolik_kodeksi/985",
-            "fuqarolik_kodeksi/1051"
+            "fuqarolik_kodeksi/1051",
+            "fuqarolik_kodeksi/14",
+            "fuqarolik_kodeksi/1029"
           ]
         },
         {
@@ -718,9 +730,9 @@
           "style": "qisqa",
           "problemId": "P33",
           "top": [
+            "mamuriy_javobgarlik_kodeksi/187",
             "mamuriy_javobgarlik_kodeksi/192",
             "jinoyat_kodeksi/169",
-            "mamuriy_javobgarlik_kodeksi/187",
             "jinoyat_kodeksi/271",
             "jinoyat_kodeksi/275"
           ]
@@ -731,10 +743,10 @@
           "problemId": "P33",
           "top": [
             "mamuriy_javobgarlik_kodeksi/192",
+            "mamuriy_javobgarlik_kodeksi/79",
             "jinoyat_kodeksi/271",
             "jinoyat_kodeksi/273",
-            "jinoyat_kodeksi/169",
-            "mamuriy_javobgarlik_kodeksi/79"
+            "fuqarolik_kodeksi/14"
           ]
         },
         {
@@ -744,21 +756,9 @@
           "top": [
             "fuqarolik_kodeksi/1040",
             "fuqarolik_kodeksi/14",
+            "mamuriy_javobgarlik_kodeksi/79",
             "jinoyat_kodeksi/212",
-            "jinoyat_kodeksi/164",
-            "mamuriy_javobgarlik_kodeksi/192"
-          ]
-        },
-        {
-          "id": "P35_V1",
-          "style": "qisqa",
-          "problemId": "P35",
-          "top": [
-            "mamuriy_javobgarlik_kodeksi/192",
-            "jinoyat_kodeksi/122",
-            "jinoyat_kodeksi/210",
-            "mamuriy_javobgarlik_kodeksi/183",
-            "jinoyat_kodeksi/168"
+            "mehnat_kodeksi/4"
           ]
         },
         {
@@ -766,11 +766,23 @@
           "style": "aralash",
           "problemId": "P35",
           "top": [
-            "jinoyat_kodeksi/126¹",
             "fuqarolik_kodeksi/14",
             "jinoyat_kodeksi/126¹",
-            "jinoyat_kodeksi/169",
-            "fuqarolik_kodeksi/985"
+            "jinoyat_kodeksi/126¹",
+            "fuqarolik_kodeksi/985",
+            "mamuriy_javobgarlik_kodeksi/59²"
+          ]
+        },
+        {
+          "id": "P36_V3",
+          "style": "kirill",
+          "problemId": "P36",
+          "top": [
+            "murojaatlar_qonuni/24",
+            "jinoyat_kodeksi/274",
+            "jinoyat_kodeksi/212",
+            "mamuriy_javobgarlik_kodeksi/41",
+            "murojaatlar_qonuni/31"
           ]
         },
         {
@@ -778,11 +790,11 @@
           "style": "qisqa",
           "problemId": "P37",
           "top": [
-            "mamuriy_javobgarlik_kodeksi/47⁴",
             "fuqarolik_kodeksi/324",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
             "jinoyat_kodeksi/122",
-            "mehnat_kodeksi/337",
-            "mamuriy_javobgarlik_kodeksi/41"
+            "fuqarolik_kodeksi/1026",
+            "fuqarolik_kodeksi/238"
           ]
         },
         {
@@ -793,8 +805,20 @@
             "jinoyat_kodeksi/122",
             "mamuriy_javobgarlik_kodeksi/47⁴",
             "jinoyat_kodeksi/212",
-            "jinoyat_kodeksi/166",
-            "mamuriy_javobgarlik_kodeksi/47"
+            "mamuriy_javobgarlik_kodeksi/47",
+            "jinoyat_kodeksi/166"
+          ]
+        },
+        {
+          "id": "P38_V1",
+          "style": "qisqa",
+          "problemId": "P38",
+          "top": [
+            "jinoyat_kodeksi/122",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "fuqarolik_kodeksi/1026",
+            "fuqarolik_kodeksi/1023",
+            "fuqarolik_kodeksi/1029"
           ]
         },
         {
@@ -802,8 +826,8 @@
           "style": "sheva",
           "problemId": "P40",
           "top": [
-            "jinoyat_kodeksi/212",
             "jinoyat_kodeksi/210",
+            "jinoyat_kodeksi/212",
             "jinoyat_kodeksi/166",
             "fuqarolik_kodeksi/14",
             "jinoyat_kodeksi/169"
@@ -818,19 +842,7 @@
             "mehnat_kodeksi/337",
             "fuqarolik_kodeksi/735",
             "fuqarolik_kodeksi/14",
-            "fuqarolik_kodeksi/1029"
-          ]
-        },
-        {
-          "id": "P41_V3",
-          "style": "aralash",
-          "problemId": "P41",
-          "top": [
-            "mehnat_kodeksi/333",
-            "fuqarolik_kodeksi/735",
-            "mehnat_kodeksi/269",
-            "mehnat_kodeksi/269",
-            "fuqarolik_kodeksi/14"
+            "mamuriy_javobgarlik_kodeksi/41"
           ]
         },
         {
@@ -839,10 +851,10 @@
           "problemId": "P42",
           "top": [
             "jinoyat_kodeksi/135",
-            "mamuriy_javobgarlik_kodeksi/187",
             "jinoyat_kodeksi/212",
-            "mamuriy_javobgarlik_kodeksi/192",
-            "jinoyat_kodeksi/210"
+            "jinoyat_kodeksi/105",
+            "mamuriy_javobgarlik_kodeksi/187",
+            "jinoyat_kodeksi/104"
           ]
         },
         {
@@ -851,10 +863,10 @@
           "problemId": "P42",
           "top": [
             "mamuriy_javobgarlik_kodeksi/187",
-            "jinoyat_kodeksi/164",
-            "jinoyat_kodeksi/135",
             "jinoyat_kodeksi/104",
-            "jinoyat_kodeksi/105"
+            "jinoyat_kodeksi/135",
+            "jinoyat_kodeksi/105",
+            "jinoyat_kodeksi/164"
           ]
         },
         {
@@ -863,10 +875,10 @@
           "problemId": "P47",
           "top": [
             "mehnat_kodeksi/337",
-            "mamuriy_javobgarlik_kodeksi/47⁴",
             "mehnat_kodeksi/338",
-            "fuqarolik_kodeksi/1026",
-            "jinoyat_kodeksi/122"
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "jinoyat_kodeksi/122",
+            "fuqarolik_kodeksi/1026"
           ]
         },
         {
@@ -874,11 +886,11 @@
           "style": "sheva",
           "problemId": "P47",
           "top": [
-            "jinoyat_kodeksi/270",
-            "mamuriy_javobgarlik_kodeksi/79",
             "fuqarolik_kodeksi/14",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "jinoyat_kodeksi/270",
             "fuqarolik_kodeksi/1059",
-            "mehnat_kodeksi/396"
+            "fuqarolik_kodeksi/1056"
           ]
         },
         {
@@ -887,10 +899,10 @@
           "problemId": "P47",
           "top": [
             "mehnat_kodeksi/396",
-            "mehnat_kodeksi/417",
-            "mamuriy_javobgarlik_kodeksi/187",
             "oila_kodeksi/76",
-            "mamuriy_javobgarlik_kodeksi/47⁴"
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "mehnat_kodeksi/417",
+            "mamuriy_javobgarlik_kodeksi/187"
           ]
         },
         {
@@ -901,8 +913,8 @@
             "mehnat_kodeksi/216",
             "mehnat_kodeksi/417",
             "mehnat_kodeksi/189",
-            "jinoyat_kodeksi/257",
-            "mehnat_kodeksi/223"
+            "mehnat_kodeksi/396",
+            "jinoyat_kodeksi/257"
           ]
         },
         {
@@ -914,7 +926,7 @@
             "mehnat_kodeksi/396",
             "mehnat_kodeksi/216",
             "mehnat_kodeksi/189",
-            "mehnat_kodeksi/228"
+            "mehnat_kodeksi/269"
           ]
         },
         {
@@ -924,8 +936,8 @@
           "top": [
             "mehnat_kodeksi/269",
             "mehnat_kodeksi/189",
-            "mehnat_kodeksi/189",
             "mamuriy_javobgarlik_kodeksi/47⁴",
+            "mehnat_kodeksi/189",
             "mehnat_kodeksi/417"
           ]
         },
@@ -938,7 +950,7 @@
             "mehnat_kodeksi/417",
             "mehnat_kodeksi/189",
             "mehnat_kodeksi/189",
-            "mehnat_kodeksi/269"
+            "mehnat_kodeksi/228"
           ]
         },
         {
@@ -948,9 +960,9 @@
           "top": [
             "oila_kodeksi/40",
             "mehnat_kodeksi/269",
-            "mehnat_kodeksi/269",
             "mehnat_kodeksi/396",
-            "mehnat_kodeksi/333"
+            "mehnat_kodeksi/333",
+            "mehnat_kodeksi/269"
           ]
         },
         {
@@ -958,10 +970,10 @@
           "style": "aralash",
           "problemId": "P49",
           "top": [
+            "jinoyat_kodeksi/126¹",
             "mamuriy_javobgarlik_kodeksi/176",
+            "murojaatlar_qonuni/31",
             "jinoyat_kodeksi/126¹",
-            "jinoyat_kodeksi/126¹",
-            "mehnat_kodeksi/4",
             "jinoyat_kodeksi/166"
           ]
         },
@@ -986,7 +998,7 @@
             "fuqarolik_kodeksi/324",
             "fuqarolik_kodeksi/14",
             "fuqarolik_kodeksi/1026",
-            "mamuriy_javobgarlik_kodeksi/47⁴"
+            "fuqarolik_kodeksi/985"
           ]
         },
         {
@@ -995,10 +1007,10 @@
           "problemId": "P55",
           "top": [
             "fuqarolik_kodeksi/324",
-            "fuqarolik_kodeksi/14",
             "mamuriy_javobgarlik_kodeksi/47⁴",
-            "mehnat_kodeksi/337",
-            "fuqarolik_kodeksi/985"
+            "jinoyat_kodeksi/122",
+            "fuqarolik_kodeksi/14",
+            "fuqarolik_kodeksi/1026"
           ]
         },
         {
@@ -1009,8 +1021,8 @@
             "mehnat_kodeksi/333",
             "mehnat_kodeksi/269",
             "mehnat_kodeksi/189",
-            "mehnat_kodeksi/408",
-            "mehnat_kodeksi/189"
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "mehnat_kodeksi/408"
           ]
         }
       ]
@@ -1018,34 +1030,34 @@
     "bm25": {
       "recall": {
         "JAMI": {
-          "n": 205,
-          "hit": 87,
-          "recall": 42.4
+          "n": 213,
+          "hit": 92,
+          "recall": 43.2
         },
         "rasmiy": {
-          "n": 52,
-          "hit": 30,
-          "recall": 57.7
+          "n": 54,
+          "hit": 32,
+          "recall": 59.3
         },
         "qisqa": {
-          "n": 51,
-          "hit": 22,
-          "recall": 43.1
+          "n": 53,
+          "hit": 23,
+          "recall": 43.4
         },
         "sheva": {
-          "n": 51,
-          "hit": 14,
-          "recall": 27.5
+          "n": 53,
+          "hit": 15,
+          "recall": 28.3
         },
         "aralash": {
-          "n": 26,
+          "n": 27,
           "hit": 6,
-          "recall": 23.1
+          "recall": 22.2
         },
         "kirill": {
-          "n": 25,
-          "hit": 15,
-          "recall": 60
+          "n": 26,
+          "hit": 16,
+          "recall": 61.5
         }
       },
       "misses": [
@@ -1078,11 +1090,11 @@
           "style": "rasmiy",
           "problemId": "P08",
           "top": [
-            "fuqarolik_kodeksi/1056",
+            "murojaatlar_qonuni/31",
+            "murojaatlar_qonuni/24",
             "mehnat_kodeksi/269",
-            "jinoyat_kodeksi/211",
-            "fuqarolik_kodeksi/386",
-            "jinoyat_kodeksi/122"
+            "fuqarolik_kodeksi/1056",
+            "jinoyat_kodeksi/211"
           ]
         },
         {
@@ -1098,15 +1110,27 @@
           ]
         },
         {
+          "id": "P14_A1",
+          "style": "rasmiy",
+          "problemId": "P14",
+          "top": [
+            "murojaatlar_qonuni/28",
+            "mehnat_kodeksi/223",
+            "mehnat_kodeksi/223",
+            "murojaatlar_qonuni/31",
+            "mehnat_kodeksi/269"
+          ]
+        },
+        {
           "id": "P19_A1",
           "style": "rasmiy",
           "problemId": "P19",
           "top": [
             "mehnat_kodeksi/355",
             "mehnat_kodeksi/356",
+            "murojaatlar_qonuni/28",
             "mehnat_kodeksi/359",
-            "fuqarolik_kodeksi/324",
-            "fuqarolik_kodeksi/14"
+            "murojaatlar_qonuni/24"
           ]
         },
         {
@@ -1154,7 +1178,7 @@
             "fuqarolik_kodeksi/1040",
             "jinoyat_kodeksi/135",
             "fuqarolik_kodeksi/386",
-            "fuqarolik_kodeksi/1051"
+            "mamuriy_javobgarlik_kodeksi/47"
           ]
         },
         {
@@ -1165,8 +1189,8 @@
             "mehnat_kodeksi/359",
             "mehnat_kodeksi/359",
             "mehnat_kodeksi/355",
-            "mehnat_kodeksi/359",
-            "mehnat_kodeksi/355"
+            "murojaatlar_qonuni/24",
+            "mehnat_kodeksi/359"
           ]
         },
         {
@@ -1174,11 +1198,11 @@
           "style": "rasmiy",
           "problemId": "P33",
           "top": [
+            "murojaatlar_qonuni/28",
+            "murojaatlar_qonuni/24",
+            "murojaatlar_qonuni/31",
             "mehnat_kodeksi/228",
-            "jinoyat_kodeksi/212",
-            "fuqarolik_kodeksi/1029",
-            "mehnat_kodeksi/359",
-            "oila_kodeksi/76"
+            "murojaatlar_qonuni/24"
           ]
         },
         {
@@ -1187,10 +1211,10 @@
           "problemId": "P34",
           "top": [
             "mehnat_kodeksi/359",
+            "murojaatlar_qonuni/24",
             "jinoyat_kodeksi/257",
             "mehnat_kodeksi/228",
-            "mamuriy_javobgarlik_kodeksi/47",
-            "fuqarolik_kodeksi/1056"
+            "mamuriy_javobgarlik_kodeksi/47"
           ]
         },
         {
@@ -1210,11 +1234,11 @@
           "style": "rasmiy",
           "problemId": "P36",
           "top": [
+            "murojaatlar_qonuni/24",
             "mehnat_kodeksi/269",
+            "murojaatlar_qonuni/28",
             "fuqarolik_kodeksi/1056",
-            "mehnat_kodeksi/223",
-            "mehnat_kodeksi/161",
-            "fuqarolik_kodeksi/1056"
+            "mehnat_kodeksi/223"
           ]
         },
         {
@@ -1222,11 +1246,11 @@
           "style": "rasmiy",
           "problemId": "P39",
           "top": [
+            "murojaatlar_qonuni/24",
             "fuqarolik_kodeksi/1056",
             "mehnat_kodeksi/269",
-            "mehnat_kodeksi/269",
-            "mehnat_kodeksi/4",
-            "jinoyat_kodeksi/211"
+            "murojaatlar_qonuni/31",
+            "mehnat_kodeksi/269"
           ]
         },
         {
@@ -1236,9 +1260,9 @@
           "top": [
             "fuqarolik_kodeksi/14",
             "mehnat_kodeksi/337",
+            "murojaatlar_qonuni/24",
             "fuqarolik_kodeksi/985",
-            "fuqarolik_kodeksi/1040",
-            "oila_kodeksi/23"
+            "fuqarolik_kodeksi/1040"
           ]
         },
         {
@@ -1249,8 +1273,8 @@
             "oila_kodeksi/76",
             "mehnat_kodeksi/355",
             "jinoyat_kodeksi/122",
-            "mehnat_kodeksi/338",
-            "jinoyat_kodeksi/135"
+            "jinoyat_kodeksi/135",
+            "mehnat_kodeksi/338"
           ]
         },
         {
@@ -1260,8 +1284,8 @@
           "top": [
             "mehnat_kodeksi/359",
             "mehnat_kodeksi/216",
-            "mehnat_kodeksi/359",
             "mehnat_kodeksi/189",
+            "mehnat_kodeksi/359",
             "mehnat_kodeksi/356"
           ]
         },
@@ -1302,18 +1326,6 @@
           ]
         },
         {
-          "id": "P61_A1",
-          "style": "rasmiy",
-          "problemId": "P61",
-          "top": [
-            "mehnat_kodeksi/253",
-            "fuqarolik_kodeksi/1056",
-            "mehnat_kodeksi/355",
-            "mehnat_kodeksi/269",
-            "mehnat_kodeksi/359"
-          ]
-        },
-        {
           "id": "P01_V3",
           "style": "aralash",
           "problemId": "P01",
@@ -1331,10 +1343,10 @@
           "problemId": "P02",
           "top": [
             "jinoyat_kodeksi/212",
+            "murojaatlar_qonuni/28",
             "mehnat_kodeksi/337",
             "fuqarolik_kodeksi/14",
-            "mehnat_kodeksi/338",
-            "mehnat_kodeksi/359"
+            "mehnat_kodeksi/338"
           ]
         },
         {
@@ -1355,10 +1367,10 @@
           "problemId": "P02",
           "top": [
             "mehnat_kodeksi/408",
+            "murojaatlar_qonuni/31",
+            "murojaatlar_qonuni/24",
             "oila_kodeksi/25",
-            "mehnat_kodeksi/4",
-            "mehnat_kodeksi/356",
-            "mamuriy_javobgarlik_kodeksi/47⁴"
+            "murojaatlar_qonuni/24"
           ]
         },
         {
@@ -1508,8 +1520,8 @@
           "style": "aralash",
           "problemId": "P09",
           "top": [
-            "fuqarolik_kodeksi/166",
             "mehnat_kodeksi/119",
+            "fuqarolik_kodeksi/166",
             "oila_kodeksi/109",
             "mamuriy_javobgarlik_kodeksi/79",
             "oila_kodeksi/66"
@@ -1544,8 +1556,8 @@
           "style": "aralash",
           "problemId": "P11",
           "top": [
-            "mehnat_kodeksi/228",
             "mamuriy_javobgarlik_kodeksi/47⁴",
+            "mehnat_kodeksi/228",
             "mehnat_kodeksi/223",
             "mehnat_kodeksi/216",
             "oila_kodeksi/79"
@@ -1602,10 +1614,10 @@
           "style": "qisqa",
           "problemId": "P14",
           "top": [
+            "murojaatlar_qonuni/28",
             "mehnat_kodeksi/4",
             "mehnat_kodeksi/228",
             "oila_kodeksi/28",
-            "oila_kodeksi/96",
             "mamuriy_javobgarlik_kodeksi/47"
           ]
         },
@@ -1616,9 +1628,9 @@
           "top": [
             "fuqarolik_kodeksi/1051",
             "fuqarolik_kodeksi/1056",
+            "murojaatlar_qonuni/28",
             "mehnat_kodeksi/4",
-            "mehnat_kodeksi/417",
-            "fuqarolik_kodeksi/1056"
+            "mehnat_kodeksi/417"
           ]
         },
         {
@@ -1626,10 +1638,10 @@
           "style": "kirill",
           "problemId": "P14",
           "top": [
-            "mehnat_kodeksi/269",
+            "murojaatlar_qonuni/28",
             "mehnat_kodeksi/223",
+            "mehnat_kodeksi/269",
             "mehnat_kodeksi/356",
-            "mehnat_kodeksi/4",
             "fuqarolik_kodeksi/14"
           ]
         },
@@ -1652,9 +1664,21 @@
           "top": [
             "fuqarolik_kodeksi/735",
             "fuqarolik_kodeksi/1029",
+            "murojaatlar_qonuni/28",
             "mehnat_kodeksi/4",
-            "fuqarolik_kodeksi/1025",
-            "fuqarolik_kodeksi/1023"
+            "fuqarolik_kodeksi/1025"
+          ]
+        },
+        {
+          "id": "P15_V3",
+          "style": "aralash",
+          "problemId": "P15",
+          "top": [
+            "fuqarolik_kodeksi/1029",
+            "jinoyat_kodeksi/278¹",
+            "murojaatlar_qonuni/24",
+            "fuqarolik_kodeksi/14",
+            "fuqarolik_kodeksi/166"
           ]
         },
         {
@@ -1734,11 +1758,11 @@
           "style": "qisqa",
           "problemId": "P19",
           "top": [
-            "mehnat_kodeksi/359",
+            "murojaatlar_qonuni/24",
             "fuqarolik_kodeksi/14",
-            "mehnat_kodeksi/355",
-            "mehnat_kodeksi/356",
-            "mehnat_kodeksi/359"
+            "mehnat_kodeksi/359",
+            "murojaatlar_qonuni/28",
+            "mehnat_kodeksi/355"
           ]
         },
         {
@@ -1747,10 +1771,10 @@
           "problemId": "P19",
           "top": [
             "mehnat_kodeksi/359",
-            "mehnat_kodeksi/355",
             "fuqarolik_kodeksi/985",
             "fuqarolik_kodeksi/324",
-            "mehnat_kodeksi/356"
+            "mehnat_kodeksi/355",
+            "murojaatlar_qonuni/24"
           ]
         },
         {
@@ -1767,8 +1791,8 @@
             "oila_kodeksi/73",
             "mamuriy_javobgarlik_kodeksi/47",
             "oila_kodeksi/75",
-            "mehnat_kodeksi/161",
-            "mamuriy_javobgarlik_kodeksi/47"
+            "mamuriy_javobgarlik_kodeksi/47",
+            "oila_kodeksi/79"
           ]
         },
         {
@@ -1776,9 +1800,9 @@
           "style": "sheva",
           "problemId": "P22",
           "top": [
+            "murojaatlar_qonuni/28",
             "oila_kodeksi/75",
             "mamuriy_javobgarlik_kodeksi/176",
-            "mehnat_kodeksi/161",
             "mehnat_kodeksi/253",
             "oila_kodeksi/79"
           ]
@@ -1790,9 +1814,9 @@
           "top": [
             "mamuriy_javobgarlik_kodeksi/47",
             "fuqarolik_kodeksi/1114",
-            "oila_kodeksi/75",
             "mamuriy_javobgarlik_kodeksi/47",
-            "oila_kodeksi/76"
+            "oila_kodeksi/75",
+            "oila_kodeksi/73"
           ]
         },
         {
@@ -1907,11 +1931,11 @@
           "style": "qisqa",
           "problemId": "P29",
           "top": [
-            "mehnat_kodeksi/359",
-            "mehnat_kodeksi/355",
+            "murojaatlar_qonuni/24",
+            "murojaatlar_qonuni/28",
             "mehnat_kodeksi/359",
             "fuqarolik_kodeksi/391",
-            "mehnat_kodeksi/356"
+            "mehnat_kodeksi/355"
           ]
         },
         {
@@ -1920,10 +1944,10 @@
           "problemId": "P29",
           "top": [
             "mamuriy_javobgarlik_kodeksi/41",
+            "murojaatlar_qonuni/24",
             "mehnat_kodeksi/359",
             "mamuriy_javobgarlik_kodeksi/183",
-            "mehnat_kodeksi/355",
-            "mehnat_kodeksi/356"
+            "murojaatlar_qonuni/28"
           ]
         },
         {
@@ -1942,8 +1966,8 @@
             "mehnat_kodeksi/359",
             "mehnat_kodeksi/161",
             "mehnat_kodeksi/355",
-            "fuqarolik_kodeksi/1040",
-            "oila_kodeksi/24"
+            "oila_kodeksi/24",
+            "fuqarolik_kodeksi/1040"
           ]
         },
         {
@@ -2005,11 +2029,11 @@
           "style": "kirill",
           "problemId": "P32",
           "top": [
+            "murojaatlar_qonuni/28",
             "mehnat_kodeksi/4",
             "oila_kodeksi/96",
             "jinoyat_kodeksi/135",
-            "mamuriy_javobgarlik_kodeksi/49",
-            "mamuriy_javobgarlik_kodeksi/47³"
+            "mamuriy_javobgarlik_kodeksi/49"
           ]
         },
         {
@@ -2103,11 +2127,11 @@
           "style": "kirill",
           "problemId": "P36",
           "top": [
+            "murojaatlar_qonuni/28",
             "mamuriy_javobgarlik_kodeksi/176",
-            "mehnat_kodeksi/161",
             "mehnat_kodeksi/355",
-            "fuqarolik_kodeksi/386",
-            "mehnat_kodeksi/356"
+            "mehnat_kodeksi/161",
+            "fuqarolik_kodeksi/386"
           ]
         },
         {
@@ -2149,11 +2173,11 @@
           "style": "kirill",
           "problemId": "P38",
           "top": [
+            "murojaatlar_qonuni/28",
             "oila_kodeksi/23",
             "mehnat_kodeksi/338",
-            "mehnat_kodeksi/161",
             "mehnat_kodeksi/355",
-            "fuqarolik_kodeksi/386"
+            "mehnat_kodeksi/161"
           ]
         },
         {
@@ -2174,8 +2198,8 @@
           "problemId": "P39",
           "top": [
             "mamuriy_javobgarlik_kodeksi/51¹",
-            "fuqarolik_kodeksi/1040",
             "oila_kodeksi/66",
+            "fuqarolik_kodeksi/1040",
             "mehnat_kodeksi/421",
             "oila_kodeksi/96"
           ]
@@ -2197,11 +2221,11 @@
           "style": "sheva",
           "problemId": "P40",
           "top": [
+            "murojaatlar_qonuni/24",
+            "murojaatlar_qonuni/28",
             "oila_kodeksi/23",
-            "jinoyat_kodeksi/211",
             "fuqarolik_kodeksi/386",
-            "oila_kodeksi/73",
-            "fuqarolik_kodeksi/14"
+            "jinoyat_kodeksi/211"
           ]
         },
         {
@@ -2209,11 +2233,11 @@
           "style": "kirill",
           "problemId": "P40",
           "top": [
+            "murojaatlar_qonuni/28",
             "mamuriy_javobgarlik_kodeksi/79",
-            "oila_kodeksi/79",
-            "mehnat_kodeksi/4",
-            "mehnat_kodeksi/161",
-            "oila_kodeksi/75"
+            "murojaatlar_qonuni/31",
+            "murojaatlar_qonuni/24",
+            "murojaatlar_qonuni/24"
           ]
         },
         {
@@ -2290,11 +2314,11 @@
           "style": "sheva",
           "problemId": "P43",
           "top": [
+            "murojaatlar_qonuni/31",
             "fuqarolik_kodeksi/735",
+            "murojaatlar_qonuni/28",
             "mamuriy_javobgarlik_kodeksi/176",
-            "mehnat_kodeksi/333",
-            "mehnat_kodeksi/253",
-            "mehnat_kodeksi/228"
+            "mehnat_kodeksi/333"
           ]
         },
         {
@@ -2302,10 +2326,10 @@
           "style": "aralash",
           "problemId": "P45",
           "top": [
+            "murojaatlar_qonuni/31",
             "oila_kodeksi/96",
             "oila_kodeksi/79",
             "jinoyat_kodeksi/273",
-            "jinoyat_kodeksi/276",
             "mamuriy_javobgarlik_kodeksi/49"
           ]
         },
@@ -2328,9 +2352,9 @@
           "top": [
             "oila_kodeksi/79",
             "jinoyat_kodeksi/273",
-            "jinoyat_kodeksi/276",
             "mamuriy_javobgarlik_kodeksi/49",
-            "mamuriy_javobgarlik_kodeksi/47³"
+            "mamuriy_javobgarlik_kodeksi/47³",
+            "jinoyat_kodeksi/276"
           ]
         },
         {
@@ -2389,8 +2413,8 @@
             "oila_kodeksi/40",
             "mamuriy_javobgarlik_kodeksi/51¹",
             "fuqarolik_kodeksi/1029",
-            "mehnat_kodeksi/4",
-            "mehnat_kodeksi/333"
+            "mehnat_kodeksi/333",
+            "murojaatlar_qonuni/28"
           ]
         },
         {
@@ -2425,40 +2449,63 @@
             "oila_kodeksi/28",
             "mamuriy_javobgarlik_kodeksi/49"
           ]
+        },
+        {
+          "id": "P58_V1",
+          "style": "qisqa",
+          "problemId": "P58",
+          "top": [
+            "fuqarolik_kodeksi/735",
+            "mehnat_kodeksi/228",
+            "fuqarolik_kodeksi/391",
+            "fuqarolik_kodeksi/389"
+          ]
+        },
+        {
+          "id": "P58_V2",
+          "style": "sheva",
+          "problemId": "P58",
+          "top": [
+            "oila_kodeksi/96",
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/391",
+            "mehnat_kodeksi/228",
+            "oila_kodeksi/109"
+          ]
         }
       ]
     },
     "hybrid": {
       "recall": {
         "JAMI": {
-          "n": 205,
-          "hit": 109,
-          "recall": 53.2
+          "n": 213,
+          "hit": 116,
+          "recall": 54.5
         },
         "rasmiy": {
-          "n": 52,
-          "hit": 36,
-          "recall": 69.2
+          "n": 54,
+          "hit": 38,
+          "recall": 70.4
         },
         "qisqa": {
-          "n": 51,
-          "hit": 28,
-          "recall": 54.9
+          "n": 53,
+          "hit": 29,
+          "recall": 54.7
         },
         "sheva": {
-          "n": 51,
-          "hit": 20,
-          "recall": 39.2
+          "n": 53,
+          "hit": 21,
+          "recall": 39.6
         },
         "aralash": {
-          "n": 26,
-          "hit": 9,
-          "recall": 34.6
+          "n": 27,
+          "hit": 12,
+          "recall": 44.4
         },
         "kirill": {
-          "n": 25,
+          "n": 26,
           "hit": 16,
-          "recall": 64
+          "recall": 61.5
         }
       },
       "misses": [
@@ -2491,11 +2538,11 @@
           "style": "rasmiy",
           "problemId": "P08",
           "top": [
-            "fuqarolik_kodeksi/1056",
             "fuqarolik_kodeksi/14",
+            "fuqarolik_kodeksi/1056",
             "jinoyat_kodeksi/211",
-            "fuqarolik_kodeksi/985",
-            "fuqarolik_kodeksi/386"
+            "murojaatlar_qonuni/31",
+            "fuqarolik_kodeksi/985"
           ]
         },
         {
@@ -2539,9 +2586,9 @@
           "style": "rasmiy",
           "problemId": "P32",
           "top": [
-            "mehnat_kodeksi/269",
+            "murojaatlar_qonuni/24",
             "mehnat_kodeksi/359",
-            "mehnat_kodeksi/355",
+            "mehnat_kodeksi/269",
             "mehnat_kodeksi/355",
             "mehnat_kodeksi/359"
           ]
@@ -2551,11 +2598,11 @@
           "style": "rasmiy",
           "problemId": "P33",
           "top": [
+            "murojaatlar_qonuni/24",
+            "murojaatlar_qonuni/31",
             "mehnat_kodeksi/269",
-            "fuqarolik_kodeksi/1029",
-            "oila_kodeksi/76",
-            "fuqarolik_kodeksi/1023",
-            "fuqarolik_kodeksi/735"
+            "murojaatlar_qonuni/24",
+            "oila_kodeksi/76"
           ]
         },
         {
@@ -2579,7 +2626,7 @@
             "fuqarolik_kodeksi/985",
             "jinoyat_kodeksi/126¹",
             "mehnat_kodeksi/355",
-            "jinoyat_kodeksi/257"
+            "mehnat_kodeksi/355"
           ]
         },
         {
@@ -2587,11 +2634,11 @@
           "style": "rasmiy",
           "problemId": "P36",
           "top": [
+            "murojaatlar_qonuni/24",
+            "murojaatlar_qonuni/28",
+            "murojaatlar_qonuni/24",
             "mehnat_kodeksi/269",
-            "mamuriy_javobgarlik_kodeksi/176",
-            "fuqarolik_kodeksi/1056",
-            "mehnat_kodeksi/355",
-            "mehnat_kodeksi/253"
+            "fuqarolik_kodeksi/1056"
           ]
         },
         {
@@ -2600,10 +2647,10 @@
           "problemId": "P41",
           "top": [
             "fuqarolik_kodeksi/735",
+            "murojaatlar_qonuni/31",
             "fuqarolik_kodeksi/1026",
-            "fuqarolik_kodeksi/1025",
-            "fuqarolik_kodeksi/1023",
-            "jinoyat_kodeksi/135"
+            "jinoyat_kodeksi/135",
+            "fuqarolik_kodeksi/1023"
           ]
         },
         {
@@ -2627,7 +2674,7 @@
             "mehnat_kodeksi/223",
             "mehnat_kodeksi/269",
             "mehnat_kodeksi/216",
-            "mehnat_kodeksi/253"
+            "mehnat_kodeksi/189"
           ]
         },
         {
@@ -2650,8 +2697,8 @@
             "fuqarolik_kodeksi/735",
             "fuqarolik_kodeksi/324",
             "fuqarolik_kodeksi/1026",
-            "fuqarolik_kodeksi/985",
-            "fuqarolik_kodeksi/14"
+            "fuqarolik_kodeksi/14",
+            "fuqarolik_kodeksi/985"
           ]
         },
         {
@@ -2660,10 +2707,10 @@
           "problemId": "P01",
           "top": [
             "jinoyat_kodeksi/211",
+            "jinoyat_kodeksi/212",
             "mamuriy_javobgarlik_kodeksi/79",
             "mamuriy_javobgarlik_kodeksi/176",
-            "mamuriy_javobgarlik_kodeksi/47³",
-            "jinoyat_kodeksi/212"
+            "mamuriy_javobgarlik_kodeksi/47³"
           ]
         },
         {
@@ -2671,11 +2718,11 @@
           "style": "qisqa",
           "problemId": "P02",
           "top": [
-            "mehnat_kodeksi/223",
+            "murojaatlar_qonuni/28",
             "jinoyat_kodeksi/212",
+            "mehnat_kodeksi/223",
             "fuqarolik_kodeksi/14",
-            "mehnat_kodeksi/337",
-            "jinoyat_kodeksi/210"
+            "jinoyat_kodeksi/211"
           ]
         },
         {
@@ -2684,10 +2731,10 @@
           "problemId": "P02",
           "top": [
             "fuqarolik_kodeksi/735",
+            "mehnat_kodeksi/337",
+            "fuqarolik_kodeksi/14",
             "fuqarolik_kodeksi/389",
-            "jinoyat_kodeksi/122",
-            "mehnat_kodeksi/253",
-            "jinoyat_kodeksi/166"
+            "jinoyat_kodeksi/122"
           ]
         },
         {
@@ -2695,11 +2742,11 @@
           "style": "kirill",
           "problemId": "P02",
           "top": [
+            "murojaatlar_qonuni/31",
+            "murojaatlar_qonuni/28",
             "mamuriy_javobgarlik_kodeksi/47⁴",
-            "mehnat_kodeksi/4",
             "fuqarolik_kodeksi/389",
-            "mehnat_kodeksi/408",
-            "mehnat_kodeksi/126"
+            "mehnat_kodeksi/408"
           ]
         },
         {
@@ -2708,10 +2755,10 @@
           "problemId": "P03",
           "top": [
             "oila_kodeksi/66",
-            "jinoyat_kodeksi/126¹",
             "jinoyat_kodeksi/169",
-            "mamuriy_javobgarlik_kodeksi/59²",
-            "fuqarolik_kodeksi/14"
+            "jinoyat_kodeksi/126¹",
+            "mehnat_kodeksi/269",
+            "mamuriy_javobgarlik_kodeksi/59²"
           ]
         },
         {
@@ -2731,8 +2778,8 @@
           "style": "aralash",
           "problemId": "P03",
           "top": [
-            "mamuriy_javobgarlik_kodeksi/59²",
             "mamuriy_javobgarlik_kodeksi/79",
+            "mamuriy_javobgarlik_kodeksi/59²",
             "mamuriy_javobgarlik_kodeksi/51¹",
             "mamuriy_javobgarlik_kodeksi/41",
             "mamuriy_javobgarlik_kodeksi/47"
@@ -2757,9 +2804,9 @@
           "top": [
             "jinoyat_kodeksi/273",
             "mamuriy_javobgarlik_kodeksi/51¹",
-            "mamuriy_javobgarlik_kodeksi/41",
             "mamuriy_javobgarlik_kodeksi/47³",
-            "jinoyat_kodeksi/273"
+            "jinoyat_kodeksi/273",
+            "mamuriy_javobgarlik_kodeksi/41"
           ]
         },
         {
@@ -2770,8 +2817,8 @@
             "mehnat_kodeksi/333",
             "mehnat_kodeksi/4",
             "jinoyat_kodeksi/122",
-            "mamuriy_javobgarlik_kodeksi/47⁴",
-            "oila_kodeksi/27"
+            "oila_kodeksi/27",
+            "mamuriy_javobgarlik_kodeksi/47⁴"
           ]
         },
         {
@@ -2779,11 +2826,11 @@
           "style": "qisqa",
           "problemId": "P06",
           "top": [
-            "jinoyat_kodeksi/122",
             "oila_kodeksi/76",
+            "jinoyat_kodeksi/122",
             "oila_kodeksi/75",
             "fuqarolik_kodeksi/1026",
-            "oila_kodeksi/96"
+            "oila_kodeksi/66"
           ]
         },
         {
@@ -2795,7 +2842,7 @@
             "oila_kodeksi/96",
             "oila_kodeksi/75",
             "mamuriy_javobgarlik_kodeksi/47",
-            "mamuriy_javobgarlik_kodeksi/47³"
+            "mehnat_kodeksi/396"
           ]
         },
         {
@@ -2807,7 +2854,7 @@
             "jinoyat_kodeksi/274",
             "jinoyat_kodeksi/166",
             "mamuriy_javobgarlik_kodeksi/47",
-            "mamuriy_javobgarlik_kodeksi/79"
+            "mamuriy_javobgarlik_kodeksi/187"
           ]
         },
         {
@@ -2816,10 +2863,10 @@
           "problemId": "P07",
           "top": [
             "jinoyat_kodeksi/274",
-            "jinoyat_kodeksi/274",
             "mehnat_kodeksi/4",
-            "jinoyat_kodeksi/211",
-            "jinoyat_kodeksi/210"
+            "jinoyat_kodeksi/274",
+            "jinoyat_kodeksi/210",
+            "jinoyat_kodeksi/211"
           ]
         },
         {
@@ -2829,21 +2876,9 @@
           "top": [
             "oila_kodeksi/39",
             "jinoyat_kodeksi/166",
-            "oila_kodeksi/23",
+            "jinoyat_kodeksi/164",
             "fuqarolik_kodeksi/389",
-            "jinoyat_kodeksi/164"
-          ]
-        },
-        {
-          "id": "P09_V3",
-          "style": "aralash",
-          "problemId": "P09",
-          "top": [
-            "oila_kodeksi/66",
-            "oila_kodeksi/109",
-            "mamuriy_javobgarlik_kodeksi/79",
-            "jinoyat_kodeksi/212",
-            "oila_kodeksi/79"
+            "oila_kodeksi/23"
           ]
         },
         {
@@ -2866,8 +2901,8 @@
             "jinoyat_kodeksi/122",
             "mamuriy_javobgarlik_kodeksi/47⁴",
             "mamuriy_javobgarlik_kodeksi/192",
-            "jinoyat_kodeksi/169",
-            "mamuriy_javobgarlik_kodeksi/183"
+            "mamuriy_javobgarlik_kodeksi/183",
+            "jinoyat_kodeksi/169"
           ]
         },
         {
@@ -2879,7 +2914,7 @@
             "mehnat_kodeksi/408",
             "mehnat_kodeksi/223",
             "mamuriy_javobgarlik_kodeksi/47⁴",
-            "jinoyat_kodeksi/122"
+            "mehnat_kodeksi/269"
           ]
         },
         {
@@ -2888,9 +2923,9 @@
           "problemId": "P11",
           "top": [
             "mamuriy_javobgarlik_kodeksi/47⁴",
-            "mehnat_kodeksi/223",
             "jinoyat_kodeksi/122",
-            "mehnat_kodeksi/216",
+            "mehnat_kodeksi/223",
+            "mamuriy_javobgarlik_kodeksi/176",
             "mehnat_kodeksi/269"
           ]
         },
@@ -2902,8 +2937,8 @@
             "fuqarolik_kodeksi/324",
             "jinoyat_kodeksi/122",
             "jinoyat_kodeksi/166",
-            "mehnat_kodeksi/161",
-            "jinoyat_kodeksi/168"
+            "jinoyat_kodeksi/168",
+            "mehnat_kodeksi/161"
           ]
         },
         {
@@ -2912,10 +2947,10 @@
           "problemId": "P13",
           "top": [
             "mehnat_kodeksi/253",
-            "mehnat_kodeksi/269",
             "mehnat_kodeksi/396",
+            "mehnat_kodeksi/269",
             "mehnat_kodeksi/417",
-            "mehnat_kodeksi/269"
+            "mehnat_kodeksi/223"
           ]
         },
         {
@@ -2923,11 +2958,11 @@
           "style": "qisqa",
           "problemId": "P14",
           "top": [
-            "fuqarolik_kodeksi/1025",
-            "mamuriy_javobgarlik_kodeksi/176",
-            "mamuriy_javobgarlik_kodeksi/47",
+            "murojaatlar_qonuni/28",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
             "mamuriy_javobgarlik_kodeksi/192",
-            "mamuriy_javobgarlik_kodeksi/47⁴"
+            "mamuriy_javobgarlik_kodeksi/47",
+            "fuqarolik_kodeksi/1025"
           ]
         },
         {
@@ -2935,10 +2970,10 @@
           "style": "sheva",
           "problemId": "P14",
           "top": [
-            "fuqarolik_kodeksi/1051",
             "fuqarolik_kodeksi/1056",
-            "mehnat_kodeksi/119",
             "mehnat_kodeksi/417",
+            "fuqarolik_kodeksi/1051",
+            "mehnat_kodeksi/119",
             "mehnat_kodeksi/396"
           ]
         },
@@ -2948,8 +2983,8 @@
           "problemId": "P14",
           "top": [
             "mehnat_kodeksi/269",
-            "mehnat_kodeksi/119",
             "mehnat_kodeksi/189",
+            "mehnat_kodeksi/119",
             "mehnat_kodeksi/189",
             "mehnat_kodeksi/356"
           ]
@@ -2962,8 +2997,8 @@
             "mehnat_kodeksi/119",
             "jinoyat_kodeksi/135",
             "jinoyat_kodeksi/270",
-            "jinoyat_kodeksi/105",
-            "oila_kodeksi/96"
+            "murojaatlar_qonuni/28",
+            "jinoyat_kodeksi/105"
           ]
         },
         {
@@ -2971,8 +3006,8 @@
           "style": "sheva",
           "problemId": "P15",
           "top": [
-            "fuqarolik_kodeksi/1023",
             "fuqarolik_kodeksi/1029",
+            "fuqarolik_kodeksi/1023",
             "fuqarolik_kodeksi/1025",
             "fuqarolik_kodeksi/735",
             "fuqarolik_kodeksi/1026"
@@ -2984,10 +3019,22 @@
           "problemId": "P16",
           "top": [
             "mehnat_kodeksi/359",
+            "fuqarolik_kodeksi/389",
             "jinoyat_kodeksi/109",
             "mamuriy_javobgarlik_kodeksi/59²",
-            "fuqarolik_kodeksi/389",
             "jinoyat_kodeksi/126¹"
+          ]
+        },
+        {
+          "id": "P16_V3",
+          "style": "kirill",
+          "problemId": "P16",
+          "top": [
+            "mehnat_kodeksi/4",
+            "fuqarolik_kodeksi/1051",
+            "mamuriy_javobgarlik_kodeksi/49",
+            "mehnat_kodeksi/355",
+            "mehnat_kodeksi/355"
           ]
         },
         {
@@ -2997,9 +3044,9 @@
           "top": [
             "fuqarolik_kodeksi/14",
             "mehnat_kodeksi/356",
+            "murojaatlar_qonuni/24",
             "mehnat_kodeksi/359",
-            "mehnat_kodeksi/355",
-            "mehnat_kodeksi/359"
+            "murojaatlar_qonuni/28"
           ]
         },
         {
@@ -3012,6 +3059,30 @@
             "mehnat_kodeksi/333",
             "fuqarolik_kodeksi/1026",
             "fuqarolik_kodeksi/1029"
+          ]
+        },
+        {
+          "id": "P20_V3",
+          "style": "kirill",
+          "problemId": "P20",
+          "top": [
+            "murojaatlar_qonuni/28",
+            "mehnat_kodeksi/4",
+            "mamuriy_javobgarlik_kodeksi/187",
+            "mamuriy_javobgarlik_kodeksi/183",
+            "mamuriy_javobgarlik_kodeksi/192"
+          ]
+        },
+        {
+          "id": "P22_V1",
+          "style": "qisqa",
+          "problemId": "P22",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/47",
+            "oila_kodeksi/73",
+            "oila_kodeksi/76",
+            "oila_kodeksi/75",
+            "oila_kodeksi/79"
           ]
         },
         {
@@ -3043,10 +3114,10 @@
           "style": "sheva",
           "problemId": "P23",
           "top": [
-            "mamuriy_javobgarlik_kodeksi/59²",
             "jinoyat_kodeksi/126¹",
+            "mamuriy_javobgarlik_kodeksi/59²",
             "oila_kodeksi/76",
-            "mehnat_kodeksi/269",
+            "jinoyat_kodeksi/126¹",
             "fuqarolik_kodeksi/238"
           ]
         },
@@ -3059,7 +3130,7 @@
             "oila_kodeksi/96",
             "oila_kodeksi/27",
             "mamuriy_javobgarlik_kodeksi/79",
-            "mamuriy_javobgarlik_kodeksi/192"
+            "mamuriy_javobgarlik_kodeksi/47"
           ]
         },
         {
@@ -3069,9 +3140,9 @@
           "top": [
             "oila_kodeksi/96",
             "oila_kodeksi/75",
-            "oila_kodeksi/79",
+            "oila_kodeksi/27",
             "oila_kodeksi/109",
-            "oila_kodeksi/27"
+            "oila_kodeksi/79"
           ]
         },
         {
@@ -3080,8 +3151,8 @@
           "problemId": "P25",
           "top": [
             "oila_kodeksi/27",
-            "mehnat_kodeksi/337",
             "mehnat_kodeksi/338",
+            "mehnat_kodeksi/337",
             "mehnat_kodeksi/356",
             "mamuriy_javobgarlik_kodeksi/187"
           ]
@@ -3128,10 +3199,10 @@
           "problemId": "P29",
           "top": [
             "oila_kodeksi/27",
-            "jinoyat_kodeksi/271",
-            "jinoyat_kodeksi/275",
             "jinoyat_kodeksi/169",
-            "jinoyat_kodeksi/274"
+            "jinoyat_kodeksi/275",
+            "jinoyat_kodeksi/271",
+            "jinoyat_kodeksi/273"
           ]
         },
         {
@@ -3143,19 +3214,7 @@
             "mamuriy_javobgarlik_kodeksi/47",
             "mamuriy_javobgarlik_kodeksi/59²",
             "mamuriy_javobgarlik_kodeksi/79",
-            "jinoyat_kodeksi/270"
-          ]
-        },
-        {
-          "id": "P30_V3",
-          "style": "kirill",
-          "problemId": "P30",
-          "top": [
-            "mamuriy_javobgarlik_kodeksi/47⁴",
-            "mehnat_kodeksi/396",
-            "mehnat_kodeksi/161",
-            "mehnat_kodeksi/119",
-            "oila_kodeksi/24"
+            "mamuriy_javobgarlik_kodeksi/47⁴"
           ]
         },
         {
@@ -3166,8 +3225,8 @@
             "mamuriy_javobgarlik_kodeksi/47⁴",
             "jinoyat_kodeksi/122",
             "jinoyat_kodeksi/257",
-            "fuqarolik_kodeksi/735",
-            "fuqarolik_kodeksi/388"
+            "fuqarolik_kodeksi/388",
+            "fuqarolik_kodeksi/735"
           ]
         },
         {
@@ -3188,10 +3247,10 @@
           "problemId": "P31",
           "top": [
             "fuqarolik_kodeksi/388",
-            "mamuriy_javobgarlik_kodeksi/51¹",
-            "fuqarolik_kodeksi/390",
             "fuqarolik_kodeksi/386",
-            "fuqarolik_kodeksi/389"
+            "fuqarolik_kodeksi/390",
+            "fuqarolik_kodeksi/389",
+            "mamuriy_javobgarlik_kodeksi/51¹"
           ]
         },
         {
@@ -3213,9 +3272,9 @@
           "top": [
             "mamuriy_javobgarlik_kodeksi/51¹",
             "mamuriy_javobgarlik_kodeksi/187",
-            "jinoyat_kodeksi/135",
-            "mamuriy_javobgarlik_kodeksi/192",
-            "mamuriy_javobgarlik_kodeksi/183"
+            "murojaatlar_qonuni/28",
+            "fuqarolik_kodeksi/1025",
+            "jinoyat_kodeksi/135"
           ]
         },
         {
@@ -3224,9 +3283,9 @@
           "problemId": "P33",
           "top": [
             "mamuriy_javobgarlik_kodeksi/51¹",
+            "mamuriy_javobgarlik_kodeksi/187",
             "mamuriy_javobgarlik_kodeksi/192",
             "jinoyat_kodeksi/169",
-            "mamuriy_javobgarlik_kodeksi/187",
             "jinoyat_kodeksi/271"
           ]
         },
@@ -3235,11 +3294,11 @@
           "style": "sheva",
           "problemId": "P33",
           "top": [
-            "mamuriy_javobgarlik_kodeksi/192",
             "mamuriy_javobgarlik_kodeksi/79",
+            "mamuriy_javobgarlik_kodeksi/192",
             "mamuriy_javobgarlik_kodeksi/187",
             "mamuriy_javobgarlik_kodeksi/79",
-            "fuqarolik_kodeksi/1025"
+            "mamuriy_javobgarlik_kodeksi/51¹"
           ]
         },
         {
@@ -3249,9 +3308,9 @@
           "top": [
             "fuqarolik_kodeksi/1040",
             "fuqarolik_kodeksi/14",
+            "mamuriy_javobgarlik_kodeksi/79",
             "jinoyat_kodeksi/212",
-            "jinoyat_kodeksi/164",
-            "mamuriy_javobgarlik_kodeksi/192"
+            "mehnat_kodeksi/4"
           ]
         },
         {
@@ -3263,7 +3322,7 @@
             "jinoyat_kodeksi/122",
             "jinoyat_kodeksi/105",
             "jinoyat_kodeksi/169",
-            "jinoyat_kodeksi/212"
+            "jinoyat_kodeksi/276"
           ]
         },
         {
@@ -3272,10 +3331,10 @@
           "problemId": "P35",
           "top": [
             "fuqarolik_kodeksi/324",
-            "fuqarolik_kodeksi/985",
             "mamuriy_javobgarlik_kodeksi/192",
             "mehnat_kodeksi/338",
-            "jinoyat_kodeksi/275"
+            "fuqarolik_kodeksi/985",
+            "jinoyat_kodeksi/211"
           ]
         },
         {
@@ -3284,10 +3343,10 @@
           "problemId": "P35",
           "top": [
             "mamuriy_javobgarlik_kodeksi/79",
-            "jinoyat_kodeksi/274",
             "fuqarolik_kodeksi/14",
             "mamuriy_javobgarlik_kodeksi/79",
-            "jinoyat_kodeksi/166"
+            "jinoyat_kodeksi/274",
+            "jinoyat_kodeksi/273"
           ]
         },
         {
@@ -3308,10 +3367,10 @@
           "problemId": "P36",
           "top": [
             "mehnat_kodeksi/269",
+            "mehnat_kodeksi/337",
             "mehnat_kodeksi/189",
-            "mehnat_kodeksi/253",
-            "jinoyat_kodeksi/276",
-            "fuqarolik_kodeksi/386"
+            "fuqarolik_kodeksi/386",
+            "mehnat_kodeksi/253"
           ]
         },
         {
@@ -3319,11 +3378,11 @@
           "style": "kirill",
           "problemId": "P36",
           "top": [
+            "murojaatlar_qonuni/28",
             "mamuriy_javobgarlik_kodeksi/176",
-            "mehnat_kodeksi/253",
-            "mehnat_kodeksi/269",
             "mehnat_kodeksi/355",
-            "jinoyat_kodeksi/211"
+            "mehnat_kodeksi/253",
+            "murojaatlar_qonuni/24"
           ]
         },
         {
@@ -3334,7 +3393,7 @@
             "mamuriy_javobgarlik_kodeksi/47",
             "jinoyat_kodeksi/212",
             "mamuriy_javobgarlik_kodeksi/47",
-            "mamuriy_javobgarlik_kodeksi/51",
+            "oila_kodeksi/109",
             "mamuriy_javobgarlik_kodeksi/47⁴"
           ]
         },
@@ -3344,10 +3403,22 @@
           "problemId": "P38",
           "top": [
             "mamuriy_javobgarlik_kodeksi/47⁴",
-            "mehnat_kodeksi/189",
             "jinoyat_kodeksi/135",
-            "mamuriy_javobgarlik_kodeksi/51¹",
-            "fuqarolik_kodeksi/386"
+            "mehnat_kodeksi/189",
+            "oila_kodeksi/23",
+            "mamuriy_javobgarlik_kodeksi/51¹"
+          ]
+        },
+        {
+          "id": "P38_V2",
+          "style": "sheva",
+          "problemId": "P38",
+          "top": [
+            "oila_kodeksi/23",
+            "fuqarolik_kodeksi/386",
+            "oila_kodeksi/27",
+            "fuqarolik_kodeksi/1023",
+            "fuqarolik_kodeksi/1026"
           ]
         },
         {
@@ -3355,10 +3426,10 @@
           "style": "kirill",
           "problemId": "P38",
           "top": [
-            "mamuriy_javobgarlik_kodeksi/49",
+            "murojaatlar_qonuni/28",
             "mamuriy_javobgarlik_kodeksi/47³",
+            "mamuriy_javobgarlik_kodeksi/49",
             "mamuriy_javobgarlik_kodeksi/41",
-            "mamuriy_javobgarlik_kodeksi/176",
             "mamuriy_javobgarlik_kodeksi/187"
           ]
         },
@@ -3379,11 +3450,11 @@
           "style": "sheva",
           "problemId": "P40",
           "top": [
-            "jinoyat_kodeksi/211",
             "fuqarolik_kodeksi/14",
+            "jinoyat_kodeksi/211",
             "jinoyat_kodeksi/210",
-            "mamuriy_javobgarlik_kodeksi/192",
-            "jinoyat_kodeksi/257"
+            "murojaatlar_qonuni/24",
+            "fuqarolik_kodeksi/386"
           ]
         },
         {
@@ -3391,11 +3462,11 @@
           "style": "kirill",
           "problemId": "P40",
           "top": [
+            "murojaatlar_qonuni/31",
+            "murojaatlar_qonuni/28",
+            "murojaatlar_qonuni/24",
             "mehnat_kodeksi/4",
-            "fuqarolik_kodeksi/1051",
-            "mamuriy_javobgarlik_kodeksi/41",
-            "mamuriy_javobgarlik_kodeksi/51¹",
-            "mamuriy_javobgarlik_kodeksi/79"
+            "murojaatlar_qonuni/24"
           ]
         },
         {
@@ -3417,21 +3488,9 @@
           "top": [
             "fuqarolik_kodeksi/735",
             "fuqarolik_kodeksi/1023",
-            "fuqarolik_kodeksi/1029",
             "fuqarolik_kodeksi/1026",
-            "fuqarolik_kodeksi/1025"
-          ]
-        },
-        {
-          "id": "P41_V3",
-          "style": "aralash",
-          "problemId": "P41",
-          "top": [
-            "mehnat_kodeksi/355",
-            "oila_kodeksi/27",
-            "mehnat_kodeksi/333",
-            "fuqarolik_kodeksi/735",
-            "mehnat_kodeksi/269"
+            "fuqarolik_kodeksi/1025",
+            "fuqarolik_kodeksi/1029"
           ]
         },
         {
@@ -3443,7 +3502,7 @@
             "jinoyat_kodeksi/105",
             "jinoyat_kodeksi/104",
             "jinoyat_kodeksi/257",
-            "fuqarolik_kodeksi/1025"
+            "jinoyat_kodeksi/274"
           ]
         },
         {
@@ -3452,10 +3511,10 @@
           "problemId": "P42",
           "top": [
             "mamuriy_javobgarlik_kodeksi/187",
-            "jinoyat_kodeksi/125¹",
             "jinoyat_kodeksi/126¹",
-            "mamuriy_javobgarlik_kodeksi/79",
-            "jinoyat_kodeksi/168"
+            "jinoyat_kodeksi/125¹",
+            "jinoyat_kodeksi/168",
+            "jinoyat_kodeksi/122"
           ]
         },
         {
@@ -3464,9 +3523,9 @@
           "problemId": "P43",
           "top": [
             "mamuriy_javobgarlik_kodeksi/47",
-            "mehnat_kodeksi/396",
-            "oila_kodeksi/109",
             "mamuriy_javobgarlik_kodeksi/47",
+            "oila_kodeksi/109",
+            "oila_kodeksi/75",
             "jinoyat_kodeksi/274"
           ]
         },
@@ -3476,10 +3535,10 @@
           "problemId": "P43",
           "top": [
             "jinoyat_kodeksi/105",
-            "mehnat_kodeksi/333",
             "mamuriy_javobgarlik_kodeksi/176",
             "jinoyat_kodeksi/126¹",
-            "fuqarolik_kodeksi/735"
+            "mehnat_kodeksi/333",
+            "murojaatlar_qonuni/31"
           ]
         },
         {
@@ -3489,9 +3548,9 @@
           "top": [
             "mamuriy_javobgarlik_kodeksi/187",
             "jinoyat_kodeksi/278¹",
+            "fuqarolik_kodeksi/1051",
             "fuqarolik_kodeksi/1040",
-            "mamuriy_javobgarlik_kodeksi/176",
-            "fuqarolik_kodeksi/1051"
+            "mamuriy_javobgarlik_kodeksi/176"
           ]
         },
         {
@@ -3499,11 +3558,11 @@
           "style": "aralash",
           "problemId": "P47",
           "top": [
-            "mamuriy_javobgarlik_kodeksi/187",
             "oila_kodeksi/79",
+            "mamuriy_javobgarlik_kodeksi/187",
             "mamuriy_javobgarlik_kodeksi/47⁴",
-            "jinoyat_kodeksi/276",
-            "mamuriy_javobgarlik_kodeksi/176"
+            "mamuriy_javobgarlik_kodeksi/176",
+            "mamuriy_javobgarlik_kodeksi/47³"
           ]
         },
         {
@@ -3515,7 +3574,7 @@
             "mehnat_kodeksi/417",
             "mehnat_kodeksi/396",
             "mamuriy_javobgarlik_kodeksi/79",
-            "jinoyat_kodeksi/135"
+            "mehnat_kodeksi/228"
           ]
         },
         {
@@ -3547,11 +3606,11 @@
           "style": "qisqa",
           "problemId": "P49",
           "top": [
-            "oila_kodeksi/40",
             "mehnat_kodeksi/228",
+            "oila_kodeksi/40",
             "mehnat_kodeksi/216",
             "mehnat_kodeksi/333",
-            "mehnat_kodeksi/269"
+            "mehnat_kodeksi/253"
           ]
         },
         {
@@ -3561,9 +3620,9 @@
           "top": [
             "oila_kodeksi/40",
             "mehnat_kodeksi/333",
+            "murojaatlar_qonuni/28",
             "mehnat_kodeksi/269",
-            "mehnat_kodeksi/253",
-            "mehnat_kodeksi/4"
+            "mamuriy_javobgarlik_kodeksi/192"
           ]
         },
         {
@@ -3572,10 +3631,10 @@
           "problemId": "P49",
           "top": [
             "mamuriy_javobgarlik_kodeksi/176",
-            "mamuriy_javobgarlik_kodeksi/79",
             "fuqarolik_kodeksi/1025",
-            "mamuriy_javobgarlik_kodeksi/47",
-            "mamuriy_javobgarlik_kodeksi/187"
+            "mamuriy_javobgarlik_kodeksi/79",
+            "mamuriy_javobgarlik_kodeksi/59²",
+            "mamuriy_javobgarlik_kodeksi/47"
           ]
         },
         {
@@ -3585,8 +3644,8 @@
           "top": [
             "fuqarolik_kodeksi/324",
             "oila_kodeksi/27",
-            "oila_kodeksi/23",
             "oila_kodeksi/28",
+            "oila_kodeksi/23",
             "fuqarolik_kodeksi/735"
           ]
         },
