@@ -42,8 +42,11 @@ interface NeededArticle {
   citations: string[];
 }
 interface NeededCode {
-  key: CodeKey;
+  /** CodeKey for the five codes, or a manual-documents.json key (e.g. "murojaatlar_qonuni"). */
+  key: string;
   name: string;
+  /** "catalog" = parsed from qonunlar; "manual" = listed in manual-documents.json. */
+  origin: "catalog" | "manual";
   articles: NeededArticle[];
 }
 interface CitationWithoutArticle {
@@ -52,7 +55,26 @@ interface CitationWithoutArticle {
   codeKey: CodeKey | null;
   problemIds: string[];
   note: string | null;
+  /** Set when manual-documents.json supplies articles for this law. */
+  coveredBy?: string;
 }
+
+/** legal-knowledge/sources/manual-documents.json */
+interface ManualDocument {
+  name: string;
+  key: string;
+  lexuzId: string;
+  providedUrl: string;
+  expectedTitleIncludes: string;
+  number: string;
+  note: string;
+  articles: string[];
+  requestedBy: string;
+  supersedes: { lexuzId: string; providedUrl: string; expectedTitle: string; number: string; note: string }[];
+}
+const MANUAL_FILE = join(SOURCES, "manual-documents.json");
+const manualDocuments = (): ManualDocument[] =>
+  existsSync(MANUAL_FILE) ? readJson<{ documents: ManualDocument[] }>(MANUAL_FILE).documents : [];
 interface NeededFile {
   generatedAt: string;
   source: string;
@@ -112,10 +134,25 @@ function needed(): NeededFile {
     codes: CODES.filter((c) => codes.has(c.key)).map((c) => ({
       key: c.key,
       name: c.name,
+      origin: "catalog" as const,
       articles: [...(codes.get(c.key) as Map<string, NeededArticle>).values()].sort(byNumber),
     })),
     withoutArticles: [...without.values()].sort((a, b) => a.citation.localeCompare(b.citation)),
   };
+
+  // Laws whose articles were named by the project owner (manual-documents.json). They inherit the
+  // problemIds of the catalog citation of that law; the catalog itself names no article.
+  for (const m of manualDocuments()) {
+    const cites = out.withoutArticles.filter((w) => w.document === m.name);
+    for (const w of cites) w.coveredBy = `manual-documents.json#${m.key}`;
+    const problemIds = [...new Set(cites.flatMap((w) => w.problemIds))].sort();
+    out.codes.push({
+      key: m.key,
+      name: m.name,
+      origin: "manual",
+      articles: m.articles.map((id) => ({ id, display: id, problemIds, citations: cites.map((w) => w.citation) })),
+    });
+  }
   writeJson(NEEDED_FILE, out);
   const total = out.codes.reduce((n, c) => n + c.articles.length, 0);
   console.log(`needed-articles.json: ${total} ta modda, ${out.codes.length} ta kodeks; moddasiz yozuvlar: ${out.withoutArticles.length}`);
@@ -128,7 +165,11 @@ function needed(): NeededFile {
 interface ResolvedDocument {
   name: string;
   kind: "code" | "law";
-  codeKey: CodeKey | null;
+  codeKey: string | null;
+  /** "search" = found by lex.uz search; "manual" = manual-documents.json (page still verified). */
+  origin: "search" | "manual";
+  note?: string;
+  providedUrl?: string;
   /** One entry per lex.uz document (the Civil Code has several parts). */
   parts: { lexuzId: string; url: string; title: string; date: string | null; number: string | null; badge: string }[];
   verifiedAt: string;
@@ -140,10 +181,24 @@ interface UnresolvedDocument {
   reason: string;
   candidates: { title: string; url: string; inForce: boolean; badge: string }[];
 }
+/** Older versions that are NOT in force (kept so nobody cites them by mistake). */
+interface SupersededDocument {
+  name: string;
+  url: string;
+  providedUrl: string;
+  title: string;
+  date: string | null;
+  number: string;
+  inForce: false;
+  replacedBy: string;
+  note: string;
+  verifiedAt: string;
+}
 interface DocumentsFile {
   verifiedAt: string;
   method: string;
   documents: ResolvedDocument[];
+  superseded: SupersededDocument[];
   unresolved: UnresolvedDocument[];
 }
 
@@ -156,7 +211,7 @@ const NOT_A_SINGLE_DOCUMENT = /normativ hujjatlar|qoidalari|davlat qonunchiligi|
 interface Target {
   name: string;
   kind: "code" | "law";
-  codeKey: CodeKey | null;
+  codeKey: string | null;
   problemIds: string[];
   query: string;
   /** Accepts a normalized search-result title. */
@@ -166,13 +221,14 @@ interface Target {
 }
 
 function targets(n: NeededFile): { targets: Target[]; unresolved: UnresolvedDocument[] } {
-  const docs = new Map<string, { kind: "code" | "law"; codeKey: CodeKey | null; problemIds: Set<string> }>();
-  const add = (name: string, kind: "code" | "law", codeKey: CodeKey | null, ids: string[]) => {
+  const docs = new Map<string, { kind: "code" | "law"; codeKey: string | null; problemIds: Set<string> }>();
+  const add = (name: string, kind: "code" | "law", codeKey: string | null, ids: string[]) => {
     const d = docs.get(name) ?? { kind, codeKey, problemIds: new Set<string>() };
     ids.forEach((id) => d.problemIds.add(id));
     docs.set(name, d);
   };
-  for (const c of n.codes) add(c.name, "code", c.key, c.articles.flatMap((a) => a.problemIds));
+  // Manual laws are resolved from manual-documents.json, not searched as codes.
+  for (const c of n.codes) add(c.name, c.origin === "manual" ? "law" : "code", c.key, c.articles.flatMap((a) => a.problemIds));
   for (const w of n.withoutArticles) {
     if (w.codeKey) add(CODES.find((c) => c.key === w.codeKey)?.name as string, "code", w.codeKey, w.problemIds);
     else add(w.document, "law", null, w.problemIds);
@@ -210,8 +266,57 @@ const escapeRe = (s: string): string => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
 
 async function resolveDocuments(client: LexUzClient): Promise<DocumentsFile> {
   const n = existsSync(NEEDED_FILE) ? readJson<NeededFile>(NEEDED_FILE) : needed();
-  const { targets: list, unresolved } = targets(n);
+  const manual = manualDocuments();
+  const { targets: all, unresolved } = targets(n);
+  const list = all.filter((t) => !manual.some((m) => m.name === t.name));
   const documents: ResolvedDocument[] = [];
+  const superseded: SupersededDocument[] = [];
+
+  // Manual documents: open the given page and verify its title before accepting it.
+  for (const m of manual) {
+    const page = await client.get(`/uz/docs/${m.lexuzId}`);
+    const { number, date, title } = parseDocumentTitle(page.html.slice(0, 20_000));
+    const problemIds = [...new Set(n.withoutArticles.filter((w) => w.document === m.name).flatMap((w) => w.problemIds))].sort();
+    if (!normalizeTitle(title).includes(normalizeTitle(m.expectedTitleIncludes))) {
+      unresolved.push({ name: m.name, problemIds, reason: `Qo'lda berilgan sahifa sarlavhasi mos emas: "${title}"`, candidates: [] });
+      console.log(`✗ ${m.name} (manual): ${title}`);
+      continue;
+    }
+    const url = `${LEXUZ}/uz/docs/${m.lexuzId}`;
+    documents.push({
+      name: m.name,
+      kind: "law",
+      codeKey: m.key,
+      origin: "manual",
+      note: m.note,
+      providedUrl: m.providedUrl,
+      parts: [{ lexuzId: m.lexuzId, url, title, date, number: number ?? m.number, badge: "" }],
+      verifiedAt: today(),
+      problemIds,
+    });
+    console.log(`✓ ${m.name} (manual): ${title} (${url})`);
+    for (const old of m.supersedes) {
+      const oldPage = await client.get(`/uz/docs/${old.lexuzId}`);
+      const t = parseDocumentTitle(oldPage.html.slice(0, 20_000));
+      if (normalizeTitle(t.title) !== normalizeTitle(old.expectedTitle)) {
+        console.log(`✗ superseded ${old.lexuzId}: sarlavha mos emas "${t.title}"`);
+        continue;
+      }
+      superseded.push({
+        name: m.name,
+        url: `${LEXUZ}/uz/docs/${old.lexuzId}`,
+        providedUrl: old.providedUrl,
+        title: t.title,
+        date: t.date,
+        number: old.number,
+        inForce: false,
+        replacedBy: url,
+        note: old.note,
+        verifiedAt: today(),
+      });
+      console.log(`  ↳ amalda emas: ${t.title} ${t.date ?? ""} (${old.lexuzId})`);
+    }
+  }
 
   for (const t of list) {
     const actType = t.kind === "code" ? 21 : 22;
@@ -260,7 +365,7 @@ async function resolveDocuments(client: LexUzClient): Promise<DocumentsFile> {
       console.log(`✗ ${t.name}: ${failed}`);
       continue;
     }
-    documents.push({ name: t.name, kind: t.kind, codeKey: t.codeKey, parts, verifiedAt: today(), problemIds: t.problemIds });
+    documents.push({ name: t.name, kind: t.kind, codeKey: t.codeKey, origin: "search", parts, verifiedAt: today(), problemIds: t.problemIds });
     console.log(`✓ ${t.name}: ${parts.map((p) => `${p.title} (${p.url})`).join("; ")}`);
   }
 
@@ -268,8 +373,9 @@ async function resolveDocuments(client: LexUzClient): Promise<DocumentsFile> {
     verifiedAt: today(),
     method:
       "lex.uz qidiruvi (act_type 21 = kodekslar, 22 = qonunlar), faqat amaldagi va sarlavhasi aynan mos hujjat; " +
-      "keyin hujjat sahifasi (lotin) ochilib, <title> tekshirilgan.",
+      "keyin hujjat sahifasi (lotin) ochilib, <title> tekshirilgan. origin=manual: manual-documents.json dagi sahifa ochilib tekshirilgan.",
     documents,
+    superseded,
     unresolved,
   };
   writeJson(DOCUMENTS_FILE, out);
@@ -283,13 +389,13 @@ async function resolveDocuments(client: LexUzClient): Promise<DocumentsFile> {
 interface FetchReport {
   retrievedAt: string;
   found: number;
-  missing: { code: CodeKey; article: string; problemIds: string[]; reason: string }[];
+  missing: { code: string; article: string; problemIds: string[]; reason: string }[];
   /** Superscript articles: checked that "N<sup>k</sup>-modda" was matched, not article N. */
-  superscriptChecks: { code: CodeKey; article: string; found: boolean; heading: string | null; baseHeading: string | null }[];
+  superscriptChecks: { code: string; article: string; found: boolean; heading: string | null; baseHeading: string | null }[];
   /** Found articles whose heading or text says they were repealed/excluded. */
-  repealed: { code: CodeKey; article: string; heading: string }[];
+  repealed: { code: string; article: string; heading: string }[];
   /** Article number present in more than one part of a code (first part in order is used). */
-  ambiguous: { code: CodeKey; article: string; parts: string[] }[];
+  ambiguous: { code: string; article: string; parts: string[] }[];
   unknownBlockClasses: string[];
   requests: number;
 }
@@ -303,7 +409,7 @@ const partOrder = (title: string): number => {
 
 function articleMarkdown(p: {
   document: string;
-  codeKey: CodeKey;
+  codeKey: string;
   display: string;
   heading: string;
   url: string;

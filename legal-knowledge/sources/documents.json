@@ -1,11 +1,35 @@
 {
   "verifiedAt": "2026-11-17",
-  "method": "lex.uz qidiruvi (act_type 21 = kodekslar, 22 = qonunlar), faqat amaldagi va sarlavhasi aynan mos hujjat; keyin hujjat sahifasi (lotin) ochilib, <title> tekshirilgan.",
+  "method": "lex.uz qidiruvi (act_type 21 = kodekslar, 22 = qonunlar), faqat amaldagi va sarlavhasi aynan mos hujjat; keyin hujjat sahifasi (lotin) ochilib, <title> tekshirilgan. origin=manual: manual-documents.json dagi sahifa ochilib tekshirilgan.",
   "documents": [
+    {
+      "name": "Jismoniy va yuridik shaxslarning murojaatlari to'g'risidagi qonun",
+      "kind": "law",
+      "codeKey": "murojaatlar_qonuni",
+      "origin": "manual",
+      "note": "2017-yilgi yangi tahrir. lex.uz sarlavhasi o'zgartirish kirituvchi qonun nomi bilan, sahifada qonunning to'liq matni (1–38-moddalar) bor.",
+      "providedUrl": "https://lex.uz/acts/-3336169",
+      "parts": [
+        {
+          "lexuzId": "-3336169",
+          "url": "https://lex.uz/uz/docs/-3336169",
+          "title": "“Jismoniy va yuridik shaxslarning murojaatlari toʻgʻrisida”gi Oʻzbekiston Respublikasi Qonuniga oʻzgartish va qoʻshimchalar kiritish haqida",
+          "date": "11.09.2017",
+          "number": "O‘RQ-445-сон",
+          "badge": ""
+        }
+      ],
+      "verifiedAt": "2026-11-17",
+      "problemIds": [
+        "P58",
+        "P59"
+      ]
+    },
     {
       "name": "Mehnat kodeksi",
       "kind": "code",
       "codeKey": "mehnat_kodeksi",
+      "origin": "search",
       "parts": [
         {
           "lexuzId": "-6257288",
@@ -34,6 +58,7 @@
       "name": "Jinoyat kodeksi",
       "kind": "code",
       "codeKey": "jinoyat_kodeksi",
+      "origin": "search",
       "parts": [
         {
           "lexuzId": "-111453",
@@ -70,6 +95,7 @@
       "name": "Fuqarolik kodeksi",
       "kind": "code",
       "codeKey": "fuqarolik_kodeksi",
+      "origin": "search",
       "parts": [
         {
           "lexuzId": "-180552",
@@ -106,6 +132,7 @@
       "name": "Ma'muriy javobgarlik to'g'risidagi kodeks",
       "kind": "code",
       "codeKey": "mamuriy_javobgarlik_kodeksi",
+      "origin": "search",
       "parts": [
         {
           "lexuzId": "-97664",
@@ -138,6 +165,7 @@
       "name": "Oila kodeksi",
       "kind": "code",
       "codeKey": "oila_kodeksi",
+      "origin": "search",
       "parts": [
         {
           "lexuzId": "-104720",
@@ -164,6 +192,7 @@
       "name": "Bola huquqlarining kafolatlari to'g'risidagi qonun",
       "kind": "law",
       "codeKey": null,
+      "origin": "search",
       "parts": [
         {
           "lexuzId": "-1297315",
@@ -183,6 +212,7 @@
       "name": "Elektron tijorat to'g'risidagi qonun",
       "kind": "law",
       "codeKey": null,
+      "origin": "search",
       "parts": [
         {
           "lexuzId": "-6213382",
@@ -202,6 +232,7 @@
       "name": "Fuqarolar sog'lig'ini saqlash to'g'risidagi qonun",
       "kind": "law",
       "codeKey": null,
+      "origin": "search",
       "parts": [
         {
           "lexuzId": "-26013",
@@ -221,6 +252,7 @@
       "name": "Fuqarolarning davlat pensiya ta'minoti to'g'risidagi qonun",
       "kind": "law",
       "codeKey": null,
+      "origin": "search",
       "parts": [
         {
           "lexuzId": "-112314",
@@ -240,6 +272,7 @@
       "name": "Iste'molchilarning huquqlarini himoya qilish to'g'risidagi qonun",
       "kind": "law",
       "codeKey": null,
+      "origin": "search",
       "parts": [
         {
           "lexuzId": "-4704",
@@ -261,6 +294,7 @@
       "name": "Korrupsiyaga qarshi kurashish to'g'risidagi qonun",
       "kind": "law",
       "codeKey": null,
+      "origin": "search",
       "parts": [
         {
           "lexuzId": "-3088008",
@@ -280,6 +314,7 @@
       "name": "Nogironligi bo'lgan shaxslarning huquqlari to'g'risidagi qonun",
       "kind": "law",
       "codeKey": null,
+      "origin": "search",
       "parts": [
         {
           "lexuzId": "-5049511",
@@ -299,6 +334,7 @@
       "name": "Ta'lim to'g'risidagi qonun",
       "kind": "law",
       "codeKey": null,
+      "origin": "search",
       "parts": [
         {
           "lexuzId": "-5013007",
@@ -319,6 +355,7 @@
       "name": "Xotin-qizlarni tazyiq va zo'ravonlikdan himoya qilish to'g'risidagi qonun",
       "kind": "law",
       "codeKey": null,
+      "origin": "search",
       "parts": [
         {
           "lexuzId": "-4494709",
@@ -333,6 +370,20 @@
       "problemIds": [
         "P25"
       ]
+    }
+  ],
+  "superseded": [
+    {
+      "name": "Jismoniy va yuridik shaxslarning murojaatlari to'g'risidagi qonun",
+      "url": "https://lex.uz/uz/docs/-2509996",
+      "providedUrl": "https://lex.uz/acts/-2509996",
+      "title": "Jismoniy va yuridik shaxslarning murojaatlari toʻgʻrisida",
+      "date": "03.12.2014",
+      "number": "O‘RQ-378",
+      "inForce": false,
+      "replacedBy": "https://lex.uz/uz/docs/-3336169",
+      "note": "2014-yilgi versiya; lex.uz qidiruvida amalda emas (status_code ≠ y).",
+      "verifiedAt": "2026-11-17"
     }
   ],
   "unresolved": [
@@ -493,28 +544,6 @@
           "url": "https://lex.uz/uz/docs/-1372495",
           "inForce": false,
           "badge": "Oʻzbekiston Respublikasining Qonuni, 11.07.2008 yildagi O‘RQ-162-son"
-        }
-      ]
-    },
-    {
-      "name": "Jismoniy va yuridik shaxslarning murojaatlari to'g'risidagi qonun",
-      "problemIds": [
-        "P58",
-        "P59"
-      ],
-      "reason": "Qidiruvda aniq mos, amaldagi hujjat topilmadi",
-      "candidates": [
-        {
-          "title": "“Jismoniy va yuridik shaxslarning murojaatlari toʻgʻrisida”gi Oʻzbekiston Respublikasi Qonuniga oʻzgartish va qoʻshimchalar kiritish haqida",
-          "url": "https://lex.uz/uz/docs/-3336169",
-          "inForce": true,
-          "badge": "Oʻzbekiston Respublikasining Qonuni, 11.09.2017 yildagi O‘RQ-445-son"
-        },
-        {
-          "title": "Jismoniy va yuridik shaxslarning murojaatlari toʻgʻrisida",
-          "url": "https://lex.uz/uz/docs/-2509996",
-          "inForce": false,
-          "badge": "Oʻzbekiston Respublikasining Qonuni, 03.12.2014 yildagi O‘RQ-378-son"
         }
       ]
     },

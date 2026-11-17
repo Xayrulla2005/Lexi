@@ -59,7 +59,15 @@ describe("getArticlesForProblem", () => {
   });
 
   it("returns nothing for a problem without catalog articles", () => {
-    expect(getArticlesForProblem("P58")).toEqual([]);
+    expect(getArticlesForProblem("P60")).toEqual([]);
+  });
+
+  it("P58 -> murojaatlar qonuni 24, 28, 31 (manual-documents.json)", () => {
+    expect(getArticlesForProblem("P58").map((a) => a.key)).toEqual([
+      "murojaatlar_qonuni/24",
+      "murojaatlar_qonuni/28",
+      "murojaatlar_qonuni/31",
+    ]);
   });
 });
 
@@ -69,7 +77,7 @@ describe("retrieveForAnalysis", () => {
   );
 
   it("with the correct problemId every story gets all its catalog articles (recall 100%)", async () => {
-    expect(stories.length).toBe(205);
+    expect(stories.length).toBe(213); // 205 + P58/P59 (8 stories) since the appeals law articles were added
     let hits = 0;
     for (const s of stories) {
       const out = await retrieveForAnalysis(s.hikoya as string, s.problem_id as string, fakeRag);

@@ -1,10 +1,11 @@
 {
-  "generatedAt": "2026-11-17T08:12:07.318Z",
+  "generatedAt": "2026-11-17T10:00:14.601Z",
   "source": "legal-knowledge/catalog/problems.json (qonunlar)",
   "codes": [
     {
       "key": "mehnat_kodeksi",
       "name": "Mehnat kodeksi",
+      "origin": "catalog",
       "articles": [
         {
           "id": "4",
@@ -224,6 +225,7 @@
     {
       "key": "jinoyat_kodeksi",
       "name": "Jinoyat kodeksi",
+      "origin": "catalog",
       "articles": [
         {
           "id": "104",
@@ -469,6 +471,7 @@
     {
       "key": "fuqarolik_kodeksi",
       "name": "Fuqarolik kodeksi",
+      "origin": "catalog",
       "articles": [
         {
           "id": "14",
@@ -709,6 +712,7 @@
     {
       "key": "mamuriy_javobgarlik_kodeksi",
       "name": "Ma'muriy javobgarlik to'g'risidagi kodeks",
+      "origin": "catalog",
       "articles": [
         {
           "id": "41",
@@ -846,6 +850,7 @@
     {
       "key": "oila_kodeksi",
       "name": "Oila kodeksi",
+      "origin": "catalog",
       "articles": [
         {
           "id": "23",
@@ -1012,6 +1017,46 @@
           ]
         }
       ]
+    },
+    {
+      "key": "murojaatlar_qonuni",
+      "name": "Jismoniy va yuridik shaxslarning murojaatlari to'g'risidagi qonun",
+      "origin": "manual",
+      "articles": [
+        {
+          "id": "24",
+          "display": "24",
+          "problemIds": [
+            "P58",
+            "P59"
+          ],
+          "citations": [
+            "Jismoniy va yuridik shaxslarning murojaatlari to'g'risidagi qonun (javob muddati 15 kun, istisno holatda 1 oygacha)"
+          ]
+        },
+        {
+          "id": "28",
+          "display": "28",
+          "problemIds": [
+            "P58",
+            "P59"
+          ],
+          "citations": [
+            "Jismoniy va yuridik shaxslarning murojaatlari to'g'risidagi qonun (javob muddati 15 kun, istisno holatda 1 oygacha)"
+          ]
+        },
+        {
+          "id": "31",
+          "display": "31",
+          "problemIds": [
+            "P58",
+            "P59"
+          ],
+          "citations": [
+            "Jismoniy va yuridik shaxslarning murojaatlari to'g'risidagi qonun (javob muddati 15 kun, istisno holatda 1 oygacha)"
+          ]
+        }
+      ]
     }
   ],
   "withoutArticles": [
@@ -1125,7 +1170,8 @@
         "P58",
         "P59"
       ],
-      "note": "(javob muddati 15 kun, istisno holatda 1 oygacha)"
+      "note": "(javob muddati 15 kun, istisno holatda 1 oygacha)",
+      "coveredBy": "manual-documents.json#murojaatlar_qonuni"
     },
     {
       "citation": "Kam ta'minlangan oilalarga ijtimoiy nafaqa tayinlash tartibi (Vazirlar Mahkamasi qarori)",

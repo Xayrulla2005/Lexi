@@ -161,15 +161,30 @@ export function chunkArticle(a: ArticleFile, maxChars: number = MAX_CHUNK_CHARS)
   }));
 }
 
-export async function buildIndex(embedder: Embedder, articles: ArticleFile[] = loadArticles()): Promise<LegalIndex> {
+/**
+ * Embeds the article chunks. With `previous` (same model), chunks whose id and text are
+ * unchanged keep their vectors, so adding a few articles does not re-embed everything.
+ */
+export async function buildIndex(
+  embedder: Embedder,
+  articles: ArticleFile[] = loadArticles(),
+  previous?: LegalIndex,
+): Promise<LegalIndex & { reused: number }> {
   const chunks = articles.flatMap((a) => chunkArticle(a));
-  const vectors = await embedder.embed(chunks.map((c) => c.text));
+  const old = new Map(
+    previous && previous.model === embedder.id ? previous.chunks.map((c) => [`${c.id}|${c.text}`, c.vector]) : [],
+  );
+  const todo = chunks.filter((c) => !old.has(`${c.id}|${c.text}`));
+  const fresh = await embedder.embed(todo.map((c) => c.text));
+  const byId = new Map(todo.map((c, i) => [c.id, (fresh[i] as number[]).map((x) => Math.round(x * 1e6) / 1e6)]));
+  const indexed = chunks.map((c) => ({ ...c, vector: old.get(`${c.id}|${c.text}`) ?? (byId.get(c.id) as number[]) }));
   return {
     model: embedder.id,
     createdAt: new Date().toISOString(),
-    dim: vectors[0]?.length ?? 0,
+    dim: indexed[0]?.vector.length ?? 0,
     maxChunkChars: MAX_CHUNK_CHARS,
-    chunks: chunks.map((c, i) => ({ ...c, vector: (vectors[i] as number[]).map((x) => Math.round(x * 1e6) / 1e6) })),
+    chunks: indexed,
+    reused: chunks.length - todo.length,
   };
 }
 

@@ -1,0 +1,25 @@
+{
+  "$comment": "Qo'lda ko'rsatilgan hujjatlar: katalog nomi bo'yicha qidiruv amaldagi versiyani topa olmagan holatlar. Har bir yozuv `pnpm rag:sources resolve` da sahifa ochilib, sarlavhasi tekshiriladi. Moddalar matni lex.uz'dan so'zma-so'z olinadi (DRAFT).",
+  "documents": [
+    {
+      "name": "Jismoniy va yuridik shaxslarning murojaatlari to'g'risidagi qonun",
+      "key": "murojaatlar_qonuni",
+      "lexuzId": "-3336169",
+      "providedUrl": "https://lex.uz/acts/-3336169",
+      "expectedTitleIncludes": "Jismoniy va yuridik shaxslarning murojaatlari toʻgʻrisida",
+      "number": "O‘RQ-445",
+      "note": "2017-yilgi yangi tahrir. lex.uz sarlavhasi o'zgartirish kirituvchi qonun nomi bilan, sahifada qonunning to'liq matni (1–38-moddalar) bor.",
+      "articles": ["24", "28", "31"],
+      "requestedBy": "Loyiha egasi, 2026-11-17",
+      "supersedes": [
+        {
+          "lexuzId": "-2509996",
+          "providedUrl": "https://lex.uz/acts/-2509996",
+          "expectedTitle": "Jismoniy va yuridik shaxslarning murojaatlari toʻgʻrisida",
+          "number": "O‘RQ-378",
+          "note": "2014-yilgi versiya; lex.uz qidiruvida amalda emas (status_code ≠ y)."
+        }
+      ]
+    }
+  ]
+}
