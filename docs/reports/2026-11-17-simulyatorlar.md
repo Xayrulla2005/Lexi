@@ -63,24 +63,24 @@ API qayta ishga tushirildi: ikkala ariza ham holati, javobi va qoralamasi bilan 
 
 ## TODO va muammolar
 
-- **Eskalatsiya arizasi o'sha shablondan yasaladi.** Masalan, T12 da "Kimga: Davlat mehnat inspeksiyasiga" deb yozilgan, lekin qoralama bandlik vazirligiga ketadi. Shablon matnini o'zgartirmadim. Eskalatsiya uchun alohida shablonlar kerak (Mirjalol).
+- ~~Eskalatsiya arizasi o'sha shablondan yasaladi, "Kimga:" eski idorani ko'rsatadi.~~ **Hal qilindi** (`75da02a`): "Kimga:" qatori va bitta faktik qator avtomatik. Shablon tanasi (masalan, "Davlat mehnat inspeksiyasi" haqidagi so'rov qismi) baribir asl idoraga mo'ljallangan — alohida eskalatsiya shablonlari kerakmi, Mirjalol hal qilsin.
 - **T12 shablonining tuzilishi g'alati:** "Men, {{fio}}, lavozimida ishlayman." dan keyin `{{malumot_1}}` alohida qatorda turadi, shuning uchun lavozim gapdan keyin chiqadi. Shablon do'st ma'lumotidan olingan, tuzatish Mirjalolga.
 - **Maydon nomlari texnik ko'rinishda** ("malumot 1", "summa"). Har bir shablon uchun tushunarli yorliqlar yoki LLM tavsiyasi kerak.
 - **Eskalatsiyaning eskalatsiyasi** (`eskalatsiya[1]` va keyingilari) hali modellanmagan.
 - **Idora kabinetida autentifikatsiya yo'q** (faqat demo uchun). Real idoralarga hech qachon ochilmasin.
 - **`docs/api/openapi.yaml`** da faqat `/submissions` va `AgencySubmission` yangilandi. Yangi endpoint'lar (`/sim/*`, `/applications/*`) hozircha faqat `docs/api/contracts.md` da.
 - **Bot:** ariza va kuzatish yo'q. Bot uchun OneID sessiyasini qanday berish hali hal qilinmagan.
-- **Bir marta kuzatilgan osilish:** birinchi curl yugurishda ikkinchi arizani yuborish chaqiruvi taxminan 12 daqiqa kutib qoldi. Ikkinchi yugurishda yuborish 2 soniyada tugadi, xato qayta chiqmadi. Ehtimol, buyruq orqa fonga o'tkazilganda jarayon to'xtab qolgan. Demodan oldin yana bir bor tekshirish kerak.
+- **12 daqiqalik osilish:** 20 marta yugurishda qayta chiqmadi. Tafsilot va himoya choralari pastdagi "Tuzatishlar" bo'limida.
 - **Veb brauzerda ko'rilmadi** (talabga ko'ra). Faqat `next build`, typecheck va unit testlar o'tdi.
-- **Demo vaqtida o'tish cheklovi:** muddat qisqa bo'lsa (masalan, `DEMO_SPEED=1000` va 3 kun), idora "Qabul qilish" ni bosguncha ariza OVERDUE bo'lib qolishi mumkin. OVERDUE dan RECEIVED ga o'tish yo'q; faqat javob yozish mumkin.
+- ~~Demo vaqtida qisqa muddat ariza OVERDUE bo'lib qolardi.~~ **Hal qilindi** (`2c08539`): standart rejimda vaqt faqat "⏩" tugmasi bilan siljiydi. `DEMO_SPEED` berilsa, eski cheklov saqlanadi: OVERDUE dan RECEIVED ga o'tish yo'q.
+- **Diqqat: `.env` da `DEMO_SPEED` bo'lsa** (eski `.env.example` dan nusxa olingan bo'lsa, `DEMO_SPEED=1000` turibdi), API avtomatik rejimda ishlaydi. Qo'lda rejim uchun shu qatorni `.env` dan olib tashlang. `.env` ga men tegmadim.
 
 ## Demoda qanday ko'rsatish (qadam-baqadam)
 
-Tayyorlash (alohida terminallarda):
+Tayyorlash (alohida terminallarda). `.env` da `DEMO_SPEED` bo'lmasin — vaqt faqat tugma bilan siljiydi:
 
 ```bash
-# API: 1 kun = 2 soniya, javob muddati 15 kun -> 30 soniya
-DEMO_SPEED=2000 SIM_RESPONSE_DAYS=15 pnpm dev:api
+pnpm dev:api
 pnpm dev:web
 ```
 
@@ -94,6 +94,70 @@ Toza demo uchun oldin `data/runtime/` papkasini o'chiring (eski arizalar ko'rinm
 6. **Imzo:** "ERI bilan imzolash (simulyator)" → Ed25519 va SHA-256 xesh ko'rinadi → "Yuborish".
 7. **Idora oynasi:** "Davlat mehnat inspeksiyasi" tanlangan → ariza ro'yxatda → Ochish. Ko'rsating: "✅ Imzo haqiqiy", fuqaro (soxta PINFL), rozilik vaqti, ish ma'lumoti va PDF. "Qabul qilish" → "Ko'rib chiqilmoqda" → javob yozing → "Javobni yuborish".
 8. **Fuqaro oynasi:** holat o'zi yangilanadi: Yuborildi → Qabul qilindi → Ko'rib chiqilmoqda → "Davlat mehnat inspeksiyasidan javob keldi" va javob matni.
-9. **Muddat o'tishi:** yana bir ariza yuboring, idorada javob bermang. 30 soniyadan keyin "Muddat o'tdi" va "Yuqori turuvchi idoraga yangi ariza qoralamasi tayyor..." chiqadi → "Qoralamani ochish". Qoralamada rozilik va imzo bo'sh: foydalanuvchi yana rozilik berib, imzolab yuboradi. Asl ariza "Yuqori idoraga yuborildi" (ESCALATED) holatiga o'tadi.
+9. **Muddat o'tishi:** yana bir ariza yuboring. Idora oynasida uning yonidagi "⏩ Vaqtni oldinga surish (+15 kun)" tugmasini bosing → "Simulyatsiya vaqti: 15 / 15 kun", holat "Muddat o'tdi". Fuqaro oynasida "Yuqori turuvchi idoraga yangi ariza qoralamasi tayyor..." chiqadi → "Qoralamani ochish". Ko'rsating: "Kimga: Kambag'allikni qisqartirish va bandlik vazirligi" va imzodan oldingi "Avvalgi murojaat: № SIM-MI-…, …, Davlat mehnat inspeksiyasiga yuborilgan; belgilangan muddatda javob olinmadi." qatori. Qoralamada rozilik va imzo bo'sh: foydalanuvchi yana rozilik berib, imzolab yuboradi. Asl ariza "Yuqori idoraga yuborildi" (ESCALATED) holatiga o'tadi.
 
 Muhim: hamma joyda "SIMULYATOR" yozuvi bor. Haqiqiy davlat tizimiga hech narsa yuborilmaydi. Barcha shaxslar to'qima.
+
+## Tuzatishlar (2-qism, 2026-11-17)
+
+| # | Commit | Nima qilindi |
+| --- | --- | --- |
+| 1 | `e9089d3` | Yuborish zanjirida har bir qadam uchun vaqt logi (`[timing] sign …`, `[timing] submit …`). Har bir fayl va tashqi operatsiyaga 5 s timeout (`OP_TIMEOUT_MS`). Timeout bo'lsa HTTP 504 "Qayta urinib ko'ring". Atomik va navbatli fayl yozish. Vebda so'rovga 15 s chegara va "Qayta urinib ko'ring" xabari. |
+| 2 | `75da02a` | Eskalatsiya qoralamasi: "Kimga:" qatori maqsadli idoraning katalogdagi nomi bilan almashtiriladi; imzodan oldin bitta faktik qator qo'shiladi. Qolgan matn o'zgarmaydi (65 ta shablonning hammasida test qilindi). |
+| 3 | `2c08539` | Demo soati: `DEMO_SPEED` berilmasa — qo'lda rejim (faqat "⏩ Vaqtni oldinga surish (+15 kun)" tugmasi). Berilsa — eski avtomatik rejim. |
+
+Tekshiruv: lint, typecheck, test va build o'tdi (contracts 8, legal-engine 12, ai 21, web 7, api 32). Build qilingan API qo'lda rejimda curl bilan tekshirildi: yuborishdan 3 s keyin ham `SUBMITTED`, `dueAt=null`. "+15 kun" → `OVERDUE`, `simulatedDays=15`. Qoralama matni "Kimga: Kambag'allikni qisqartirish va bandlik vazirligi" bilan boshlanadi va "Sana/Imzo" qatoridan oldin "Avvalgi murojaat: № SIM-MI-00451, 17.11.2026, Davlat mehnat inspeksiyasiga yuborilgan; belgilangan muddatda javob olinmadi." turibdi.
+
+### 12 daqiqalik osilish: 20 marta yugurish natijasi
+
+Zanjir (kirish → case → xabar → tahlil → ariza → maydonlar → rozilik → imzo → PDF → yuborish → holat) curl bilan **20 marta ketma-ket** o'tkazildi. API `dist` dan ishga tushirildi, holat vaqtinchalik papkada saqlandi.
+
+Klient vaqti (curl `time_total`, faqat 2xx javoblar), ms:
+
+| Chaqiruv | n | mediana | p95 | max | o'rtacha |
+| --- | --- | --- | --- | --- | --- |
+| login | 21 | 27 | 68 | 93 | 31 |
+| case | 21 | 26 | 51 | 55 | 29 |
+| message | 21 | 28 | 56 | 57 | 30 |
+| analyze | 21 | 44 | 154 | 315 | 56 |
+| application | 21 | 30 | 78 | 96 | 38 |
+| fields | 20 | 27 | 100 | 104 | 36 |
+| consent | 20 | 31 | 52 | 56 | 33 |
+| **sign** | 20 | **109** | 256 | **534** | **146** |
+| pdf (yuklab olish) | 20 | 95 | 238 | 248 | 122 |
+| submit | 20 | 48 | 116 | 116 | 58 |
+| track | 20 | 32 | 92 | 93 | 36 |
+
+Server qadamlari (`[timing]` log, 21 ta sign va 21 ta submit):
+
+| Qadam | o'rtacha, ms | max, ms |
+| --- | --- | --- |
+| **sign.pdf** (PDF yasash, pdfkit) | **89** | **378** |
+| sign.persist (applications.json yozish) | 33 | 131 |
+| sign.eri (kalit + Ed25519) | 3 | 66 (birinchi marta kalit o'qiladi) |
+| sign.save / load | ≤ 1 | 7 |
+| submit.persist | 16 | 63 |
+| submit.gateway | 4 | 17 |
+| submit.verify / pdf / load / save | ≤ 2 | 12 |
+| sign jami | 127 | 498 |
+| submit jami | 25 | 69 |
+
+**Xulosa:**
+- **Eng sekin qadam — imzolashdagi PDF yasash** (`sign.pdf`, o'rtacha 89 ms, eng ko'pi 378 ms). Ikkinchi o'rinda fayl yozish (`persist`, eng ko'pi 131 ms). Yuborish (`submit`) eng ko'pi 116 ms.
+- 20 yugurishda bironta ham HTTP chaqiruv 0.6 s dan oshmadi. **12 daqiqalik osilish qayta chiqmadi.**
+- Bitta yugurishning umumiy vaqti esa 5–25 s (mediana 10 s), garchi HTTP vaqtlari yig'indisi ~0.6 s bo'lsa ham. Farq klient tomonda: bu Windows/Git Bash muhitida har bir jarayon ishga tushishi (curl, sed) ~0.4–1 s oladi. Bitta `sed` chaqiruvi 0.45 s ekanini alohida o'lchadim.
+- **Sabab haqida.** Birinchi hodisada server logida 12 daqiqa davomida hech narsa yo'q edi, ariza esa server so'rovni olgan paytdagi vaqt bilan saqlangan (`submittedAt` = 05:40:43). Bu kechikish klient tomonda bo'lganiga ishora qiladi: curl/Git Bash jarayoni to'xtab qolgan, ehtimol buyruq orqa fonga o'tkazilganda. Lekin buni 100% isbotlab bo'lmaydi. O'shanda server sinxron `writeFileSync` + `renameSync` ishlatgani uchun event loop'ning bloklanishini ham inkor eta olmayman.
+- **Ikkala holatga qarshi himoya qo'yildi.** Serverda endi bironta sinxron fayl operatsiyasi so'rov ichida yo'q (faqat ishga tushishdagi o'qish). Har bir operatsiya 5 s bilan cheklangan va timeout'da 504 "Qayta urinib ko'ring" qaytaradi. Brauzer 15 s dan ko'p kutmaydi.
+- **Qo'shimcha kuzatuv:** yopiq portga `localhost` orqali ulanish Windows'da ~2–2.5 s davom etadi (curl avval `::1`, keyin `127.0.0.1` ni sinaydi). API ishlamay turganda bu ham "sekinlik" bo'lib ko'rinadi.
+
+O'lchovdagi kamchilik: o'lchov boshida avvalgi (to'xtatilgan) benchmark jarayoni tirik qolib, 1–6-yugurishlar paytida parallel ishlagan. Undan qolgan 400/404 javoblar jadvaldan chiqarildi. Parallel yuk vaqtlarni biroz oshirgan bo'lishi mumkin.
+
+### Qarorlar (2-qism)
+
+1. **Timeout 5 s** (`OP_TIMEOUT_MS` bilan o'zgartiriladi). U so'rovni kutishdan ozod qiladi, lekin fayl yozishning o'zini to'xtatmaydi. Shuning uchun navbat buzilmaydi: bir vaqtda bitta yozuv, keyingisi oldingisi haqiqatan tugagandan keyin boshlanadi.
+2. **Atomik yozish:** har safar noyob temp fayl (`.<nom>.<pid>.<n>.tmp`) yoziladi, keyin `rename` qilinadi. Yozish paytidagi o'zgarishlar keyingi yozuvga birlashtiriladi.
+3. **Barcha o'zgartiruvchi endpoint'lar** (case, xabar, tahlil, ariza, maydon, rozilik, imzo, yuborish, idora amallari, login) javobdan oldin faylga yozilishini kutadi. Shunda qayta ishga tushishda ma'lumot yo'qolmaydi.
+4. **Eskalatsiya:** "Kimga:" qatoriga idora nomi hech qanday qo'shimchasiz, katalogdagidek yoziladi ("Kimga: Kambag'allikni qisqartirish va bandlik vazirligi"). Faktik qatorda esa so'ralgandek "<idora nomi>ga" yoziladi. Sana `dd.mm.yyyy` (Toshkent vaqti), raqam — simulyator kvitansiyasi.
+5. **Soat:** "+15 kun" har bir arizaga alohida qo'llanadi (ariza yonidagi tugma). Faqat ochiq holatlarda (SUBMITTED, RECEIVED, IN_REVIEW) ishlaydi; boshqasida 409. Endpoint faqat simulyator kabineti controller'ida bor. Tugma `adapterType === "MOCK"` bo'lgandagina ko'rinadi.
+6. **`DEMO_SPEED` bo'sh qiymat** ham qo'lda rejim hisoblanadi. `.env.example` da `DEMO_SPEED` izohga olindi.
+7. **Eski `data/runtime/submissions.json`** fayllari yangi format bilan ham o'qiladi: `dueAt` endi saqlanmaydi, hisoblanadi; `shiftDays` standart 0.
