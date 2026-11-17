@@ -9,7 +9,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { parseCsv } from "../eval/csv";
-import { createEmbedder } from "../rag/embeddings";
+import { getEmbedder } from "../rag/embeddings";
 import { loadIndex, search } from "../rag/legal-index";
 
 const STYLE_ORDER = ["rasmiy", "qisqa", "sheva", "aralash", "kirill"];
@@ -17,7 +17,7 @@ const STYLE_ORDER = ["rasmiy", "qisqa", "sheva", "aralash", "kirill"];
 async function main(): Promise<void> {
   const k = Number(process.argv[2] ?? 5);
   const index = loadIndex();
-  const embedder = await createEmbedder();
+  const embedder = await getEmbedder();
   if (embedder.id !== index.model) throw new Error(`index ${index.model} != embedder ${embedder.id}; run pnpm rag:index`);
 
   const covered = new Set(index.chunks.flatMap((c) => c.problemIds));

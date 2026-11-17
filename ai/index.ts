@@ -23,3 +23,14 @@ export {
   buildAnalysisMessages,
   formatSources,
 } from "./prompts/analysis.prompt";
+
+export {
+  getArticlesForProblem,
+  missingArticlesForProblem,
+  retrieveForAnalysis,
+  RAG_EXTRA_K,
+  RAG_ONLY_K,
+  type ArticleSource,
+  type RetrievedArticle,
+} from "./rag/catalog-retrieval";
+export { getIndex, retrieve, warmUp, type RetrievedChunk } from "./rag/legal-index";

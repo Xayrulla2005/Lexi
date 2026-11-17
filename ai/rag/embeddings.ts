@@ -6,7 +6,8 @@
  * 2. Fallback: Hugging Face Inference API (`BAAI/bge-m3`) with HF_TOKEN from process.env.
  *    The .env file is never read here.
  */
-import { join, resolve } from "node:path";
+import { join } from "node:path";
+import { repoRoot } from "./paths";
 
 export interface Embedder {
   /** Identifies model + backend; stored in the index so query and chunks always match. */
@@ -16,7 +17,8 @@ export interface Embedder {
 
 export const LOCAL_MODEL = "Xenova/bge-m3";
 export const HF_MODEL = "BAAI/bge-m3";
-const MODEL_CACHE = resolve(__dirname, "../.model-cache");
+/** ai/.model-cache under the repository root (same folder from src and dist). */
+const MODEL_CACHE = process.env.LEX_MODEL_CACHE ?? join(repoRoot(), "ai", ".model-cache");
 
 function l2normalize(v: number[]): number[] {
   const n = Math.hypot(...v) || 1;
@@ -77,4 +79,18 @@ export async function createEmbedder(log: (msg: string) => void = () => undefine
   }
 }
 
-export const modelCacheDir = (): string => join(MODEL_CACHE);
+let shared: Promise<Embedder> | null = null;
+
+/**
+ * Process-wide embedder (singleton): the model is loaded once and reused by every query.
+ * A failed load is not cached, so the next call retries.
+ */
+export function getEmbedder(log?: (msg: string) => void): Promise<Embedder> {
+  if (!shared) {
+    shared = createEmbedder(log);
+    shared.catch(() => {
+      shared = null;
+    });
+  }
+  return shared;
+}

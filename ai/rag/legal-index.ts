@@ -8,10 +8,11 @@
  *   Few chunks for now; pgvector later.
  */
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
-import { join, resolve } from "node:path";
-import { createEmbedder, type Embedder } from "./embeddings";
+import { join } from "node:path";
+import { getEmbedder, type Embedder } from "./embeddings";
+import { repoRoot } from "./paths";
 
-const ROOT = resolve(__dirname, "../..");
+const ROOT = repoRoot();
 export const ARTICLES_DIR = join(ROOT, "legal-knowledge/articles");
 export const INDEX_FILE = join(ROOT, "legal-knowledge/index/articles.index.json");
 
@@ -197,21 +198,43 @@ export function search(index: LegalIndex, queryVector: readonly number[], k: num
     .slice(0, k);
 }
 
-let cached: { index: LegalIndex; embedder: Embedder } | null = null;
+let indexCache: { file: string; index: LegalIndex } | null = null;
+
+/** The saved index, read from disk once per process (it is never rebuilt at query time). */
+export function getIndex(file: string = INDEX_FILE): LegalIndex {
+  if (!indexCache || indexCache.file !== file) indexCache = { file, index: loadIndex(file) };
+  return indexCache.index;
+}
+
+/** Index + the matching embedder, both loaded once. */
+async function ready(): Promise<{ index: LegalIndex; embedder: Embedder }> {
+  const index = getIndex();
+  const embedder = await getEmbedder();
+  if (embedder.id !== index.model) {
+    throw new Error(`Index was built with ${index.model}, but the current embedder is ${embedder.id}; run pnpm rag:index`);
+  }
+  return { index, embedder };
+}
 
 /**
- * retrieve(query, k): loads the index and the embedder once, embeds the query with the
- * same model the index was built with, returns the top-k article chunks.
+ * Loads the index and the model and runs one dummy query, so the first real request
+ * does not pay the model start-up cost. Returns the timings in ms.
+ */
+export async function warmUp(): Promise<{ loadMs: number; firstQueryMs: number }> {
+  const t0 = performance.now();
+  const { embedder } = await ready();
+  const t1 = performance.now();
+  await embedder.embed(["isitish"]);
+  const t2 = performance.now();
+  return { loadMs: Math.round(t1 - t0), firstQueryMs: Math.round(t2 - t1) };
+}
+
+/**
+ * retrieve(query, k): embeds the query with the same model the index was built with
+ * and returns the top-k article chunks (dense cosine search).
  */
 export async function retrieve(query: string, k = 5): Promise<RetrievedChunk[]> {
-  if (!cached) {
-    const index = loadIndex();
-    const embedder = await createEmbedder();
-    if (embedder.id !== index.model) {
-      throw new Error(`Index was built with ${index.model}, but the current embedder is ${embedder.id}; run pnpm rag:index`);
-    }
-    cached = { index, embedder };
-  }
-  const [v] = await cached.embedder.embed([query]);
-  return search(cached.index, v as number[], k);
+  const { index, embedder } = await ready();
+  const [v] = await embedder.embed([query]);
+  return search(index, v as number[], k);
 }

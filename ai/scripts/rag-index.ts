@@ -4,13 +4,13 @@
  */
 import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
-import { createEmbedder } from "../rag/embeddings";
+import { getEmbedder } from "../rag/embeddings";
 import { buildIndex, INDEX_FILE, loadArticles, saveIndex } from "../rag/legal-index";
 
 async function main(): Promise<void> {
   const t0 = Date.now();
   const articles = loadArticles();
-  const embedder = await createEmbedder((m) => console.log(m));
+  const embedder = await getEmbedder((m) => console.log(m));
   console.log(`embedder: ${embedder.id} (${Date.now() - t0} ms)`);
   const index = await buildIndex(embedder, articles);
   mkdirSync(dirname(INDEX_FILE), { recursive: true });
