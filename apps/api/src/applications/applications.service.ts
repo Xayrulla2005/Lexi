@@ -21,7 +21,7 @@ import { JsonStore } from "../common/json-store";
 import { runtimeFile } from "../common/paths";
 import { StepTimer, withTimeout } from "../common/timeout";
 import { renderApplicationPdf } from "./pdf";
-import { fieldKeys, fillTemplate, loadTemplate } from "./template";
+import { escalationTemplate, fieldKeys, fillTemplate, loadTemplate } from "./template";
 
 /** Fields filled from the simulated OneID profile. */
 const ONEID_FIELDS: Readonly<Record<string, (c: SimCitizen) => string>> = {
@@ -30,9 +30,20 @@ const ONEID_FIELDS: Readonly<Record<string, (c: SimCitizen) => string>> = {
   telefon: (c) => c.telefon,
 };
 /** Fields filled by the server. */
+/** dd.mm.yyyy in Tashkent time. */
+const formatDate = (d: Date): string => new Intl.DateTimeFormat("ru-RU", { timeZone: "Asia/Tashkent" }).format(d);
+
 const SYSTEM_FIELDS: Readonly<Record<string, () => string>> = {
-  ariza_sanasi: () => new Intl.DateTimeFormat("ru-RU", { timeZone: "Asia/Tashkent" }).format(new Date()),
+  ariza_sanasi: () => formatDate(new Date()),
 };
+
+/** The overdue submission an escalation draft follows up on. */
+export interface OverdueSubmission {
+  id: string;
+  receiptId: string;
+  submittedAt: string;
+  agencyName: string;
+}
 
 /** Application plus the exact PDF bytes that were signed (frozen at signing). */
 const StoredApplication = Application.extend({ signedPdfBase64: z.string().nullable() });
@@ -47,6 +58,8 @@ interface CreateParams {
   templateId: string;
   agency: AgencyContact;
   citizen: SimCitizen;
+  /** Turns the loaded template into the application text (escalation header + fact line). */
+  adapt?: (template: string) => string;
 }
 
 /**
@@ -81,18 +94,24 @@ export class ApplicationsService {
   async createEscalationDraft(
     source: Application,
     agency: AgencyContact,
-    parentSubmissionId: string,
+    parent: OverdueSubmission,
     citizen: SimCitizen,
   ): Promise<Application> {
-    const existing = this.store.values().find((a) => a.parentSubmissionId === parentSubmissionId);
+    const existing = this.store.values().find((a) => a.parentSubmissionId === parent.id);
     if (existing) return this.view(existing);
+    const previous = {
+      receiptId: parent.receiptId,
+      submittedOn: formatDate(new Date(parent.submittedAt)),
+      agencyName: parent.agencyName,
+    };
     const draft = await this.create({
       caseId: source.caseId,
       kind: "ESCALATION",
-      parentSubmissionId,
+      parentSubmissionId: parent.id,
       templateId: source.templateId,
       agency,
       citizen,
+      adapt: (template) => escalationTemplate(template, agency.name, previous),
     });
     // Reuse the user's manual answers; consent and signature must be given again.
     const manual: Record<string, string> = {};
@@ -207,7 +226,8 @@ export class ApplicationsService {
   }
 
   private async create(p: CreateParams): Promise<Application> {
-    const template = await loadTemplate(p.templateId);
+    const loaded = await loadTemplate(p.templateId);
+    const template = p.adapt ? p.adapt(loaded) : loaded;
     const fields = fieldKeys(template).map((key): ApplicationField => {
       const oneId = ONEID_FIELDS[key];
       if (oneId) return { key, value: oneId(p.citizen), source: "ONEID" };

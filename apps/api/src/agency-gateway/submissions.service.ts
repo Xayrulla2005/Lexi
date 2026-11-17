@@ -110,7 +110,7 @@ export class SubmissionsService implements OnModuleInit {
     if (app.kind !== "PRIMARY") return;
     const target = this.cases.get(s.caseId).routingDecision?.escalation[0];
     if (!target) return;
-    const draft = await this.apps.createEscalationDraft(app, target, s.id, this.oneId.citizen(app.citizenId));
+    const draft = await this.apps.createEscalationDraft(app, target, s, this.oneId.citizen(app.citizenId));
     await this.apps.persist("escalation.draft");
     this.logger.log(`OVERDUE ${s.receiptId}: escalation draft ${draft.id} for ${target.id} (not submitted)`);
   }

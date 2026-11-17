@@ -35,3 +35,31 @@ export function fillTemplate(
 ): string {
   return template.replace(PLACEHOLDER, (_m, key: string) => values.get(key) ?? blank(key));
 }
+
+/** Facts about the overdue submission that an escalation draft refers to. */
+export interface PreviousSubmission {
+  receiptId: string;
+  /** Already formatted for the text, e.g. "17.11.2026". */
+  submittedOn: string;
+  agencyName: string;
+}
+
+const ADDRESSEE_LINE = /^Kimga:.*$/m;
+const SIGNATURE_LINE = /^.*Imzo:.*$/m;
+
+/**
+ * Escalation draft text from the original template:
+ *  - the "Kimga:" header line names the target agency (catalog name) — a header, not legal text;
+ *  - one factual line about the previous submission is inserted before the signature line.
+ * Nothing else in the template changes.
+ */
+export function escalationTemplate(template: string, targetAgencyName: string, previous: PreviousSubmission): string {
+  const addressee = `Kimga: ${targetAgencyName}`;
+  let text = ADDRESSEE_LINE.test(template) ? template.replace(ADDRESSEE_LINE, addressee) : `${addressee}\n${template}`;
+  const fact =
+    `Avvalgi murojaat: № ${previous.receiptId}, ${previous.submittedOn}, ${previous.agencyName}ga yuborilgan; ` +
+    "belgilangan muddatda javob olinmadi.";
+  const sig = SIGNATURE_LINE.exec(text);
+  text = sig ? `${text.slice(0, sig.index)}${fact}\n\n${text.slice(sig.index)}` : `${text.trimEnd()}\n\n${fact}\n`;
+  return text;
+}

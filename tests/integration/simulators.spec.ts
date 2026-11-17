@@ -151,6 +151,10 @@ describe("Simulator overdue -> escalation draft (integration)", () => {
     expect(draft.signature).toBeNull();
     expect(draft.submissionId).toBeNull();
     expect(draft.missingFields).toEqual([]); // manual answers reused
+    expect(draft.template.startsWith("Kimga: Kambag'allikni qisqartirish va bandlik vazirligi\n")).toBe(true);
+    expect(draft.template).toContain(
+      `Avvalgi murojaat: № ${sub.receiptId}, ${new Intl.DateTimeFormat("ru-RU", { timeZone: "Asia/Tashkent" }).format(new Date(sub.submittedAt))}, Davlat mehnat inspeksiyasiga yuborilgan; belgilangan muddatda javob olinmadi.`,
+    );
 
     // The user consents and signs again; submitting it escalates the original.
     await http().post(`/applications/${draft.id}/consent`).set(H, token).send({ consent: true }).expect(201);
