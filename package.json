@@ -20,7 +20,10 @@
     "build": "pnpm -r build",
     "import:data": "pnpm --filter @lex/data-import start",
     "eval:ai": "pnpm --filter @lex/ai eval",
-    "rag:sources": "pnpm --filter @lex/ai rag:sources"
+    "rag:sources": "pnpm --filter @lex/ai rag:sources",
+    "rag:index": "pnpm --filter @lex/ai rag:index",
+    "rag:query": "pnpm --filter @lex/ai rag:query",
+    "rag:eval": "pnpm --filter @lex/ai rag:eval"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

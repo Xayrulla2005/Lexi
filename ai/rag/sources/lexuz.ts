@@ -170,7 +170,7 @@ const clean = (s: string): string =>
   s
     .replace(/[ \t]+\n/g, "\n")
     .replace(/\n{3,}/g, "\n\n")
-    .replace(/[  ]{2,}/g, " ")
+    .replace(/[ \u00a0]{2,}/g, " ")
     .trim();
 
 const ARTICLE_HEADING = /^(\d+)([⁰¹²³⁴⁵⁶⁷⁸⁹]*)-modda\.?\s*([\s\S]*)$/;

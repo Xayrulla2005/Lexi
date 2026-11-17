@@ -9,7 +9,10 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "eval": "tsx eval/run.ts",
-    "rag:sources": "tsx scripts/rag-sources.ts"
+    "rag:sources": "tsx scripts/rag-sources.ts",
+    "rag:index": "tsx scripts/rag-index.ts",
+    "rag:query": "tsx scripts/rag-query.ts",
+    "rag:eval": "tsx scripts/rag-eval.ts"
   },
   "dependencies": {
     "@lex/contracts": "workspace:*"
