@@ -1,5 +1,6 @@
 /**
- * Retrieval recall@k on ai/eval/datasets/test_cases.csv (no LLM).
+ * Retrieval recall@k on ai/eval/datasets/test_cases.csv (no LLM), for three modes:
+ * dense (bge-m3), bm25 (keywords) and hybrid (RRF of both).
  * A story is a hit when at least one of the top-k chunks belongs to an article that the
  * catalog cites for the story's problem (article frontmatter `problem_ids`).
  * Stories whose problem cites no fetched article are excluded and counted separately.
@@ -10,9 +11,15 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { parseCsv } from "../eval/csv";
 import { getEmbedder } from "../rag/embeddings";
-import { loadIndex, search } from "../rag/legal-index";
+import { loadIndex, rankChunks, type RetrievalMode } from "../rag/legal-index";
 
 const STYLE_ORDER = ["rasmiy", "qisqa", "sheva", "aralash", "kirill"];
+const MODES: RetrievalMode[] = ["dense", "bm25", "hybrid"];
+
+interface Stat {
+  n: number;
+  hit: number;
+}
 
 async function main(): Promise<void> {
   const k = Number(process.argv[2] ?? 5);
@@ -25,31 +32,58 @@ async function main(): Promise<void> {
   const evaluable = rows.filter((r) => covered.has(r.problem_id as string));
   const vectors = await embedder.embed(evaluable.map((r) => r.hikoya as string));
 
-  const stats = new Map<string, { n: number; hit: number }>();
-  const add = (key: string, hit: boolean) => {
-    const s = stats.get(key) ?? { n: 0, hit: 0 };
+  const stats = new Map<RetrievalMode, Map<string, Stat>>(MODES.map((m) => [m, new Map()]));
+  const misses = new Map<RetrievalMode, { id: string; style: string; problemId: string; top: string[] }[]>(MODES.map((m) => [m, []]));
+  const add = (mode: RetrievalMode, key: string, hit: boolean) => {
+    const byKey = stats.get(mode) as Map<string, Stat>;
+    const s = byKey.get(key) ?? { n: 0, hit: 0 };
     s.n++;
     if (hit) s.hit++;
-    stats.set(key, s);
+    byKey.set(key, s);
   };
-  const misses: { id: string; style: string; problemId: string; top: string[] }[] = [];
+
   evaluable.forEach((r, i) => {
-    const top = search(index, vectors[i] as number[], k);
-    const hit = top.some((c) => c.problemIds.includes(r.problem_id as string));
-    add("JAMI", hit);
-    add(r.uslub as string, hit);
-    if (!hit) misses.push({ id: r.id as string, style: r.uslub as string, problemId: r.problem_id as string, top: top.map((c) => `${c.code}/${c.article}`) });
+    for (const mode of MODES) {
+      const top = rankChunks(index, r.hikoya as string, vectors[i] as number[], k, mode);
+      const hit = top.some((c) => c.problemIds.includes(r.problem_id as string));
+      add(mode, "JAMI", hit);
+      add(mode, r.uslub as string, hit);
+      if (!hit) {
+        (misses.get(mode) as { id: string; style: string; problemId: string; top: string[] }[]).push({
+          id: r.id as string,
+          style: r.uslub as string,
+          problemId: r.problem_id as string,
+          top: top.map((c) => `${c.code}/${c.article}`),
+        });
+      }
+    }
   });
 
-  const pct = (s: { n: number; hit: number }) => Math.round((s.hit / s.n) * 1000) / 10;
-  const keys = ["JAMI", ...[...stats.keys()].filter((x) => x !== "JAMI").sort((a, b) => STYLE_ORDER.indexOf(a) - STYLE_ORDER.indexOf(b))];
-  console.table(Object.fromEntries(keys.map((key) => [key, { Hikoyalar: stats.get(key)!.n, [`recall@${k}`]: `${pct(stats.get(key)!)}%` }])));
+  const pct = (s: Stat) => Math.round((s.hit / s.n) * 1000) / 10;
+  const dense = stats.get("dense") as Map<string, Stat>;
+  const keys = ["JAMI", ...[...dense.keys()].filter((x) => x !== "JAMI").sort((a, b) => STYLE_ORDER.indexOf(a) - STYLE_ORDER.indexOf(b))];
+  console.table(
+    Object.fromEntries(
+      keys.map((key) => [
+        key,
+        {
+          Hikoyalar: dense.get(key)!.n,
+          ...Object.fromEntries(MODES.map((m) => [`${m} r@${k}`, `${pct((stats.get(m) as Map<string, Stat>).get(key)!)}%`])),
+        },
+      ]),
+    ),
+  );
   console.log(`Baholanmadi (muammosi uchun modda yo'q): ${rows.length - evaluable.length} ta hikoya`);
 
   const now = new Date();
   const date = [now.getFullYear(), now.getMonth() + 1, now.getDate()].map((x) => String(x).padStart(2, "0")).join("-");
   const out = join(__dirname, "../eval/reports", `${date}-rag-recall.json`);
   mkdirSync(join(out, ".."), { recursive: true });
+  const recall = (mode: RetrievalMode) =>
+    Object.fromEntries(keys.map((key) => {
+      const s = (stats.get(mode) as Map<string, Stat>).get(key)!;
+      return [key, { n: s.n, hit: s.hit, recall: pct(s) }];
+    }));
   writeFileSync(
     out,
     `${JSON.stringify(
@@ -61,8 +95,7 @@ async function main(): Promise<void> {
         stories: rows.length,
         evaluated: evaluable.length,
         excluded: rows.length - evaluable.length,
-        recall: Object.fromEntries(keys.map((key) => [key, { n: stats.get(key)!.n, hit: stats.get(key)!.hit, recall: pct(stats.get(key)!) }])),
-        misses,
+        modes: Object.fromEntries(MODES.map((m) => [m, { recall: recall(m), misses: misses.get(m) }])),
       },
       null,
       2,

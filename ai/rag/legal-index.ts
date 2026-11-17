@@ -9,6 +9,7 @@
  */
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { bm25For, rrf } from "./bm25";
 import { getEmbedder, type Embedder } from "./embeddings";
 import { repoRoot } from "./paths";
 
@@ -233,8 +234,28 @@ export async function warmUp(): Promise<{ loadMs: number; firstQueryMs: number }
  * retrieve(query, k): embeds the query with the same model the index was built with
  * and returns the top-k article chunks (dense cosine search).
  */
-export async function retrieve(query: string, k = 5): Promise<RetrievedChunk[]> {
+export async function retrieve(query: string, k = 5, mode: RetrievalMode = defaultRetrievalMode()): Promise<RetrievedChunk[]> {
   const { index, embedder } = await ready();
   const [v] = await embedder.embed([query]);
-  return search(index, v as number[], k);
+  return rankChunks(index, query, v as number[], k, mode);
+}
+
+/**
+ * dense  — bge-m3 cosine only (default);
+ * bm25   — keywords only;
+ * hybrid — BM25 + dense fused with RRF (opt-in via RAG_MODE=hybrid).
+ */
+export type RetrievalMode = "dense" | "bm25" | "hybrid";
+
+export function defaultRetrievalMode(env: NodeJS.ProcessEnv = process.env): RetrievalMode {
+  const m = env.RAG_MODE;
+  return m === "hybrid" || m === "bm25" ? m : "dense";
+}
+
+/** Ranks chunks for an already-embedded query (shared by retrieve() and the eval). */
+export function rankChunks(index: LegalIndex, query: string, queryVector: readonly number[], k: number, mode: RetrievalMode): RetrievedChunk[] {
+  if (mode === "dense") return search(index, queryVector, k);
+  const keyword = bm25For(index).rank(query);
+  if (mode === "bm25") return keyword.slice(0, k);
+  return rrf([search(index, queryVector, index.chunks.length), keyword], k);
 }

@@ -1,1015 +1,3620 @@
 {
-  "generatedAt": "2026-11-17T08:52:36.923Z",
+  "generatedAt": "2026-11-17T09:49:43.598Z",
   "k": 5,
   "model": "local:Xenova/bge-m3:q8:cls",
   "chunks": 116,
   "stories": 261,
   "evaluated": 205,
   "excluded": 56,
-  "recall": {
-    "JAMI": {
-      "n": 205,
-      "hit": 124,
-      "recall": 60.5
+  "modes": {
+    "dense": {
+      "recall": {
+        "JAMI": {
+          "n": 205,
+          "hit": 124,
+          "recall": 60.5
+        },
+        "rasmiy": {
+          "n": 52,
+          "hit": 37,
+          "recall": 71.2
+        },
+        "qisqa": {
+          "n": 51,
+          "hit": 28,
+          "recall": 54.9
+        },
+        "sheva": {
+          "n": 51,
+          "hit": 30,
+          "recall": 58.8
+        },
+        "aralash": {
+          "n": 26,
+          "hit": 10,
+          "recall": 38.5
+        },
+        "kirill": {
+          "n": 25,
+          "hit": 19,
+          "recall": 76
+        }
+      },
+      "misses": [
+        {
+          "id": "P02_A1",
+          "style": "rasmiy",
+          "problemId": "P02",
+          "top": [
+            "fuqarolik_kodeksi/389",
+            "mehnat_kodeksi/408",
+            "fuqarolik_kodeksi/735",
+            "mehnat_kodeksi/161",
+            "mehnat_kodeksi/253"
+          ]
+        },
+        {
+          "id": "P03_A1",
+          "style": "rasmiy",
+          "problemId": "P03",
+          "top": [
+            "fuqarolik_kodeksi/1115",
+            "oila_kodeksi/75",
+            "oila_kodeksi/25",
+            "oila_kodeksi/66",
+            "oila_kodeksi/76"
+          ]
+        },
+        {
+          "id": "P10_A1",
+          "style": "rasmiy",
+          "problemId": "P10",
+          "top": [
+            "fuqarolik_kodeksi/1029",
+            "mehnat_kodeksi/253",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "fuqarolik_kodeksi/1026",
+            "oila_kodeksi/40"
+          ]
+        },
+        {
+          "id": "P31_A1",
+          "style": "rasmiy",
+          "problemId": "P31",
+          "top": [
+            "fuqarolik_kodeksi/14",
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/1026",
+            "fuqarolik_kodeksi/386",
+            "fuqarolik_kodeksi/985"
+          ]
+        },
+        {
+          "id": "P32_A1",
+          "style": "rasmiy",
+          "problemId": "P32",
+          "top": [
+            "mehnat_kodeksi/269",
+            "fuqarolik_kodeksi/14",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/355",
+            "mamuriy_javobgarlik_kodeksi/51¹"
+          ]
+        },
+        {
+          "id": "P33_A1",
+          "style": "rasmiy",
+          "problemId": "P33",
+          "top": [
+            "fuqarolik_kodeksi/14",
+            "mehnat_kodeksi/269",
+            "fuqarolik_kodeksi/1023",
+            "oila_kodeksi/76",
+            "fuqarolik_kodeksi/735"
+          ]
+        },
+        {
+          "id": "P34_A1",
+          "style": "rasmiy",
+          "problemId": "P34",
+          "top": [
+            "fuqarolik_kodeksi/14",
+            "fuqarolik_kodeksi/985",
+            "jinoyat_kodeksi/257",
+            "mehnat_kodeksi/4",
+            "fuqarolik_kodeksi/1026"
+          ]
+        },
+        {
+          "id": "P35_A1",
+          "style": "rasmiy",
+          "problemId": "P35",
+          "top": [
+            "oila_kodeksi/40",
+            "jinoyat_kodeksi/126¹",
+            "fuqarolik_kodeksi/14",
+            "mamuriy_javobgarlik_kodeksi/187",
+            "jinoyat_kodeksi/126¹"
+          ]
+        },
+        {
+          "id": "P36_A1",
+          "style": "rasmiy",
+          "problemId": "P36",
+          "top": [
+            "mehnat_kodeksi/333",
+            "fuqarolik_kodeksi/14",
+            "mehnat_kodeksi/253",
+            "mehnat_kodeksi/355",
+            "mamuriy_javobgarlik_kodeksi/41"
+          ]
+        },
+        {
+          "id": "P41_A1",
+          "style": "rasmiy",
+          "problemId": "P41",
+          "top": [
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/1023",
+            "fuqarolik_kodeksi/14",
+            "fuqarolik_kodeksi/1026",
+            "mehnat_kodeksi/333"
+          ]
+        },
+        {
+          "id": "P48_A1",
+          "style": "rasmiy",
+          "problemId": "P48",
+          "top": [
+            "mehnat_kodeksi/356",
+            "mehnat_kodeksi/356",
+            "mehnat_kodeksi/4",
+            "mehnat_kodeksi/359",
+            "mehnat_kodeksi/355"
+          ]
+        },
+        {
+          "id": "P49_A1",
+          "style": "rasmiy",
+          "problemId": "P49",
+          "top": [
+            "mehnat_kodeksi/253",
+            "mehnat_kodeksi/223",
+            "mehnat_kodeksi/356",
+            "mehnat_kodeksi/333",
+            "mehnat_kodeksi/269"
+          ]
+        },
+        {
+          "id": "P49_A2",
+          "style": "rasmiy",
+          "problemId": "P49",
+          "top": [
+            "mehnat_kodeksi/356",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/253",
+            "mehnat_kodeksi/333"
+          ]
+        },
+        {
+          "id": "P55_A1",
+          "style": "rasmiy",
+          "problemId": "P55",
+          "top": [
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/324",
+            "fuqarolik_kodeksi/14",
+            "fuqarolik_kodeksi/1026",
+            "fuqarolik_kodeksi/1023"
+          ]
+        },
+        {
+          "id": "P61_A1",
+          "style": "rasmiy",
+          "problemId": "P61",
+          "top": [
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/417",
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/269"
+          ]
+        },
+        {
+          "id": "P01_V3",
+          "style": "aralash",
+          "problemId": "P01",
+          "top": [
+            "fuqarolik_kodeksi/14",
+            "jinoyat_kodeksi/169",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "jinoyat_kodeksi/212"
+          ]
+        },
+        {
+          "id": "P02_V1",
+          "style": "qisqa",
+          "problemId": "P02",
+          "top": [
+            "fuqarolik_kodeksi/389",
+            "fuqarolik_kodeksi/735",
+            "mehnat_kodeksi/333",
+            "mehnat_kodeksi/161",
+            "mehnat_kodeksi/161"
+          ]
+        },
+        {
+          "id": "P02_V2",
+          "style": "sheva",
+          "problemId": "P02",
+          "top": [
+            "fuqarolik_kodeksi/735",
+            "oila_kodeksi/40",
+            "mehnat_kodeksi/333",
+            "jinoyat_kodeksi/166",
+            "fuqarolik_kodeksi/389"
+          ]
+        },
+        {
+          "id": "P02_V3",
+          "style": "kirill",
+          "problemId": "P02",
+          "top": [
+            "mehnat_kodeksi/333",
+            "fuqarolik_kodeksi/324",
+            "fuqarolik_kodeksi/389",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "fuqarolik_kodeksi/14"
+          ]
+        },
+        {
+          "id": "P03_V1",
+          "style": "qisqa",
+          "problemId": "P03",
+          "top": [
+            "oila_kodeksi/66",
+            "oila_kodeksi/76",
+            "oila_kodeksi/75",
+            "oila_kodeksi/96",
+            "fuqarolik_kodeksi/1056"
+          ]
+        },
+        {
+          "id": "P03_V2",
+          "style": "sheva",
+          "problemId": "P03",
+          "top": [
+            "oila_kodeksi/76",
+            "oila_kodeksi/66",
+            "mehnat_kodeksi/269",
+            "oila_kodeksi/40",
+            "oila_kodeksi/75"
+          ]
+        },
+        {
+          "id": "P03_V3",
+          "style": "aralash",
+          "problemId": "P03",
+          "top": [
+            "oila_kodeksi/40",
+            "jinoyat_kodeksi/126¹",
+            "jinoyat_kodeksi/126¹",
+            "jinoyat_kodeksi/126¹",
+            "mamuriy_javobgarlik_kodeksi/59²"
+          ]
+        },
+        {
+          "id": "P04_V1",
+          "style": "qisqa",
+          "problemId": "P04",
+          "top": [
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/1026",
+            "fuqarolik_kodeksi/324",
+            "fuqarolik_kodeksi/14",
+            "mehnat_kodeksi/333"
+          ]
+        },
+        {
+          "id": "P04_V2",
+          "style": "sheva",
+          "problemId": "P04",
+          "top": [
+            "fuqarolik_kodeksi/14",
+            "fuqarolik_kodeksi/1026",
+            "fuqarolik_kodeksi/735",
+            "jinoyat_kodeksi/273",
+            "jinoyat_kodeksi/210"
+          ]
+        },
+        {
+          "id": "P06_V1",
+          "style": "qisqa",
+          "problemId": "P06",
+          "top": [
+            "jinoyat_kodeksi/126¹",
+            "mamuriy_javobgarlik_kodeksi/59²",
+            "jinoyat_kodeksi/126¹",
+            "jinoyat_kodeksi/122",
+            "jinoyat_kodeksi/166"
+          ]
+        },
+        {
+          "id": "P06_V2",
+          "style": "sheva",
+          "problemId": "P06",
+          "top": [
+            "oila_kodeksi/96",
+            "oila_kodeksi/75",
+            "oila_kodeksi/76",
+            "jinoyat_kodeksi/126¹",
+            "mamuriy_javobgarlik_kodeksi/47³"
+          ]
+        },
+        {
+          "id": "P09_V1",
+          "style": "qisqa",
+          "problemId": "P09",
+          "top": [
+            "oila_kodeksi/28",
+            "oila_kodeksi/27",
+            "oila_kodeksi/26",
+            "oila_kodeksi/24",
+            "oila_kodeksi/25"
+          ]
+        },
+        {
+          "id": "P09_V2",
+          "style": "sheva",
+          "problemId": "P09",
+          "top": [
+            "oila_kodeksi/24",
+            "oila_kodeksi/96",
+            "fuqarolik_kodeksi/1023",
+            "mehnat_kodeksi/337",
+            "mamuriy_javobgarlik_kodeksi/183"
+          ]
+        },
+        {
+          "id": "P09_V3",
+          "style": "aralash",
+          "problemId": "P09",
+          "top": [
+            "oila_kodeksi/96",
+            "oila_kodeksi/75",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "oila_kodeksi/76",
+            "oila_kodeksi/66"
+          ]
+        },
+        {
+          "id": "P10_V1",
+          "style": "qisqa",
+          "problemId": "P10",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "mamuriy_javobgarlik_kodeksi/183",
+            "jinoyat_kodeksi/122",
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "mamuriy_javobgarlik_kodeksi/79"
+          ]
+        },
+        {
+          "id": "P10_V2",
+          "style": "sheva",
+          "problemId": "P10",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/192",
+            "mamuriy_javobgarlik_kodeksi/183",
+            "jinoyat_kodeksi/122",
+            "oila_kodeksi/40",
+            "mamuriy_javobgarlik_kodeksi/47⁴"
+          ]
+        },
+        {
+          "id": "P10_V3",
+          "style": "kirill",
+          "problemId": "P10",
+          "top": [
+            "oila_kodeksi/40",
+            "mamuriy_javobgarlik_kodeksi/192",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "mamuriy_javobgarlik_kodeksi/187",
+            "mamuriy_javobgarlik_kodeksi/183"
+          ]
+        },
+        {
+          "id": "P11_V2",
+          "style": "sheva",
+          "problemId": "P11",
+          "top": [
+            "mehnat_kodeksi/161",
+            "mehnat_kodeksi/408",
+            "mehnat_kodeksi/161",
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/356"
+          ]
+        },
+        {
+          "id": "P14_V1",
+          "style": "qisqa",
+          "problemId": "P14",
+          "top": [
+            "mehnat_kodeksi/269",
+            "oila_kodeksi/40",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "fuqarolik_kodeksi/1025",
+            "mehnat_kodeksi/119"
+          ]
+        },
+        {
+          "id": "P14_V2",
+          "style": "sheva",
+          "problemId": "P14",
+          "top": [
+            "mehnat_kodeksi/269",
+            "oila_kodeksi/40",
+            "mamuriy_javobgarlik_kodeksi/183",
+            "mehnat_kodeksi/119",
+            "fuqarolik_kodeksi/1056"
+          ]
+        },
+        {
+          "id": "P14_V3",
+          "style": "kirill",
+          "problemId": "P14",
+          "top": [
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/417",
+            "mehnat_kodeksi/333"
+          ]
+        },
+        {
+          "id": "P15_V1",
+          "style": "qisqa",
+          "problemId": "P15",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "jinoyat_kodeksi/122",
+            "jinoyat_kodeksi/135",
+            "oila_kodeksi/40",
+            "jinoyat_kodeksi/212"
+          ]
+        },
+        {
+          "id": "P15_V2",
+          "style": "sheva",
+          "problemId": "P15",
+          "top": [
+            "fuqarolik_kodeksi/1023",
+            "fuqarolik_kodeksi/14",
+            "fuqarolik_kodeksi/1025",
+            "fuqarolik_kodeksi/1029",
+            "jinoyat_kodeksi/122"
+          ]
+        },
+        {
+          "id": "P15_V3",
+          "style": "aralash",
+          "problemId": "P15",
+          "top": [
+            "mehnat_kodeksi/161",
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/161",
+            "mehnat_kodeksi/269",
+            "mamuriy_javobgarlik_kodeksi/47⁴"
+          ]
+        },
+        {
+          "id": "P17_V3",
+          "style": "aralash",
+          "problemId": "P17",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/187",
+            "mehnat_kodeksi/4",
+            "mehnat_kodeksi/4",
+            "mehnat_kodeksi/337",
+            "mamuriy_javobgarlik_kodeksi/47⁴"
+          ]
+        },
+        {
+          "id": "P19_V1",
+          "style": "qisqa",
+          "problemId": "P19",
+          "top": [
+            "fuqarolik_kodeksi/1025",
+            "fuqarolik_kodeksi/1026",
+            "fuqarolik_kodeksi/1023",
+            "fuqarolik_kodeksi/14",
+            "jinoyat_kodeksi/122"
+          ]
+        },
+        {
+          "id": "P19_V2",
+          "style": "sheva",
+          "problemId": "P19",
+          "top": [
+            "fuqarolik_kodeksi/1029",
+            "fuqarolik_kodeksi/324",
+            "fuqarolik_kodeksi/1026",
+            "fuqarolik_kodeksi/985",
+            "mehnat_kodeksi/333"
+          ]
+        },
+        {
+          "id": "P20_V1",
+          "style": "qisqa",
+          "problemId": "P20",
+          "top": [
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/338",
+            "mehnat_kodeksi/417",
+            "mehnat_kodeksi/269"
+          ]
+        },
+        {
+          "id": "P20_V3",
+          "style": "kirill",
+          "problemId": "P20",
+          "top": [
+            "oila_kodeksi/40",
+            "mehnat_kodeksi/4",
+            "mamuriy_javobgarlik_kodeksi/183",
+            "mamuriy_javobgarlik_kodeksi/187",
+            "mamuriy_javobgarlik_kodeksi/47⁴"
+          ]
+        },
+        {
+          "id": "P25_V1",
+          "style": "qisqa",
+          "problemId": "P25",
+          "top": [
+            "oila_kodeksi/40",
+            "mehnat_kodeksi/396",
+            "mehnat_kodeksi/216",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "mamuriy_javobgarlik_kodeksi/192"
+          ]
+        },
+        {
+          "id": "P25_V3",
+          "style": "aralash",
+          "problemId": "P25",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/187",
+            "jinoyat_kodeksi/274",
+            "jinoyat_kodeksi/273",
+            "jinoyat_kodeksi/210",
+            "jinoyat_kodeksi/276"
+          ]
+        },
+        {
+          "id": "P26_V1",
+          "style": "qisqa",
+          "problemId": "P26",
+          "top": [
+            "oila_kodeksi/66",
+            "mehnat_kodeksi/396",
+            "oila_kodeksi/76",
+            "oila_kodeksi/40",
+            "oila_kodeksi/109"
+          ]
+        },
+        {
+          "id": "P26_V2",
+          "style": "sheva",
+          "problemId": "P26",
+          "top": [
+            "oila_kodeksi/66",
+            "mehnat_kodeksi/396",
+            "oila_kodeksi/76",
+            "oila_kodeksi/109",
+            "oila_kodeksi/96"
+          ]
+        },
+        {
+          "id": "P26_V3",
+          "style": "kirill",
+          "problemId": "P26",
+          "top": [
+            "oila_kodeksi/66",
+            "oila_kodeksi/96",
+            "oila_kodeksi/76",
+            "oila_kodeksi/109",
+            "mehnat_kodeksi/396"
+          ]
+        },
+        {
+          "id": "P27_V3",
+          "style": "aralash",
+          "problemId": "P27",
+          "top": [
+            "oila_kodeksi/40",
+            "jinoyat_kodeksi/125¹",
+            "jinoyat_kodeksi/126¹",
+            "jinoyat_kodeksi/126¹",
+            "mamuriy_javobgarlik_kodeksi/47³"
+          ]
+        },
+        {
+          "id": "P29_V3",
+          "style": "aralash",
+          "problemId": "P29",
+          "top": [
+            "jinoyat_kodeksi/271",
+            "jinoyat_kodeksi/275",
+            "jinoyat_kodeksi/169",
+            "jinoyat_kodeksi/274",
+            "jinoyat_kodeksi/273"
+          ]
+        },
+        {
+          "id": "P30_V2",
+          "style": "sheva",
+          "problemId": "P30",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/47",
+            "mamuriy_javobgarlik_kodeksi/59²",
+            "mamuriy_javobgarlik_kodeksi/47",
+            "jinoyat_kodeksi/270",
+            "jinoyat_kodeksi/126¹"
+          ]
+        },
+        {
+          "id": "P31_V1",
+          "style": "qisqa",
+          "problemId": "P31",
+          "top": [
+            "jinoyat_kodeksi/122",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "fuqarolik_kodeksi/1026",
+            "mehnat_kodeksi/333",
+            "jinoyat_kodeksi/169"
+          ]
+        },
+        {
+          "id": "P31_V2",
+          "style": "sheva",
+          "problemId": "P31",
+          "top": [
+            "fuqarolik_kodeksi/1026",
+            "fuqarolik_kodeksi/1023",
+            "fuqarolik_kodeksi/1025",
+            "fuqarolik_kodeksi/14",
+            "jinoyat_kodeksi/169"
+          ]
+        },
+        {
+          "id": "P31_V3",
+          "style": "aralash",
+          "problemId": "P31",
+          "top": [
+            "fuqarolik_kodeksi/1025",
+            "fuqarolik_kodeksi/1029",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "fuqarolik_kodeksi/985",
+            "fuqarolik_kodeksi/1051"
+          ]
+        },
+        {
+          "id": "P32_V2",
+          "style": "sheva",
+          "problemId": "P32",
+          "top": [
+            "fuqarolik_kodeksi/14",
+            "fuqarolik_kodeksi/1026",
+            "jinoyat_kodeksi/210",
+            "jinoyat_kodeksi/164",
+            "fuqarolik_kodeksi/1025"
+          ]
+        },
+        {
+          "id": "P33_V1",
+          "style": "qisqa",
+          "problemId": "P33",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/192",
+            "jinoyat_kodeksi/169",
+            "mamuriy_javobgarlik_kodeksi/187",
+            "jinoyat_kodeksi/271",
+            "jinoyat_kodeksi/275"
+          ]
+        },
+        {
+          "id": "P33_V2",
+          "style": "sheva",
+          "problemId": "P33",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/192",
+            "jinoyat_kodeksi/271",
+            "jinoyat_kodeksi/273",
+            "jinoyat_kodeksi/169",
+            "mamuriy_javobgarlik_kodeksi/79"
+          ]
+        },
+        {
+          "id": "P33_V3",
+          "style": "aralash",
+          "problemId": "P33",
+          "top": [
+            "fuqarolik_kodeksi/1040",
+            "fuqarolik_kodeksi/14",
+            "jinoyat_kodeksi/212",
+            "jinoyat_kodeksi/164",
+            "mamuriy_javobgarlik_kodeksi/192"
+          ]
+        },
+        {
+          "id": "P35_V1",
+          "style": "qisqa",
+          "problemId": "P35",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/192",
+            "jinoyat_kodeksi/122",
+            "jinoyat_kodeksi/210",
+            "mamuriy_javobgarlik_kodeksi/183",
+            "jinoyat_kodeksi/168"
+          ]
+        },
+        {
+          "id": "P35_V3",
+          "style": "aralash",
+          "problemId": "P35",
+          "top": [
+            "jinoyat_kodeksi/126¹",
+            "fuqarolik_kodeksi/14",
+            "jinoyat_kodeksi/126¹",
+            "jinoyat_kodeksi/169",
+            "fuqarolik_kodeksi/985"
+          ]
+        },
+        {
+          "id": "P37_V1",
+          "style": "qisqa",
+          "problemId": "P37",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "fuqarolik_kodeksi/324",
+            "jinoyat_kodeksi/122",
+            "mehnat_kodeksi/337",
+            "mamuriy_javobgarlik_kodeksi/41"
+          ]
+        },
+        {
+          "id": "P37_V3",
+          "style": "aralash",
+          "problemId": "P37",
+          "top": [
+            "jinoyat_kodeksi/122",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "jinoyat_kodeksi/212",
+            "jinoyat_kodeksi/166",
+            "mamuriy_javobgarlik_kodeksi/47"
+          ]
+        },
+        {
+          "id": "P40_V2",
+          "style": "sheva",
+          "problemId": "P40",
+          "top": [
+            "jinoyat_kodeksi/212",
+            "jinoyat_kodeksi/210",
+            "jinoyat_kodeksi/166",
+            "fuqarolik_kodeksi/14",
+            "jinoyat_kodeksi/169"
+          ]
+        },
+        {
+          "id": "P41_V1",
+          "style": "qisqa",
+          "problemId": "P41",
+          "top": [
+            "mehnat_kodeksi/333",
+            "mehnat_kodeksi/337",
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/14",
+            "fuqarolik_kodeksi/1029"
+          ]
+        },
+        {
+          "id": "P41_V3",
+          "style": "aralash",
+          "problemId": "P41",
+          "top": [
+            "mehnat_kodeksi/333",
+            "fuqarolik_kodeksi/735",
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/269",
+            "fuqarolik_kodeksi/14"
+          ]
+        },
+        {
+          "id": "P42_V1",
+          "style": "qisqa",
+          "problemId": "P42",
+          "top": [
+            "jinoyat_kodeksi/135",
+            "mamuriy_javobgarlik_kodeksi/187",
+            "jinoyat_kodeksi/212",
+            "mamuriy_javobgarlik_kodeksi/192",
+            "jinoyat_kodeksi/210"
+          ]
+        },
+        {
+          "id": "P42_V2",
+          "style": "sheva",
+          "problemId": "P42",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/187",
+            "jinoyat_kodeksi/164",
+            "jinoyat_kodeksi/135",
+            "jinoyat_kodeksi/104",
+            "jinoyat_kodeksi/105"
+          ]
+        },
+        {
+          "id": "P47_V1",
+          "style": "qisqa",
+          "problemId": "P47",
+          "top": [
+            "mehnat_kodeksi/337",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "mehnat_kodeksi/338",
+            "fuqarolik_kodeksi/1026",
+            "jinoyat_kodeksi/122"
+          ]
+        },
+        {
+          "id": "P47_V2",
+          "style": "sheva",
+          "problemId": "P47",
+          "top": [
+            "jinoyat_kodeksi/270",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "fuqarolik_kodeksi/14",
+            "fuqarolik_kodeksi/1059",
+            "mehnat_kodeksi/396"
+          ]
+        },
+        {
+          "id": "P47_V3",
+          "style": "aralash",
+          "problemId": "P47",
+          "top": [
+            "mehnat_kodeksi/396",
+            "mehnat_kodeksi/417",
+            "mamuriy_javobgarlik_kodeksi/187",
+            "oila_kodeksi/76",
+            "mamuriy_javobgarlik_kodeksi/47⁴"
+          ]
+        },
+        {
+          "id": "P48_V1",
+          "style": "qisqa",
+          "problemId": "P48",
+          "top": [
+            "mehnat_kodeksi/216",
+            "mehnat_kodeksi/417",
+            "mehnat_kodeksi/189",
+            "jinoyat_kodeksi/257",
+            "mehnat_kodeksi/223"
+          ]
+        },
+        {
+          "id": "P48_V2",
+          "style": "sheva",
+          "problemId": "P48",
+          "top": [
+            "mehnat_kodeksi/417",
+            "mehnat_kodeksi/396",
+            "mehnat_kodeksi/216",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/228"
+          ]
+        },
+        {
+          "id": "P48_V3",
+          "style": "kirill",
+          "problemId": "P48",
+          "top": [
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/189",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "mehnat_kodeksi/417"
+          ]
+        },
+        {
+          "id": "P49_V1",
+          "style": "qisqa",
+          "problemId": "P49",
+          "top": [
+            "mehnat_kodeksi/396",
+            "mehnat_kodeksi/417",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/269"
+          ]
+        },
+        {
+          "id": "P49_V2",
+          "style": "sheva",
+          "problemId": "P49",
+          "top": [
+            "oila_kodeksi/40",
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/396",
+            "mehnat_kodeksi/333"
+          ]
+        },
+        {
+          "id": "P49_V3",
+          "style": "aralash",
+          "problemId": "P49",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/176",
+            "jinoyat_kodeksi/126¹",
+            "jinoyat_kodeksi/126¹",
+            "mehnat_kodeksi/4",
+            "jinoyat_kodeksi/166"
+          ]
+        },
+        {
+          "id": "P55_V1",
+          "style": "qisqa",
+          "problemId": "P55",
+          "top": [
+            "fuqarolik_kodeksi/324",
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/14",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "jinoyat_kodeksi/122"
+          ]
+        },
+        {
+          "id": "P55_V2",
+          "style": "sheva",
+          "problemId": "P55",
+          "top": [
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/324",
+            "fuqarolik_kodeksi/14",
+            "fuqarolik_kodeksi/1026",
+            "mamuriy_javobgarlik_kodeksi/47⁴"
+          ]
+        },
+        {
+          "id": "P55_V3",
+          "style": "aralash",
+          "problemId": "P55",
+          "top": [
+            "fuqarolik_kodeksi/324",
+            "fuqarolik_kodeksi/14",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "mehnat_kodeksi/337",
+            "fuqarolik_kodeksi/985"
+          ]
+        },
+        {
+          "id": "P61_V1",
+          "style": "qisqa",
+          "problemId": "P61",
+          "top": [
+            "mehnat_kodeksi/333",
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/408",
+            "mehnat_kodeksi/189"
+          ]
+        }
+      ]
     },
-    "rasmiy": {
-      "n": 52,
-      "hit": 37,
-      "recall": 71.2
+    "bm25": {
+      "recall": {
+        "JAMI": {
+          "n": 205,
+          "hit": 87,
+          "recall": 42.4
+        },
+        "rasmiy": {
+          "n": 52,
+          "hit": 30,
+          "recall": 57.7
+        },
+        "qisqa": {
+          "n": 51,
+          "hit": 22,
+          "recall": 43.1
+        },
+        "sheva": {
+          "n": 51,
+          "hit": 14,
+          "recall": 27.5
+        },
+        "aralash": {
+          "n": 26,
+          "hit": 6,
+          "recall": 23.1
+        },
+        "kirill": {
+          "n": 25,
+          "hit": 15,
+          "recall": 60
+        }
+      },
+      "misses": [
+        {
+          "id": "P02_A1",
+          "style": "rasmiy",
+          "problemId": "P02",
+          "top": [
+            "mehnat_kodeksi/408",
+            "mehnat_kodeksi/356",
+            "fuqarolik_kodeksi/390",
+            "mehnat_kodeksi/161",
+            "mehnat_kodeksi/161"
+          ]
+        },
+        {
+          "id": "P03_A1",
+          "style": "rasmiy",
+          "problemId": "P03",
+          "top": [
+            "oila_kodeksi/66",
+            "oila_kodeksi/76",
+            "mehnat_kodeksi/4",
+            "fuqarolik_kodeksi/1056",
+            "fuqarolik_kodeksi/1051"
+          ]
+        },
+        {
+          "id": "P08_A1",
+          "style": "rasmiy",
+          "problemId": "P08",
+          "top": [
+            "fuqarolik_kodeksi/1056",
+            "mehnat_kodeksi/269",
+            "jinoyat_kodeksi/211",
+            "fuqarolik_kodeksi/386",
+            "jinoyat_kodeksi/122"
+          ]
+        },
+        {
+          "id": "P10_A1",
+          "style": "rasmiy",
+          "problemId": "P10",
+          "top": [
+            "mehnat_kodeksi/253",
+            "mehnat_kodeksi/333",
+            "mehnat_kodeksi/355",
+            "jinoyat_kodeksi/122",
+            "mehnat_kodeksi/269"
+          ]
+        },
+        {
+          "id": "P19_A1",
+          "style": "rasmiy",
+          "problemId": "P19",
+          "top": [
+            "mehnat_kodeksi/355",
+            "mehnat_kodeksi/356",
+            "mehnat_kodeksi/359",
+            "fuqarolik_kodeksi/324",
+            "fuqarolik_kodeksi/14"
+          ]
+        },
+        {
+          "id": "P22_A1",
+          "style": "rasmiy",
+          "problemId": "P22",
+          "top": [
+            "oila_kodeksi/76",
+            "oila_kodeksi/75",
+            "fuqarolik_kodeksi/1029",
+            "oila_kodeksi/73",
+            "jinoyat_kodeksi/126¹"
+          ]
+        },
+        {
+          "id": "P23_A1",
+          "style": "rasmiy",
+          "problemId": "P23",
+          "top": [
+            "mehnat_kodeksi/356",
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/408",
+            "mehnat_kodeksi/355",
+            "oila_kodeksi/76"
+          ]
+        },
+        {
+          "id": "P29_A1",
+          "style": "rasmiy",
+          "problemId": "P29",
+          "top": [
+            "oila_kodeksi/76",
+            "mehnat_kodeksi/119",
+            "oila_kodeksi/75",
+            "mehnat_kodeksi/4",
+            "oila_kodeksi/79"
+          ]
+        },
+        {
+          "id": "P31_A1",
+          "style": "rasmiy",
+          "problemId": "P31",
+          "top": [
+            "oila_kodeksi/40",
+            "fuqarolik_kodeksi/1040",
+            "jinoyat_kodeksi/135",
+            "fuqarolik_kodeksi/386",
+            "fuqarolik_kodeksi/1051"
+          ]
+        },
+        {
+          "id": "P32_A1",
+          "style": "rasmiy",
+          "problemId": "P32",
+          "top": [
+            "mehnat_kodeksi/359",
+            "mehnat_kodeksi/359",
+            "mehnat_kodeksi/355",
+            "mehnat_kodeksi/359",
+            "mehnat_kodeksi/355"
+          ]
+        },
+        {
+          "id": "P33_A1",
+          "style": "rasmiy",
+          "problemId": "P33",
+          "top": [
+            "mehnat_kodeksi/228",
+            "jinoyat_kodeksi/212",
+            "fuqarolik_kodeksi/1029",
+            "mehnat_kodeksi/359",
+            "oila_kodeksi/76"
+          ]
+        },
+        {
+          "id": "P34_A1",
+          "style": "rasmiy",
+          "problemId": "P34",
+          "top": [
+            "mehnat_kodeksi/359",
+            "jinoyat_kodeksi/257",
+            "mehnat_kodeksi/228",
+            "mamuriy_javobgarlik_kodeksi/47",
+            "fuqarolik_kodeksi/1056"
+          ]
+        },
+        {
+          "id": "P35_A1",
+          "style": "rasmiy",
+          "problemId": "P35",
+          "top": [
+            "fuqarolik_kodeksi/14",
+            "fuqarolik_kodeksi/985",
+            "mehnat_kodeksi/355",
+            "oila_kodeksi/23",
+            "mehnat_kodeksi/359"
+          ]
+        },
+        {
+          "id": "P36_A1",
+          "style": "rasmiy",
+          "problemId": "P36",
+          "top": [
+            "mehnat_kodeksi/269",
+            "fuqarolik_kodeksi/1056",
+            "mehnat_kodeksi/223",
+            "mehnat_kodeksi/161",
+            "fuqarolik_kodeksi/1056"
+          ]
+        },
+        {
+          "id": "P39_A1",
+          "style": "rasmiy",
+          "problemId": "P39",
+          "top": [
+            "fuqarolik_kodeksi/1056",
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/4",
+            "jinoyat_kodeksi/211"
+          ]
+        },
+        {
+          "id": "P40_A1",
+          "style": "rasmiy",
+          "problemId": "P40",
+          "top": [
+            "fuqarolik_kodeksi/14",
+            "mehnat_kodeksi/337",
+            "fuqarolik_kodeksi/985",
+            "fuqarolik_kodeksi/1040",
+            "oila_kodeksi/23"
+          ]
+        },
+        {
+          "id": "P41_A1",
+          "style": "rasmiy",
+          "problemId": "P41",
+          "top": [
+            "oila_kodeksi/76",
+            "mehnat_kodeksi/355",
+            "jinoyat_kodeksi/122",
+            "mehnat_kodeksi/338",
+            "jinoyat_kodeksi/135"
+          ]
+        },
+        {
+          "id": "P48_A1",
+          "style": "rasmiy",
+          "problemId": "P48",
+          "top": [
+            "mehnat_kodeksi/359",
+            "mehnat_kodeksi/216",
+            "mehnat_kodeksi/359",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/356"
+          ]
+        },
+        {
+          "id": "P49_A1",
+          "style": "rasmiy",
+          "problemId": "P49",
+          "top": [
+            "mehnat_kodeksi/223",
+            "mehnat_kodeksi/396",
+            "mehnat_kodeksi/223",
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/216"
+          ]
+        },
+        {
+          "id": "P49_A2",
+          "style": "rasmiy",
+          "problemId": "P49",
+          "top": [
+            "mehnat_kodeksi/216",
+            "mehnat_kodeksi/4",
+            "mehnat_kodeksi/356",
+            "mehnat_kodeksi/359",
+            "mehnat_kodeksi/355"
+          ]
+        },
+        {
+          "id": "P55_A1",
+          "style": "rasmiy",
+          "problemId": "P55",
+          "top": [
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/324",
+            "mehnat_kodeksi/338",
+            "oila_kodeksi/24",
+            "mehnat_kodeksi/356"
+          ]
+        },
+        {
+          "id": "P61_A1",
+          "style": "rasmiy",
+          "problemId": "P61",
+          "top": [
+            "mehnat_kodeksi/253",
+            "fuqarolik_kodeksi/1056",
+            "mehnat_kodeksi/355",
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/359"
+          ]
+        },
+        {
+          "id": "P01_V3",
+          "style": "aralash",
+          "problemId": "P01",
+          "top": [
+            "oila_kodeksi/109",
+            "mehnat_kodeksi/4",
+            "oila_kodeksi/66",
+            "mehnat_kodeksi/359",
+            "oila_kodeksi/75"
+          ]
+        },
+        {
+          "id": "P02_V1",
+          "style": "qisqa",
+          "problemId": "P02",
+          "top": [
+            "jinoyat_kodeksi/212",
+            "mehnat_kodeksi/337",
+            "fuqarolik_kodeksi/14",
+            "mehnat_kodeksi/338",
+            "mehnat_kodeksi/359"
+          ]
+        },
+        {
+          "id": "P02_V2",
+          "style": "sheva",
+          "problemId": "P02",
+          "top": [
+            "mehnat_kodeksi/253",
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/14",
+            "mehnat_kodeksi/337",
+            "mehnat_kodeksi/228"
+          ]
+        },
+        {
+          "id": "P02_V3",
+          "style": "kirill",
+          "problemId": "P02",
+          "top": [
+            "mehnat_kodeksi/408",
+            "oila_kodeksi/25",
+            "mehnat_kodeksi/4",
+            "mehnat_kodeksi/356",
+            "mamuriy_javobgarlik_kodeksi/47⁴"
+          ]
+        },
+        {
+          "id": "P03_V1",
+          "style": "qisqa",
+          "problemId": "P03",
+          "top": [
+            "oila_kodeksi/66",
+            "mehnat_kodeksi/253",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "mamuriy_javobgarlik_kodeksi/59²",
+            "jinoyat_kodeksi/135"
+          ]
+        },
+        {
+          "id": "P03_V2",
+          "style": "sheva",
+          "problemId": "P03",
+          "top": [
+            "mehnat_kodeksi/253",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "mamuriy_javobgarlik_kodeksi/176",
+            "fuqarolik_kodeksi/386",
+            "fuqarolik_kodeksi/390"
+          ]
+        },
+        {
+          "id": "P03_V3",
+          "style": "aralash",
+          "problemId": "P03",
+          "top": [
+            "fuqarolik_kodeksi/386",
+            "fuqarolik_kodeksi/388",
+            "fuqarolik_kodeksi/389",
+            "fuqarolik_kodeksi/390",
+            "mamuriy_javobgarlik_kodeksi/49"
+          ]
+        },
+        {
+          "id": "P04_V1",
+          "style": "qisqa",
+          "problemId": "P04",
+          "top": [
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/1029",
+            "fuqarolik_kodeksi/1025",
+            "fuqarolik_kodeksi/1023",
+            "mehnat_kodeksi/269"
+          ]
+        },
+        {
+          "id": "P04_V2",
+          "style": "sheva",
+          "problemId": "P04",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "jinoyat_kodeksi/273",
+            "mamuriy_javobgarlik_kodeksi/49",
+            "mamuriy_javobgarlik_kodeksi/47³",
+            "mamuriy_javobgarlik_kodeksi/47"
+          ]
+        },
+        {
+          "id": "P05_V2",
+          "style": "sheva",
+          "problemId": "P05",
+          "top": [
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/359",
+            "jinoyat_kodeksi/169"
+          ]
+        },
+        {
+          "id": "P05_V3",
+          "style": "aralash",
+          "problemId": "P05",
+          "top": [
+            "mehnat_kodeksi/359",
+            "oila_kodeksi/27",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/333",
+            "oila_kodeksi/109"
+          ]
+        },
+        {
+          "id": "P06_V1",
+          "style": "qisqa",
+          "problemId": "P06",
+          "top": [
+            "oila_kodeksi/66",
+            "oila_kodeksi/79",
+            "oila_kodeksi/76",
+            "mehnat_kodeksi/396",
+            "mamuriy_javobgarlik_kodeksi/47"
+          ]
+        },
+        {
+          "id": "P06_V2",
+          "style": "sheva",
+          "problemId": "P06",
+          "top": [
+            "oila_kodeksi/76",
+            "oila_kodeksi/66",
+            "mamuriy_javobgarlik_kodeksi/47",
+            "oila_kodeksi/96",
+            "oila_kodeksi/39"
+          ]
+        },
+        {
+          "id": "P07_V2",
+          "style": "sheva",
+          "problemId": "P07",
+          "top": [
+            "oila_kodeksi/39",
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "jinoyat_kodeksi/274",
+            "oila_kodeksi/66",
+            "oila_kodeksi/96"
+          ]
+        },
+        {
+          "id": "P07_V3",
+          "style": "aralash",
+          "problemId": "P07",
+          "top": [
+            "jinoyat_kodeksi/274",
+            "mehnat_kodeksi/4",
+            "jinoyat_kodeksi/274",
+            "jinoyat_kodeksi/210",
+            "jinoyat_kodeksi/211"
+          ]
+        },
+        {
+          "id": "P09_V2",
+          "style": "sheva",
+          "problemId": "P09",
+          "top": [
+            "oila_kodeksi/39",
+            "fuqarolik_kodeksi/389",
+            "jinoyat_kodeksi/166",
+            "jinoyat_kodeksi/164",
+            "oila_kodeksi/23"
+          ]
+        },
+        {
+          "id": "P09_V3",
+          "style": "aralash",
+          "problemId": "P09",
+          "top": [
+            "fuqarolik_kodeksi/166",
+            "mehnat_kodeksi/119",
+            "oila_kodeksi/109",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "oila_kodeksi/66"
+          ]
+        },
+        {
+          "id": "P10_V1",
+          "style": "qisqa",
+          "problemId": "P10",
+          "top": [
+            "fuqarolik_kodeksi/386",
+            "fuqarolik_kodeksi/1029",
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "oila_kodeksi/23",
+            "fuqarolik_kodeksi/1026"
+          ]
+        },
+        {
+          "id": "P11_V2",
+          "style": "sheva",
+          "problemId": "P11",
+          "top": [
+            "mehnat_kodeksi/223",
+            "jinoyat_kodeksi/122",
+            "jinoyat_kodeksi/126¹",
+            "jinoyat_kodeksi/105",
+            "mehnat_kodeksi/161"
+          ]
+        },
+        {
+          "id": "P11_V3",
+          "style": "aralash",
+          "problemId": "P11",
+          "top": [
+            "mehnat_kodeksi/228",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "mehnat_kodeksi/223",
+            "mehnat_kodeksi/216",
+            "oila_kodeksi/79"
+          ]
+        },
+        {
+          "id": "P12_V2",
+          "style": "sheva",
+          "problemId": "P12",
+          "top": [
+            "fuqarolik_kodeksi/324",
+            "oila_kodeksi/23",
+            "jinoyat_kodeksi/126¹",
+            "jinoyat_kodeksi/168",
+            "jinoyat_kodeksi/276"
+          ]
+        },
+        {
+          "id": "P13_V1",
+          "style": "qisqa",
+          "problemId": "P13",
+          "top": [
+            "fuqarolik_kodeksi/1029",
+            "mehnat_kodeksi/253",
+            "oila_kodeksi/66",
+            "mehnat_kodeksi/396",
+            "mehnat_kodeksi/269"
+          ]
+        },
+        {
+          "id": "P13_V2",
+          "style": "sheva",
+          "problemId": "P13",
+          "top": [
+            "oila_kodeksi/40",
+            "fuqarolik_kodeksi/1051",
+            "fuqarolik_kodeksi/324"
+          ]
+        },
+        {
+          "id": "P13_V3",
+          "style": "aralash",
+          "problemId": "P13",
+          "top": [
+            "mehnat_kodeksi/269",
+            "fuqarolik_kodeksi/1051",
+            "mehnat_kodeksi/396",
+            "mehnat_kodeksi/417",
+            "mehnat_kodeksi/269"
+          ]
+        },
+        {
+          "id": "P14_V1",
+          "style": "qisqa",
+          "problemId": "P14",
+          "top": [
+            "mehnat_kodeksi/4",
+            "mehnat_kodeksi/228",
+            "oila_kodeksi/28",
+            "oila_kodeksi/96",
+            "mamuriy_javobgarlik_kodeksi/47"
+          ]
+        },
+        {
+          "id": "P14_V2",
+          "style": "sheva",
+          "problemId": "P14",
+          "top": [
+            "fuqarolik_kodeksi/1051",
+            "fuqarolik_kodeksi/1056",
+            "mehnat_kodeksi/4",
+            "mehnat_kodeksi/417",
+            "fuqarolik_kodeksi/1056"
+          ]
+        },
+        {
+          "id": "P14_V3",
+          "style": "kirill",
+          "problemId": "P14",
+          "top": [
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/223",
+            "mehnat_kodeksi/356",
+            "mehnat_kodeksi/4",
+            "fuqarolik_kodeksi/14"
+          ]
+        },
+        {
+          "id": "P15_V1",
+          "style": "qisqa",
+          "problemId": "P15",
+          "top": [
+            "mehnat_kodeksi/119",
+            "jinoyat_kodeksi/270",
+            "oila_kodeksi/76",
+            "jinoyat_kodeksi/135",
+            "jinoyat_kodeksi/274"
+          ]
+        },
+        {
+          "id": "P15_V2",
+          "style": "sheva",
+          "problemId": "P15",
+          "top": [
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/1029",
+            "mehnat_kodeksi/4",
+            "fuqarolik_kodeksi/1025",
+            "fuqarolik_kodeksi/1023"
+          ]
+        },
+        {
+          "id": "P16_V2",
+          "style": "sheva",
+          "problemId": "P16",
+          "top": [
+            "fuqarolik_kodeksi/389",
+            "jinoyat_kodeksi/109",
+            "jinoyat_kodeksi/126¹",
+            "mamuriy_javobgarlik_kodeksi/59²",
+            "mehnat_kodeksi/359"
+          ]
+        },
+        {
+          "id": "P16_V3",
+          "style": "kirill",
+          "problemId": "P16",
+          "top": [
+            "fuqarolik_kodeksi/1051",
+            "mehnat_kodeksi/4",
+            "fuqarolik_kodeksi/1040",
+            "mamuriy_javobgarlik_kodeksi/49",
+            "jinoyat_kodeksi/126¹"
+          ]
+        },
+        {
+          "id": "P17_V1",
+          "style": "qisqa",
+          "problemId": "P17",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/192",
+            "fuqarolik_kodeksi/386",
+            "oila_kodeksi/66",
+            "fuqarolik_kodeksi/388",
+            "fuqarolik_kodeksi/389"
+          ]
+        },
+        {
+          "id": "P17_V2",
+          "style": "sheva",
+          "problemId": "P17",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "oila_kodeksi/79",
+            "oila_kodeksi/66",
+            "oila_kodeksi/76",
+            "oila_kodeksi/96"
+          ]
+        },
+        {
+          "id": "P17_V3",
+          "style": "aralash",
+          "problemId": "P17",
+          "top": [
+            "fuqarolik_kodeksi/386",
+            "fuqarolik_kodeksi/1029",
+            "fuqarolik_kodeksi/388",
+            "fuqarolik_kodeksi/389",
+            "fuqarolik_kodeksi/390"
+          ]
+        },
+        {
+          "id": "P18_V2",
+          "style": "sheva",
+          "problemId": "P18",
+          "top": [
+            "fuqarolik_kodeksi/388",
+            "jinoyat_kodeksi/273",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "jinoyat_kodeksi/276",
+            "mamuriy_javobgarlik_kodeksi/176"
+          ]
+        },
+        {
+          "id": "P19_V1",
+          "style": "qisqa",
+          "problemId": "P19",
+          "top": [
+            "mehnat_kodeksi/359",
+            "fuqarolik_kodeksi/14",
+            "mehnat_kodeksi/355",
+            "mehnat_kodeksi/356",
+            "mehnat_kodeksi/359"
+          ]
+        },
+        {
+          "id": "P19_V2",
+          "style": "sheva",
+          "problemId": "P19",
+          "top": [
+            "mehnat_kodeksi/359",
+            "mehnat_kodeksi/355",
+            "fuqarolik_kodeksi/985",
+            "fuqarolik_kodeksi/324",
+            "mehnat_kodeksi/356"
+          ]
+        },
+        {
+          "id": "P19_V3",
+          "style": "aralash",
+          "problemId": "P19",
+          "top": []
+        },
+        {
+          "id": "P22_V1",
+          "style": "qisqa",
+          "problemId": "P22",
+          "top": [
+            "oila_kodeksi/73",
+            "mamuriy_javobgarlik_kodeksi/47",
+            "oila_kodeksi/75",
+            "mehnat_kodeksi/161",
+            "mamuriy_javobgarlik_kodeksi/47"
+          ]
+        },
+        {
+          "id": "P22_V2",
+          "style": "sheva",
+          "problemId": "P22",
+          "top": [
+            "oila_kodeksi/75",
+            "mamuriy_javobgarlik_kodeksi/176",
+            "mehnat_kodeksi/161",
+            "mehnat_kodeksi/253",
+            "oila_kodeksi/79"
+          ]
+        },
+        {
+          "id": "P22_V3",
+          "style": "kirill",
+          "problemId": "P22",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/47",
+            "fuqarolik_kodeksi/1114",
+            "oila_kodeksi/75",
+            "mamuriy_javobgarlik_kodeksi/47",
+            "oila_kodeksi/76"
+          ]
+        },
+        {
+          "id": "P23_V1",
+          "style": "qisqa",
+          "problemId": "P23",
+          "top": [
+            "oila_kodeksi/76",
+            "jinoyat_kodeksi/126¹",
+            "oila_kodeksi/24",
+            "mamuriy_javobgarlik_kodeksi/59²",
+            "jinoyat_kodeksi/126¹"
+          ]
+        },
+        {
+          "id": "P23_V2",
+          "style": "sheva",
+          "problemId": "P23",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/59²",
+            "jinoyat_kodeksi/126¹",
+            "oila_kodeksi/76",
+            "mehnat_kodeksi/356",
+            "mehnat_kodeksi/338"
+          ]
+        },
+        {
+          "id": "P24_V1",
+          "style": "qisqa",
+          "problemId": "P24",
+          "top": [
+            "oila_kodeksi/40",
+            "mehnat_kodeksi/333",
+            "jinoyat_kodeksi/166",
+            "jinoyat_kodeksi/164",
+            "oila_kodeksi/76"
+          ]
+        },
+        {
+          "id": "P25_V1",
+          "style": "qisqa",
+          "problemId": "P25",
+          "top": [
+            "oila_kodeksi/75",
+            "mamuriy_javobgarlik_kodeksi/47",
+            "mamuriy_javobgarlik_kodeksi/47",
+            "oila_kodeksi/27",
+            "mehnat_kodeksi/253"
+          ]
+        },
+        {
+          "id": "P25_V2",
+          "style": "sheva",
+          "problemId": "P25",
+          "top": [
+            "oila_kodeksi/75",
+            "mehnat_kodeksi/253",
+            "oila_kodeksi/27",
+            "fuqarolik_kodeksi/1040",
+            "oila_kodeksi/73"
+          ]
+        },
+        {
+          "id": "P25_V3",
+          "style": "aralash",
+          "problemId": "P25",
+          "top": [
+            "mehnat_kodeksi/337",
+            "mehnat_kodeksi/338",
+            "oila_kodeksi/27",
+            "mehnat_kodeksi/356"
+          ]
+        },
+        {
+          "id": "P27_V3",
+          "style": "aralash",
+          "problemId": "P27",
+          "top": [
+            "oila_kodeksi/40",
+            "oila_kodeksi/27",
+            "oila_kodeksi/24",
+            "jinoyat_kodeksi/122",
+            "mehnat_kodeksi/4"
+          ]
+        },
+        {
+          "id": "P28_V1",
+          "style": "qisqa",
+          "problemId": "P28",
+          "top": [
+            "jinoyat_kodeksi/126¹",
+            "mamuriy_javobgarlik_kodeksi/59²",
+            "jinoyat_kodeksi/126¹",
+            "jinoyat_kodeksi/126¹",
+            "oila_kodeksi/39"
+          ]
+        },
+        {
+          "id": "P28_V2",
+          "style": "sheva",
+          "problemId": "P28",
+          "top": [
+            "mehnat_kodeksi/338",
+            "fuqarolik_kodeksi/1051",
+            "fuqarolik_kodeksi/238",
+            "mehnat_kodeksi/106",
+            "mehnat_kodeksi/359"
+          ]
+        },
+        {
+          "id": "P29_V1",
+          "style": "qisqa",
+          "problemId": "P29",
+          "top": [
+            "mehnat_kodeksi/359",
+            "mehnat_kodeksi/355",
+            "mehnat_kodeksi/359",
+            "fuqarolik_kodeksi/391",
+            "mehnat_kodeksi/356"
+          ]
+        },
+        {
+          "id": "P29_V2",
+          "style": "sheva",
+          "problemId": "P29",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/41",
+            "mehnat_kodeksi/359",
+            "mamuriy_javobgarlik_kodeksi/183",
+            "mehnat_kodeksi/355",
+            "mehnat_kodeksi/356"
+          ]
+        },
+        {
+          "id": "P29_V3",
+          "style": "aralash",
+          "problemId": "P29",
+          "top": [
+            "oila_kodeksi/27"
+          ]
+        },
+        {
+          "id": "P30_V3",
+          "style": "kirill",
+          "problemId": "P30",
+          "top": [
+            "mehnat_kodeksi/359",
+            "mehnat_kodeksi/161",
+            "mehnat_kodeksi/355",
+            "fuqarolik_kodeksi/1040",
+            "oila_kodeksi/24"
+          ]
+        },
+        {
+          "id": "P31_V1",
+          "style": "qisqa",
+          "problemId": "P31",
+          "top": [
+            "fuqarolik_kodeksi/386",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "jinoyat_kodeksi/135",
+            "fuqarolik_kodeksi/388",
+            "fuqarolik_kodeksi/389"
+          ]
+        },
+        {
+          "id": "P31_V2",
+          "style": "sheva",
+          "problemId": "P31",
+          "top": [
+            "oila_kodeksi/23",
+            "fuqarolik_kodeksi/386",
+            "oila_kodeksi/27"
+          ]
+        },
+        {
+          "id": "P31_V3",
+          "style": "aralash",
+          "problemId": "P31",
+          "top": [
+            "fuqarolik_kodeksi/386",
+            "fuqarolik_kodeksi/388",
+            "fuqarolik_kodeksi/389",
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "fuqarolik_kodeksi/390"
+          ]
+        },
+        {
+          "id": "P32_V1",
+          "style": "qisqa",
+          "problemId": "P32",
+          "top": [
+            "jinoyat_kodeksi/135"
+          ]
+        },
+        {
+          "id": "P32_V2",
+          "style": "sheva",
+          "problemId": "P32",
+          "top": [
+            "fuqarolik_kodeksi/166",
+            "fuqarolik_kodeksi/1040",
+            "mamuriy_javobgarlik_kodeksi/59²",
+            "jinoyat_kodeksi/126¹",
+            "oila_kodeksi/39"
+          ]
+        },
+        {
+          "id": "P32_V3",
+          "style": "kirill",
+          "problemId": "P32",
+          "top": [
+            "mehnat_kodeksi/4",
+            "oila_kodeksi/96",
+            "jinoyat_kodeksi/135",
+            "mamuriy_javobgarlik_kodeksi/49",
+            "mamuriy_javobgarlik_kodeksi/47³"
+          ]
+        },
+        {
+          "id": "P33_V1",
+          "style": "qisqa",
+          "problemId": "P33",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/51¹"
+          ]
+        },
+        {
+          "id": "P33_V2",
+          "style": "sheva",
+          "problemId": "P33",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "mamuriy_javobgarlik_kodeksi/49",
+            "mamuriy_javobgarlik_kodeksi/47³",
+            "mamuriy_javobgarlik_kodeksi/47",
+            "mamuriy_javobgarlik_kodeksi/51"
+          ]
+        },
+        {
+          "id": "P33_V3",
+          "style": "aralash",
+          "problemId": "P33",
+          "top": []
+        },
+        {
+          "id": "P34_V2",
+          "style": "sheva",
+          "problemId": "P34",
+          "top": [
+            "oila_kodeksi/79",
+            "mehnat_kodeksi/269",
+            "oila_kodeksi/109",
+            "mehnat_kodeksi/269",
+            "jinoyat_kodeksi/135"
+          ]
+        },
+        {
+          "id": "P35_V2",
+          "style": "sheva",
+          "problemId": "P35",
+          "top": [
+            "mehnat_kodeksi/359",
+            "mehnat_kodeksi/338",
+            "fuqarolik_kodeksi/324",
+            "mehnat_kodeksi/359",
+            "mehnat_kodeksi/253"
+          ]
+        },
+        {
+          "id": "P35_V3",
+          "style": "aralash",
+          "problemId": "P35",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/79",
+            "jinoyat_kodeksi/257",
+            "mehnat_kodeksi/359",
+            "mehnat_kodeksi/359",
+            "mehnat_kodeksi/359"
+          ]
+        },
+        {
+          "id": "P36_V1",
+          "style": "qisqa",
+          "problemId": "P36",
+          "top": [
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/161",
+            "mehnat_kodeksi/355",
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "oila_kodeksi/23"
+          ]
+        },
+        {
+          "id": "P36_V2",
+          "style": "sheva",
+          "problemId": "P36",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/223",
+            "oila_kodeksi/23",
+            "mamuriy_javobgarlik_kodeksi/192"
+          ]
+        },
+        {
+          "id": "P36_V3",
+          "style": "kirill",
+          "problemId": "P36",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/176",
+            "mehnat_kodeksi/161",
+            "mehnat_kodeksi/355",
+            "fuqarolik_kodeksi/386",
+            "mehnat_kodeksi/356"
+          ]
+        },
+        {
+          "id": "P37_V3",
+          "style": "aralash",
+          "problemId": "P37",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/47",
+            "mamuriy_javobgarlik_kodeksi/47",
+            "oila_kodeksi/109",
+            "mamuriy_javobgarlik_kodeksi/47³",
+            "mamuriy_javobgarlik_kodeksi/192"
+          ]
+        },
+        {
+          "id": "P38_V1",
+          "style": "qisqa",
+          "problemId": "P38",
+          "top": [
+            "jinoyat_kodeksi/135",
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "oila_kodeksi/23",
+            "jinoyat_kodeksi/105",
+            "mamuriy_javobgarlik_kodeksi/47⁴"
+          ]
+        },
+        {
+          "id": "P38_V2",
+          "style": "sheva",
+          "problemId": "P38",
+          "top": [
+            "oila_kodeksi/23",
+            "fuqarolik_kodeksi/386",
+            "oila_kodeksi/27"
+          ]
+        },
+        {
+          "id": "P38_V3",
+          "style": "kirill",
+          "problemId": "P38",
+          "top": [
+            "oila_kodeksi/23",
+            "mehnat_kodeksi/338",
+            "mehnat_kodeksi/161",
+            "mehnat_kodeksi/355",
+            "fuqarolik_kodeksi/386"
+          ]
+        },
+        {
+          "id": "P39_V1",
+          "style": "qisqa",
+          "problemId": "P39",
+          "top": [
+            "mehnat_kodeksi/421",
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "mehnat_kodeksi/161",
+            "jinoyat_kodeksi/135",
+            "jinoyat_kodeksi/257"
+          ]
+        },
+        {
+          "id": "P39_V2",
+          "style": "sheva",
+          "problemId": "P39",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "fuqarolik_kodeksi/1040",
+            "oila_kodeksi/66",
+            "mehnat_kodeksi/421",
+            "oila_kodeksi/96"
+          ]
+        },
+        {
+          "id": "P40_V1",
+          "style": "qisqa",
+          "problemId": "P40",
+          "top": [
+            "oila_kodeksi/79",
+            "oila_kodeksi/23",
+            "mehnat_kodeksi/355",
+            "fuqarolik_kodeksi/386",
+            "mamuriy_javobgarlik_kodeksi/79"
+          ]
+        },
+        {
+          "id": "P40_V2",
+          "style": "sheva",
+          "problemId": "P40",
+          "top": [
+            "oila_kodeksi/23",
+            "jinoyat_kodeksi/211",
+            "fuqarolik_kodeksi/386",
+            "oila_kodeksi/73",
+            "fuqarolik_kodeksi/14"
+          ]
+        },
+        {
+          "id": "P40_V3",
+          "style": "kirill",
+          "problemId": "P40",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/79",
+            "oila_kodeksi/79",
+            "mehnat_kodeksi/4",
+            "mehnat_kodeksi/161",
+            "oila_kodeksi/75"
+          ]
+        },
+        {
+          "id": "P41_V1",
+          "style": "qisqa",
+          "problemId": "P41",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/51",
+            "oila_kodeksi/23",
+            "mehnat_kodeksi/161",
+            "fuqarolik_kodeksi/386",
+            "oila_kodeksi/27"
+          ]
+        },
+        {
+          "id": "P41_V2",
+          "style": "sheva",
+          "problemId": "P41",
+          "top": [
+            "fuqarolik_kodeksi/1029",
+            "fuqarolik_kodeksi/735",
+            "oila_kodeksi/79",
+            "fuqarolik_kodeksi/1025",
+            "fuqarolik_kodeksi/1023"
+          ]
+        },
+        {
+          "id": "P41_V3",
+          "style": "aralash",
+          "problemId": "P41",
+          "top": [
+            "mehnat_kodeksi/355",
+            "oila_kodeksi/27"
+          ]
+        },
+        {
+          "id": "P42_V1",
+          "style": "qisqa",
+          "problemId": "P42",
+          "top": [
+            "fuqarolik_kodeksi/1056",
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "fuqarolik_kodeksi/1025",
+            "jinoyat_kodeksi/135",
+            "jinoyat_kodeksi/257"
+          ]
+        },
+        {
+          "id": "P42_V2",
+          "style": "sheva",
+          "problemId": "P42",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "fuqarolik_kodeksi/1056",
+            "fuqarolik_kodeksi/1025",
+            "jinoyat_kodeksi/125¹",
+            "mehnat_kodeksi/253"
+          ]
+        },
+        {
+          "id": "P43_V1",
+          "style": "qisqa",
+          "problemId": "P43",
+          "top": [
+            "oila_kodeksi/73",
+            "oila_kodeksi/75",
+            "oila_kodeksi/109",
+            "oila_kodeksi/96",
+            "mamuriy_javobgarlik_kodeksi/47"
+          ]
+        },
+        {
+          "id": "P43_V2",
+          "style": "sheva",
+          "problemId": "P43",
+          "top": [
+            "fuqarolik_kodeksi/735",
+            "mamuriy_javobgarlik_kodeksi/176",
+            "mehnat_kodeksi/333",
+            "mehnat_kodeksi/253",
+            "mehnat_kodeksi/228"
+          ]
+        },
+        {
+          "id": "P45_V3",
+          "style": "aralash",
+          "problemId": "P45",
+          "top": [
+            "oila_kodeksi/96",
+            "oila_kodeksi/79",
+            "jinoyat_kodeksi/273",
+            "jinoyat_kodeksi/276",
+            "mamuriy_javobgarlik_kodeksi/49"
+          ]
+        },
+        {
+          "id": "P46_V2",
+          "style": "sheva",
+          "problemId": "P46",
+          "top": [
+            "fuqarolik_kodeksi/1040",
+            "fuqarolik_kodeksi/1056",
+            "fuqarolik_kodeksi/1051",
+            "mamuriy_javobgarlik_kodeksi/187",
+            "jinoyat_kodeksi/278¹"
+          ]
+        },
+        {
+          "id": "P47_V3",
+          "style": "aralash",
+          "problemId": "P47",
+          "top": [
+            "oila_kodeksi/79",
+            "jinoyat_kodeksi/273",
+            "jinoyat_kodeksi/276",
+            "mamuriy_javobgarlik_kodeksi/49",
+            "mamuriy_javobgarlik_kodeksi/47³"
+          ]
+        },
+        {
+          "id": "P48_V1",
+          "style": "qisqa",
+          "problemId": "P48",
+          "top": [
+            "mehnat_kodeksi/216",
+            "fuqarolik_kodeksi/386",
+            "mehnat_kodeksi/396",
+            "mehnat_kodeksi/417",
+            "mamuriy_javobgarlik_kodeksi/79"
+          ]
+        },
+        {
+          "id": "P48_V2",
+          "style": "sheva",
+          "problemId": "P48",
+          "top": [
+            "mehnat_kodeksi/216",
+            "mehnat_kodeksi/396",
+            "mehnat_kodeksi/417",
+            "jinoyat_kodeksi/135",
+            "jinoyat_kodeksi/126¹"
+          ]
+        },
+        {
+          "id": "P48_V3",
+          "style": "kirill",
+          "problemId": "P48",
+          "top": [
+            "mehnat_kodeksi/417",
+            "mehnat_kodeksi/396",
+            "mehnat_kodeksi/216",
+            "mehnat_kodeksi/253",
+            "mamuriy_javobgarlik_kodeksi/49"
+          ]
+        },
+        {
+          "id": "P49_V1",
+          "style": "qisqa",
+          "problemId": "P49",
+          "top": [
+            "oila_kodeksi/40",
+            "mehnat_kodeksi/333",
+            "fuqarolik_kodeksi/1029",
+            "mehnat_kodeksi/228",
+            "mehnat_kodeksi/216"
+          ]
+        },
+        {
+          "id": "P49_V2",
+          "style": "sheva",
+          "problemId": "P49",
+          "top": [
+            "oila_kodeksi/40",
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "fuqarolik_kodeksi/1029",
+            "mehnat_kodeksi/4",
+            "mehnat_kodeksi/333"
+          ]
+        },
+        {
+          "id": "P55_V1",
+          "style": "qisqa",
+          "problemId": "P55",
+          "top": [
+            "fuqarolik_kodeksi/324",
+            "oila_kodeksi/28",
+            "oila_kodeksi/23",
+            "oila_kodeksi/27"
+          ]
+        },
+        {
+          "id": "P55_V2",
+          "style": "sheva",
+          "problemId": "P55",
+          "top": [
+            "fuqarolik_kodeksi/324",
+            "oila_kodeksi/23",
+            "oila_kodeksi/27"
+          ]
+        },
+        {
+          "id": "P55_V3",
+          "style": "aralash",
+          "problemId": "P55",
+          "top": [
+            "fuqarolik_kodeksi/324",
+            "fuqarolik_kodeksi/14",
+            "oila_kodeksi/23",
+            "oila_kodeksi/28",
+            "mamuriy_javobgarlik_kodeksi/49"
+          ]
+        }
+      ]
     },
-    "qisqa": {
-      "n": 51,
-      "hit": 28,
-      "recall": 54.9
-    },
-    "sheva": {
-      "n": 51,
-      "hit": 30,
-      "recall": 58.8
-    },
-    "aralash": {
-      "n": 26,
-      "hit": 10,
-      "recall": 38.5
-    },
-    "kirill": {
-      "n": 25,
-      "hit": 19,
-      "recall": 76
+    "hybrid": {
+      "recall": {
+        "JAMI": {
+          "n": 205,
+          "hit": 109,
+          "recall": 53.2
+        },
+        "rasmiy": {
+          "n": 52,
+          "hit": 36,
+          "recall": 69.2
+        },
+        "qisqa": {
+          "n": 51,
+          "hit": 28,
+          "recall": 54.9
+        },
+        "sheva": {
+          "n": 51,
+          "hit": 20,
+          "recall": 39.2
+        },
+        "aralash": {
+          "n": 26,
+          "hit": 9,
+          "recall": 34.6
+        },
+        "kirill": {
+          "n": 25,
+          "hit": 16,
+          "recall": 64
+        }
+      },
+      "misses": [
+        {
+          "id": "P02_A1",
+          "style": "rasmiy",
+          "problemId": "P02",
+          "top": [
+            "mehnat_kodeksi/408",
+            "mehnat_kodeksi/161",
+            "mehnat_kodeksi/161",
+            "fuqarolik_kodeksi/390",
+            "mehnat_kodeksi/356"
+          ]
+        },
+        {
+          "id": "P03_A1",
+          "style": "rasmiy",
+          "problemId": "P03",
+          "top": [
+            "oila_kodeksi/66",
+            "oila_kodeksi/76",
+            "oila_kodeksi/75",
+            "fuqarolik_kodeksi/1056",
+            "fuqarolik_kodeksi/1051"
+          ]
+        },
+        {
+          "id": "P08_A1",
+          "style": "rasmiy",
+          "problemId": "P08",
+          "top": [
+            "fuqarolik_kodeksi/1056",
+            "fuqarolik_kodeksi/14",
+            "jinoyat_kodeksi/211",
+            "fuqarolik_kodeksi/985",
+            "fuqarolik_kodeksi/386"
+          ]
+        },
+        {
+          "id": "P19_A1",
+          "style": "rasmiy",
+          "problemId": "P19",
+          "top": [
+            "fuqarolik_kodeksi/14",
+            "fuqarolik_kodeksi/324",
+            "mehnat_kodeksi/355",
+            "mehnat_kodeksi/356",
+            "fuqarolik_kodeksi/1029"
+          ]
+        },
+        {
+          "id": "P22_A1",
+          "style": "rasmiy",
+          "problemId": "P22",
+          "top": [
+            "oila_kodeksi/76",
+            "oila_kodeksi/75",
+            "oila_kodeksi/73",
+            "oila_kodeksi/66",
+            "mamuriy_javobgarlik_kodeksi/47"
+          ]
+        },
+        {
+          "id": "P31_A1",
+          "style": "rasmiy",
+          "problemId": "P31",
+          "top": [
+            "fuqarolik_kodeksi/386",
+            "jinoyat_kodeksi/135",
+            "fuqarolik_kodeksi/985",
+            "fuqarolik_kodeksi/1026",
+            "jinoyat_kodeksi/169"
+          ]
+        },
+        {
+          "id": "P32_A1",
+          "style": "rasmiy",
+          "problemId": "P32",
+          "top": [
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/359",
+            "mehnat_kodeksi/355",
+            "mehnat_kodeksi/355",
+            "mehnat_kodeksi/359"
+          ]
+        },
+        {
+          "id": "P33_A1",
+          "style": "rasmiy",
+          "problemId": "P33",
+          "top": [
+            "mehnat_kodeksi/269",
+            "fuqarolik_kodeksi/1029",
+            "oila_kodeksi/76",
+            "fuqarolik_kodeksi/1023",
+            "fuqarolik_kodeksi/735"
+          ]
+        },
+        {
+          "id": "P34_A1",
+          "style": "rasmiy",
+          "problemId": "P34",
+          "top": [
+            "jinoyat_kodeksi/257",
+            "fuqarolik_kodeksi/985",
+            "jinoyat_kodeksi/122",
+            "fuqarolik_kodeksi/14",
+            "mehnat_kodeksi/4"
+          ]
+        },
+        {
+          "id": "P35_A1",
+          "style": "rasmiy",
+          "problemId": "P35",
+          "top": [
+            "fuqarolik_kodeksi/14",
+            "fuqarolik_kodeksi/985",
+            "jinoyat_kodeksi/126¹",
+            "mehnat_kodeksi/355",
+            "jinoyat_kodeksi/257"
+          ]
+        },
+        {
+          "id": "P36_A1",
+          "style": "rasmiy",
+          "problemId": "P36",
+          "top": [
+            "mehnat_kodeksi/269",
+            "mamuriy_javobgarlik_kodeksi/176",
+            "fuqarolik_kodeksi/1056",
+            "mehnat_kodeksi/355",
+            "mehnat_kodeksi/253"
+          ]
+        },
+        {
+          "id": "P41_A1",
+          "style": "rasmiy",
+          "problemId": "P41",
+          "top": [
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/1026",
+            "fuqarolik_kodeksi/1025",
+            "fuqarolik_kodeksi/1023",
+            "jinoyat_kodeksi/135"
+          ]
+        },
+        {
+          "id": "P48_A1",
+          "style": "rasmiy",
+          "problemId": "P48",
+          "top": [
+            "mehnat_kodeksi/356",
+            "mehnat_kodeksi/359",
+            "mehnat_kodeksi/4",
+            "mehnat_kodeksi/359",
+            "mehnat_kodeksi/355"
+          ]
+        },
+        {
+          "id": "P49_A1",
+          "style": "rasmiy",
+          "problemId": "P49",
+          "top": [
+            "mehnat_kodeksi/223",
+            "mehnat_kodeksi/223",
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/216",
+            "mehnat_kodeksi/253"
+          ]
+        },
+        {
+          "id": "P49_A2",
+          "style": "rasmiy",
+          "problemId": "P49",
+          "top": [
+            "mehnat_kodeksi/356",
+            "mehnat_kodeksi/4",
+            "mehnat_kodeksi/253",
+            "mehnat_kodeksi/223",
+            "mehnat_kodeksi/359"
+          ]
+        },
+        {
+          "id": "P55_A1",
+          "style": "rasmiy",
+          "problemId": "P55",
+          "top": [
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/324",
+            "fuqarolik_kodeksi/1026",
+            "fuqarolik_kodeksi/985",
+            "fuqarolik_kodeksi/14"
+          ]
+        },
+        {
+          "id": "P01_V3",
+          "style": "aralash",
+          "problemId": "P01",
+          "top": [
+            "jinoyat_kodeksi/211",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "mamuriy_javobgarlik_kodeksi/176",
+            "mamuriy_javobgarlik_kodeksi/47³",
+            "jinoyat_kodeksi/212"
+          ]
+        },
+        {
+          "id": "P02_V1",
+          "style": "qisqa",
+          "problemId": "P02",
+          "top": [
+            "mehnat_kodeksi/223",
+            "jinoyat_kodeksi/212",
+            "fuqarolik_kodeksi/14",
+            "mehnat_kodeksi/337",
+            "jinoyat_kodeksi/210"
+          ]
+        },
+        {
+          "id": "P02_V2",
+          "style": "sheva",
+          "problemId": "P02",
+          "top": [
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/389",
+            "jinoyat_kodeksi/122",
+            "mehnat_kodeksi/253",
+            "jinoyat_kodeksi/166"
+          ]
+        },
+        {
+          "id": "P02_V3",
+          "style": "kirill",
+          "problemId": "P02",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "mehnat_kodeksi/4",
+            "fuqarolik_kodeksi/389",
+            "mehnat_kodeksi/408",
+            "mehnat_kodeksi/126"
+          ]
+        },
+        {
+          "id": "P03_V1",
+          "style": "qisqa",
+          "problemId": "P03",
+          "top": [
+            "oila_kodeksi/66",
+            "jinoyat_kodeksi/126¹",
+            "jinoyat_kodeksi/169",
+            "mamuriy_javobgarlik_kodeksi/59²",
+            "fuqarolik_kodeksi/14"
+          ]
+        },
+        {
+          "id": "P03_V2",
+          "style": "sheva",
+          "problemId": "P03",
+          "top": [
+            "oila_kodeksi/66",
+            "oila_kodeksi/75",
+            "mehnat_kodeksi/269",
+            "mamuriy_javobgarlik_kodeksi/47³",
+            "fuqarolik_kodeksi/1023"
+          ]
+        },
+        {
+          "id": "P03_V3",
+          "style": "aralash",
+          "problemId": "P03",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/59²",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "mamuriy_javobgarlik_kodeksi/41",
+            "mamuriy_javobgarlik_kodeksi/47"
+          ]
+        },
+        {
+          "id": "P04_V1",
+          "style": "qisqa",
+          "problemId": "P04",
+          "top": [
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/1026",
+            "fuqarolik_kodeksi/1023",
+            "fuqarolik_kodeksi/1025",
+            "fuqarolik_kodeksi/1029"
+          ]
+        },
+        {
+          "id": "P04_V2",
+          "style": "sheva",
+          "problemId": "P04",
+          "top": [
+            "jinoyat_kodeksi/273",
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "mamuriy_javobgarlik_kodeksi/41",
+            "mamuriy_javobgarlik_kodeksi/47³",
+            "jinoyat_kodeksi/273"
+          ]
+        },
+        {
+          "id": "P05_V3",
+          "style": "aralash",
+          "problemId": "P05",
+          "top": [
+            "mehnat_kodeksi/333",
+            "mehnat_kodeksi/4",
+            "jinoyat_kodeksi/122",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "oila_kodeksi/27"
+          ]
+        },
+        {
+          "id": "P06_V1",
+          "style": "qisqa",
+          "problemId": "P06",
+          "top": [
+            "jinoyat_kodeksi/122",
+            "oila_kodeksi/76",
+            "oila_kodeksi/75",
+            "fuqarolik_kodeksi/1026",
+            "oila_kodeksi/96"
+          ]
+        },
+        {
+          "id": "P06_V2",
+          "style": "sheva",
+          "problemId": "P06",
+          "top": [
+            "oila_kodeksi/76",
+            "oila_kodeksi/96",
+            "oila_kodeksi/75",
+            "mamuriy_javobgarlik_kodeksi/47",
+            "mamuriy_javobgarlik_kodeksi/47³"
+          ]
+        },
+        {
+          "id": "P07_V2",
+          "style": "sheva",
+          "problemId": "P07",
+          "top": [
+            "jinoyat_kodeksi/274",
+            "jinoyat_kodeksi/274",
+            "jinoyat_kodeksi/166",
+            "mamuriy_javobgarlik_kodeksi/47",
+            "mamuriy_javobgarlik_kodeksi/79"
+          ]
+        },
+        {
+          "id": "P07_V3",
+          "style": "aralash",
+          "problemId": "P07",
+          "top": [
+            "jinoyat_kodeksi/274",
+            "jinoyat_kodeksi/274",
+            "mehnat_kodeksi/4",
+            "jinoyat_kodeksi/211",
+            "jinoyat_kodeksi/210"
+          ]
+        },
+        {
+          "id": "P09_V2",
+          "style": "sheva",
+          "problemId": "P09",
+          "top": [
+            "oila_kodeksi/39",
+            "jinoyat_kodeksi/166",
+            "oila_kodeksi/23",
+            "fuqarolik_kodeksi/389",
+            "jinoyat_kodeksi/164"
+          ]
+        },
+        {
+          "id": "P09_V3",
+          "style": "aralash",
+          "problemId": "P09",
+          "top": [
+            "oila_kodeksi/66",
+            "oila_kodeksi/109",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "jinoyat_kodeksi/212",
+            "oila_kodeksi/79"
+          ]
+        },
+        {
+          "id": "P10_V1",
+          "style": "qisqa",
+          "problemId": "P10",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "jinoyat_kodeksi/122",
+            "fuqarolik_kodeksi/1026",
+            "fuqarolik_kodeksi/1029"
+          ]
+        },
+        {
+          "id": "P10_V2",
+          "style": "sheva",
+          "problemId": "P10",
+          "top": [
+            "jinoyat_kodeksi/122",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "mamuriy_javobgarlik_kodeksi/192",
+            "jinoyat_kodeksi/169",
+            "mamuriy_javobgarlik_kodeksi/183"
+          ]
+        },
+        {
+          "id": "P11_V2",
+          "style": "sheva",
+          "problemId": "P11",
+          "top": [
+            "mehnat_kodeksi/161",
+            "mehnat_kodeksi/408",
+            "mehnat_kodeksi/223",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "jinoyat_kodeksi/122"
+          ]
+        },
+        {
+          "id": "P11_V3",
+          "style": "aralash",
+          "problemId": "P11",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "mehnat_kodeksi/223",
+            "jinoyat_kodeksi/122",
+            "mehnat_kodeksi/216",
+            "mehnat_kodeksi/269"
+          ]
+        },
+        {
+          "id": "P12_V2",
+          "style": "sheva",
+          "problemId": "P12",
+          "top": [
+            "fuqarolik_kodeksi/324",
+            "jinoyat_kodeksi/122",
+            "jinoyat_kodeksi/166",
+            "mehnat_kodeksi/161",
+            "jinoyat_kodeksi/168"
+          ]
+        },
+        {
+          "id": "P13_V1",
+          "style": "qisqa",
+          "problemId": "P13",
+          "top": [
+            "mehnat_kodeksi/253",
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/396",
+            "mehnat_kodeksi/417",
+            "mehnat_kodeksi/269"
+          ]
+        },
+        {
+          "id": "P14_V1",
+          "style": "qisqa",
+          "problemId": "P14",
+          "top": [
+            "fuqarolik_kodeksi/1025",
+            "mamuriy_javobgarlik_kodeksi/176",
+            "mamuriy_javobgarlik_kodeksi/47",
+            "mamuriy_javobgarlik_kodeksi/192",
+            "mamuriy_javobgarlik_kodeksi/47⁴"
+          ]
+        },
+        {
+          "id": "P14_V2",
+          "style": "sheva",
+          "problemId": "P14",
+          "top": [
+            "fuqarolik_kodeksi/1051",
+            "fuqarolik_kodeksi/1056",
+            "mehnat_kodeksi/119",
+            "mehnat_kodeksi/417",
+            "mehnat_kodeksi/396"
+          ]
+        },
+        {
+          "id": "P14_V3",
+          "style": "kirill",
+          "problemId": "P14",
+          "top": [
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/119",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/356"
+          ]
+        },
+        {
+          "id": "P15_V1",
+          "style": "qisqa",
+          "problemId": "P15",
+          "top": [
+            "mehnat_kodeksi/119",
+            "jinoyat_kodeksi/135",
+            "jinoyat_kodeksi/270",
+            "jinoyat_kodeksi/105",
+            "oila_kodeksi/96"
+          ]
+        },
+        {
+          "id": "P15_V2",
+          "style": "sheva",
+          "problemId": "P15",
+          "top": [
+            "fuqarolik_kodeksi/1023",
+            "fuqarolik_kodeksi/1029",
+            "fuqarolik_kodeksi/1025",
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/1026"
+          ]
+        },
+        {
+          "id": "P16_V2",
+          "style": "sheva",
+          "problemId": "P16",
+          "top": [
+            "mehnat_kodeksi/359",
+            "jinoyat_kodeksi/109",
+            "mamuriy_javobgarlik_kodeksi/59²",
+            "fuqarolik_kodeksi/389",
+            "jinoyat_kodeksi/126¹"
+          ]
+        },
+        {
+          "id": "P19_V1",
+          "style": "qisqa",
+          "problemId": "P19",
+          "top": [
+            "fuqarolik_kodeksi/14",
+            "mehnat_kodeksi/356",
+            "mehnat_kodeksi/359",
+            "mehnat_kodeksi/355",
+            "mehnat_kodeksi/359"
+          ]
+        },
+        {
+          "id": "P19_V2",
+          "style": "sheva",
+          "problemId": "P19",
+          "top": [
+            "fuqarolik_kodeksi/324",
+            "fuqarolik_kodeksi/985",
+            "mehnat_kodeksi/333",
+            "fuqarolik_kodeksi/1026",
+            "fuqarolik_kodeksi/1029"
+          ]
+        },
+        {
+          "id": "P22_V3",
+          "style": "kirill",
+          "problemId": "P22",
+          "top": [
+            "oila_kodeksi/75",
+            "oila_kodeksi/76",
+            "mamuriy_javobgarlik_kodeksi/47",
+            "oila_kodeksi/73",
+            "oila_kodeksi/66"
+          ]
+        },
+        {
+          "id": "P23_V1",
+          "style": "qisqa",
+          "problemId": "P23",
+          "top": [
+            "oila_kodeksi/76",
+            "oila_kodeksi/24",
+            "jinoyat_kodeksi/126¹",
+            "mamuriy_javobgarlik_kodeksi/59²",
+            "jinoyat_kodeksi/126¹"
+          ]
+        },
+        {
+          "id": "P23_V2",
+          "style": "sheva",
+          "problemId": "P23",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/59²",
+            "jinoyat_kodeksi/126¹",
+            "oila_kodeksi/76",
+            "mehnat_kodeksi/269",
+            "fuqarolik_kodeksi/238"
+          ]
+        },
+        {
+          "id": "P25_V1",
+          "style": "qisqa",
+          "problemId": "P25",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/47",
+            "oila_kodeksi/96",
+            "oila_kodeksi/27",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "mamuriy_javobgarlik_kodeksi/192"
+          ]
+        },
+        {
+          "id": "P25_V2",
+          "style": "sheva",
+          "problemId": "P25",
+          "top": [
+            "oila_kodeksi/96",
+            "oila_kodeksi/75",
+            "oila_kodeksi/79",
+            "oila_kodeksi/109",
+            "oila_kodeksi/27"
+          ]
+        },
+        {
+          "id": "P25_V3",
+          "style": "aralash",
+          "problemId": "P25",
+          "top": [
+            "oila_kodeksi/27",
+            "mehnat_kodeksi/337",
+            "mehnat_kodeksi/338",
+            "mehnat_kodeksi/356",
+            "mamuriy_javobgarlik_kodeksi/187"
+          ]
+        },
+        {
+          "id": "P27_V3",
+          "style": "aralash",
+          "problemId": "P27",
+          "top": [
+            "oila_kodeksi/40",
+            "oila_kodeksi/27",
+            "oila_kodeksi/24",
+            "oila_kodeksi/76",
+            "oila_kodeksi/38"
+          ]
+        },
+        {
+          "id": "P28_V1",
+          "style": "qisqa",
+          "problemId": "P28",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/59²",
+            "jinoyat_kodeksi/126¹",
+            "jinoyat_kodeksi/126¹",
+            "oila_kodeksi/39",
+            "jinoyat_kodeksi/126¹"
+          ]
+        },
+        {
+          "id": "P28_V2",
+          "style": "sheva",
+          "problemId": "P28",
+          "top": [
+            "oila_kodeksi/79",
+            "oila_kodeksi/109",
+            "mamuriy_javobgarlik_kodeksi/47",
+            "jinoyat_kodeksi/169",
+            "oila_kodeksi/24"
+          ]
+        },
+        {
+          "id": "P29_V3",
+          "style": "aralash",
+          "problemId": "P29",
+          "top": [
+            "oila_kodeksi/27",
+            "jinoyat_kodeksi/271",
+            "jinoyat_kodeksi/275",
+            "jinoyat_kodeksi/169",
+            "jinoyat_kodeksi/274"
+          ]
+        },
+        {
+          "id": "P30_V2",
+          "style": "sheva",
+          "problemId": "P30",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/47",
+            "mamuriy_javobgarlik_kodeksi/47",
+            "mamuriy_javobgarlik_kodeksi/59²",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "jinoyat_kodeksi/270"
+          ]
+        },
+        {
+          "id": "P30_V3",
+          "style": "kirill",
+          "problemId": "P30",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "mehnat_kodeksi/396",
+            "mehnat_kodeksi/161",
+            "mehnat_kodeksi/119",
+            "oila_kodeksi/24"
+          ]
+        },
+        {
+          "id": "P31_V1",
+          "style": "qisqa",
+          "problemId": "P31",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "jinoyat_kodeksi/122",
+            "jinoyat_kodeksi/257",
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/388"
+          ]
+        },
+        {
+          "id": "P31_V2",
+          "style": "sheva",
+          "problemId": "P31",
+          "top": [
+            "fuqarolik_kodeksi/386",
+            "oila_kodeksi/23",
+            "oila_kodeksi/27",
+            "fuqarolik_kodeksi/1026",
+            "fuqarolik_kodeksi/1023"
+          ]
+        },
+        {
+          "id": "P31_V3",
+          "style": "aralash",
+          "problemId": "P31",
+          "top": [
+            "fuqarolik_kodeksi/388",
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "fuqarolik_kodeksi/390",
+            "fuqarolik_kodeksi/386",
+            "fuqarolik_kodeksi/389"
+          ]
+        },
+        {
+          "id": "P32_V2",
+          "style": "sheva",
+          "problemId": "P32",
+          "top": [
+            "fuqarolik_kodeksi/1040",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "jinoyat_kodeksi/135",
+            "fuqarolik_kodeksi/166",
+            "jinoyat_kodeksi/126¹"
+          ]
+        },
+        {
+          "id": "P32_V3",
+          "style": "kirill",
+          "problemId": "P32",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "mamuriy_javobgarlik_kodeksi/187",
+            "jinoyat_kodeksi/135",
+            "mamuriy_javobgarlik_kodeksi/192",
+            "mamuriy_javobgarlik_kodeksi/183"
+          ]
+        },
+        {
+          "id": "P33_V1",
+          "style": "qisqa",
+          "problemId": "P33",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "mamuriy_javobgarlik_kodeksi/192",
+            "jinoyat_kodeksi/169",
+            "mamuriy_javobgarlik_kodeksi/187",
+            "jinoyat_kodeksi/271"
+          ]
+        },
+        {
+          "id": "P33_V2",
+          "style": "sheva",
+          "problemId": "P33",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/192",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "mamuriy_javobgarlik_kodeksi/187",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "fuqarolik_kodeksi/1025"
+          ]
+        },
+        {
+          "id": "P33_V3",
+          "style": "aralash",
+          "problemId": "P33",
+          "top": [
+            "fuqarolik_kodeksi/1040",
+            "fuqarolik_kodeksi/14",
+            "jinoyat_kodeksi/212",
+            "jinoyat_kodeksi/164",
+            "mamuriy_javobgarlik_kodeksi/192"
+          ]
+        },
+        {
+          "id": "P34_V2",
+          "style": "sheva",
+          "problemId": "P34",
+          "top": [
+            "jinoyat_kodeksi/135",
+            "jinoyat_kodeksi/122",
+            "jinoyat_kodeksi/105",
+            "jinoyat_kodeksi/169",
+            "jinoyat_kodeksi/212"
+          ]
+        },
+        {
+          "id": "P35_V2",
+          "style": "sheva",
+          "problemId": "P35",
+          "top": [
+            "fuqarolik_kodeksi/324",
+            "fuqarolik_kodeksi/985",
+            "mamuriy_javobgarlik_kodeksi/192",
+            "mehnat_kodeksi/338",
+            "jinoyat_kodeksi/275"
+          ]
+        },
+        {
+          "id": "P35_V3",
+          "style": "aralash",
+          "problemId": "P35",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/79",
+            "jinoyat_kodeksi/274",
+            "fuqarolik_kodeksi/14",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "jinoyat_kodeksi/166"
+          ]
+        },
+        {
+          "id": "P36_V1",
+          "style": "qisqa",
+          "problemId": "P36",
+          "top": [
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/253",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/355",
+            "mehnat_kodeksi/333"
+          ]
+        },
+        {
+          "id": "P36_V2",
+          "style": "sheva",
+          "problemId": "P36",
+          "top": [
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/253",
+            "jinoyat_kodeksi/276",
+            "fuqarolik_kodeksi/386"
+          ]
+        },
+        {
+          "id": "P36_V3",
+          "style": "kirill",
+          "problemId": "P36",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/176",
+            "mehnat_kodeksi/253",
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/355",
+            "jinoyat_kodeksi/211"
+          ]
+        },
+        {
+          "id": "P37_V3",
+          "style": "aralash",
+          "problemId": "P37",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/47",
+            "jinoyat_kodeksi/212",
+            "mamuriy_javobgarlik_kodeksi/47",
+            "mamuriy_javobgarlik_kodeksi/51",
+            "mamuriy_javobgarlik_kodeksi/47⁴"
+          ]
+        },
+        {
+          "id": "P38_V1",
+          "style": "qisqa",
+          "problemId": "P38",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "mehnat_kodeksi/189",
+            "jinoyat_kodeksi/135",
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "fuqarolik_kodeksi/386"
+          ]
+        },
+        {
+          "id": "P38_V3",
+          "style": "kirill",
+          "problemId": "P38",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/49",
+            "mamuriy_javobgarlik_kodeksi/47³",
+            "mamuriy_javobgarlik_kodeksi/41",
+            "mamuriy_javobgarlik_kodeksi/176",
+            "mamuriy_javobgarlik_kodeksi/187"
+          ]
+        },
+        {
+          "id": "P40_V1",
+          "style": "qisqa",
+          "problemId": "P40",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/79",
+            "fuqarolik_kodeksi/1051",
+            "oila_kodeksi/23",
+            "fuqarolik_kodeksi/386",
+            "oila_kodeksi/27"
+          ]
+        },
+        {
+          "id": "P40_V2",
+          "style": "sheva",
+          "problemId": "P40",
+          "top": [
+            "jinoyat_kodeksi/211",
+            "fuqarolik_kodeksi/14",
+            "jinoyat_kodeksi/210",
+            "mamuriy_javobgarlik_kodeksi/192",
+            "jinoyat_kodeksi/257"
+          ]
+        },
+        {
+          "id": "P40_V3",
+          "style": "kirill",
+          "problemId": "P40",
+          "top": [
+            "mehnat_kodeksi/4",
+            "fuqarolik_kodeksi/1051",
+            "mamuriy_javobgarlik_kodeksi/41",
+            "mamuriy_javobgarlik_kodeksi/51¹",
+            "mamuriy_javobgarlik_kodeksi/79"
+          ]
+        },
+        {
+          "id": "P41_V1",
+          "style": "qisqa",
+          "problemId": "P41",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/41",
+            "jinoyat_kodeksi/257",
+            "fuqarolik_kodeksi/14",
+            "mamuriy_javobgarlik_kodeksi/51",
+            "mehnat_kodeksi/421"
+          ]
+        },
+        {
+          "id": "P41_V2",
+          "style": "sheva",
+          "problemId": "P41",
+          "top": [
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/1023",
+            "fuqarolik_kodeksi/1029",
+            "fuqarolik_kodeksi/1026",
+            "fuqarolik_kodeksi/1025"
+          ]
+        },
+        {
+          "id": "P41_V3",
+          "style": "aralash",
+          "problemId": "P41",
+          "top": [
+            "mehnat_kodeksi/355",
+            "oila_kodeksi/27",
+            "mehnat_kodeksi/333",
+            "fuqarolik_kodeksi/735",
+            "mehnat_kodeksi/269"
+          ]
+        },
+        {
+          "id": "P42_V1",
+          "style": "qisqa",
+          "problemId": "P42",
+          "top": [
+            "jinoyat_kodeksi/135",
+            "jinoyat_kodeksi/105",
+            "jinoyat_kodeksi/104",
+            "jinoyat_kodeksi/257",
+            "fuqarolik_kodeksi/1025"
+          ]
+        },
+        {
+          "id": "P42_V2",
+          "style": "sheva",
+          "problemId": "P42",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/187",
+            "jinoyat_kodeksi/125¹",
+            "jinoyat_kodeksi/126¹",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "jinoyat_kodeksi/168"
+          ]
+        },
+        {
+          "id": "P43_V1",
+          "style": "qisqa",
+          "problemId": "P43",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/47",
+            "mehnat_kodeksi/396",
+            "oila_kodeksi/109",
+            "mamuriy_javobgarlik_kodeksi/47",
+            "jinoyat_kodeksi/274"
+          ]
+        },
+        {
+          "id": "P43_V2",
+          "style": "sheva",
+          "problemId": "P43",
+          "top": [
+            "jinoyat_kodeksi/105",
+            "mehnat_kodeksi/333",
+            "mamuriy_javobgarlik_kodeksi/176",
+            "jinoyat_kodeksi/126¹",
+            "fuqarolik_kodeksi/735"
+          ]
+        },
+        {
+          "id": "P46_V2",
+          "style": "sheva",
+          "problemId": "P46",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/187",
+            "jinoyat_kodeksi/278¹",
+            "fuqarolik_kodeksi/1040",
+            "mamuriy_javobgarlik_kodeksi/176",
+            "fuqarolik_kodeksi/1051"
+          ]
+        },
+        {
+          "id": "P47_V3",
+          "style": "aralash",
+          "problemId": "P47",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/187",
+            "oila_kodeksi/79",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "jinoyat_kodeksi/276",
+            "mamuriy_javobgarlik_kodeksi/176"
+          ]
+        },
+        {
+          "id": "P48_V1",
+          "style": "qisqa",
+          "problemId": "P48",
+          "top": [
+            "mehnat_kodeksi/216",
+            "mehnat_kodeksi/417",
+            "mehnat_kodeksi/396",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "jinoyat_kodeksi/135"
+          ]
+        },
+        {
+          "id": "P48_V2",
+          "style": "sheva",
+          "problemId": "P48",
+          "top": [
+            "mehnat_kodeksi/417",
+            "mehnat_kodeksi/216",
+            "mehnat_kodeksi/396",
+            "mehnat_kodeksi/228",
+            "mehnat_kodeksi/223"
+          ]
+        },
+        {
+          "id": "P48_V3",
+          "style": "kirill",
+          "problemId": "P48",
+          "top": [
+            "mehnat_kodeksi/417",
+            "mehnat_kodeksi/396",
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/189",
+            "mehnat_kodeksi/216"
+          ]
+        },
+        {
+          "id": "P49_V1",
+          "style": "qisqa",
+          "problemId": "P49",
+          "top": [
+            "oila_kodeksi/40",
+            "mehnat_kodeksi/228",
+            "mehnat_kodeksi/216",
+            "mehnat_kodeksi/333",
+            "mehnat_kodeksi/269"
+          ]
+        },
+        {
+          "id": "P49_V2",
+          "style": "sheva",
+          "problemId": "P49",
+          "top": [
+            "oila_kodeksi/40",
+            "mehnat_kodeksi/333",
+            "mehnat_kodeksi/269",
+            "mehnat_kodeksi/253",
+            "mehnat_kodeksi/4"
+          ]
+        },
+        {
+          "id": "P49_V3",
+          "style": "aralash",
+          "problemId": "P49",
+          "top": [
+            "mamuriy_javobgarlik_kodeksi/176",
+            "mamuriy_javobgarlik_kodeksi/79",
+            "fuqarolik_kodeksi/1025",
+            "mamuriy_javobgarlik_kodeksi/47",
+            "mamuriy_javobgarlik_kodeksi/187"
+          ]
+        },
+        {
+          "id": "P55_V1",
+          "style": "qisqa",
+          "problemId": "P55",
+          "top": [
+            "fuqarolik_kodeksi/324",
+            "oila_kodeksi/27",
+            "oila_kodeksi/23",
+            "oila_kodeksi/28",
+            "fuqarolik_kodeksi/735"
+          ]
+        },
+        {
+          "id": "P55_V2",
+          "style": "sheva",
+          "problemId": "P55",
+          "top": [
+            "fuqarolik_kodeksi/324",
+            "oila_kodeksi/23",
+            "oila_kodeksi/27",
+            "fuqarolik_kodeksi/735",
+            "fuqarolik_kodeksi/14"
+          ]
+        },
+        {
+          "id": "P55_V3",
+          "style": "aralash",
+          "problemId": "P55",
+          "top": [
+            "fuqarolik_kodeksi/324",
+            "fuqarolik_kodeksi/14",
+            "mamuriy_javobgarlik_kodeksi/47³",
+            "mamuriy_javobgarlik_kodeksi/47⁴",
+            "mamuriy_javobgarlik_kodeksi/176"
+          ]
+        }
+      ]
     }
-  },
-  "misses": [
-    {
-      "id": "P02_A1",
-      "style": "rasmiy",
-      "problemId": "P02",
-      "top": [
-        "fuqarolik_kodeksi/389",
-        "mehnat_kodeksi/408",
-        "fuqarolik_kodeksi/735",
-        "mehnat_kodeksi/161",
-        "mehnat_kodeksi/253"
-      ]
-    },
-    {
-      "id": "P03_A1",
-      "style": "rasmiy",
-      "problemId": "P03",
-      "top": [
-        "fuqarolik_kodeksi/1115",
-        "oila_kodeksi/75",
-        "oila_kodeksi/25",
-        "oila_kodeksi/66",
-        "oila_kodeksi/76"
-      ]
-    },
-    {
-      "id": "P10_A1",
-      "style": "rasmiy",
-      "problemId": "P10",
-      "top": [
-        "fuqarolik_kodeksi/1029",
-        "mehnat_kodeksi/253",
-        "mamuriy_javobgarlik_kodeksi/47⁴",
-        "fuqarolik_kodeksi/1026",
-        "oila_kodeksi/40"
-      ]
-    },
-    {
-      "id": "P31_A1",
-      "style": "rasmiy",
-      "problemId": "P31",
-      "top": [
-        "fuqarolik_kodeksi/14",
-        "fuqarolik_kodeksi/735",
-        "fuqarolik_kodeksi/1026",
-        "fuqarolik_kodeksi/386",
-        "fuqarolik_kodeksi/985"
-      ]
-    },
-    {
-      "id": "P32_A1",
-      "style": "rasmiy",
-      "problemId": "P32",
-      "top": [
-        "mehnat_kodeksi/269",
-        "fuqarolik_kodeksi/14",
-        "mehnat_kodeksi/189",
-        "mehnat_kodeksi/355",
-        "mamuriy_javobgarlik_kodeksi/51¹"
-      ]
-    },
-    {
-      "id": "P33_A1",
-      "style": "rasmiy",
-      "problemId": "P33",
-      "top": [
-        "fuqarolik_kodeksi/14",
-        "mehnat_kodeksi/269",
-        "fuqarolik_kodeksi/1023",
-        "oila_kodeksi/76",
-        "fuqarolik_kodeksi/735"
-      ]
-    },
-    {
-      "id": "P34_A1",
-      "style": "rasmiy",
-      "problemId": "P34",
-      "top": [
-        "fuqarolik_kodeksi/14",
-        "fuqarolik_kodeksi/985",
-        "jinoyat_kodeksi/257",
-        "mehnat_kodeksi/4",
-        "fuqarolik_kodeksi/1026"
-      ]
-    },
-    {
-      "id": "P35_A1",
-      "style": "rasmiy",
-      "problemId": "P35",
-      "top": [
-        "oila_kodeksi/40",
-        "jinoyat_kodeksi/126¹",
-        "fuqarolik_kodeksi/14",
-        "mamuriy_javobgarlik_kodeksi/187",
-        "jinoyat_kodeksi/126¹"
-      ]
-    },
-    {
-      "id": "P36_A1",
-      "style": "rasmiy",
-      "problemId": "P36",
-      "top": [
-        "mehnat_kodeksi/333",
-        "fuqarolik_kodeksi/14",
-        "mehnat_kodeksi/253",
-        "mehnat_kodeksi/355",
-        "mamuriy_javobgarlik_kodeksi/41"
-      ]
-    },
-    {
-      "id": "P41_A1",
-      "style": "rasmiy",
-      "problemId": "P41",
-      "top": [
-        "fuqarolik_kodeksi/735",
-        "fuqarolik_kodeksi/1023",
-        "fuqarolik_kodeksi/14",
-        "fuqarolik_kodeksi/1026",
-        "mehnat_kodeksi/333"
-      ]
-    },
-    {
-      "id": "P48_A1",
-      "style": "rasmiy",
-      "problemId": "P48",
-      "top": [
-        "mehnat_kodeksi/356",
-        "mehnat_kodeksi/356",
-        "mehnat_kodeksi/4",
-        "mehnat_kodeksi/359",
-        "mehnat_kodeksi/355"
-      ]
-    },
-    {
-      "id": "P49_A1",
-      "style": "rasmiy",
-      "problemId": "P49",
-      "top": [
-        "mehnat_kodeksi/253",
-        "mehnat_kodeksi/223",
-        "mehnat_kodeksi/356",
-        "mehnat_kodeksi/333",
-        "mehnat_kodeksi/269"
-      ]
-    },
-    {
-      "id": "P49_A2",
-      "style": "rasmiy",
-      "problemId": "P49",
-      "top": [
-        "mehnat_kodeksi/356",
-        "mehnat_kodeksi/189",
-        "mehnat_kodeksi/189",
-        "mehnat_kodeksi/253",
-        "mehnat_kodeksi/333"
-      ]
-    },
-    {
-      "id": "P55_A1",
-      "style": "rasmiy",
-      "problemId": "P55",
-      "top": [
-        "fuqarolik_kodeksi/735",
-        "fuqarolik_kodeksi/324",
-        "fuqarolik_kodeksi/14",
-        "fuqarolik_kodeksi/1026",
-        "fuqarolik_kodeksi/1023"
-      ]
-    },
-    {
-      "id": "P61_A1",
-      "style": "rasmiy",
-      "problemId": "P61",
-      "top": [
-        "mehnat_kodeksi/189",
-        "mehnat_kodeksi/189",
-        "mehnat_kodeksi/417",
-        "mehnat_kodeksi/269",
-        "mehnat_kodeksi/269"
-      ]
-    },
-    {
-      "id": "P01_V3",
-      "style": "aralash",
-      "problemId": "P01",
-      "top": [
-        "fuqarolik_kodeksi/14",
-        "jinoyat_kodeksi/169",
-        "mamuriy_javobgarlik_kodeksi/79",
-        "mamuriy_javobgarlik_kodeksi/79",
-        "jinoyat_kodeksi/212"
-      ]
-    },
-    {
-      "id": "P02_V1",
-      "style": "qisqa",
-      "problemId": "P02",
-      "top": [
-        "fuqarolik_kodeksi/389",
-        "fuqarolik_kodeksi/735",
-        "mehnat_kodeksi/333",
-        "mehnat_kodeksi/161",
-        "mehnat_kodeksi/161"
-      ]
-    },
-    {
-      "id": "P02_V2",
-      "style": "sheva",
-      "problemId": "P02",
-      "top": [
-        "fuqarolik_kodeksi/735",
-        "oila_kodeksi/40",
-        "mehnat_kodeksi/333",
-        "jinoyat_kodeksi/166",
-        "fuqarolik_kodeksi/389"
-      ]
-    },
-    {
-      "id": "P02_V3",
-      "style": "kirill",
-      "problemId": "P02",
-      "top": [
-        "mehnat_kodeksi/333",
-        "fuqarolik_kodeksi/324",
-        "fuqarolik_kodeksi/389",
-        "mamuriy_javobgarlik_kodeksi/47⁴",
-        "fuqarolik_kodeksi/14"
-      ]
-    },
-    {
-      "id": "P03_V1",
-      "style": "qisqa",
-      "problemId": "P03",
-      "top": [
-        "oila_kodeksi/66",
-        "oila_kodeksi/76",
-        "oila_kodeksi/75",
-        "oila_kodeksi/96",
-        "fuqarolik_kodeksi/1056"
-      ]
-    },
-    {
-      "id": "P03_V2",
-      "style": "sheva",
-      "problemId": "P03",
-      "top": [
-        "oila_kodeksi/76",
-        "oila_kodeksi/66",
-        "mehnat_kodeksi/269",
-        "oila_kodeksi/40",
-        "oila_kodeksi/75"
-      ]
-    },
-    {
-      "id": "P03_V3",
-      "style": "aralash",
-      "problemId": "P03",
-      "top": [
-        "oila_kodeksi/40",
-        "jinoyat_kodeksi/126¹",
-        "jinoyat_kodeksi/126¹",
-        "jinoyat_kodeksi/126¹",
-        "mamuriy_javobgarlik_kodeksi/59²"
-      ]
-    },
-    {
-      "id": "P04_V1",
-      "style": "qisqa",
-      "problemId": "P04",
-      "top": [
-        "fuqarolik_kodeksi/735",
-        "fuqarolik_kodeksi/1026",
-        "fuqarolik_kodeksi/324",
-        "fuqarolik_kodeksi/14",
-        "mehnat_kodeksi/333"
-      ]
-    },
-    {
-      "id": "P04_V2",
-      "style": "sheva",
-      "problemId": "P04",
-      "top": [
-        "fuqarolik_kodeksi/14",
-        "fuqarolik_kodeksi/1026",
-        "fuqarolik_kodeksi/735",
-        "jinoyat_kodeksi/273",
-        "jinoyat_kodeksi/210"
-      ]
-    },
-    {
-      "id": "P06_V1",
-      "style": "qisqa",
-      "problemId": "P06",
-      "top": [
-        "jinoyat_kodeksi/126¹",
-        "mamuriy_javobgarlik_kodeksi/59²",
-        "jinoyat_kodeksi/126¹",
-        "jinoyat_kodeksi/122",
-        "jinoyat_kodeksi/166"
-      ]
-    },
-    {
-      "id": "P06_V2",
-      "style": "sheva",
-      "problemId": "P06",
-      "top": [
-        "oila_kodeksi/96",
-        "oila_kodeksi/75",
-        "oila_kodeksi/76",
-        "jinoyat_kodeksi/126¹",
-        "mamuriy_javobgarlik_kodeksi/47³"
-      ]
-    },
-    {
-      "id": "P09_V1",
-      "style": "qisqa",
-      "problemId": "P09",
-      "top": [
-        "oila_kodeksi/28",
-        "oila_kodeksi/27",
-        "oila_kodeksi/26",
-        "oila_kodeksi/24",
-        "oila_kodeksi/25"
-      ]
-    },
-    {
-      "id": "P09_V2",
-      "style": "sheva",
-      "problemId": "P09",
-      "top": [
-        "oila_kodeksi/24",
-        "oila_kodeksi/96",
-        "fuqarolik_kodeksi/1023",
-        "mehnat_kodeksi/337",
-        "mamuriy_javobgarlik_kodeksi/183"
-      ]
-    },
-    {
-      "id": "P09_V3",
-      "style": "aralash",
-      "problemId": "P09",
-      "top": [
-        "oila_kodeksi/96",
-        "oila_kodeksi/75",
-        "mamuriy_javobgarlik_kodeksi/79",
-        "oila_kodeksi/76",
-        "oila_kodeksi/66"
-      ]
-    },
-    {
-      "id": "P10_V1",
-      "style": "qisqa",
-      "problemId": "P10",
-      "top": [
-        "mamuriy_javobgarlik_kodeksi/47⁴",
-        "mamuriy_javobgarlik_kodeksi/183",
-        "jinoyat_kodeksi/122",
-        "mamuriy_javobgarlik_kodeksi/51¹",
-        "mamuriy_javobgarlik_kodeksi/79"
-      ]
-    },
-    {
-      "id": "P10_V2",
-      "style": "sheva",
-      "problemId": "P10",
-      "top": [
-        "mamuriy_javobgarlik_kodeksi/192",
-        "mamuriy_javobgarlik_kodeksi/183",
-        "jinoyat_kodeksi/122",
-        "oila_kodeksi/40",
-        "mamuriy_javobgarlik_kodeksi/47⁴"
-      ]
-    },
-    {
-      "id": "P10_V3",
-      "style": "kirill",
-      "problemId": "P10",
-      "top": [
-        "oila_kodeksi/40",
-        "mamuriy_javobgarlik_kodeksi/192",
-        "mamuriy_javobgarlik_kodeksi/47⁴",
-        "mamuriy_javobgarlik_kodeksi/187",
-        "mamuriy_javobgarlik_kodeksi/183"
-      ]
-    },
-    {
-      "id": "P11_V2",
-      "style": "sheva",
-      "problemId": "P11",
-      "top": [
-        "mehnat_kodeksi/161",
-        "mehnat_kodeksi/408",
-        "mehnat_kodeksi/161",
-        "mehnat_kodeksi/269",
-        "mehnat_kodeksi/356"
-      ]
-    },
-    {
-      "id": "P14_V1",
-      "style": "qisqa",
-      "problemId": "P14",
-      "top": [
-        "mehnat_kodeksi/269",
-        "oila_kodeksi/40",
-        "mamuriy_javobgarlik_kodeksi/47⁴",
-        "fuqarolik_kodeksi/1025",
-        "mehnat_kodeksi/119"
-      ]
-    },
-    {
-      "id": "P14_V2",
-      "style": "sheva",
-      "problemId": "P14",
-      "top": [
-        "mehnat_kodeksi/269",
-        "oila_kodeksi/40",
-        "mamuriy_javobgarlik_kodeksi/183",
-        "mehnat_kodeksi/119",
-        "fuqarolik_kodeksi/1056"
-      ]
-    },
-    {
-      "id": "P14_V3",
-      "style": "kirill",
-      "problemId": "P14",
-      "top": [
-        "mehnat_kodeksi/269",
-        "mehnat_kodeksi/189",
-        "mehnat_kodeksi/189",
-        "mehnat_kodeksi/417",
-        "mehnat_kodeksi/333"
-      ]
-    },
-    {
-      "id": "P15_V1",
-      "style": "qisqa",
-      "problemId": "P15",
-      "top": [
-        "mamuriy_javobgarlik_kodeksi/47⁴",
-        "jinoyat_kodeksi/122",
-        "jinoyat_kodeksi/135",
-        "oila_kodeksi/40",
-        "jinoyat_kodeksi/212"
-      ]
-    },
-    {
-      "id": "P15_V2",
-      "style": "sheva",
-      "problemId": "P15",
-      "top": [
-        "fuqarolik_kodeksi/1023",
-        "fuqarolik_kodeksi/14",
-        "fuqarolik_kodeksi/1025",
-        "fuqarolik_kodeksi/1029",
-        "jinoyat_kodeksi/122"
-      ]
-    },
-    {
-      "id": "P15_V3",
-      "style": "aralash",
-      "problemId": "P15",
-      "top": [
-        "mehnat_kodeksi/161",
-        "mehnat_kodeksi/269",
-        "mehnat_kodeksi/161",
-        "mehnat_kodeksi/269",
-        "mamuriy_javobgarlik_kodeksi/47⁴"
-      ]
-    },
-    {
-      "id": "P17_V3",
-      "style": "aralash",
-      "problemId": "P17",
-      "top": [
-        "mamuriy_javobgarlik_kodeksi/187",
-        "mehnat_kodeksi/4",
-        "mehnat_kodeksi/4",
-        "mehnat_kodeksi/337",
-        "mamuriy_javobgarlik_kodeksi/47⁴"
-      ]
-    },
-    {
-      "id": "P19_V1",
-      "style": "qisqa",
-      "problemId": "P19",
-      "top": [
-        "fuqarolik_kodeksi/1025",
-        "fuqarolik_kodeksi/1026",
-        "fuqarolik_kodeksi/1023",
-        "fuqarolik_kodeksi/14",
-        "jinoyat_kodeksi/122"
-      ]
-    },
-    {
-      "id": "P19_V2",
-      "style": "sheva",
-      "problemId": "P19",
-      "top": [
-        "fuqarolik_kodeksi/1029",
-        "fuqarolik_kodeksi/324",
-        "fuqarolik_kodeksi/1026",
-        "fuqarolik_kodeksi/985",
-        "mehnat_kodeksi/333"
-      ]
-    },
-    {
-      "id": "P20_V1",
-      "style": "qisqa",
-      "problemId": "P20",
-      "top": [
-        "mehnat_kodeksi/189",
-        "mehnat_kodeksi/189",
-        "mehnat_kodeksi/338",
-        "mehnat_kodeksi/417",
-        "mehnat_kodeksi/269"
-      ]
-    },
-    {
-      "id": "P20_V3",
-      "style": "kirill",
-      "problemId": "P20",
-      "top": [
-        "oila_kodeksi/40",
-        "mehnat_kodeksi/4",
-        "mamuriy_javobgarlik_kodeksi/183",
-        "mamuriy_javobgarlik_kodeksi/187",
-        "mamuriy_javobgarlik_kodeksi/47⁴"
-      ]
-    },
-    {
-      "id": "P25_V1",
-      "style": "qisqa",
-      "problemId": "P25",
-      "top": [
-        "oila_kodeksi/40",
-        "mehnat_kodeksi/396",
-        "mehnat_kodeksi/216",
-        "mamuriy_javobgarlik_kodeksi/79",
-        "mamuriy_javobgarlik_kodeksi/192"
-      ]
-    },
-    {
-      "id": "P25_V3",
-      "style": "aralash",
-      "problemId": "P25",
-      "top": [
-        "mamuriy_javobgarlik_kodeksi/187",
-        "jinoyat_kodeksi/274",
-        "jinoyat_kodeksi/273",
-        "jinoyat_kodeksi/210",
-        "jinoyat_kodeksi/276"
-      ]
-    },
-    {
-      "id": "P26_V1",
-      "style": "qisqa",
-      "problemId": "P26",
-      "top": [
-        "oila_kodeksi/66",
-        "mehnat_kodeksi/396",
-        "oila_kodeksi/76",
-        "oila_kodeksi/40",
-        "oila_kodeksi/109"
-      ]
-    },
-    {
-      "id": "P26_V2",
-      "style": "sheva",
-      "problemId": "P26",
-      "top": [
-        "oila_kodeksi/66",
-        "mehnat_kodeksi/396",
-        "oila_kodeksi/76",
-        "oila_kodeksi/109",
-        "oila_kodeksi/96"
-      ]
-    },
-    {
-      "id": "P26_V3",
-      "style": "kirill",
-      "problemId": "P26",
-      "top": [
-        "oila_kodeksi/66",
-        "oila_kodeksi/96",
-        "oila_kodeksi/76",
-        "oila_kodeksi/109",
-        "mehnat_kodeksi/396"
-      ]
-    },
-    {
-      "id": "P27_V3",
-      "style": "aralash",
-      "problemId": "P27",
-      "top": [
-        "oila_kodeksi/40",
-        "jinoyat_kodeksi/125¹",
-        "jinoyat_kodeksi/126¹",
-        "jinoyat_kodeksi/126¹",
-        "mamuriy_javobgarlik_kodeksi/47³"
-      ]
-    },
-    {
-      "id": "P29_V3",
-      "style": "aralash",
-      "problemId": "P29",
-      "top": [
-        "jinoyat_kodeksi/271",
-        "jinoyat_kodeksi/275",
-        "jinoyat_kodeksi/169",
-        "jinoyat_kodeksi/274",
-        "jinoyat_kodeksi/273"
-      ]
-    },
-    {
-      "id": "P30_V2",
-      "style": "sheva",
-      "problemId": "P30",
-      "top": [
-        "mamuriy_javobgarlik_kodeksi/47",
-        "mamuriy_javobgarlik_kodeksi/59²",
-        "mamuriy_javobgarlik_kodeksi/47",
-        "jinoyat_kodeksi/270",
-        "jinoyat_kodeksi/126¹"
-      ]
-    },
-    {
-      "id": "P31_V1",
-      "style": "qisqa",
-      "problemId": "P31",
-      "top": [
-        "jinoyat_kodeksi/122",
-        "mamuriy_javobgarlik_kodeksi/47⁴",
-        "fuqarolik_kodeksi/1026",
-        "mehnat_kodeksi/333",
-        "jinoyat_kodeksi/169"
-      ]
-    },
-    {
-      "id": "P31_V2",
-      "style": "sheva",
-      "problemId": "P31",
-      "top": [
-        "fuqarolik_kodeksi/1026",
-        "fuqarolik_kodeksi/1023",
-        "fuqarolik_kodeksi/1025",
-        "fuqarolik_kodeksi/14",
-        "jinoyat_kodeksi/169"
-      ]
-    },
-    {
-      "id": "P31_V3",
-      "style": "aralash",
-      "problemId": "P31",
-      "top": [
-        "fuqarolik_kodeksi/1025",
-        "fuqarolik_kodeksi/1029",
-        "mamuriy_javobgarlik_kodeksi/47⁴",
-        "fuqarolik_kodeksi/985",
-        "fuqarolik_kodeksi/1051"
-      ]
-    },
-    {
-      "id": "P32_V2",
-      "style": "sheva",
-      "problemId": "P32",
-      "top": [
-        "fuqarolik_kodeksi/14",
-        "fuqarolik_kodeksi/1026",
-        "jinoyat_kodeksi/210",
-        "jinoyat_kodeksi/164",
-        "fuqarolik_kodeksi/1025"
-      ]
-    },
-    {
-      "id": "P33_V1",
-      "style": "qisqa",
-      "problemId": "P33",
-      "top": [
-        "mamuriy_javobgarlik_kodeksi/192",
-        "jinoyat_kodeksi/169",
-        "mamuriy_javobgarlik_kodeksi/187",
-        "jinoyat_kodeksi/271",
-        "jinoyat_kodeksi/275"
-      ]
-    },
-    {
-      "id": "P33_V2",
-      "style": "sheva",
-      "problemId": "P33",
-      "top": [
-        "mamuriy_javobgarlik_kodeksi/192",
-        "jinoyat_kodeksi/271",
-        "jinoyat_kodeksi/273",
-        "jinoyat_kodeksi/169",
-        "mamuriy_javobgarlik_kodeksi/79"
-      ]
-    },
-    {
-      "id": "P33_V3",
-      "style": "aralash",
-      "problemId": "P33",
-      "top": [
-        "fuqarolik_kodeksi/1040",
-        "fuqarolik_kodeksi/14",
-        "jinoyat_kodeksi/212",
-        "jinoyat_kodeksi/164",
-        "mamuriy_javobgarlik_kodeksi/192"
-      ]
-    },
-    {
-      "id": "P35_V1",
-      "style": "qisqa",
-      "problemId": "P35",
-      "top": [
-        "mamuriy_javobgarlik_kodeksi/192",
-        "jinoyat_kodeksi/122",
-        "jinoyat_kodeksi/210",
-        "mamuriy_javobgarlik_kodeksi/183",
-        "jinoyat_kodeksi/168"
-      ]
-    },
-    {
-      "id": "P35_V3",
-      "style": "aralash",
-      "problemId": "P35",
-      "top": [
-        "jinoyat_kodeksi/126¹",
-        "fuqarolik_kodeksi/14",
-        "jinoyat_kodeksi/126¹",
-        "jinoyat_kodeksi/169",
-        "fuqarolik_kodeksi/985"
-      ]
-    },
-    {
-      "id": "P37_V1",
-      "style": "qisqa",
-      "problemId": "P37",
-      "top": [
-        "mamuriy_javobgarlik_kodeksi/47⁴",
-        "fuqarolik_kodeksi/324",
-        "jinoyat_kodeksi/122",
-        "mehnat_kodeksi/337",
-        "mamuriy_javobgarlik_kodeksi/41"
-      ]
-    },
-    {
-      "id": "P37_V3",
-      "style": "aralash",
-      "problemId": "P37",
-      "top": [
-        "jinoyat_kodeksi/122",
-        "mamuriy_javobgarlik_kodeksi/47⁴",
-        "jinoyat_kodeksi/212",
-        "jinoyat_kodeksi/166",
-        "mamuriy_javobgarlik_kodeksi/47"
-      ]
-    },
-    {
-      "id": "P40_V2",
-      "style": "sheva",
-      "problemId": "P40",
-      "top": [
-        "jinoyat_kodeksi/212",
-        "jinoyat_kodeksi/210",
-        "jinoyat_kodeksi/166",
-        "fuqarolik_kodeksi/14",
-        "jinoyat_kodeksi/169"
-      ]
-    },
-    {
-      "id": "P41_V1",
-      "style": "qisqa",
-      "problemId": "P41",
-      "top": [
-        "mehnat_kodeksi/333",
-        "mehnat_kodeksi/337",
-        "fuqarolik_kodeksi/735",
-        "fuqarolik_kodeksi/14",
-        "fuqarolik_kodeksi/1029"
-      ]
-    },
-    {
-      "id": "P41_V3",
-      "style": "aralash",
-      "problemId": "P41",
-      "top": [
-        "mehnat_kodeksi/333",
-        "fuqarolik_kodeksi/735",
-        "mehnat_kodeksi/269",
-        "mehnat_kodeksi/269",
-        "fuqarolik_kodeksi/14"
-      ]
-    },
-    {
-      "id": "P42_V1",
-      "style": "qisqa",
-      "problemId": "P42",
-      "top": [
-        "jinoyat_kodeksi/135",
-        "mamuriy_javobgarlik_kodeksi/187",
-        "jinoyat_kodeksi/212",
-        "mamuriy_javobgarlik_kodeksi/192",
-        "jinoyat_kodeksi/210"
-      ]
-    },
-    {
-      "id": "P42_V2",
-      "style": "sheva",
-      "problemId": "P42",
-      "top": [
-        "mamuriy_javobgarlik_kodeksi/187",
-        "jinoyat_kodeksi/164",
-        "jinoyat_kodeksi/135",
-        "jinoyat_kodeksi/104",
-        "jinoyat_kodeksi/105"
-      ]
-    },
-    {
-      "id": "P47_V1",
-      "style": "qisqa",
-      "problemId": "P47",
-      "top": [
-        "mehnat_kodeksi/337",
-        "mamuriy_javobgarlik_kodeksi/47⁴",
-        "mehnat_kodeksi/338",
-        "fuqarolik_kodeksi/1026",
-        "jinoyat_kodeksi/122"
-      ]
-    },
-    {
-      "id": "P47_V2",
-      "style": "sheva",
-      "problemId": "P47",
-      "top": [
-        "jinoyat_kodeksi/270",
-        "mamuriy_javobgarlik_kodeksi/79",
-        "fuqarolik_kodeksi/14",
-        "fuqarolik_kodeksi/1059",
-        "mehnat_kodeksi/396"
-      ]
-    },
-    {
-      "id": "P47_V3",
-      "style": "aralash",
-      "problemId": "P47",
-      "top": [
-        "mehnat_kodeksi/396",
-        "mehnat_kodeksi/417",
-        "mamuriy_javobgarlik_kodeksi/187",
-        "oila_kodeksi/76",
-        "mamuriy_javobgarlik_kodeksi/47⁴"
-      ]
-    },
-    {
-      "id": "P48_V1",
-      "style": "qisqa",
-      "problemId": "P48",
-      "top": [
-        "mehnat_kodeksi/216",
-        "mehnat_kodeksi/417",
-        "mehnat_kodeksi/189",
-        "jinoyat_kodeksi/257",
-        "mehnat_kodeksi/223"
-      ]
-    },
-    {
-      "id": "P48_V2",
-      "style": "sheva",
-      "problemId": "P48",
-      "top": [
-        "mehnat_kodeksi/417",
-        "mehnat_kodeksi/396",
-        "mehnat_kodeksi/216",
-        "mehnat_kodeksi/189",
-        "mehnat_kodeksi/228"
-      ]
-    },
-    {
-      "id": "P48_V3",
-      "style": "kirill",
-      "problemId": "P48",
-      "top": [
-        "mehnat_kodeksi/269",
-        "mehnat_kodeksi/189",
-        "mehnat_kodeksi/189",
-        "mamuriy_javobgarlik_kodeksi/47⁴",
-        "mehnat_kodeksi/417"
-      ]
-    },
-    {
-      "id": "P49_V1",
-      "style": "qisqa",
-      "problemId": "P49",
-      "top": [
-        "mehnat_kodeksi/396",
-        "mehnat_kodeksi/417",
-        "mehnat_kodeksi/189",
-        "mehnat_kodeksi/189",
-        "mehnat_kodeksi/269"
-      ]
-    },
-    {
-      "id": "P49_V2",
-      "style": "sheva",
-      "problemId": "P49",
-      "top": [
-        "oila_kodeksi/40",
-        "mehnat_kodeksi/269",
-        "mehnat_kodeksi/269",
-        "mehnat_kodeksi/396",
-        "mehnat_kodeksi/333"
-      ]
-    },
-    {
-      "id": "P49_V3",
-      "style": "aralash",
-      "problemId": "P49",
-      "top": [
-        "mamuriy_javobgarlik_kodeksi/176",
-        "jinoyat_kodeksi/126¹",
-        "jinoyat_kodeksi/126¹",
-        "mehnat_kodeksi/4",
-        "jinoyat_kodeksi/166"
-      ]
-    },
-    {
-      "id": "P55_V1",
-      "style": "qisqa",
-      "problemId": "P55",
-      "top": [
-        "fuqarolik_kodeksi/324",
-        "fuqarolik_kodeksi/735",
-        "fuqarolik_kodeksi/14",
-        "mamuriy_javobgarlik_kodeksi/47⁴",
-        "jinoyat_kodeksi/122"
-      ]
-    },
-    {
-      "id": "P55_V2",
-      "style": "sheva",
-      "problemId": "P55",
-      "top": [
-        "fuqarolik_kodeksi/735",
-        "fuqarolik_kodeksi/324",
-        "fuqarolik_kodeksi/14",
-        "fuqarolik_kodeksi/1026",
-        "mamuriy_javobgarlik_kodeksi/47⁴"
-      ]
-    },
-    {
-      "id": "P55_V3",
-      "style": "aralash",
-      "problemId": "P55",
-      "top": [
-        "fuqarolik_kodeksi/324",
-        "fuqarolik_kodeksi/14",
-        "mamuriy_javobgarlik_kodeksi/47⁴",
-        "mehnat_kodeksi/337",
-        "fuqarolik_kodeksi/985"
-      ]
-    },
-    {
-      "id": "P61_V1",
-      "style": "qisqa",
-      "problemId": "P61",
-      "top": [
-        "mehnat_kodeksi/333",
-        "mehnat_kodeksi/269",
-        "mehnat_kodeksi/189",
-        "mehnat_kodeksi/408",
-        "mehnat_kodeksi/189"
-      ]
-    }
-  ]
+  }
 }
