@@ -37,8 +37,15 @@ export const AgencySubmission = z.object({
   /** Receipt/reference number issued by the (mock) agency. */
   receiptId: z.string(),
   submittedAt: IsoDateTime,
-  /** Simulated response deadline (SIM_RESPONSE_DAYS × DEMO_SPEED). Not a legal deadline. */
+  /**
+   * Simulated response deadline (SIM_RESPONSE_DAYS × DEMO_SPEED). Not a legal deadline.
+   * null in manual clock mode (no DEMO_SPEED): time only moves with the cabinet button.
+   */
   dueAt: IsoDateTime.nullable(),
+  /** Simulated days elapsed since submission (real time × DEMO_SPEED + manual shifts). */
+  simulatedDays: z.number().nonnegative(),
+  /** Simulated response deadline in days (SIM_RESPONSE_DAYS). */
+  responseDays: z.number().positive(),
   history: z.array(SubmissionStatusEvent),
   response: AgencyResponse.nullable(),
 });
@@ -101,3 +108,18 @@ export type AgencyStatusUpdateRequest = z.infer<typeof AgencyStatusUpdateRequest
 
 export const AgencyRespondRequest = z.object({ text: z.string().trim().min(1).max(5000) });
 export type AgencyRespondRequest = z.infer<typeof AgencyRespondRequest>;
+
+/**
+ * SIMULATOR clock. MANUAL (default): simulated time moves only with the cabinet
+ * "+15 kun" button, so nothing becomes OVERDUE by itself. AUTO: DEMO_SPEED is set
+ * (ms per simulated day) and time also runs on its own.
+ */
+export const SimClock = z.object({
+  adapterType: AdapterType,
+  mode: z.enum(["MANUAL", "AUTO"]),
+  msPerDay: z.number().positive().nullable(),
+  responseDays: z.number().positive(),
+  /** Days added by one press of "⏩ Vaqtni oldinga surish". */
+  advanceDays: z.number().positive(),
+});
+export type SimClock = z.infer<typeof SimClock>;

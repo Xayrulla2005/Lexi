@@ -59,6 +59,7 @@ export const texts = {
     overdue: "Javob muddati o'tdi.",
     escalationReady: "Yuqori turuvchi idoraga yangi ariza qoralamasi tayyor. U avtomatik yuborilmaydi.",
     openEscalation: "Qoralamani ochish",
+    simDays: "Simulyatsiya vaqti: {n} / {m} kun",
     status: {
       SUBMITTED: "Yuborildi",
       RECEIVED: "Qabul qilindi",
@@ -85,6 +86,10 @@ export const texts = {
     answer: "Javob yozish",
     answerPlaceholder: "Javob matni...",
     sendAnswer: "Javobni yuborish",
+    advance: "⏩ Vaqtni oldinga surish (+15 kun)",
+    simDays: "Simulyatsiya vaqti: {n} / {m} kun",
+    clockManual: "Vaqt faqat \"⏩\" tugmasi bilan siljiydi (SIMULYATOR).",
+    clockAuto: "Vaqt avtomatik o'tadi: 1 kun = {ms} ms (SIMULYATOR).",
   },
   oneid: {
     banner: "SIMULYATOR — haqiqiy OneID emas",

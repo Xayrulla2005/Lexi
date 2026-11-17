@@ -18,10 +18,13 @@ const H = "x-sim-session";
 const MANUAL = { malumot_1: "Hisobchi", malumot_2: "Namuna MChJ", malumot_3: "sentabr", summa: "5 000 000" };
 const ENV_KEYS = ["DEMO_SPEED", "SIM_RESPONSE_DAYS", "SIM_KEYS_DIR", "DATABASE_URL"] as const;
 
-async function startApp(env: Partial<Record<(typeof ENV_KEYS)[number], string>>): Promise<INestApplication<App>> {
+async function startApp(env: Partial<Record<(typeof ENV_KEYS)[number], string | undefined>>): Promise<INestApplication<App>> {
   delete process.env.DATABASE_URL;
   process.env.SIM_KEYS_DIR = mkdtempSync(join(tmpdir(), "lex-keys-"));
-  Object.assign(process.env, env);
+  for (const [k, v] of Object.entries(env)) {
+    if (v === undefined) delete process.env[k];
+    else process.env[k] = v;
+  }
   const moduleRef = await Test.createTestingModule({ imports: [AppModule] }).compile();
   const app = moduleRef.createNestApplication<INestApplication<App>>();
   await app.init();
@@ -53,7 +56,8 @@ describe("Simulator flow (integration)", () => {
   const saved = Object.fromEntries(ENV_KEYS.map((k) => [k, process.env[k]]));
 
   beforeAll(async () => {
-    app = await startApp({ DEMO_SPEED: "86400000", SIM_RESPONSE_DAYS: "15" });
+    // Default: MANUAL clock (no DEMO_SPEED) — time moves only with the cabinet button.
+    app = await startApp({ DEMO_SPEED: undefined, SIM_RESPONSE_DAYS: "15" });
   });
   afterAll(async () => {
     await app.close();
@@ -88,6 +92,8 @@ describe("Simulator flow (integration)", () => {
 
     const { body: sub } = await http().post("/submissions").set(H, token).send({ applicationId: appId, consent: true }).expect(201);
     expect(sub.status).toBe("SUBMITTED");
+    expect(sub.dueAt).toBeNull(); // MANUAL clock
+    expect(sub.simulatedDays).toBe(0);
     expect(sub.agencyId).toBe("mehnat_inspeksiyasi");
     expect(sub.receiptId).toMatch(/^SIM-MI-/);
 
@@ -115,6 +121,27 @@ describe("Simulator flow (integration)", () => {
     const { body: other } = await http().post("/sim/oneid/login").send({ citizenId: "test_fuqaro_3" }).expect(201);
     await http().get(`/submissions/${sub.id}`).set(H, other.token).expect(403);
     await http().post("/submissions").set(H, token).send({ applicationId: appId, consent: true }).expect(409);
+  });
+  it("MANUAL clock: never OVERDUE by itself; \"+15 kun\" button makes it OVERDUE with an escalation draft", async () => {
+    const http = () => request(app.getHttpServer());
+    const { body: clock } = await http().get("/sim/idora/clock").expect(200);
+    expect(clock).toEqual({ adapterType: "MOCK", mode: "MANUAL", msPerDay: null, responseDays: 15, advanceDays: 15 });
+
+    const { appId, token } = await signedApplication(app);
+    const { body: sub } = await http().post("/submissions").set(H, token).send({ applicationId: appId, consent: true }).expect(201);
+    await new Promise((r) => setTimeout(r, 300));
+    const { body: still } = await http().get(`/submissions/${sub.id}`).set(H, token).expect(200);
+    expect(still.status).toBe("SUBMITTED");
+
+    const { body: advanced } = await http().post(`/sim/idora/submissions/${sub.id}/advance`).expect(201);
+    expect(advanced.status).toBe("OVERDUE");
+    expect(advanced.simulatedDays).toBe(15);
+    // Answered/overdue submissions cannot be advanced again.
+    await http().post(`/sim/idora/submissions/${sub.id}/advance`).expect(409);
+
+    await new Promise((r) => setTimeout(r, 100)); // escalation draft is written by a status listener
+    const { body: tracked } = await http().get(`/submissions/${sub.id}`).set(H, token).expect(200);
+    expect(tracked.escalationApplicationId).not.toBeNull();
   });
 });
 

@@ -8,6 +8,7 @@ import {
   type Case,
   type ConsentRequest,
   type InboxItem,
+  type SimClock,
   type SimCitizen,
   type SimSession,
   type SubmissionTracking,
@@ -107,5 +108,8 @@ export const api = {
     setStatus: (id: string, status: AgencyStatusUpdateRequest["status"]) =>
       call<AgencySubmission>(`/sim/idora/submissions/${id}/status`, { status }),
     respond: (id: string, text: string) => call<AgencySubmission>(`/sim/idora/submissions/${id}/respond`, { text }),
+    clock: () => call<SimClock>("/sim/idora/clock"),
+    /** SIMULYATOR: "⏩ Vaqtni oldinga surish (+15 kun)". */
+    advance: (id: string) => call<AgencySubmission>(`/sim/idora/submissions/${id}/advance`, {}),
   },
 };

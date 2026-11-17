@@ -104,8 +104,11 @@ Built from `legal-knowledge/catalog/problems.json`; every text, phone and law is
 | `receiptId` | `string` | Simulator receipts start with `SIM-`. |
 | `submittedAt` | ISO date-time | |
 | `dueAt` | ISO date-time \| `null` | `SIM_RESPONSE_DAYS` × `DEMO_SPEED` — simulated, not a legal deadline. |
+| `simulatedDays`, `responseDays` | `number` | simulated days elapsed / deadline (`SIM_RESPONSE_DAYS`) |
 | `history` | `{ status, at }[]` | |
 | `response` | `{ text, respondedAt } \| null` | agency answer |
+
+Clock: without `DEMO_SPEED` (default) the simulator clock is MANUAL — `dueAt` is `null` and days move only with `POST /sim/idora/submissions/:id/advance` (+15 days, cabinet button); with `DEMO_SPEED` it is AUTO. `GET /sim/idora/clock` → `SimClock`.
 
 `SubmissionTracking` (`GET /submissions/:id`, citizen) adds `escalationApplicationId`: the draft prepared after OVERDUE (never auto-submitted).
 

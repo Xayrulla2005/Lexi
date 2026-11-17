@@ -56,6 +56,9 @@ export function SubmissionTracker({ submissionId, onOpenEscalation }: Props) {
           </span>
         )}
       </p>
+      <p style={{ color: "var(--muted)", fontSize: 14, marginTop: 0 }}>
+        {texts.tracking.simDays.replace("{n}", String(s.simulatedDays)).replace("{m}", String(s.responseDays))}
+      </p>
       <ol style={{ color: "var(--muted)", fontSize: 14 }}>
         {s.history.map((h) => (
           <li key={`${h.status}-${h.at}`}>

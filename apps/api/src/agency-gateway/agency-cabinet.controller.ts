@@ -5,6 +5,7 @@ import {
   type AgencyContact,
   type AgencySubmission,
   type InboxItem,
+  type SimClock,
 } from "@lex/contracts";
 import { ZodValidationPipe } from "../common/zod-validation.pipe";
 import { LegalRoutingService } from "../legal-routing/legal-routing.service";
@@ -28,6 +29,18 @@ export class AgencyCabinetController {
   @Get("agencies")
   agencies(): AgencyContact[] {
     return this.routing.agencies();
+  }
+
+  /** Clock mode: MANUAL (default) or AUTO (DEMO_SPEED set). */
+  @Get("clock")
+  clock(): SimClock {
+    return this.mock.clock();
+  }
+
+  /** "⏩ Vaqtni oldinga surish (+15 kun)" — SIMULATOR only (this controller exists only with the mock adapter). */
+  @Post("submissions/:id/advance")
+  advance(@Param("id", ParseUUIDPipe) id: string): Promise<AgencySubmission> {
+    return this.mock.advance(id);
   }
 
   @Get(":agencyId/inbox")

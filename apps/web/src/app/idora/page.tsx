@@ -4,7 +4,7 @@
  * Haqiqiy davlat tizimlarining dizayni ishlatilmaydi.
  */
 import { useCallback, useEffect, useState } from "react";
-import type { AgencyContact, AgencySubmission, InboxItem } from "@lex/contracts";
+import type { AgencyContact, AgencySubmission, InboxItem, SimClock } from "@lex/contracts";
 import { api } from "@/lib/api";
 import { fieldLabel } from "@/lib/view";
 import { texts } from "@/content/texts.uz";
@@ -21,10 +21,29 @@ export default function AgencyCabinetPage() {
   const [item, setItem] = useState<InboxItem | null>(null);
   const [answer, setAnswer] = useState("");
   const [busy, setBusy] = useState(false);
+  const [clock, setClock] = useState<SimClock | null>(null);
 
   useEffect(() => {
     api.cabinet.agencies().then(setAgencies).catch(() => setAgencies([]));
+    api.cabinet.clock().then(setClock).catch(() => setClock(null));
   }, []);
+
+  async function advance(id: string) {
+    setBusy(true);
+    try {
+      await api.cabinet.advance(id);
+      setInbox(await api.cabinet.inbox(agencyId));
+      if (item?.submission.id === id) setItem(await api.cabinet.open(id));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  // The time-shift button exists only for the simulator adapter.
+  const canAdvance = (x: AgencySubmission) =>
+    clock?.adapterType === "MOCK" && ["SUBMITTED", "RECEIVED", "IN_REVIEW"].includes(x.status);
+  const simDays = (x: AgencySubmission) =>
+    texts.cabinet.simDays.replace("{n}", String(x.simulatedDays)).replace("{m}", String(x.responseDays));
 
   useEffect(() => {
     let stopped = false;
@@ -66,6 +85,13 @@ export default function AgencyCabinetPage() {
     <main>
       <SimBanner text={texts.cabinet.banner} />
       <p style={{ color: "var(--muted)" }}>{texts.cabinet.hint}</p>
+      {clock && (
+        <p style={{ color: "var(--muted)", fontSize: 14 }}>
+          {clock.mode === "MANUAL"
+            ? texts.cabinet.clockManual
+            : texts.cabinet.clockAuto.replace("{ms}", String(clock.msPerDay))}
+        </p>
+      )}
 
       <label>
         {texts.cabinet.chooseAgency}:{" "}
@@ -91,8 +117,14 @@ export default function AgencyCabinetPage() {
         <Card key={x.id}>
           <b>{x.receiptId}</b> · {new Date(x.submittedAt).toLocaleString("uz-UZ")} ·{" "}
           {texts.tracking.status[x.status] ?? x.status}
-          <div style={{ marginTop: 8 }}>
+          <div style={{ color: "var(--muted)", fontSize: 14 }}>{simDays(x)}</div>
+          <div style={{ marginTop: 8, display: "flex", gap: 8, flexWrap: "wrap" }}>
             <Button tone="plain" onClick={() => open(x.id)}>{texts.cabinet.open}</Button>
+            {canAdvance(x) && (
+              <Button tone="plain" onClick={() => advance(x.id)} disabled={busy}>
+                {texts.cabinet.advance}
+              </Button>
+            )}
           </div>
         </Card>
       ))}
