@@ -97,14 +97,36 @@ Built from `legal-knowledge/catalog/problems.json`; every text, phone and law is
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| `id` | UUID | |
-| `caseId` | UUID | |
-| `agencyId` | `string` | |
+| `id`, `caseId`, `applicationId` | UUID | |
+| `agencyId`, `agencyName` | `string` | catalog agency |
 | `adapterType` | `"MOCK" \| "OFFICIAL"` | Only `MOCK` exists. |
-| `status` | `"SUBMITTED" \| "RECEIVED" \| "IN_REVIEW" \| "ANSWERED" \| "OVERDUE" \| "ESCALATED"` | |
+| `status` | `"SUBMITTED" \| "RECEIVED" \| "IN_REVIEW" \| "ANSWERED" \| "OVERDUE" \| "ESCALATED"` | SUBMITTED → RECEIVED → IN_REVIEW → ANSWERED, or … → OVERDUE → ESCALATED |
 | `receiptId` | `string` | Simulator receipts start with `SIM-`. |
 | `submittedAt` | ISO date-time | |
-| `dueAt` | ISO date-time \| `null` | Simulated, not a legal deadline. |
+| `dueAt` | ISO date-time \| `null` | `SIM_RESPONSE_DAYS` × `DEMO_SPEED` — simulated, not a legal deadline. |
+| `history` | `{ status, at }[]` | |
+| `response` | `{ text, respondedAt } \| null` | agency answer |
+
+`SubmissionTracking` (`GET /submissions/:id`, citizen) adds `escalationApplicationId`: the draft prepared after OVERDUE (never auto-submitted).
+
+`SubmissionPackage` (what the gateway receives): `pdfBase64` (ariza.pdf, exactly the signed bytes), `signature` (`EriSignature`), `caseInfo` (ish-malumoti: `problemId`, `title`, `facts`, `fields`), `consentAt`, `citizen` (`SimCitizen`).
+
+## Application (SIMULATOR flow)
+
+| Field | Type | Notes |
+| --- | --- | --- |
+| `id`, `caseId` | UUID | |
+| `kind` | `"PRIMARY" \| "ESCALATION"` | |
+| `parentSubmissionId` | UUID \| `null` | ESCALATION: the overdue submission |
+| `citizenId` | `string` | OneID simulator test citizen |
+| `templateId` | `string` | `legal-knowledge/templates/<id>.md` |
+| `agency` | `AgencyContact` | receiving agency |
+| `template` | `string` | template text, unchanged (leading comment removed) |
+| `fields` | `{ key, value, source: "ONEID" \| "SYSTEM" \| "MANUAL" }[]` | |
+| `missingFields` | `string[]` | |
+| `consentAt` | ISO date-time \| `null` | reset when a field changes |
+| `signature` | `EriSignature \| null` | `{ simulated: true, algorithm: "Ed25519", hashAlgorithm: "SHA-256", digest, signature, publicKey, signerCitizenId, signedAt }` |
+| `submissionId` | UUID \| `null` | |
 
 ## Request contracts
 
@@ -112,7 +134,14 @@ Built from `legal-knowledge/catalog/problems.json`; every text, phone and law is
 | --- | --- |
 | `CreateCaseRequest` `{ channel?, userId? }` | `POST /cases` |
 | `AddMessageRequest` `{ text }` | `POST /cases/:id/messages` |
-| `SubmitToAgencyRequest` `{ caseId, agencyId, documentId?, consent: true }` | `POST /submissions` |
+| `SimLoginRequest` `{ citizenId }` | `POST /sim/oneid/login` → `SimSession` (token goes to the `x-sim-session` header) |
+| — | `POST /cases/:id/application` (session) → `Application` |
+| `UpdateApplicationFieldsRequest` `{ values }` | `PATCH /applications/:id/fields` (MANUAL fields only) |
+| `ConsentRequest` `{ consent: true }` | `POST /applications/:id/consent` |
+| — | `POST /applications/:id/sign` (ERI simulator), `GET /applications/:id/pdf`, `GET /applications/:id/verify` |
+| `SubmitToAgencyRequest` `{ applicationId, consent: true }` | `POST /submissions` — needs stored consent and a valid signature |
+| `AgencyStatusUpdateRequest` `{ status: "RECEIVED" \| "IN_REVIEW" }` | `POST /sim/idora/submissions/:id/status` (cabinet simulator) |
+| `AgencyRespondRequest` `{ text }` | `POST /sim/idora/submissions/:id/respond` (cabinet simulator) |
 | `AnalyzeInput` `{ text, language? }` | `ai` `analyze()` |
 | `LegalSourceDocument` | files in `legal-knowledge/` |
 

@@ -46,14 +46,10 @@ bot.on("message:text", async (ctx) => {
   }
 });
 
-// Explicit consent: only the "send_yes" button submits.
+// Submitting now needs the OneID and ERI simulators (web only): the bot never submits by itself.
 bot.callbackQuery("send_yes", async (ctx) => {
-  const c = lastCase.get(ctx.chat!.id);
-  const agencyId = c?.routingDecision?.agencyId;
-  if (!c || !agencyId) return ctx.answerCallbackQuery();
-  const s = await api.submit(c.id, agencyId);
   await ctx.answerCallbackQuery();
-  await ctx.reply(texts.sent.replace("{id}", s.receiptId));
+  await ctx.reply(texts.sendViaWeb);
 });
 
 bot.callbackQuery(["send_no", "send_preview"], (ctx) => ctx.answerCallbackQuery());

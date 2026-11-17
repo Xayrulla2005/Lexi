@@ -85,18 +85,16 @@ paths:
         "400": { description: Case has no user messages }
   /submissions:
     post:
-      summary: Submit to an agency (MOCK only). Requires explicit consent.
+      summary: Submit a signed application (MOCK only). Requires consent and the x-sim-session header.
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
-              required: [caseId, agencyId, consent]
+              required: [applicationId, consent]
               properties:
-                caseId: { type: string, format: uuid }
-                agencyId: { type: string, example: mehnat_inspeksiyasi }
-                documentId: { type: string }
+                applicationId: { type: string, format: uuid }
                 consent: { type: boolean, enum: [true] }
       responses:
         "201":
@@ -107,7 +105,7 @@ paths:
         "400": { $ref: "#/components/responses/ValidationError" }
   /submissions/{id}:
     get:
-      summary: Submission status (case tracking)
+      summary: Submission status for its owner (x-sim-session); adds escalationApplicationId after OVERDUE
       parameters: [{ $ref: "#/components/parameters/Id" }]
       responses:
         "200":
@@ -257,11 +255,21 @@ components:
         updatedAt: { type: string, format: date-time }
     AgencySubmission:
       type: object
-      required: [id, caseId, agencyId, adapterType, status, receiptId, submittedAt, dueAt]
+      required: [id, caseId, applicationId, agencyId, agencyName, adapterType, status, receiptId, submittedAt, dueAt, history, response]
       properties:
         id: { type: string, format: uuid }
         caseId: { type: string, format: uuid }
+        applicationId: { type: string, format: uuid }
         agencyId: { type: string }
+        agencyName: { type: string }
+        history:
+          type: array
+          items: { type: object, required: [status, at], properties: { status: { type: string }, at: { type: string, format: date-time } } }
+        response:
+          type: object
+          nullable: true
+          required: [text, respondedAt]
+          properties: { text: { type: string }, respondedAt: { type: string, format: date-time } }
         adapterType: { type: string, enum: [MOCK, OFFICIAL] }
         status: { type: string, enum: [SUBMITTED, RECEIVED, IN_REVIEW, ANSWERED, OVERDUE, ESCALATED] }
         receiptId: { type: string, example: SIM-MI-00451 }

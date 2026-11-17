@@ -1,7 +1,7 @@
 "use client";
 /** XAYRULLA: sahifa mantig'i. Sevinchoy ko'rinishni components/ui va styles orqali o'zgartiradi. */
 import { useEffect, useState } from "react";
-import type { AgencyContact, AgencySubmission, Application, Case, SimSession } from "@lex/contracts";
+import type { AgencyContact, Application, Case, SimSession } from "@lex/contracts";
 import { api } from "@/lib/api";
 import { loadSession } from "@/lib/session";
 import { isUrl, lawNames, phoneParts, riskTone, routeKind } from "@/lib/view";
@@ -11,12 +11,13 @@ import { Card } from "@/components/ui/Card";
 import { Notice } from "@/components/ui/Notice";
 import { RiskBadge } from "@/components/ui/RiskBadge";
 import { ApplicationPanel } from "./_parts/ApplicationPanel";
+import { SubmissionTracker } from "./_parts/SubmissionTracker";
 
 export default function ChatPage() {
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<Case | null>(null);
-  const [submission, setSubmission] = useState<AgencySubmission | null>(null);
+  const [tracked, setTracked] = useState<string[]>([]);
   const [session, setSession] = useState<SimSession | null>(null);
   const [application, setApplication] = useState<Application | null>(null);
   const [needLogin, setNeedLogin] = useState(false);
@@ -26,7 +27,7 @@ export default function ChatPage() {
   async function onSend() {
     if (!text.trim()) return;
     setBusy(true);
-    setSubmission(null);
+    setTracked([]);
     setApplication(null);
     setNeedLogin(false);
     try {
@@ -52,7 +53,13 @@ export default function ChatPage() {
   }
 
   async function sendApplication(app: Application) {
-    if (result) setSubmission(await api.submit(result.id, app.agency.id));
+    const submission = await api.submit(app.id);
+    setTracked((ids) => [...ids, submission.id]);
+    setApplication(await api.application(app.id));
+  }
+
+  async function openEscalation(applicationId: string) {
+    setApplication(await api.application(applicationId));
   }
 
   return (
@@ -123,11 +130,13 @@ export default function ChatPage() {
               {texts.application.needLogin} <a href="/kirish">{texts.oneid.login}</a>
             </p>
           )}
-          {submission && <p>✅ {texts.sent} <b>{submission.receiptId}</b></p>}
         </Card>
       )}
 
       {application && <ApplicationPanel application={application} onChange={setApplication} onSend={sendApplication} />}
+      {tracked.map((id) => (
+        <SubmissionTracker key={id} submissionId={id} onOpenEscalation={openEscalation} />
+      ))}
     </main>
   );
 }

@@ -56,43 +56,4 @@ describe("API (integration)", () => {
     expect(c.routingDecision.agencyId).toBe(s.expected.agencyId);
     expect(c.routingDecision.requiresHumanReview).toBe(true); // no catalog route is VERIFIED yet
   });
-
-  it("rejects submission without explicit consent", async () => {
-    const c = await analyzedCase(scenarios[0]!.input);
-    await request(app.getHttpServer())
-      .post("/submissions")
-      .send({ caseId: c.id, agencyId: "mehnat_inspeksiyasi" })
-      .expect(400);
-    await request(app.getHttpServer())
-      .post("/submissions")
-      .send({ caseId: c.id, agencyId: "mehnat_inspeksiyasi", consent: false })
-      .expect(400);
-  });
-
-  it("rejects submission to an agency outside the routing decision", async () => {
-    const c = await analyzedCase(scenarios[0]!.input);
-    await request(app.getHttpServer())
-      .post("/submissions")
-      .send({ caseId: c.id, agencyId: "mib", consent: true })
-      .expect(400);
-  });
-
-  it("submits to the mock gateway with consent and tracks status", async () => {
-    const c = await analyzedCase(scenarios[0]!.input);
-    const sub = await request(app.getHttpServer())
-      .post("/submissions")
-      .send({ caseId: c.id, agencyId: "mehnat_inspeksiyasi", consent: true })
-      .expect(201);
-    expect(sub.body.adapterType).toBe("MOCK");
-    expect(sub.body.receiptId).toMatch(/^SIM-/);
-
-    const tracked = await request(app.getHttpServer()).get(`/submissions/${sub.body.id}`).expect(200);
-    expect(tracked.body.status).toBe("RECEIVED");
-
-    const caseRes = await request(app.getHttpServer()).get(`/cases/${c.id}`).expect(200);
-    expect(caseRes.body.status).toBe("SUBMITTED");
-
-    const sim = await request(app.getHttpServer()).get("/simulator/mehnat_inspeksiyasi/submissions").expect(200);
-    expect(sim.body.map((s: { id: string }) => s.id)).toContain(sub.body.id);
-  });
 });

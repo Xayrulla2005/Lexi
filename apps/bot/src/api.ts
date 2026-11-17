@@ -1,5 +1,5 @@
 /** XAYRULLA: API bilan aloqa. Dilfuza bu faylga tegmaydi. */
-import type { AgencySubmission, Case, RiskLevel, SubmitToAgencyRequest } from "@lex/contracts";
+import type { Case, RiskLevel } from "@lex/contracts";
 
 const API = process.env.API_URL ?? "http://localhost:3001";
 
@@ -25,9 +25,4 @@ export const api = {
   createCase: (userId: string) => call<Case>("/cases", { channel: "bot", userId }),
   addMessage: (id: string, text: string) => call(`/cases/${id}/messages`, { text }),
   analyze: (id: string) => call<Case>(`/cases/${id}/analyze`, {}),
-  /** Call only after the user pressed the explicit consent button. */
-  submit: (caseId: string, agencyId: string) => {
-    const body: SubmitToAgencyRequest = { caseId, agencyId, consent: true };
-    return call<AgencySubmission>("/submissions", body);
-  },
 };

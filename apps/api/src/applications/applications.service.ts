@@ -92,6 +92,12 @@ export class ApplicationsService {
     return Object.keys(manual).length ? this.updateFields(draft.id, citizen.id, manual) : draft;
   }
 
+  /** The escalation draft prepared for an overdue submission, if any. */
+  escalationDraftFor(submissionId: string): Application | undefined {
+    const draft = this.store.values().find((a) => a.parentSubmissionId === submissionId);
+    return draft && this.view(draft);
+  }
+
   get(id: string): Application {
     return this.view(this.stored(id));
   }

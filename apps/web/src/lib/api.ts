@@ -1,12 +1,16 @@
 /** XAYRULLA: API bilan aloqa. Sevinchoy bu faylga tegmaydi. */
 import {
   SIM_SESSION_HEADER,
+  type AgencyContact,
+  type AgencyStatusUpdateRequest,
   type AgencySubmission,
   type Application,
   type Case,
   type ConsentRequest,
+  type InboxItem,
   type SimCitizen,
   type SimSession,
+  type SubmissionTracking,
   type SubmitToAgencyRequest,
 } from "@lex/contracts";
 import { loadSession } from "./session";
@@ -52,11 +56,12 @@ export const api = {
     await call(`/cases/${c.id}/messages`, { text });
     return call<Case>(`/cases/${c.id}/analyze`, {});
   },
-  /** Call only after an explicit user action (button press) — that is the consent. */
-  submit: (caseId: string, agencyId: string) => {
-    const body: SubmitToAgencyRequest = { caseId, agencyId, consent: true };
+  /** Call only after the consent checkbox and an explicit button press. */
+  submit: (applicationId: string) => {
+    const body: SubmitToAgencyRequest = { applicationId, consent: true };
     return call<AgencySubmission>("/submissions", body);
   },
+  tracking: (submissionId: string) => call<SubmissionTracking>(`/submissions/${submissionId}`),
   simulator: (agencyId: string) => call<AgencySubmission[]>(`/simulator/${agencyId}/submissions`),
   /** SIMULYATOR: OneID test fuqarolari va kirish. */
   citizens: () => call<SimCitizen[]>("/sim/oneid/citizens"),
@@ -70,4 +75,14 @@ export const api = {
   openApplicationPdf: (id: string) => openPdf(`/applications/${id}/pdf`),
   /** SIMULYATOR: ERI (test kaliti bilan imzo). */
   sign: (id: string) => call<Application>(`/applications/${id}/sign`, {}),
+  /** SIMULYATOR: idora kabineti. */
+  cabinet: {
+    agencies: () => call<AgencyContact[]>("/sim/idora/agencies"),
+    inbox: (agencyId: string) => call<AgencySubmission[]>(`/sim/idora/${agencyId}/inbox`),
+    open: (id: string) => call<InboxItem>(`/sim/idora/submissions/${id}`),
+    openPdf: (id: string) => openPdf(`/sim/idora/submissions/${id}/pdf`),
+    setStatus: (id: string, status: AgencyStatusUpdateRequest["status"]) =>
+      call<AgencySubmission>(`/sim/idora/submissions/${id}/status`, { status }),
+    respond: (id: string, text: string) => call<AgencySubmission>(`/sim/idora/submissions/${id}/respond`, { text }),
+  },
 };

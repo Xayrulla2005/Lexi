@@ -74,7 +74,7 @@ describe("LegalReference", () => {
 });
 
 describe("SubmitToAgencyRequest", () => {
-  const base = { caseId: "8c1c7a8e-5f0b-4b8a-9a35-0b7b6f1e2c11", agencyId: "mehnat_inspeksiyasi" };
+  const base = { applicationId: "8c1c7a8e-5f0b-4b8a-9a35-0b7b6f1e2c11" };
 
   it("requires consent === true", () => {
     expect(SubmitToAgencyRequest.safeParse({ ...base, consent: true }).success).toBe(true);

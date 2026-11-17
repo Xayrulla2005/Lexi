@@ -28,4 +28,5 @@ export const texts = {
   notUnderstood: "Kechirasiz, tushunmadim. Qaytadan aytib bering.",
   voiceNotReady: "Ovozli xabar tez orada ishlaydi. Hozircha matn bilan yozing.",
   error: "Xatolik yuz berdi. Birozdan keyin qayta urinib ko'ring.",
+  sendViaWeb: "Arizani imzolab yuborish hozircha faqat veb-saytda ishlaydi (OneID va ERI simulyatori orqali).",
 };

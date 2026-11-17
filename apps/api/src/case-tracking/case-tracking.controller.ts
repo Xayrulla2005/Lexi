@@ -1,19 +1,21 @@
-import { Controller, Get, Inject, NotFoundException, Param, ParseUUIDPipe } from "@nestjs/common";
-import type { AgencySubmission } from "@lex/contracts";
-import { AGENCY_GATEWAY, type AgencyGateway } from "../agency-gateway/agency-gateway";
+import { Controller, Get, Headers, Inject, Param, ParseUUIDPipe } from "@nestjs/common";
+import { SIM_SESSION_HEADER, type SubmissionTracking } from "@lex/contracts";
+import { SubmissionsService } from "../agency-gateway/submissions.service";
+import { OneIdSimulatorService } from "../sim/oneid.service";
 
 /**
- * Status tracking for submitted cases.
- * TODO: status history, overdue detection and notifications to bot/web.
+ * Status tracking for the citizen's own submissions (web polls this every few seconds).
+ * Includes the agency answer and, after OVERDUE, the id of the escalation draft.
  */
 @Controller("submissions")
 export class CaseTrackingController {
-  constructor(@Inject(AGENCY_GATEWAY) private readonly gateway: AgencyGateway) {}
+  constructor(
+    @Inject(SubmissionsService) private readonly submissions: SubmissionsService,
+    @Inject(OneIdSimulatorService) private readonly oneId: OneIdSimulatorService,
+  ) {}
 
   @Get(":id")
-  async status(@Param("id", ParseUUIDPipe) id: string): Promise<AgencySubmission> {
-    const submission = await this.gateway.getStatus(id);
-    if (!submission) throw new NotFoundException("Submission not found");
-    return submission;
+  status(@Param("id", ParseUUIDPipe) id: string, @Headers(SIM_SESSION_HEADER) token?: string): Promise<SubmissionTracking> {
+    return this.submissions.tracking(id, this.oneId.session(token).citizen.id);
   }
 }
