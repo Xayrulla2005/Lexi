@@ -60,3 +60,24 @@ export function lawNames(decision: RoutingDecision, analysisRefs: readonly { doc
   );
   return [...new Set(names)];
 }
+
+/** A piece of the application text: plain template text, or a field (null value = not filled in). */
+export type TemplatePart = { kind: "text"; text: string } | { kind: "field"; key: string; value: string | null };
+
+/** Splits a template into text and fields so empty fields can be highlighted. The template text is not changed. */
+export function templateParts(template: string, fields: readonly { key: string; value: string | null }[]): TemplatePart[] {
+  const values = new Map(fields.map((f) => [f.key, f.value]));
+  const parts: TemplatePart[] = [];
+  let last = 0;
+  for (const m of template.matchAll(/\{\{([a-z0-9_]+)\}\}/g)) {
+    const key = m[1] as string;
+    if (m.index > last) parts.push({ kind: "text", text: template.slice(last, m.index) });
+    parts.push({ kind: "field", key, value: values.get(key) ?? null });
+    last = m.index + m[0].length;
+  }
+  if (last < template.length) parts.push({ kind: "text", text: template.slice(last) });
+  return parts;
+}
+
+/** Human-readable field label: "malumot_1" -> "malumot 1". */
+export const fieldLabel = (key: string): string => key.replace(/_/g, " ");

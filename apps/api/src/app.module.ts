@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { ActionPlansModule } from "./action-plans/action-plans.module";
 import { AgencyGatewayModule } from "./agency-gateway/agency-gateway.module";
 import { AiAnalysisModule } from "./ai-analysis/ai-analysis.module";
+import { ApplicationsModule } from "./applications/applications.module";
 import { CaseTrackingModule } from "./case-tracking/case-tracking.module";
 import { CasesModule } from "./cases/cases.module";
 import { DatabaseModule } from "./database/database.module";
@@ -22,6 +23,7 @@ import { SimModule } from "./sim/sim.module";
     AgencyGatewayModule,
     CaseTrackingModule,
     SimModule,
+    ApplicationsModule,
   ],
 })
 export class AppModule {}

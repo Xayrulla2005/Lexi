@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { RoutingDecision } from "@lex/contracts";
-import { isUrl, lawNames, phoneParts, riskTone, routeKind, statusKey } from "./view";
+import { fieldLabel, isUrl, lawNames, phoneParts, riskTone, routeKind, statusKey, templateParts } from "./view";
 
 const decision = (overrides: Partial<RoutingDecision>): RoutingDecision => ({
   routeType: "RULE_BASED",
@@ -53,5 +53,20 @@ describe("view mappings", () => {
     const ref = { documentId: null, documentName: "Mehnat kodeksi 253-modda", article: null, sourceUrl: null, status: "DRAFT", lastVerifiedAt: null } as const;
     const d = decision({ legalReferences: [ref] });
     expect(lawNames(d, [ref, { documentName: "Boshqa", article: "1" }])).toEqual(["Mehnat kodeksi 253-modda", "Boshqa, 1"]);
+  });
+
+  it("splits a template into text and fields without changing the text", () => {
+    const parts = templateParts("Men, {{fio}}, {{summa}} so‘m.", [
+      { key: "fio", value: "Test" },
+      { key: "summa", value: null },
+    ]);
+    expect(parts).toEqual([
+      { kind: "text", text: "Men, " },
+      { kind: "field", key: "fio", value: "Test" },
+      { kind: "text", text: ", " },
+      { kind: "field", key: "summa", value: null },
+      { kind: "text", text: " so‘m." },
+    ]);
+    expect(fieldLabel("malumot_1")).toBe("malumot 1");
   });
 });

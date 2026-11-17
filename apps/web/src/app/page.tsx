@@ -1,25 +1,34 @@
 "use client";
 /** XAYRULLA: sahifa mantig'i. Sevinchoy ko'rinishni components/ui va styles orqali o'zgartiradi. */
-import { useState } from "react";
-import type { AgencyContact, AgencySubmission, Case } from "@lex/contracts";
+import { useEffect, useState } from "react";
+import type { AgencyContact, AgencySubmission, Application, Case, SimSession } from "@lex/contracts";
 import { api } from "@/lib/api";
+import { loadSession } from "@/lib/session";
 import { isUrl, lawNames, phoneParts, riskTone, routeKind } from "@/lib/view";
 import { texts } from "@/content/texts.uz";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Notice } from "@/components/ui/Notice";
 import { RiskBadge } from "@/components/ui/RiskBadge";
+import { ApplicationPanel } from "./_parts/ApplicationPanel";
 
 export default function ChatPage() {
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<Case | null>(null);
   const [submission, setSubmission] = useState<AgencySubmission | null>(null);
+  const [session, setSession] = useState<SimSession | null>(null);
+  const [application, setApplication] = useState<Application | null>(null);
+  const [needLogin, setNeedLogin] = useState(false);
+
+  useEffect(() => setSession(loadSession()), []);
 
   async function onSend() {
     if (!text.trim()) return;
     setBusy(true);
     setSubmission(null);
+    setApplication(null);
+    setNeedLogin(false);
     try {
       setResult(await api.ask(text));
     } finally {
@@ -28,12 +37,22 @@ export default function ChatPage() {
   }
 
   const decision = result?.routingDecision;
-  const canSubmit = decision?.routeType !== "EMERGENCY" && !!decision?.agencyId;
+  const canSubmit = decision?.routeType === "RULE_BASED" && !!decision.agencyId && !!decision.templateId;
   const kind = decision ? routeKind(decision) : null;
   const laws = decision && result?.analysis ? lawNames(decision, result.analysis.legalReferences) : [];
 
+  /** "Arizani yuborish" first opens the application view; nothing is sent from here. */
   async function onSubmit() {
-    if (result && decision?.agencyId) setSubmission(await api.submit(result.id, decision.agencyId));
+    if (!result) return;
+    if (!session) {
+      setNeedLogin(true);
+      return;
+    }
+    setApplication(await api.createApplication(result.id));
+  }
+
+  async function sendApplication(app: Application) {
+    if (result) setSubmission(await api.submit(result.id, app.agency.id));
   }
 
   return (
@@ -45,6 +64,15 @@ export default function ChatPage() {
         </div>
         <a href="tel:102"><Button tone="danger">{texts.emergency}</Button></a>
       </div>
+      <p style={{ marginTop: 0 }}>
+        {session ? (
+          <>
+            {texts.application.loggedInAs} <b>{session.citizen.fio}</b> · <a href="/kirish">{texts.oneid.logout}</a>
+          </>
+        ) : (
+          <a href="/kirish">{texts.oneid.login}</a>
+        )}
+      </p>
 
       <Card>
         <textarea
@@ -90,9 +118,16 @@ export default function ChatPage() {
               <a href="https://advice.uz" target="_blank" rel="noreferrer"><Button tone="plain">{texts.lawyer}</Button></a>
             )}
           </div>
+          {needLogin && (
+            <p>
+              {texts.application.needLogin} <a href="/kirish">{texts.oneid.login}</a>
+            </p>
+          )}
           {submission && <p>✅ {texts.sent} <b>{submission.receiptId}</b></p>}
         </Card>
       )}
+
+      {application && <ApplicationPanel application={application} onChange={setApplication} onSend={sendApplication} />}
     </main>
   );
 }

@@ -15,3 +15,4 @@ export * from "./case";
 export * from "./submission";
 export * from "./legal-source";
 export * from "./sim";
+export * from "./application";
