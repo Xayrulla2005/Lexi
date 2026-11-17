@@ -17,10 +17,16 @@ const RISK_TONE: Record<RiskLevel, RiskTone> = {
 
 export const riskTone = (level: RiskLevel): RiskTone => RISK_TONE[level];
 
-/** "verified" is shown only when the engine says no human review is needed. */
-export function routeKind(decision: RoutingDecision): RouteKind {
+/**
+ * Label of the route kind, or null when no label is shown.
+ * "generic" only for the fallback route (no problemId); an unverified catalog route
+ * shows no label — its review notice already says it is not verified.
+ * "verified" is shown only when the engine says no human review is needed.
+ */
+export function routeKind(decision: RoutingDecision): RouteKind | null {
   if (decision.routeType === "EMERGENCY") return "emergency";
-  return decision.routeType === "RULE_BASED" && !decision.requiresHumanReview ? "verified" : "generic";
+  if (decision.routeType === "FALLBACK" || decision.problemId === null) return "generic";
+  return decision.requiresHumanReview ? null : "verified";
 }
 
 export const statusKey = (status: SubmissionStatus): string => status.toLowerCase();

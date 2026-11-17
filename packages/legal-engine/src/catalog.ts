@@ -33,6 +33,8 @@ export const EMERGENCY_AGENCY_IDS = ["iiv", "ishonch_1146", "tez_yordam"] as con
 export const FALLBACK_AGENCY_ID = "adliya";
 /** The only text of the emergency route that is not an agency name or phone. */
 export const EMERGENCY_SAFETY_TEXT = "Hozir hayotingizga xavf bo'lsa, darhol qo'ng'iroq qiling.";
+/** Prefix of the escalation step: "Javob bo'lmasa: <first escalation agency>". */
+export const NO_ANSWER_PREFIX = "Javob bo'lmasa:";
 
 export class CatalogError extends Error {
   override readonly name = "CatalogError";
@@ -156,10 +158,22 @@ export function buildCatalog(problemsJson: unknown, reviewStatusJson: unknown): 
         lastVerifiedAt: null,
       }),
     );
+    // Agencies are listed separately (decision.agencies); steps are only the first step and
+    // the first escalation agency, so the agency list is not repeated as steps.
+    const escalation = m.eskalatsiya.map((id) => agency(id, `${m.id}.eskalatsiya`));
     const steps: RouteStep[] = [
-      { order: 1, action: m.birinchi_qadam, agencyId: null, deadlineDays: null, documentTemplateId: null },
-      ...routeAgencies.map((a, i) => agencyStep(a, i + 2)),
+      { order: 1, action: m.birinchi_qadam, agencyId: null, deadlineDays: null, documentTemplateId: m.shablon_id },
     ];
+    const firstEscalation = escalation[0];
+    if (firstEscalation) {
+      steps.push({
+        order: 2,
+        action: `${NO_ANSWER_PREFIX} ${firstEscalation.name}`,
+        agencyId: firstEscalation.id,
+        deadlineDays: null,
+        documentTemplateId: null,
+      });
+    }
 
     return {
       id: m.id,
@@ -171,7 +185,7 @@ export function buildCatalog(problemsJson: unknown, reviewStatusJson: unknown): 
       firstStep: m.birinchi_qadam,
       agencyId: routeAgencies.find((a) => a.id !== OTHER_PARTY_ID)?.id ?? null,
       agencies: routeAgencies,
-      escalation: m.eskalatsiya.map((id) => agency(id, `${m.id}.eskalatsiya`)),
+      escalation,
       notYet: m.hali_erta.map((id) => agency(id, `${m.id}.hali_erta`)),
       steps,
       legalReferences,

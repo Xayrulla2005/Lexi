@@ -69,7 +69,7 @@ Built from `legal-knowledge/catalog/problems.json`; every text, phone and law is
 | `problemId` | `ProblemId \| null` | `null` for EMERGENCY/FALLBACK |
 | `title` | `string \| null` | catalog `nom` |
 | `agencyId` | `string \| null` | First route agency that is not `qarshi_taraf`; `null` for FALLBACK |
-| `steps` | `RouteStep[]` | `{ order, action, agencyId, deadlineDays, documentTemplateId }`; step 1 = `birinchi_qadam`, then one step per agency |
+| `steps` | `RouteStep[]` | `{ order, action, agencyId, deadlineDays, documentTemplateId }`; step 1 = `birinchi_qadam` (with `documentTemplateId`), step 2 = "Javob bo'lmasa: <first escalation agency>"; agencies are not repeated as steps |
 | `agencies` | `AgencyContact[]` | `{ id, name, phone, link }` — catalog `organlar` |
 | `escalation` | `AgencyContact[]` | catalog `eskalatsiya` |
 | `legalReferences` | `LegalReference[]` | catalog `qonunlar`, always `DRAFT` |

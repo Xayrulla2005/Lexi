@@ -26,7 +26,8 @@ describe("view mappings", () => {
   });
 
   it("never labels a route as verified while human review is required", () => {
-    expect(routeKind(decision({}))).toBe("generic");
+    expect(routeKind(decision({}))).toBeNull();
+    expect(routeKind(decision({ routeType: "FALLBACK", routeId: null, problemId: null }))).toBe("generic");
     expect(routeKind(decision({ requiresHumanReview: false }))).toBe("verified");
     expect(routeKind(decision({ routeType: "EMERGENCY" }))).toBe("emergency");
   });

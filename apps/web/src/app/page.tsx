@@ -29,6 +29,7 @@ export default function ChatPage() {
 
   const decision = result?.routingDecision;
   const canSubmit = decision?.routeType !== "EMERGENCY" && !!decision?.agencyId;
+  const kind = decision ? routeKind(decision) : null;
   const laws = decision && result?.analysis ? lawNames(decision, result.analysis.legalReferences) : [];
 
   async function onSubmit() {
@@ -61,7 +62,7 @@ export default function ChatPage() {
       {result?.analysis && decision && (
         <Card>
           <RiskBadge level={riskTone(result.analysis.risk.level)} />
-          <p style={{ color: "var(--muted)" }}>{texts.routeKind[routeKind(decision)]}</p>
+          {kind && <p style={{ color: "var(--muted)" }}>{texts.routeKind[kind]}</p>}
           {decision.reviewNotice && <Notice title={texts.reviewWarningTitle}>{decision.reviewNotice}</Notice>}
           <h3>{texts.resultTitle}</h3>
           <ol>{decision.steps.map((s) => <li key={s.order}>{s.action}</li>)}</ol>

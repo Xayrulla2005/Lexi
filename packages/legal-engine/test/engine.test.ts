@@ -117,6 +117,10 @@ describe("DeterministicRoutingEngine", () => {
     expect(decision.routeId).toBe("P12");
     expect(decision.problemId).toBe("P12");
     expect(decision.steps[0]?.action).toBe(raw.birinchi_qadam);
+    expect(decision.steps[0]?.documentTemplateId).toBe("T12");
+    const firstEscalation = rawProblems.idoralar[raw.eskalatsiya[0]!]!;
+    expect(decision.steps[1]).toMatchObject({ action: `Javob bo'lmasa: ${firstEscalation.nomi}`, agencyId: raw.eskalatsiya[0] });
+    expect(decision.steps).toHaveLength(2);
     expect(decision.agencies.map((a) => a.id)).toEqual(raw.organlar);
     expect(decision.escalation.map((a) => a.id)).toEqual(raw.eskalatsiya);
     expect(decision.agencyId).toBe("mehnat_inspeksiyasi");
