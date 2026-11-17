@@ -32,13 +32,13 @@ importers:
 
   ai:
     dependencies:
+      '@huggingface/transformers':
+        specifier: 3.5.1
+        version: 3.5.1
       '@lex/contracts':
         specifier: workspace:*
         version: link:../packages/contracts
     devDependencies:
-      '@huggingface/transformers':
-        specifier: 3.5.1
-        version: 3.5.1
       '@lex/legal-engine':
         specifier: workspace:*
         version: link:../packages/legal-engine
@@ -60,6 +60,9 @@ importers:
 
   apps/api:
     dependencies:
+      '@huggingface/transformers':
+        specifier: 3.5.1
+        version: 3.5.1
       '@lex/ai':
         specifier: workspace:*
         version: link:../../ai

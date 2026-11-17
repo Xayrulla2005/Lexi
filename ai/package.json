@@ -15,10 +15,10 @@
     "rag:eval": "tsx scripts/rag-eval.ts"
   },
   "dependencies": {
+    "@huggingface/transformers": "3.5.1",
     "@lex/contracts": "workspace:*"
   },
   "devDependencies": {
-    "@huggingface/transformers": "3.5.1",
     "@lex/legal-engine": "workspace:*",
     "@types/node": "^22.10.0",
     "node-html-parser": "6.1.13",
