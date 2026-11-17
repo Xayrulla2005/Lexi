@@ -1,0 +1,29 @@
+{
+  "$comment": "SIMULYATOR. To'qima test fuqarolar — haqiqiy shaxslar emas. PINFL, telefon va manzillar ataylab soxta.",
+  "citizens": [
+    {
+      "id": "test_fuqaro_1",
+      "fio": "Karimov Jasur Anvarovich",
+      "pinfl": "00000000000001",
+      "manzil": "Namuna tumani, Sinov ko'chasi, 1-uy (to'qima manzil)",
+      "telefon": "+998 00 000-00-01",
+      "simulated": true
+    },
+    {
+      "id": "test_fuqaro_2",
+      "fio": "Rahimova Dilnoza Botirovna",
+      "pinfl": "00000000000002",
+      "manzil": "Namuna tumani, Sinov ko'chasi, 2-uy (to'qima manzil)",
+      "telefon": "+998 00 000-00-02",
+      "simulated": true
+    },
+    {
+      "id": "test_fuqaro_3",
+      "fio": "Sobirov Akmal Rustamovich",
+      "pinfl": "00000000000003",
+      "manzil": "Namuna tumani, Sinov ko'chasi, 3-uy (to'qima manzil)",
+      "telefon": "+998 00 000-00-03",
+      "simulated": true
+    }
+  ]
+}

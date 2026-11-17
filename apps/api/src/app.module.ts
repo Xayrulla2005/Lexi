@@ -8,6 +8,7 @@ import { DatabaseModule } from "./database/database.module";
 import { HealthModule } from "./health/health.module";
 import { LegalKnowledgeModule } from "./legal-knowledge/legal-knowledge.module";
 import { LegalRoutingModule } from "./legal-routing/legal-routing.module";
+import { SimModule } from "./sim/sim.module";
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { LegalRoutingModule } from "./legal-routing/legal-routing.module";
     ActionPlansModule,
     AgencyGatewayModule,
     CaseTrackingModule,
+    SimModule,
   ],
 })
 export class AppModule {}

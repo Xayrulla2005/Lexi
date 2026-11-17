@@ -35,3 +35,7 @@ Thumbs.db
 # Temporary extraction of legal data archives
 .tmp-import/
 *.zip
+
+# Simulators: test key pairs and runtime state (generated on first run)
+data/sim/keys/
+data/runtime/

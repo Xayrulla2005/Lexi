@@ -1,18 +1,20 @@
 import { BadRequestException, Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { randomUUID } from "node:crypto";
-import type { Case, CaseChannel, CaseMessage, CaseStatus } from "@lex/contracts";
+import { Case, type CaseChannel, type CaseMessage, type CaseStatus } from "@lex/contracts";
+import { JsonStore } from "../common/json-store";
+import { runtimeFile } from "../common/paths";
 import { AiAnalysisService } from "../ai-analysis/ai-analysis.service";
 import { LegalRoutingService } from "../legal-routing/legal-routing.service";
 
 /**
  * Case lifecycle: create -> add messages -> analyze (AI) -> route (engine).
- * Storage is in-memory for now. TODO(Xayrulla): persist via TypeORM (database/entities/case.entity.ts).
+ * Storage: in-memory + data/runtime/cases.json (survives restarts). TODO(Xayrulla): TypeORM (database/entities/case.entity.ts).
  *
  * Constructor params use explicit @Inject: the tsx/esbuild dev runner does not emit decorator metadata.
  */
 @Injectable()
 export class CasesService {
-  private readonly cases = new Map<string, Case>();
+  private readonly cases = new JsonStore<Case>(runtimeFile("cases.json"), Case);
 
   constructor(
     @Inject(AiAnalysisService) private readonly ai: AiAnalysisService,
@@ -46,7 +48,7 @@ export class CasesService {
     const c = this.get(id);
     const msg: CaseMessage = { id: randomUUID(), role: "user", text, createdAt: new Date().toISOString() };
     c.messages.push(msg);
-    this.touch(c);
+    this.save(c);
     return msg;
   }
 
@@ -61,17 +63,18 @@ export class CasesService {
     c.analysis = await this.ai.analyze(story);
     c.routingDecision = this.routing.decide(c.analysis);
     c.status = "ANALYZED";
-    this.touch(c);
+    this.save(c);
     return c;
   }
 
   setStatus(id: string, status: CaseStatus): void {
     const c = this.get(id);
     c.status = status;
-    this.touch(c);
+    this.save(c);
   }
 
-  private touch(c: Case): void {
+  private save(c: Case): void {
     c.updatedAt = new Date().toISOString();
+    this.cases.set(c.id, c);
   }
 }

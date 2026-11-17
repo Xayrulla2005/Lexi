@@ -28,6 +28,17 @@ export const texts = {
     verified: "Yurist tasdiqlagan yo'l",
     generic: "Umumiy yo'l — yurist bilan ham maslahatlashing",
   },
+  oneid: {
+    banner: "SIMULYATOR — haqiqiy OneID emas",
+    title: "Kirish (OneID simulyatori)",
+    hint: "Test fuqaroni tanlang. Bu shaxslar to'qima, ma'lumotlar soxta.",
+    choose: "Shu fuqaro sifatida kirish",
+    loggedInAs: "Siz kirdingiz:",
+    logout: "Chiqish",
+    login: "Kirish (OneID simulyatori)",
+    back: "Bosh sahifaga qaytish",
+    pinfl: "JShShIR (soxta)",
+  },
   simulator: {
     banner: "SIMULYATOR — demo rejim",
     title: "Davlat mehnat inspeksiyasi — kelgan murojaatlar",
