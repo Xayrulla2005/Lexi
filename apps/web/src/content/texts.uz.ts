@@ -43,6 +43,13 @@ export const texts = {
     needLogin: "Arizani yuborish uchun avval kiring:",
     loggedInAs: "Kirgan:",
   },
+  eri: {
+    badge: "SIMULYATOR",
+    sign: "ERI bilan imzolash (simulyator)",
+    note: "Test kaliti bilan imzolanadi. Haqiqiy ERI emas.",
+    signedAt: "Imzolangan:",
+    digest: "SHA-256 xesh:",
+  },
   oneid: {
     banner: "SIMULYATOR — haqiqiy OneID emas",
     title: "Kirish (OneID simulyatori)",

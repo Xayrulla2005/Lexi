@@ -68,4 +68,6 @@ export const api = {
     call<Application>(`/applications/${id}/fields`, { values }, "PATCH"),
   consent: (id: string) => call<Application>(`/applications/${id}/consent`, consent),
   openApplicationPdf: (id: string) => openPdf(`/applications/${id}/pdf`),
+  /** SIMULYATOR: ERI (test kaliti bilan imzo). */
+  sign: (id: string) => call<Application>(`/applications/${id}/sign`, {}),
 };

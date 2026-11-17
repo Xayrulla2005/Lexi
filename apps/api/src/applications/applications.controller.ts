@@ -1,6 +1,13 @@
 import { Body, Controller, Get, Headers, Inject, Param, ParseUUIDPipe, Patch, Post, StreamableFile } from "@nestjs/common";
-import { ConsentRequest, SIM_SESSION_HEADER, UpdateApplicationFieldsRequest, type Application } from "@lex/contracts";
+import {
+  ConsentRequest,
+  SIM_SESSION_HEADER,
+  UpdateApplicationFieldsRequest,
+  type Application,
+  type SignatureVerification,
+} from "@lex/contracts";
 import { ZodValidationPipe } from "../common/zod-validation.pipe";
+import { EriSimulatorService } from "../sim/eri.service";
 import { OneIdSimulatorService } from "../sim/oneid.service";
 import { ApplicationsService } from "./applications.service";
 
@@ -10,6 +17,7 @@ export class ApplicationsController {
   constructor(
     @Inject(ApplicationsService) private readonly apps: ApplicationsService,
     @Inject(OneIdSimulatorService) private readonly oneId: OneIdSimulatorService,
+    @Inject(EriSimulatorService) private readonly eri: EriSimulatorService,
   ) {}
 
   @Post("cases/:id/application")
@@ -44,6 +52,22 @@ export class ApplicationsController {
     @Headers(SIM_SESSION_HEADER) token?: string,
   ): Application {
     return this.apps.consent(id, this.oneId.session(token).citizen.id);
+  }
+
+  /** SIMULATED ERI: signs the SHA-256 of the final PDF with the test citizen's Ed25519 key. */
+  @Post("applications/:id/sign")
+  sign(@Param("id", ParseUUIDPipe) id: string, @Headers(SIM_SESSION_HEADER) token?: string): Promise<Application> {
+    return this.apps.sign(id, this.oneId.session(token).citizen.id, this.eri);
+  }
+
+  @Get("applications/:id/verify")
+  async verify(
+    @Param("id", ParseUUIDPipe) id: string,
+    @Headers(SIM_SESSION_HEADER) token?: string,
+  ): Promise<SignatureVerification> {
+    const app = this.apps.owned(id, this.oneId.session(token).citizen.id);
+    if (!app.signature) return { valid: false, message: "Imzo buzilgan" };
+    return this.eri.verify(await this.apps.pdf(id), app.signature);
   }
 
   @Get("applications/:id/pdf")

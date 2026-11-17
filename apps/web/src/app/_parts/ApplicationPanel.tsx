@@ -102,8 +102,27 @@ export function ApplicationPanel({ application: app, onChange, onSend }: Props) 
         </p>
       )}
 
+      <div style={{ border: "2px dashed var(--accent)", borderRadius: 10, padding: 12, marginTop: 12 }}>
+        <span style={{ background: "var(--accent)", fontWeight: 800, padding: "2px 8px", borderRadius: 6 }}>{texts.eri.badge}</span>
+        <p style={{ margin: "8px 0", color: "var(--muted)", fontSize: 14 }}>{texts.eri.note}</p>
+        {app.signature ? (
+          <p style={{ margin: 0, fontSize: 14 }}>
+            ✅ {texts.eri.signedAt} {new Date(app.signature.signedAt).toLocaleString("uz-UZ")} · {app.signature.algorithm}
+            <br />
+            {texts.eri.digest} <code>{app.signature.digest.slice(0, 16)}…</code>
+          </p>
+        ) : (
+          <Button tone="plain" onClick={() => run(() => api.sign(app.id))} disabled={busy || app.consentAt === null}>
+            {texts.eri.sign}
+          </Button>
+        )}
+      </div>
+
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 12 }}>
-        <Button onClick={() => run(() => onSend(app))} disabled={busy || app.consentAt === null || app.submissionId !== null}>
+        <Button
+          onClick={() => run(() => onSend(app))}
+          disabled={busy || app.consentAt === null || app.signature === null || app.submissionId !== null}
+        >
           {texts.application.send}
         </Button>
       </div>

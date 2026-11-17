@@ -142,6 +142,19 @@ export class ApplicationsService {
     return renderApplicationPdf(this.text(app));
   }
 
+  /**
+   * Renders the final PDF and signs it with the (simulated) ERI.
+   * Requires every field and a stored consent; the exact signed bytes are frozen.
+   */
+  async sign(id: string, citizenId: string, eri: { sign(citizenId: string, pdf: Buffer): EriSignature }): Promise<Application> {
+    const app = this.owned(id, citizenId);
+    this.assertEditable(app);
+    if (app.missingFields.length) throw new BadRequestException(`Fill in the fields first: ${app.missingFields.join(", ")}`);
+    if (!app.consentAt) throw new BadRequestException("Consent is required before signing");
+    const pdf = await renderApplicationPdf(this.text(app));
+    return this.attachSignature(id, pdf, eri.sign(citizenId, pdf));
+  }
+
   /** Called by the e-signature step: freezes the PDF bytes together with the signature. */
   attachSignature(id: string, pdf: Buffer, signature: EriSignature): Application {
     return this.save({ ...this.stored(id), signature, signedPdfBase64: pdf.toString("base64") });
