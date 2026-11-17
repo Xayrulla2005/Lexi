@@ -1,0 +1,69 @@
+{
+  "retrievedAt": "2026-11-17T08:24:18.637Z",
+  "found": 95,
+  "missing": [
+    {
+      "code": "jinoyat_kodeksi",
+      "article": "272",
+      "problemIds": [
+        "P39"
+      ],
+      "reason": "Matni yo'q; lex.uz izohi: (272-modda Oʻzbekiston Respublikasining 1999-yil 20-avgustdagi 832-I-son Qonuniga asosan chiqarilgan — Oliy Majlis Axborotnomasi, 1999-y., 9-son, 229-modda)"
+    }
+  ],
+  "superscriptChecks": [
+    {
+      "code": "jinoyat_kodeksi",
+      "article": "125¹",
+      "found": true,
+      "heading": "Nikoh yoshi toʻgʻrisidagi qonunchilikni yoki nikoh tuzish tartibini buzish",
+      "baseHeading": "Farzandlikka olish sirini oshkor qilish"
+    },
+    {
+      "code": "jinoyat_kodeksi",
+      "article": "126¹",
+      "found": true,
+      "heading": "Oilaviy (maishiy) zoʻravonlik",
+      "baseHeading": "Koʻp xotinli boʻlish"
+    },
+    {
+      "code": "jinoyat_kodeksi",
+      "article": "278¹",
+      "found": true,
+      "heading": "Axborotlashtirish qoidalarini buzish",
+      "baseHeading": "Qimor va tavakkalchilikka asoslangan boshqa oʻyinlarni tashkil etish hamda oʻtkazish"
+    },
+    {
+      "code": "mamuriy_javobgarlik_kodeksi",
+      "article": "47³",
+      "found": true,
+      "heading": "Nikoh yoshi toʻgʻrisidagi qonunchilikni yoki nikoh tuzish tartibini buzish",
+      "baseHeading": "Bolalarni tarbiyalash borasidagi majburiyatlarni bajarmaslik, ularga gʻamxoʻrlik koʻrsatmaslik, tarbiya va taʼlim berish jarayonida ularga nisbatan zoʻravonlik sodir etish"
+    },
+    {
+      "code": "mamuriy_javobgarlik_kodeksi",
+      "article": "47⁴",
+      "found": true,
+      "heading": "Voyaga yetmagan yoki mehnatga layoqatsiz shaxslarni moddiy taʼminlashdan boʻyin tovlash",
+      "baseHeading": "Bolalarni tarbiyalash borasidagi majburiyatlarni bajarmaslik, ularga gʻamxoʻrlik koʻrsatmaslik, tarbiya va taʼlim berish jarayonida ularga nisbatan zoʻravonlik sodir etish"
+    },
+    {
+      "code": "mamuriy_javobgarlik_kodeksi",
+      "article": "51¹",
+      "found": true,
+      "heading": "Nogironligi boʻlgan shaxslarning huquqlari toʻgʻrisidagi qonunchilikni buzish",
+      "baseHeading": "Mehnatga maʼmuriy tarzda majburlash"
+    },
+    {
+      "code": "mamuriy_javobgarlik_kodeksi",
+      "article": "59²",
+      "found": true,
+      "heading": "Oilaviy (maishiy) zoʻravonlik",
+      "baseHeading": "OIV kasalligi/OITS yuqqan-yuqmaganligini aniqlash uchun tibbiy koʻrikdan oʻtkazishda, shuningdek tibbiy va kosmetik muolajalarni oʻtkazishda xavfsizlikni yetarli darajada taʼminlamaganlik"
+    }
+  ],
+  "repealed": [],
+  "ambiguous": [],
+  "unknownBlockClasses": [],
+  "requests": 0
+}

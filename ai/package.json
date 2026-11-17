@@ -8,14 +8,17 @@
     "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
-    "eval": "tsx eval/run.ts"
+    "eval": "tsx eval/run.ts",
+    "rag:sources": "tsx scripts/rag-sources.ts"
   },
   "dependencies": {
     "@lex/contracts": "workspace:*"
   },
   "devDependencies": {
+    "@huggingface/transformers": "3.5.1",
     "@lex/legal-engine": "workspace:*",
     "@types/node": "^22.10.0",
+    "node-html-parser": "6.1.13",
     "tsx": "^4.19.2",
     "typescript": "^5.6.3",
     "vitest": "^3.2.0"

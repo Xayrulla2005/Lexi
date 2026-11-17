@@ -1,0 +1,530 @@
+{
+  "verifiedAt": "2026-11-17",
+  "method": "lex.uz qidiruvi (act_type 21 = kodekslar, 22 = qonunlar), faqat amaldagi va sarlavhasi aynan mos hujjat; keyin hujjat sahifasi (lotin) ochilib, <title> tekshirilgan.",
+  "documents": [
+    {
+      "name": "Mehnat kodeksi",
+      "kind": "code",
+      "codeKey": "mehnat_kodeksi",
+      "parts": [
+        {
+          "lexuzId": "-6257288",
+          "url": "https://lex.uz/uz/docs/-6257288",
+          "title": "Oʻzbekiston Respublikasining Mehnat kodeksi",
+          "date": "28.10.2022",
+          "number": null,
+          "badge": "Oʻzbekiston Respublikasining Mehnat kodeksi"
+        }
+      ],
+      "verifiedAt": "2026-11-17",
+      "problemIds": [
+        "P11",
+        "P12",
+        "P13",
+        "P14",
+        "P15",
+        "P16",
+        "P17",
+        "P18",
+        "P19",
+        "P20"
+      ]
+    },
+    {
+      "name": "Jinoyat kodeksi",
+      "kind": "code",
+      "codeKey": "jinoyat_kodeksi",
+      "parts": [
+        {
+          "lexuzId": "-111453",
+          "url": "https://lex.uz/uz/docs/-111453",
+          "title": "Oʻzbekiston Respublikasining Jinoyat kodeksi",
+          "date": "22.09.1994",
+          "number": null,
+          "badge": "Oʻzbekiston Respublikasining Jinoyat kodeksi"
+        }
+      ],
+      "verifiedAt": "2026-11-17",
+      "problemIds": [
+        "P17",
+        "P21",
+        "P25",
+        "P29",
+        "P30",
+        "P31",
+        "P32",
+        "P33",
+        "P34",
+        "P35",
+        "P36",
+        "P37",
+        "P38",
+        "P39",
+        "P40",
+        "P41",
+        "P55",
+        "P61"
+      ]
+    },
+    {
+      "name": "Fuqarolik kodeksi",
+      "kind": "code",
+      "codeKey": "fuqarolik_kodeksi",
+      "parts": [
+        {
+          "lexuzId": "-180552",
+          "url": "https://lex.uz/uz/docs/-180552",
+          "title": "Oʻzbekiston Respublikasining Fuqarolik kodeksi (ikkinchi qism)",
+          "date": "29.08.1996",
+          "number": null,
+          "badge": "Oʻzbekiston Respublikasining Fuqarolik kodeksi"
+        },
+        {
+          "lexuzId": "-111189",
+          "url": "https://lex.uz/uz/docs/-111189",
+          "title": "Oʻzbekiston Respublikasining Fuqarolik kodeksi (birinchi qism)",
+          "date": "21.12.1995",
+          "number": null,
+          "badge": "Oʻzbekiston Respublikasining Fuqarolik kodeksi"
+        }
+      ],
+      "verifiedAt": "2026-11-17",
+      "problemIds": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P09",
+        "P10"
+      ]
+    },
+    {
+      "name": "Ma'muriy javobgarlik to'g'risidagi kodeks",
+      "kind": "code",
+      "codeKey": "mamuriy_javobgarlik_kodeksi",
+      "parts": [
+        {
+          "lexuzId": "-97664",
+          "url": "https://lex.uz/uz/docs/-97664",
+          "title": "Oʻzbekiston Respublikasining Maʼmuriy javobgarlik toʻgʻrisidagi kodeksi",
+          "date": "22.09.1994",
+          "number": null,
+          "badge": "Oʻzbekiston Respublikasining Maʼmuriy javobgarlik toʻgʻrisidagi kodeksi"
+        }
+      ],
+      "verifiedAt": "2026-11-17",
+      "problemIds": [
+        "P21",
+        "P25",
+        "P26",
+        "P29",
+        "P30",
+        "P42",
+        "P43",
+        "P44",
+        "P45",
+        "P46",
+        "P47",
+        "P48",
+        "P49",
+        "P65"
+      ]
+    },
+    {
+      "name": "Oila kodeksi",
+      "kind": "code",
+      "codeKey": "oila_kodeksi",
+      "parts": [
+        {
+          "lexuzId": "-104720",
+          "url": "https://lex.uz/uz/docs/-104720",
+          "title": "Oʻzbekiston Respublikasining Oila kodeksi",
+          "date": "30.04.1998",
+          "number": null,
+          "badge": "Oʻzbekiston Respublikasining Oila kodeksi"
+        }
+      ],
+      "verifiedAt": "2026-11-17",
+      "problemIds": [
+        "P21",
+        "P22",
+        "P23",
+        "P24",
+        "P26",
+        "P27",
+        "P28",
+        "P50"
+      ]
+    },
+    {
+      "name": "Bola huquqlarining kafolatlari to'g'risidagi qonun",
+      "kind": "law",
+      "codeKey": null,
+      "parts": [
+        {
+          "lexuzId": "-1297315",
+          "url": "https://lex.uz/uz/docs/-1297315",
+          "title": "Bola huquqlarining kafolatlari toʻgʻrisida",
+          "date": "07.01.2008",
+          "number": "O‘RQ-139-сон",
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 07.01.2008 yildagi O‘RQ-139-son"
+        }
+      ],
+      "verifiedAt": "2026-11-17",
+      "problemIds": [
+        "P62"
+      ]
+    },
+    {
+      "name": "Elektron tijorat to'g'risidagi qonun",
+      "kind": "law",
+      "codeKey": null,
+      "parts": [
+        {
+          "lexuzId": "-6213382",
+          "url": "https://lex.uz/uz/docs/-6213382",
+          "title": "Elektron tijorat toʻgʻrisida",
+          "date": "29.09.2022",
+          "number": "O‘RQ-792-сон",
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 29.09.2022 yildagi O‘RQ-792-son"
+        }
+      ],
+      "verifiedAt": "2026-11-17",
+      "problemIds": [
+        "P52"
+      ]
+    },
+    {
+      "name": "Fuqarolar sog'lig'ini saqlash to'g'risidagi qonun",
+      "kind": "law",
+      "codeKey": null,
+      "parts": [
+        {
+          "lexuzId": "-26013",
+          "url": "https://lex.uz/uz/docs/-26013",
+          "title": "Fuqarolar sogʻligʻini saqlash toʻgʻrisida",
+          "date": "29.08.1996",
+          "number": "265-I-сон",
+          "badge": "Oʻzbeksiton Respublikasining Qonuni, 29.08.1996 yildagi 265-I-son"
+        }
+      ],
+      "verifiedAt": "2026-11-17",
+      "problemIds": [
+        "P64"
+      ]
+    },
+    {
+      "name": "Fuqarolarning davlat pensiya ta'minoti to'g'risidagi qonun",
+      "kind": "law",
+      "codeKey": null,
+      "parts": [
+        {
+          "lexuzId": "-112314",
+          "url": "https://lex.uz/uz/docs/-112314",
+          "title": "Fuqarolarning davlat pensiya taʼminoti toʻgʻrisida",
+          "date": "03.09.1993",
+          "number": "938-XII-сон",
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 03.09.1993 yildagi 938-XII-son"
+        }
+      ],
+      "verifiedAt": "2026-11-17",
+      "problemIds": [
+        "P56"
+      ]
+    },
+    {
+      "name": "Iste'molchilarning huquqlarini himoya qilish to'g'risidagi qonun",
+      "kind": "law",
+      "codeKey": null,
+      "parts": [
+        {
+          "lexuzId": "-4704",
+          "url": "https://lex.uz/uz/docs/-4704",
+          "title": "Isteʼmolchilarning huquqlarini himoya qilish toʻgʻrisida",
+          "date": "26.04.1996",
+          "number": "221-I-сон",
+          "badge": "Oʻzbekiston Respublikasi Qonuni, 26.04.1996 yildagi 221-I-son"
+        }
+      ],
+      "verifiedAt": "2026-11-17",
+      "problemIds": [
+        "P51",
+        "P52",
+        "P53"
+      ]
+    },
+    {
+      "name": "Korrupsiyaga qarshi kurashish to'g'risidagi qonun",
+      "kind": "law",
+      "codeKey": null,
+      "parts": [
+        {
+          "lexuzId": "-3088008",
+          "url": "https://lex.uz/uz/docs/-3088008",
+          "title": "Korrupsiyaga qarshi kurashish toʻgʻrisida",
+          "date": "03.01.2017",
+          "number": "O‘RQ-419-сон",
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 03.01.2017 yildagi O‘RQ-419-son"
+        }
+      ],
+      "verifiedAt": "2026-11-17",
+      "problemIds": [
+        "P63"
+      ]
+    },
+    {
+      "name": "Nogironligi bo'lgan shaxslarning huquqlari to'g'risidagi qonun",
+      "kind": "law",
+      "codeKey": null,
+      "parts": [
+        {
+          "lexuzId": "-5049511",
+          "url": "https://lex.uz/uz/docs/-5049511",
+          "title": "Nogironligi boʻlgan shaxslarning huquqlari toʻgʻrisida",
+          "date": "15.10.2020",
+          "number": "O‘RQ-641-сон",
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 15.10.2020 yildagi O‘RQ-641-son"
+        }
+      ],
+      "verifiedAt": "2026-11-17",
+      "problemIds": [
+        "P47"
+      ]
+    },
+    {
+      "name": "Ta'lim to'g'risidagi qonun",
+      "kind": "law",
+      "codeKey": null,
+      "parts": [
+        {
+          "lexuzId": "-5013007",
+          "url": "https://lex.uz/uz/docs/-5013007",
+          "title": "Taʼlim toʻgʻrisida",
+          "date": "23.09.2020",
+          "number": "O‘RQ-637-сон",
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 23.09.2020 yildagi O‘RQ-637-son"
+        }
+      ],
+      "verifiedAt": "2026-11-17",
+      "problemIds": [
+        "P62",
+        "P63"
+      ]
+    },
+    {
+      "name": "Xotin-qizlarni tazyiq va zo'ravonlikdan himoya qilish to'g'risidagi qonun",
+      "kind": "law",
+      "codeKey": null,
+      "parts": [
+        {
+          "lexuzId": "-4494709",
+          "url": "https://lex.uz/uz/docs/-4494709",
+          "title": "Xotin-qizlarni tazyiq va zoʻravonlikdan himoya qilish toʻgʻrisida",
+          "date": "02.09.2019",
+          "number": "O‘RQ-561-сон",
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 02.09.2019 yildagi O‘RQ-561-son"
+        }
+      ],
+      "verifiedAt": "2026-11-17",
+      "problemIds": [
+        "P25"
+      ]
+    }
+  ],
+  "unresolved": [
+    {
+      "name": "Davlat xizmatlarini ko'rsatish to'g'risidagi normativ hujjatlar",
+      "problemIds": [
+        "P59"
+      ],
+      "reason": "Katalogda aniq bitta hujjat ko'rsatilmagan (umumiy havola)",
+      "candidates": []
+    },
+    {
+      "name": "Ish joyi joylashgan davlat qonunchiligi",
+      "problemIds": [
+        "P60"
+      ],
+      "reason": "Katalogda aniq bitta hujjat ko'rsatilmagan (umumiy havola)",
+      "candidates": []
+    },
+    {
+      "name": "Kam ta'minlangan oilalarga ijtimoiy nafaqa tayinlash tartibi",
+      "problemIds": [
+        "P57"
+      ],
+      "reason": "Katalogda aniq bitta hujjat ko'rsatilmagan (umumiy havola)",
+      "candidates": []
+    },
+    {
+      "name": "Kommunal xizmatlardan foydalanish qoidalari",
+      "problemIds": [
+        "P53"
+      ],
+      "reason": "Katalogda aniq bitta hujjat ko'rsatilmagan (umumiy havola)",
+      "candidates": []
+    },
+    {
+      "name": "Tashqi mehnat migratsiyasi to'g'risidagi normativ hujjatlar",
+      "problemIds": [
+        "P60"
+      ],
+      "reason": "Katalogda aniq bitta hujjat ko'rsatilmagan (umumiy havola)",
+      "candidates": []
+    },
+    {
+      "name": "Aholini ish bilan ta'minlash to'g'risidagi qonun",
+      "problemIds": [
+        "P60"
+      ],
+      "reason": "Qidiruvda aniq mos, amaldagi hujjat topilmadi",
+      "candidates": [
+        {
+          "title": "“Aholini ish bilan taʼminlash toʻgʻrisida”gi Oʻzbekiston Respublikasi Qonuniga, Oʻzbekiston Respublikasining Soliq kodeksiga hamda Oʻzbekiston Respublikasining Uy-joy kodeksiga qoʻshimchalar kiritish haqida",
+          "url": "https://lex.uz/uz/docs/-1018497",
+          "inForce": true,
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 21.06.2006 yildagi O‘RQ-36-son"
+        },
+        {
+          "title": "“Aholini ish bilan taʼminlash toʻgʻrisida”gi Oʻzbekiston Respublikasi Qonuniga oʻzgartishlar va qoʻshimchalar kiritish haqida",
+          "url": "https://lex.uz/uz/docs/-51887",
+          "inForce": false,
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 01.05.1998 yildagi 616-I-son"
+        },
+        {
+          "title": "“Aholini ish bilan taʼminlash toʻgʻrisida”gi Oʻzbekiston Respublikasining Qonuniga oʻzgartishlar va qoʻshimchalar kiritish haqida",
+          "url": "https://lex.uz/uz/docs/-101231",
+          "inForce": false,
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 07.05.1993 yildagi 854-XII-son"
+        },
+        {
+          "title": "Aholini ish bilan taʼminlash toʻgʻrisida",
+          "url": "https://lex.uz/uz/docs/-14893",
+          "inForce": false,
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 13.01.1992 yildagi 510-XII-son"
+        }
+      ]
+    },
+    {
+      "name": "Bank xizmatlari iste'molchilarining huquqlarini himoya qilish to'g'risidagi qonun",
+      "problemIds": [
+        "P54"
+      ],
+      "reason": "Qidiruvda aniq mos, amaldagi hujjat topilmadi",
+      "candidates": []
+    },
+    {
+      "name": "Banklar va bank faoliyati to'g'risidagi qonun",
+      "problemIds": [
+        "P54",
+        "P55"
+      ],
+      "reason": "Qidiruvda aniq mos, amaldagi hujjat topilmadi",
+      "candidates": [
+        {
+          "title": "Oʻzbekiston Respublikasining ayrim qonun hujjatlariga Oʻzbekistonda islomiy bank faoliyatini joriy etishga qaratilgan qoʻshimcha va oʻzgartirishlar kiritish toʻgʻrisida",
+          "url": "https://lex.uz/uz/docs/-8099403",
+          "inForce": true,
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 27.03.2026 yildagi O‘RQ-1126-son"
+        },
+        {
+          "title": "“Banklar va bank faoliyati toʻgʻrisida”gi Oʻzbekiston Respublikasi Qonuniga oʻzgartishlar kiritish haqida",
+          "url": "https://lex.uz/uz/docs/-6437258",
+          "inForce": true,
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 19.04.2023 yildagi O‘RQ-831-son"
+        },
+        {
+          "title": "“Banklar va bank faoliyati toʻgʻrisida”gi Oʻzbekiston Respublikasi Qonuniga oʻzgartish va qoʻshimchalar kiritish haqida",
+          "url": "https://lex.uz/uz/docs/-4581969",
+          "inForce": true,
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 05.11.2019 yildagi O‘RQ-580-son"
+        },
+        {
+          "title": "Xususiy bank va moliya institutlari hamda ular faoliyatining kafolatlari toʻgʻrisida",
+          "url": "https://lex.uz/uz/docs/-2102388",
+          "inForce": false,
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 17.12.2012 yildagi O‘RQ-339-son"
+        },
+        {
+          "title": "“Banklar va bank faoliyati toʻgʻrisida”gi Oʻzbekiston Respublikasi Qonunining 7-moddasiga qoʻshimcha kiritish haqida",
+          "url": "https://lex.uz/uz/docs/-1055143",
+          "inForce": true,
+          "badge": "Oʻzbekiston Respublikasining qonuni, 14.09.2006 yildagi O‘RQ-49-son"
+        }
+      ]
+    },
+    {
+      "name": "Ijtimoiy himoya to'g'risidagi qonun",
+      "problemIds": [
+        "P57"
+      ],
+      "reason": "Qidiruvda aniq mos, amaldagi hujjat topilmadi",
+      "candidates": [
+        {
+          "title": "Bolalarni ijtimoiy himoya qilish tizimi takomillashtirilishi munosabati bilan Oʻzbekiston Respublikasining ayrim qonun hujjatlariga qoʻshimcha va oʻzgartirishlar kiritish toʻgʻrisida",
+          "url": "https://lex.uz/uz/docs/-8472495",
+          "inForce": true,
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 11.09.2026 yildagi O‘RQ-1174-son"
+        },
+        {
+          "title": "Aholini ijtimoiy himoya qilish tizimi yanada takomillashtirilishi munosabati bilan Oʻzbekiston Respublikasining ayrim qonun hujjatlariga qoʻshimcha va oʻzgartirishlar kiritish toʻgʻrisida",
+          "url": "https://lex.uz/uz/docs/-7924072",
+          "inForce": true,
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 17.12.2025 yildagi O‘RQ-1102-son"
+        },
+        {
+          "title": "Oʻzbekiston Respublikasining ayrim qonun hujjatlariga fuqarolarning ijtimoiy himoyasini yanada kuchaytirishga qaratilgan oʻzgartirish va qoʻshimchalar kiritish toʻgʻrisida",
+          "url": "https://lex.uz/uz/docs/-6842774",
+          "inForce": true,
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 18.03.2024 yildagi O‘RQ-922-son"
+        },
+        {
+          "title": "Aholining ijtimoiy jihatdan himoya qilinishini taʼminlash va uy-joy kommunal xizmatlar koʻrsatish tizimi takomillashtirilishi munosabati bilan Oʻzbekiston Respublikasining ayrim qonun hujjatlariga oʻzgartish va qoʻshimchalar kiritish toʻgʻrisida",
+          "url": "https://lex.uz/uz/docs/-3992863",
+          "inForce": true,
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 16.10.2018 yildagi O‘RQ-500-son"
+        },
+        {
+          "title": "“Oʻzbekiston Respublikasida nogironlarni ijtimoiy himoya qilish toʻgʻrisida”gi Oʻzbekiston Respublikasi Qonuniga oʻzgartish va qoʻshimchalar kiritish haqida",
+          "url": "https://lex.uz/uz/docs/-1372495",
+          "inForce": false,
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 11.07.2008 yildagi O‘RQ-162-son"
+        }
+      ]
+    },
+    {
+      "name": "Jismoniy va yuridik shaxslarning murojaatlari to'g'risidagi qonun",
+      "problemIds": [
+        "P58",
+        "P59"
+      ],
+      "reason": "Qidiruvda aniq mos, amaldagi hujjat topilmadi",
+      "candidates": [
+        {
+          "title": "“Jismoniy va yuridik shaxslarning murojaatlari toʻgʻrisida”gi Oʻzbekiston Respublikasi Qonuniga oʻzgartish va qoʻshimchalar kiritish haqida",
+          "url": "https://lex.uz/uz/docs/-3336169",
+          "inForce": true,
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 11.09.2017 yildagi O‘RQ-445-son"
+        },
+        {
+          "title": "Jismoniy va yuridik shaxslarning murojaatlari toʻgʻrisida",
+          "url": "https://lex.uz/uz/docs/-2509996",
+          "inForce": false,
+          "badge": "Oʻzbekiston Respublikasining Qonuni, 03.12.2014 yildagi O‘RQ-378-son"
+        }
+      ]
+    },
+    {
+      "name": "Odam savdosiga qarshi kurash to'g'risidagi qonun",
+      "problemIds": [
+        "P61"
+      ],
+      "reason": "Qidiruvda aniq mos, amaldagi hujjat topilmadi",
+      "candidates": []
+    }
+  ]
+}

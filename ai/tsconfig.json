@@ -1,5 +1,5 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": { "outDir": "dist", "rootDir": ".", "noEmit": true, "types": ["node"] },
-  "include": ["index.ts", "models", "prompts", "rag", "pipeline", "eval", "test"]
+  "include": ["index.ts", "models", "prompts", "rag", "pipeline", "eval", "test", "scripts"]
 }

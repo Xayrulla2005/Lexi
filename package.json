@@ -19,7 +19,8 @@
     "test": "pnpm build:packages && pnpm -r test",
     "build": "pnpm -r build",
     "import:data": "pnpm --filter @lex/data-import start",
-    "eval:ai": "pnpm --filter @lex/ai eval"
+    "eval:ai": "pnpm --filter @lex/ai eval",
+    "rag:sources": "pnpm --filter @lex/ai rag:sources"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

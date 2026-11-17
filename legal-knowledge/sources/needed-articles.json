@@ -1,0 +1,1231 @@
+{
+  "generatedAt": "2026-11-17T08:12:07.318Z",
+  "source": "legal-knowledge/catalog/problems.json (qonunlar)",
+  "codes": [
+    {
+      "key": "mehnat_kodeksi",
+      "name": "Mehnat kodeksi",
+      "articles": [
+        {
+          "id": "4",
+          "display": "4",
+          "problemIds": [
+            "P18"
+          ],
+          "citations": [
+            "Mehnat kodeksi 4, 119-moddalar"
+          ]
+        },
+        {
+          "id": "106",
+          "display": "106",
+          "problemIds": [
+            "P11"
+          ],
+          "citations": [
+            "Mehnat kodeksi 106, 126-moddalar"
+          ]
+        },
+        {
+          "id": "119",
+          "display": "119",
+          "problemIds": [
+            "P18"
+          ],
+          "citations": [
+            "Mehnat kodeksi 4, 119-moddalar"
+          ]
+        },
+        {
+          "id": "126",
+          "display": "126",
+          "problemIds": [
+            "P11"
+          ],
+          "citations": [
+            "Mehnat kodeksi 106, 126-moddalar"
+          ]
+        },
+        {
+          "id": "161",
+          "display": "161",
+          "problemIds": [
+            "P14"
+          ],
+          "citations": [
+            "Mehnat kodeksi 161-modda"
+          ]
+        },
+        {
+          "id": "189",
+          "display": "189",
+          "problemIds": [
+            "P13"
+          ],
+          "citations": [
+            "Mehnat kodeksi 189-modda"
+          ]
+        },
+        {
+          "id": "216",
+          "display": "216",
+          "problemIds": [
+            "P15"
+          ],
+          "citations": [
+            "Mehnat kodeksi 216, 223, 228-moddalar"
+          ]
+        },
+        {
+          "id": "223",
+          "display": "223",
+          "problemIds": [
+            "P15"
+          ],
+          "citations": [
+            "Mehnat kodeksi 216, 223, 228-moddalar"
+          ]
+        },
+        {
+          "id": "228",
+          "display": "228",
+          "problemIds": [
+            "P15"
+          ],
+          "citations": [
+            "Mehnat kodeksi 216, 223, 228-moddalar"
+          ]
+        },
+        {
+          "id": "253",
+          "display": "253",
+          "problemIds": [
+            "P12"
+          ],
+          "citations": [
+            "Mehnat kodeksi 253-modda"
+          ]
+        },
+        {
+          "id": "269",
+          "display": "269",
+          "problemIds": [
+            "P19"
+          ],
+          "citations": [
+            "Mehnat kodeksi 269, 337, 338-moddalar"
+          ]
+        },
+        {
+          "id": "333",
+          "display": "333",
+          "problemIds": [
+            "P12"
+          ],
+          "citations": [
+            "Mehnat kodeksi 333-modda (kechiktirish uchun kompensatsiya)"
+          ]
+        },
+        {
+          "id": "337",
+          "display": "337",
+          "problemIds": [
+            "P19"
+          ],
+          "citations": [
+            "Mehnat kodeksi 269, 337, 338-moddalar"
+          ]
+        },
+        {
+          "id": "338",
+          "display": "338",
+          "problemIds": [
+            "P19"
+          ],
+          "citations": [
+            "Mehnat kodeksi 269, 337, 338-moddalar"
+          ]
+        },
+        {
+          "id": "355",
+          "display": "355",
+          "problemIds": [
+            "P17",
+            "P20"
+          ],
+          "citations": [
+            "Mehnat kodeksi 355, 356, 359-moddalar"
+          ]
+        },
+        {
+          "id": "356",
+          "display": "356",
+          "problemIds": [
+            "P17",
+            "P20"
+          ],
+          "citations": [
+            "Mehnat kodeksi 355, 356, 359-moddalar"
+          ]
+        },
+        {
+          "id": "359",
+          "display": "359",
+          "problemIds": [
+            "P17",
+            "P20"
+          ],
+          "citations": [
+            "Mehnat kodeksi 355, 356, 359-moddalar"
+          ]
+        },
+        {
+          "id": "396",
+          "display": "396",
+          "problemIds": [
+            "P16"
+          ],
+          "citations": [
+            "Mehnat kodeksi 396, 408, 417, 421-moddalar"
+          ]
+        },
+        {
+          "id": "408",
+          "display": "408",
+          "problemIds": [
+            "P16"
+          ],
+          "citations": [
+            "Mehnat kodeksi 396, 408, 417, 421-moddalar"
+          ]
+        },
+        {
+          "id": "417",
+          "display": "417",
+          "problemIds": [
+            "P16"
+          ],
+          "citations": [
+            "Mehnat kodeksi 396, 408, 417, 421-moddalar"
+          ]
+        },
+        {
+          "id": "421",
+          "display": "421",
+          "problemIds": [
+            "P16"
+          ],
+          "citations": [
+            "Mehnat kodeksi 396, 408, 417, 421-moddalar"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "jinoyat_kodeksi",
+      "name": "Jinoyat kodeksi",
+      "articles": [
+        {
+          "id": "104",
+          "display": "104",
+          "problemIds": [
+            "P35"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 104, 105, 109-moddalar"
+          ]
+        },
+        {
+          "id": "105",
+          "display": "105",
+          "problemIds": [
+            "P35"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 104, 105, 109-moddalar"
+          ]
+        },
+        {
+          "id": "109",
+          "display": "109",
+          "problemIds": [
+            "P35"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 104, 105, 109-moddalar"
+          ]
+        },
+        {
+          "id": "122",
+          "display": "122",
+          "problemIds": [
+            "P21"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 122-modda"
+          ]
+        },
+        {
+          "id": "125-1",
+          "display": "125¹",
+          "problemIds": [
+            "P30"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 125¹-modda"
+          ]
+        },
+        {
+          "id": "126-1",
+          "display": "126¹",
+          "problemIds": [
+            "P25",
+            "P29"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 126¹-modda"
+          ]
+        },
+        {
+          "id": "135",
+          "display": "135",
+          "problemIds": [
+            "P61"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 135-modda (odam savdosi)"
+          ]
+        },
+        {
+          "id": "164",
+          "display": "164",
+          "problemIds": [
+            "P34"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 164-modda"
+          ]
+        },
+        {
+          "id": "166",
+          "display": "166",
+          "problemIds": [
+            "P33"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 166-modda"
+          ]
+        },
+        {
+          "id": "168",
+          "display": "168",
+          "problemIds": [
+            "P31",
+            "P41",
+            "P55"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 168-modda",
+            "Jinoyat kodeksi 168, 169, 278¹-moddalar",
+            "Jinoyat kodeksi 168-modda (firibgarlik)"
+          ]
+        },
+        {
+          "id": "169",
+          "display": "169",
+          "problemIds": [
+            "P32",
+            "P41"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 169-modda",
+            "Jinoyat kodeksi 168, 169, 278¹-moddalar"
+          ]
+        },
+        {
+          "id": "210",
+          "display": "210",
+          "problemIds": [
+            "P36"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 210-modda"
+          ]
+        },
+        {
+          "id": "211",
+          "display": "211",
+          "problemIds": [
+            "P37"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 211-modda"
+          ]
+        },
+        {
+          "id": "212",
+          "display": "212",
+          "problemIds": [
+            "P38"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 212-modda"
+          ]
+        },
+        {
+          "id": "257",
+          "display": "257",
+          "problemIds": [
+            "P17"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 257-modda"
+          ]
+        },
+        {
+          "id": "270",
+          "display": "270",
+          "problemIds": [
+            "P39"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 270–276-moddalar"
+          ]
+        },
+        {
+          "id": "271",
+          "display": "271",
+          "problemIds": [
+            "P39"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 270–276-moddalar"
+          ]
+        },
+        {
+          "id": "272",
+          "display": "272",
+          "problemIds": [
+            "P39"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 270–276-moddalar"
+          ]
+        },
+        {
+          "id": "273",
+          "display": "273",
+          "problemIds": [
+            "P39"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 270–276-moddalar"
+          ]
+        },
+        {
+          "id": "274",
+          "display": "274",
+          "problemIds": [
+            "P39"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 270–276-moddalar"
+          ]
+        },
+        {
+          "id": "275",
+          "display": "275",
+          "problemIds": [
+            "P39"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 270–276-moddalar"
+          ]
+        },
+        {
+          "id": "276",
+          "display": "276",
+          "problemIds": [
+            "P39"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 270–276-moddalar"
+          ]
+        },
+        {
+          "id": "278-1",
+          "display": "278¹",
+          "problemIds": [
+            "P40",
+            "P41"
+          ],
+          "citations": [
+            "Jinoyat kodeksi 278¹-modda",
+            "Jinoyat kodeksi 168, 169, 278¹-moddalar"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "fuqarolik_kodeksi",
+      "name": "Fuqarolik kodeksi",
+      "articles": [
+        {
+          "id": "14",
+          "display": "14",
+          "problemIds": [
+            "P05",
+            "P06"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 14, 324, 985-moddalar",
+            "Fuqarolik kodeksi 14, 985-moddalar"
+          ]
+        },
+        {
+          "id": "166",
+          "display": "166",
+          "problemIds": [
+            "P03"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 166-modda"
+          ]
+        },
+        {
+          "id": "238",
+          "display": "238",
+          "problemIds": [
+            "P02"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 238-modda"
+          ]
+        },
+        {
+          "id": "324",
+          "display": "324",
+          "problemIds": [
+            "P05"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 14, 324, 985-moddalar"
+          ]
+        },
+        {
+          "id": "386",
+          "display": "386",
+          "problemIds": [
+            "P04"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 386, 388, 389, 390, 391-moddalar"
+          ]
+        },
+        {
+          "id": "388",
+          "display": "388",
+          "problemIds": [
+            "P04"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 386, 388, 389, 390, 391-moddalar"
+          ]
+        },
+        {
+          "id": "389",
+          "display": "389",
+          "problemIds": [
+            "P04"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 386, 388, 389, 390, 391-moddalar"
+          ]
+        },
+        {
+          "id": "390",
+          "display": "390",
+          "problemIds": [
+            "P04"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 386, 388, 389, 390, 391-moddalar"
+          ]
+        },
+        {
+          "id": "391",
+          "display": "391",
+          "problemIds": [
+            "P04"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 386, 388, 389, 390, 391-moddalar"
+          ]
+        },
+        {
+          "id": "535",
+          "display": "535",
+          "problemIds": [
+            "P10"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 535-modda"
+          ]
+        },
+        {
+          "id": "735",
+          "display": "735",
+          "problemIds": [
+            "P01"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 735-modda"
+          ]
+        },
+        {
+          "id": "985",
+          "display": "985",
+          "problemIds": [
+            "P05",
+            "P06"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 14, 324, 985-moddalar",
+            "Fuqarolik kodeksi 14, 985-moddalar"
+          ]
+        },
+        {
+          "id": "1023",
+          "display": "1023",
+          "problemIds": [
+            "P08"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 1023, 1025, 1026, 1029-moddalar"
+          ]
+        },
+        {
+          "id": "1025",
+          "display": "1025",
+          "problemIds": [
+            "P08"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 1023, 1025, 1026, 1029-moddalar"
+          ]
+        },
+        {
+          "id": "1026",
+          "display": "1026",
+          "problemIds": [
+            "P08"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 1023, 1025, 1026, 1029-moddalar"
+          ]
+        },
+        {
+          "id": "1029",
+          "display": "1029",
+          "problemIds": [
+            "P08"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 1023, 1025, 1026, 1029-moddalar"
+          ]
+        },
+        {
+          "id": "1040",
+          "display": "1040",
+          "problemIds": [
+            "P07"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 1040, 1051, 1056, 1058, 1059-moddalar"
+          ]
+        },
+        {
+          "id": "1051",
+          "display": "1051",
+          "problemIds": [
+            "P07"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 1040, 1051, 1056, 1058, 1059-moddalar"
+          ]
+        },
+        {
+          "id": "1056",
+          "display": "1056",
+          "problemIds": [
+            "P07"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 1040, 1051, 1056, 1058, 1059-moddalar"
+          ]
+        },
+        {
+          "id": "1058",
+          "display": "1058",
+          "problemIds": [
+            "P07"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 1040, 1051, 1056, 1058, 1059-moddalar"
+          ]
+        },
+        {
+          "id": "1059",
+          "display": "1059",
+          "problemIds": [
+            "P07"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 1040, 1051, 1056, 1058, 1059-moddalar"
+          ]
+        },
+        {
+          "id": "1114",
+          "display": "1114",
+          "problemIds": [
+            "P09"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 1114, 1115-moddalar"
+          ]
+        },
+        {
+          "id": "1115",
+          "display": "1115",
+          "problemIds": [
+            "P09"
+          ],
+          "citations": [
+            "Fuqarolik kodeksi 1114, 1115-moddalar"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "mamuriy_javobgarlik_kodeksi",
+      "name": "Ma'muriy javobgarlik to'g'risidagi kodeks",
+      "articles": [
+        {
+          "id": "41",
+          "display": "41",
+          "problemIds": [
+            "P42"
+          ],
+          "citations": [
+            "Ma'muriy javobgarlik to'g'risidagi kodeks 41-modda (haqorat)"
+          ]
+        },
+        {
+          "id": "47",
+          "display": "47",
+          "problemIds": [
+            "P26"
+          ],
+          "citations": [
+            "Ma'muriy javobgarlik to'g'risidagi kodeks 47-modda"
+          ]
+        },
+        {
+          "id": "47-3",
+          "display": "47³",
+          "problemIds": [
+            "P30"
+          ],
+          "citations": [
+            "Ma'muriy javobgarlik to'g'risidagi kodeks 47³-modda"
+          ]
+        },
+        {
+          "id": "47-4",
+          "display": "47⁴",
+          "problemIds": [
+            "P21"
+          ],
+          "citations": [
+            "Ma'muriy javobgarlik to'g'risidagi kodeks 47⁴-modda"
+          ]
+        },
+        {
+          "id": "49",
+          "display": "49",
+          "problemIds": [
+            "P49"
+          ],
+          "citations": [
+            "Ma'muriy javobgarlik to'g'risidagi kodeks 49-modda"
+          ]
+        },
+        {
+          "id": "51",
+          "display": "51",
+          "problemIds": [
+            "P48"
+          ],
+          "citations": [
+            "Ma'muriy javobgarlik to'g'risidagi kodeks 51-modda"
+          ]
+        },
+        {
+          "id": "51-1",
+          "display": "51¹",
+          "problemIds": [
+            "P47"
+          ],
+          "citations": [
+            "Ma'muriy javobgarlik to'g'risidagi kodeks 51¹-modda"
+          ]
+        },
+        {
+          "id": "59-2",
+          "display": "59²",
+          "problemIds": [
+            "P25",
+            "P29"
+          ],
+          "citations": [
+            "Ma'muriy javobgarlik to'g'risidagi kodeks 59²-modda"
+          ]
+        },
+        {
+          "id": "79",
+          "display": "79",
+          "problemIds": [
+            "P46"
+          ],
+          "citations": [
+            "Ma'muriy javobgarlik to'g'risidagi kodeks 79-modda"
+          ]
+        },
+        {
+          "id": "176",
+          "display": "176",
+          "problemIds": [
+            "P45"
+          ],
+          "citations": [
+            "Ma'muriy javobgarlik to'g'risidagi kodeks 176-modda"
+          ]
+        },
+        {
+          "id": "183",
+          "display": "183",
+          "problemIds": [
+            "P42"
+          ],
+          "citations": [
+            "Ma'muriy javobgarlik to'g'risidagi kodeks 183-modda"
+          ]
+        },
+        {
+          "id": "187",
+          "display": "187",
+          "problemIds": [
+            "P43"
+          ],
+          "citations": [
+            "Ma'muriy javobgarlik to'g'risidagi kodeks 187-modda"
+          ]
+        },
+        {
+          "id": "192",
+          "display": "192",
+          "problemIds": [
+            "P44"
+          ],
+          "citations": [
+            "Ma'muriy javobgarlik to'g'risidagi kodeks 192-modda"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "oila_kodeksi",
+      "name": "Oila kodeksi",
+      "articles": [
+        {
+          "id": "23",
+          "display": "23",
+          "problemIds": [
+            "P24"
+          ],
+          "citations": [
+            "Oila kodeksi 23–28-moddalar"
+          ]
+        },
+        {
+          "id": "24",
+          "display": "24",
+          "problemIds": [
+            "P24"
+          ],
+          "citations": [
+            "Oila kodeksi 23–28-moddalar"
+          ]
+        },
+        {
+          "id": "25",
+          "display": "25",
+          "problemIds": [
+            "P24"
+          ],
+          "citations": [
+            "Oila kodeksi 23–28-moddalar"
+          ]
+        },
+        {
+          "id": "26",
+          "display": "26",
+          "problemIds": [
+            "P24"
+          ],
+          "citations": [
+            "Oila kodeksi 23–28-moddalar"
+          ]
+        },
+        {
+          "id": "27",
+          "display": "27",
+          "problemIds": [
+            "P24"
+          ],
+          "citations": [
+            "Oila kodeksi 23–28-moddalar"
+          ]
+        },
+        {
+          "id": "28",
+          "display": "28",
+          "problemIds": [
+            "P24"
+          ],
+          "citations": [
+            "Oila kodeksi 23–28-moddalar"
+          ]
+        },
+        {
+          "id": "38",
+          "display": "38",
+          "problemIds": [
+            "P23"
+          ],
+          "citations": [
+            "Oila kodeksi 38, 39, 40-moddalar"
+          ]
+        },
+        {
+          "id": "39",
+          "display": "39",
+          "problemIds": [
+            "P23"
+          ],
+          "citations": [
+            "Oila kodeksi 38, 39, 40-moddalar"
+          ]
+        },
+        {
+          "id": "40",
+          "display": "40",
+          "problemIds": [
+            "P23"
+          ],
+          "citations": [
+            "Oila kodeksi 38, 39, 40-moddalar"
+          ]
+        },
+        {
+          "id": "66",
+          "display": "66",
+          "problemIds": [
+            "P28"
+          ],
+          "citations": [
+            "Oila kodeksi 66, 76-moddalar"
+          ]
+        },
+        {
+          "id": "73",
+          "display": "73",
+          "problemIds": [
+            "P26"
+          ],
+          "citations": [
+            "Oila kodeksi 73, 75, 79-moddalar"
+          ]
+        },
+        {
+          "id": "75",
+          "display": "75",
+          "problemIds": [
+            "P26",
+            "P27"
+          ],
+          "citations": [
+            "Oila kodeksi 73, 75, 79-moddalar",
+            "Oila kodeksi 75-modda"
+          ]
+        },
+        {
+          "id": "76",
+          "display": "76",
+          "problemIds": [
+            "P28"
+          ],
+          "citations": [
+            "Oila kodeksi 66, 76-moddalar"
+          ]
+        },
+        {
+          "id": "79",
+          "display": "79",
+          "problemIds": [
+            "P26"
+          ],
+          "citations": [
+            "Oila kodeksi 73, 75, 79-moddalar"
+          ]
+        },
+        {
+          "id": "96",
+          "display": "96",
+          "problemIds": [
+            "P21",
+            "P22"
+          ],
+          "citations": [
+            "Oila kodeksi 96, 109-moddalar"
+          ]
+        },
+        {
+          "id": "109",
+          "display": "109",
+          "problemIds": [
+            "P21",
+            "P22"
+          ],
+          "citations": [
+            "Oila kodeksi 96, 109-moddalar"
+          ]
+        }
+      ]
+    }
+  ],
+  "withoutArticles": [
+    {
+      "citation": "Aholini ish bilan ta'minlash to'g'risidagi qonun",
+      "document": "Aholini ish bilan ta'minlash to'g'risidagi qonun",
+      "codeKey": null,
+      "problemIds": [
+        "P60"
+      ],
+      "note": null
+    },
+    {
+      "citation": "Bank xizmatlari iste'molchilarining huquqlarini himoya qilish to'g'risidagi qonun",
+      "document": "Bank xizmatlari iste'molchilarining huquqlarini himoya qilish to'g'risidagi qonun",
+      "codeKey": null,
+      "problemIds": [
+        "P54"
+      ],
+      "note": null
+    },
+    {
+      "citation": "Banklar va bank faoliyati to'g'risidagi qonun",
+      "document": "Banklar va bank faoliyati to'g'risidagi qonun",
+      "codeKey": null,
+      "problemIds": [
+        "P54",
+        "P55"
+      ],
+      "note": null
+    },
+    {
+      "citation": "Bola huquqlarining kafolatlari to'g'risidagi qonun",
+      "document": "Bola huquqlarining kafolatlari to'g'risidagi qonun",
+      "codeKey": null,
+      "problemIds": [
+        "P62"
+      ],
+      "note": null
+    },
+    {
+      "citation": "Davlat xizmatlarini ko'rsatish to'g'risidagi normativ hujjatlar",
+      "document": "Davlat xizmatlarini ko'rsatish to'g'risidagi normativ hujjatlar",
+      "codeKey": null,
+      "problemIds": [
+        "P59"
+      ],
+      "note": null
+    },
+    {
+      "citation": "Elektron tijorat to'g'risidagi qonun",
+      "document": "Elektron tijorat to'g'risidagi qonun",
+      "codeKey": null,
+      "problemIds": [
+        "P52"
+      ],
+      "note": null
+    },
+    {
+      "citation": "Fuqarolar sog'lig'ini saqlash to'g'risidagi qonun",
+      "document": "Fuqarolar sog'lig'ini saqlash to'g'risidagi qonun",
+      "codeKey": null,
+      "problemIds": [
+        "P64"
+      ],
+      "note": null
+    },
+    {
+      "citation": "Fuqarolarning davlat pensiya ta'minoti to'g'risidagi qonun",
+      "document": "Fuqarolarning davlat pensiya ta'minoti to'g'risidagi qonun",
+      "codeKey": null,
+      "problemIds": [
+        "P56"
+      ],
+      "note": null
+    },
+    {
+      "citation": "Ijtimoiy himoya to'g'risidagi qonun",
+      "document": "Ijtimoiy himoya to'g'risidagi qonun",
+      "codeKey": null,
+      "problemIds": [
+        "P57"
+      ],
+      "note": null
+    },
+    {
+      "citation": "Ish joyi joylashgan davlat qonunchiligi",
+      "document": "Ish joyi joylashgan davlat qonunchiligi",
+      "codeKey": null,
+      "problemIds": [
+        "P60"
+      ],
+      "note": null
+    },
+    {
+      "citation": "Iste'molchilarning huquqlarini himoya qilish to'g'risidagi qonun",
+      "document": "Iste'molchilarning huquqlarini himoya qilish to'g'risidagi qonun",
+      "codeKey": null,
+      "problemIds": [
+        "P51",
+        "P52",
+        "P53"
+      ],
+      "note": null
+    },
+    {
+      "citation": "Jismoniy va yuridik shaxslarning murojaatlari to'g'risidagi qonun (javob muddati 15 kun, istisno holatda 1 oygacha)",
+      "document": "Jismoniy va yuridik shaxslarning murojaatlari to'g'risidagi qonun",
+      "codeKey": null,
+      "problemIds": [
+        "P58",
+        "P59"
+      ],
+      "note": "(javob muddati 15 kun, istisno holatda 1 oygacha)"
+    },
+    {
+      "citation": "Kam ta'minlangan oilalarga ijtimoiy nafaqa tayinlash tartibi (Vazirlar Mahkamasi qarori)",
+      "document": "Kam ta'minlangan oilalarga ijtimoiy nafaqa tayinlash tartibi",
+      "codeKey": null,
+      "problemIds": [
+        "P57"
+      ],
+      "note": "(Vazirlar Mahkamasi qarori)"
+    },
+    {
+      "citation": "Kommunal xizmatlardan foydalanish qoidalari",
+      "document": "Kommunal xizmatlardan foydalanish qoidalari",
+      "codeKey": null,
+      "problemIds": [
+        "P53"
+      ],
+      "note": null
+    },
+    {
+      "citation": "Korrupsiyaga qarshi kurashish to'g'risidagi qonun",
+      "document": "Korrupsiyaga qarshi kurashish to'g'risidagi qonun",
+      "codeKey": null,
+      "problemIds": [
+        "P63"
+      ],
+      "note": null
+    },
+    {
+      "citation": "Ma'muriy javobgarlik to'g'risidagi kodeks (qarorlar ustidan shikoyat tartibi)",
+      "document": "Ma'muriy javobgarlik to'g'risidagi kodeks",
+      "codeKey": "mamuriy_javobgarlik_kodeksi",
+      "problemIds": [
+        "P65"
+      ],
+      "note": "(qarorlar ustidan shikoyat tartibi)"
+    },
+    {
+      "citation": "Ma'muriy javobgarlik to'g'risidagi kodeks (yo'l harakati bo'limi)",
+      "document": "Ma'muriy javobgarlik to'g'risidagi kodeks",
+      "codeKey": "mamuriy_javobgarlik_kodeksi",
+      "problemIds": [
+        "P65"
+      ],
+      "note": "(yo'l harakati bo'limi)"
+    },
+    {
+      "citation": "Nogironligi bo'lgan shaxslarning huquqlari to'g'risidagi qonun",
+      "document": "Nogironligi bo'lgan shaxslarning huquqlari to'g'risidagi qonun",
+      "codeKey": null,
+      "problemIds": [
+        "P47"
+      ],
+      "note": null
+    },
+    {
+      "citation": "Odam savdosiga qarshi kurash to'g'risidagi qonun",
+      "document": "Odam savdosiga qarshi kurash to'g'risidagi qonun",
+      "codeKey": null,
+      "problemIds": [
+        "P61"
+      ],
+      "note": null
+    },
+    {
+      "citation": "Oila kodeksi (ota-onalik huquqlari) — moddalar ⚠️",
+      "document": "Oila kodeksi",
+      "codeKey": "oila_kodeksi",
+      "problemIds": [
+        "P50"
+      ],
+      "note": "moddalar ⚠️"
+    },
+    {
+      "citation": "Ta'lim to'g'risidagi qonun",
+      "document": "Ta'lim to'g'risidagi qonun",
+      "codeKey": null,
+      "problemIds": [
+        "P62",
+        "P63"
+      ],
+      "note": null
+    },
+    {
+      "citation": "Tashqi mehnat migratsiyasi to'g'risidagi normativ hujjatlar",
+      "document": "Tashqi mehnat migratsiyasi to'g'risidagi normativ hujjatlar",
+      "codeKey": null,
+      "problemIds": [
+        "P60"
+      ],
+      "note": null
+    },
+    {
+      "citation": "Xotin-qizlarni tazyiq va zo'ravonlikdan himoya qilish to'g'risidagi qonun",
+      "document": "Xotin-qizlarni tazyiq va zo'ravonlikdan himoya qilish to'g'risidagi qonun",
+      "codeKey": null,
+      "problemIds": [
+        "P25"
+      ],
+      "note": null
+    }
+  ]
+}

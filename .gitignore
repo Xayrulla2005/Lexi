@@ -39,3 +39,9 @@ Thumbs.db
 # Simulators: test key pairs and runtime state (generated on first run)
 data/sim/keys/
 data/runtime/
+
+# lex.uz page cache (RAG sources)
+legal-knowledge/sources/cache/
+
+# Local ONNX model cache (bge-m3)
+ai/.model-cache/
