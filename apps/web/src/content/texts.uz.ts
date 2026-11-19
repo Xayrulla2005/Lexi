@@ -136,6 +136,7 @@ export const texts = {
     lexUz: "lex.uz'da ochish",
     emergencyTitle: "Shoshilinch yordam",
     callSentTitle: "Chaqiruv yuborildi (SIMULYATOR)",
+    unknownValue: "ma'lum emas",
     callStatus: "Ekipaj yuborildi",
     statusTitle: "Ariza holati",
     loginTitle: "Kirish kerak",

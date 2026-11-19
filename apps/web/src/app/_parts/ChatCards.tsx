@@ -172,5 +172,15 @@ export function CardView({ card, onRefresh }: { card: ChatCard; onRefresh: () =>
           <a href={card.url}>{texts.chat.loginLink}</a>
         </div>
       );
+    case "facts":
+      return (
+        <div style={box}>
+          {card.items.map((it, i) => (
+            <div key={i} style={{ fontSize: 14 }}>
+              <b>{it.label}:</b> {it.value ?? texts.chat.unknownValue}
+            </div>
+          ))}
+        </div>
+      );
   }
 }

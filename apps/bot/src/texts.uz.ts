@@ -47,5 +47,6 @@ export const texts = {
   openOnWeb: "Vebda davom eting:",
   statusLabel: "Holat:",
   callSentTitle: "Chaqiruv yuborildi (SIMULYATOR)",
+  unknownValue: "ma'lum emas",
   signOnWeb: "📝 Vebda imzolab yuborish",
 };

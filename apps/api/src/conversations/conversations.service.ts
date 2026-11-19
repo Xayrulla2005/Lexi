@@ -43,16 +43,6 @@ const MAX_DETAIL_QUESTIONS = 4;
 const OTHER_PARTY = "qarshi_taraf";
 
 const yes = (t: string) => /^(ha|xa|ha,|да|yes|roziman|mayli|albatta)\b/i.test(t.trim());
-const fieldLabel = (key: string) => key.replace(/_/g, " ");
-/**
- * Generic template keys ("malumot_1") mean nothing to the user: label such answers by their
- * question (short LLM questions) or by the template blank «… [____] …» (fallback questions).
- */
-const answerLabel = (key: string, question: string | undefined): string => {
-  if (!question || !/_\d+$/.test(key)) return fieldLabel(key);
-  const blank = /«([^»]*\[____\][^»]*)»/.exec(question);
-  return blank ? `«${blank[1]}»` : question.replace(/[?？]\s*$/, "").trim();
-};
 
 /**
  * Lexi — the legal dispatcher. Server-side state machine per conversation
@@ -299,43 +289,36 @@ export class ConversationsService {
       const template = await loadTemplate(d.templateId);
       const keys = fieldKeys(template).filter((k) => !AUTO_FIELDS.has(k));
       const res = await runIntake(provider, conv.story, fieldContexts(template, keys), d.title ?? "");
-      for (const e of res.extracted) conv.answers.push({ key: e.key, label: fieldLabel(e.key), value: e.value, source: "hikoya" });
+      for (const e of res.extracted) conv.answers.push({ key: e.key, label: e.label, value: e.value, source: "hikoya" });
       conv.queue = res.questions
         .slice(0, MAX_DETAIL_QUESTIONS)
-        .map((q) => ({ key: q.key, label: fieldLabel(q.key), question: q.question, kind: "field" as const }));
+        .map((q) => ({ key: q.key, label: q.label, question: q.question, kind: "field" as const }));
       conv.understood = res.understood;
     } else {
       const res = await askFactQuestions(provider, conv.story);
       conv.queue = res.questions
         .slice(0, MAX_DETAIL_QUESTIONS)
-        .map((q, i) => ({ key: `fakt_${i + 1}`, label: q, question: q, kind: "fact" as const }));
+        .map((q, i) => ({ key: `fakt_${i + 1}`, label: q.label, question: q.question, kind: "fact" as const }));
       conv.understood = res.understood;
     }
-    this.say(conv, `${LEXI.understood} ${this.understoodText(conv)}`);
+    // Only the short restatement of the story; answers get their own one-line confirmations.
+    this.say(conv, `${LEXI.understood} ${conv.understood ?? conv.story.slice(0, 200)}`);
     return this.nextQuestion(conv);
-  }
-
-  private understoodText(conv: Conversation): string {
-    const parts = [conv.understood ?? conv.story.slice(0, 200)];
-    for (const a of conv.answers.filter((x) => x.source === "javob")) {
-      parts.push(`${a.label}: ${a.value ?? LEXI.unknownValue}.`);
-    }
-    return parts.join(" ").replace(/\s+/g, " ").trim();
   }
 
   private recordAnswer(conv: Conversation, key: string, text: string): void {
     const q = conv.pending;
     conv.pending = null;
-    // Facts are labelled by their question (no template field behind them).
-    const label = q?.kind === "fact" ? q.question : answerLabel(key, q?.question);
-    conv.answers.push({ key, label, value: isDontKnow(text) ? null : text.trim(), source: "javob" });
-    this.say(conv, `${LEXI.understood} ${this.understoodText(conv)}`);
+    const label = q?.label ?? key;
+    const value = isDontKnow(text) ? null : text.trim();
+    conv.answers.push({ key, label, value, source: "javob" });
+    this.say(conv, LEXI.confirmAnswer(label, value ?? LEXI.unknownValue));
   }
 
   private async nextQuestion(conv: Conversation): Promise<void> {
     const q = conv.queue.shift();
     if (q) {
-      conv.pending = { kind: q.kind, key: q.key, question: q.question, options: [] };
+      conv.pending = { kind: q.kind, key: q.key, label: q.label, question: q.question, options: [] };
       this.say(conv, q.question, null, [{ label: LEXI.dontKnow, kind: "reply", value: LEXI.dontKnow }]);
       return;
     }
@@ -347,6 +330,9 @@ export class ConversationsService {
     conv.stage = "EXPLAIN";
     const d = this.cases.get(conv.caseId as string).routingDecision as RoutingDecision;
     const onCatalog = d.routeType === "RULE_BASED" && !!conv.problemId;
+    if (conv.answers.length) {
+      this.say(conv, LEXI.factsTitle, { type: "facts", items: conv.answers.map((a) => ({ label: a.label, value: a.value })) });
+    }
     const facts = conv.answers.filter((a) => a.value).map((a) => `${a.label}: ${a.value}`);
     const fullStory = facts.length ? `${conv.story}\n\nQo'shimcha ma'lumotlar:\n${facts.join("\n")}` : conv.story;
 
@@ -390,13 +376,15 @@ export class ConversationsService {
     if (onCatalog) {
       const documents = d.templateId ? await this.templateDocuments(d.templateId) : [];
       const deadline = analysis?.deadlines[0]?.text ?? null;
-      const steps: RoadmapStep[] = [{ order: 1, title: d.steps[0]?.action ?? d.title ?? "", agency: null, documents, deadline }];
+      const firstTitle = d.steps[0]?.action ?? d.title ?? "";
+      const steps: RoadmapStep[] = firstTitle ? [{ order: 1, title: firstTitle, agency: null, documents, deadline }] : [];
       for (const a of d.agencies) {
         steps.push({ order: steps.length + 1, title: a.name, agency: a, documents: [], deadline: null });
       }
       const next = d.escalation[0];
       if (next) steps.push({ order: steps.length + 1, title: `Javob bo'lmasa: ${next.name}`, agency: next, documents: [], deadline: null });
-      this.say(conv, LEXI.roadmapIntro, { type: "roadmap", steps, notYet: d.notYet, source: "catalog" });
+      // No empty "Yo'l xaritasi:" message without a card.
+      if (steps.length) this.say(conv, LEXI.roadmapIntro, { type: "roadmap", steps, notYet: d.notYet, source: "catalog" });
 
       const target = d.agencies.find((a) => a.id === d.agencyId);
       if (d.templateId && target) {

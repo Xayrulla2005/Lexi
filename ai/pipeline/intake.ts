@@ -23,14 +23,41 @@ export interface FieldContext {
 
 export interface IntakeQuestion {
   key: string;
+  /** Short field name for confirmations ("Ish beruvchi", "Summa"). */
+  label: string;
   question: string;
+}
+
+const KNOWN_LABELS: Record<string, string> = {
+  summa: "Summa",
+  sana: "Sana",
+  fish: "F.I.Sh.",
+  manzil: "Manzil",
+  telefon: "Telefon",
+  lavozim: "Lavozim",
+};
+
+/** Deterministic short label from a template key (generic "malumot_N" keys become "Ma'lumot"). */
+export function keyLabel(key: string): string {
+  const known = KNOWN_LABELS[key];
+  if (known) return known;
+  if (/^malumot_\d+$/.test(key)) return "Ma'lumot";
+  const words = key.replace(/_\d+$/, "").replace(/_/g, " ").trim();
+  return words ? words.charAt(0).toUpperCase() + words.slice(1) : key;
+}
+
+/** Accepts an LLM label only if it is a short name (1–4 words), not a question. */
+export function cleanLabel(label: string | undefined, key: string): string {
+  const l = (label ?? "").trim().replace(/[:.]+$/, "");
+  if (!l || l.length > 32 || l.includes("?") || l.split(/\s+/).length > 4) return keyLabel(key);
+  return l;
 }
 
 export interface IntakeResult {
   /** One or two sentences: how the story was understood (UI prefixes "Sizni shunday tushundim:"). */
   understood: string;
   /** Values found in the story (source "hikoya"), only for fields with a verified quote. */
-  extracted: { key: string; value: string; evidence: string }[];
+  extracted: { key: string; label: string; value: string; evidence: string }[];
   questions: IntakeQuestion[];
   degraded: boolean;
 }
@@ -52,8 +79,8 @@ export function fieldContexts(template: string, keys: readonly string[], radius 
 
 const RawIntake = z.object({
   understood: z.string().trim().min(1).max(600),
-  fields: z.array(z.object({ key: z.string(), value: z.string().nullable(), evidence: z.string().nullable() })),
-  questions: z.array(z.object({ key: z.string(), question: z.string().trim().min(1).max(300) })),
+  fields: z.array(z.object({ key: z.string(), label: z.string().optional(), value: z.string().nullable(), evidence: z.string().nullable() })),
+  questions: z.array(z.object({ key: z.string(), label: z.string().optional(), question: z.string().trim().min(1).max(300) })),
 });
 
 const comparable = (s: string) => normalize(s).replace(/['"«»“”.,!?;:()-]/g, "").replace(/\s+/g, " ").trim();
@@ -82,7 +109,7 @@ export function fallbackIntake(understood: string, fields: readonly FieldContext
   return {
     understood,
     extracted: [],
-    questions: fields.slice(0, MAX_QUESTIONS).map((f) => ({ key: f.key, question: contextQuestion(f) })),
+    questions: fields.slice(0, MAX_QUESTIONS).map((f) => ({ key: f.key, label: keyLabel(f.key), question: contextQuestion(f) })),
     degraded: true,
   };
 }
@@ -112,7 +139,7 @@ export async function runIntake(
       const value = f.value?.trim();
       if (!known.has(f.key) || !value || !quoteIsInStory(story, f.evidence)) continue;
       if (extracted.some((e) => e.key === f.key)) continue;
-      extracted.push({ key: f.key, value, evidence: (f.evidence as string).trim() });
+      extracted.push({ key: f.key, label: cleanLabel(f.label, f.key), value, evidence: (f.evidence as string).trim() });
     }
     const filled = new Set(extracted.map((e) => e.key));
     const asked = new Set<string>();
@@ -120,13 +147,13 @@ export async function runIntake(
     for (const q of parsed.data.questions) {
       if (!known.has(q.key) || filled.has(q.key) || asked.has(q.key)) continue;
       asked.add(q.key);
-      questions.push({ key: q.key, question: q.question });
+      questions.push({ key: q.key, label: cleanLabel(q.label, q.key), question: q.question });
       if (questions.length >= MAX_QUESTIONS) break;
     }
     // Missing fields the model did not ask about still get a (template) question, within the limit.
     for (const f of fields) {
       if (questions.length >= MAX_QUESTIONS) break;
-      if (!filled.has(f.key) && !asked.has(f.key)) questions.push({ key: f.key, question: contextQuestion(f) });
+      if (!filled.has(f.key) && !asked.has(f.key)) questions.push({ key: f.key, label: keyLabel(f.key), question: contextQuestion(f) });
     }
     return { understood: parsed.data.understood, extracted, questions, degraded: false };
   } catch {

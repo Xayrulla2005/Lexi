@@ -25,6 +25,8 @@ export const LEXI = {
   understood: "Sizni shunday tushundim:",
   dontKnow: "Bilmayman",
   unknownValue: "ma'lum emas",
+  confirmAnswer: (label: string, value: string) => `✓ ${label}: ${value}`,
+  factsTitle: "Sizdan olingan ma'lumotlar:",
   explainIntro: "Qonun bo'yicha holatingiz:",
   noArticles: "Bazamizdagi moddalarda bu holat bo'yicha aniq ma'lumot topilmadi.",
   roadmapIntro: "Yo'l xaritasi:",

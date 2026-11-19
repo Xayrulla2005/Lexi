@@ -49,6 +49,8 @@ export function renderCard(card: ChatCard, t: typeof Texts, webUrl: string, conv
       return `${t.openOnWeb} ${webUrl}/?c=${conversationId}`;
     case "status":
       return `${t.statusLabel} ${card.status} · ${card.receiptId} · ${card.agencyName}`;
+    case "facts":
+      return card.items.map((it) => `• ${it.label}: ${it.value ?? t.unknownValue}`).join("\n");
     case "emergency_call":
       return `${t.callSentTitle}: ${card.call.agencyName}${card.call.phone ? ` (${card.call.phone})` : ""}`;
   }

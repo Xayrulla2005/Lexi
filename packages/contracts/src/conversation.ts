@@ -94,6 +94,8 @@ export const ChatCard = z.discriminatedUnion("type", [
   }),
   z.object({ type: z.literal("emergency_call"), call: EmergencyCall }),
   z.object({ type: z.literal("login"), url: z.string() }),
+  /** "Sizdan olingan ma'lumotlar": label/value list shown before the explanation (null = "ma'lum emas"). */
+  z.object({ type: z.literal("facts"), items: z.array(z.object({ label: z.string(), value: z.string().nullable() })) }),
 ]);
 export type ChatCard = z.infer<typeof ChatCard>;
 
@@ -119,6 +121,8 @@ export type ConversationAnswer = z.infer<typeof ConversationAnswer>;
 export const PendingQuestion = z.object({
   kind: z.enum(["triage", "choose_problem", "field", "fact", "offer", "escalate", "call_confirm"]),
   key: z.string().nullable(),
+  /** Short field name for the "✓ label: value" confirmation (DETAILS questions). */
+  label: z.string().optional(),
   question: z.string(),
   /** For choose_problem: candidate problem ids in button order. */
   options: z.array(z.string()),

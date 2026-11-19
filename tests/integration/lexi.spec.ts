@@ -108,10 +108,26 @@ describe("Lexi scenarios (integration, mocked LLM)", () => {
 
     // b) DETAILS: one question at a time, "Sizni shunday tushundim" after each answer
     expect(c.messages.some((m) => m.text.startsWith("Sizni shunday tushundim:"))).toBe(true);
+    const understoodLen = c.messages.find((m) => m.text.startsWith("Sizni shunday tushundim:"))?.text.length ?? 0;
     for (const answer of s.answers) {
       if (!c.pending || (c.pending.kind !== "field" && c.pending.kind !== "fact")) break;
+      const before = c.messages.length;
       c = await say(c.id, answer);
       expect(c.messages.at(-1)?.role).toBe("lexi");
+      // One short "✓ label: value" confirmation per answer; the restatement is not repeated.
+      const confirm = c.messages[before + 1];
+      expect(confirm?.text).toMatch(/^✓ [^:]{1,32}: /);
+      expect(confirm?.text.length).toBeLessThanOrEqual(answer.length + 40);
+    }
+    expect(c.messages.filter((m) => m.text.startsWith("Sizni shunday tushundim:"))).toHaveLength(1);
+    expect(understoodLen).toBeGreaterThan(0);
+    // "Sizdan olingan ma'lumotlar" comes once, before the explanation, with "ma'lum emas" for unknowns.
+    const factsAt = c.messages.findIndex((m) => m.card?.type === "facts");
+    if (s.answers.length && factsAt >= 0) {
+      const facts = c.messages[factsAt]?.card;
+      expect(facts?.type === "facts" && facts.items.length).toBeGreaterThan(0);
+      const explainAt = c.messages.findIndex((m) => m.card?.type === "explanation");
+      if (explainAt >= 0) expect(factsAt).toBeLessThan(explainAt);
     }
     expect(c.problemId).toBe(s.expect.problemId);
 
