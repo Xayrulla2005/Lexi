@@ -14,3 +14,6 @@ export const consentKeyboard = () =>
 
 export const emergencyKeyboard = () =>
   new InlineKeyboard().url("📞 102 ga qo'ng'iroq", "tel:102");
+
+/** "📝 Vebda ariza tayyorlash" — opens the web app with the story pre-filled. */
+export const webApplicationKeyboard = (label: string, url: string) => new InlineKeyboard().url(label, url);

@@ -29,4 +29,11 @@ export const texts = {
   voiceNotReady: "Ovozli xabar tez orada ishlaydi. Hozircha matn bilan yozing.",
   error: "Xatolik yuz berdi. Birozdan keyin qayta urinib ko'ring.",
   sendViaWeb: "Arizani imzolab yuborish hozircha faqat veb-saytda ishlaydi (OneID va ERI simulyatori orqali).",
+  startTextOnly:
+    "Assalomu alaykum! Men huquqiy yordamchiman.\nMuammongizni matn bilan yozing — qayerga va qanday murojaat qilishni ko'rsataman.",
+  voiceSoon: "Ovozli xabar tez orada ishlaydi, hozircha matn bilan yozing.",
+  lawsTitle: "Qonunlar:",
+  analysisTitle: "Qisqa tahlil:",
+  prepareOnWeb: "📝 Vebda ariza tayyorlash",
+  prepareOnWebLink: "Arizani vebda tayyorlash:",
 };
