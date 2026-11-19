@@ -1,4 +1,5 @@
 /** XAYRULLA: bot mantig'i. Dilfuza faqat texts.uz.ts va keyboards.ts ni o'zgartiradi. */
+import "./load-env";
 import { Bot } from "grammy";
 import type { Case } from "@lex/contracts";
 import { api, RISK_TONE } from "./api";
