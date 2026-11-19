@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { analyze } from "../pipeline/analyze";
 import { normalize } from "../pipeline/normalize";
 import { keywordRisk } from "../pipeline/risk";
-import { GeminiProvider, GeminiRequestError, type GenAiModels } from "../models/gemini.provider";
+import { GeminiProvider, GeminiRequestError, type GenAiModels, responseText } from "../models/gemini.provider";
 import type { ChatModelProvider } from "../models/provider";
 import { selectChatProvider } from "../models/select";
 import { classifyMessages, classifySystemPrompt, NO_PROBLEM } from "../prompts/classify.prompt";
@@ -155,5 +155,14 @@ describe("analyze with an LLM", () => {
   it("chosen provider without a key -> degraded keyword", async () => {
     const r = await analyze({ text: "oylik" }, deps({ name: "gemini", provider: null, unavailable: "no key" }));
     expect(r.meta).toMatchObject({ provider: "gemini", degraded: true });
+  });
+});
+
+describe("responseText", () => {
+  it("joins only the answer text parts (thoughts and thoughtSignature parts skipped)", () => {
+    expect(
+      responseText({ candidates: [{ content: { parts: [{ text: "o'ylash", thought: true }, { text: '{"a":' }, {}, { text: "1}" }] } }] }),
+    ).toBe('{"a":1}');
+    expect(responseText({ text: "fallback" })).toBe("fallback");
   });
 });

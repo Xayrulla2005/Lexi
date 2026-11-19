@@ -25,6 +25,19 @@ export interface GeminiConfig {
   maxRetries?: number;
 }
 
+/** Response fields used here. Text is read from the parts directly: the SDK's `text` getter warns about thought parts. */
+export interface GenAiResponse {
+  text?: string | undefined;
+  candidates?: { content?: { parts?: { text?: string | undefined; thought?: boolean | undefined }[] | undefined } | undefined }[] | undefined;
+}
+
+/** Only the answer text: thought parts and non-text parts (thoughtSignature) are skipped. */
+export function responseText(res: GenAiResponse): string {
+  const parts = res.candidates?.[0]?.content?.parts;
+  if (parts) return parts.filter((p) => typeof p.text === "string" && !p.thought).map((p) => p.text).join("");
+  return res.text ?? "";
+}
+
 /** Minimal surface of the SDK used here (injectable for tests). */
 export interface GenAiModels {
   generateContent(params: {
@@ -38,7 +51,7 @@ export interface GenAiModels {
       responseJsonSchema?: unknown;
       abortSignal?: AbortSignal;
     };
-  }): Promise<{ text?: string | undefined }>;
+  }): Promise<GenAiResponse>;
 }
 
 export class GeminiRequestError extends Error {
@@ -143,7 +156,7 @@ export class GeminiProvider implements ChatModelProvider {
             abortSignal: AbortSignal.timeout(this.cfg.timeoutMs),
           },
         });
-        const text = res.text;
+        const text = responseText(res);
         if (!text) throw new GeminiRequestError("Gemini returned an empty response", null);
         return text;
       } catch (e) {

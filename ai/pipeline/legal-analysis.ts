@@ -8,6 +8,45 @@ import type { ChatModelProvider } from "../models/provider";
 import { type AgencyOption, legalAnalysisJsonSchema, legalAnalysisMessages } from "../prompts/legal-analysis.prompt";
 import type { RetrievedArticle } from "../rag/catalog-retrieval";
 import { filterClaimCitations } from "../rag/citation-validator";
+import { normalize } from "./normalize";
+
+const contentWords = (text: string) =>
+  new Set(
+    normalize(text)
+      .replace(/[ʻʼ’`']/g, "")
+      .replace(/[^a-z0-9\s]/g, " ")
+      .split(/\s+/)
+      .filter((w) => w.length >= 4)
+      // Crude stem: Uzbek is agglutinative ("kechiktirilgan" / "kechiktirilsa").
+      .map((w) => w.slice(0, 4)),
+  );
+
+/** Word overlap (Jaccard) of two sentences, 0..1. */
+export function similarity(a: string, b: string): number {
+  const x = contentWords(a);
+  const y = contentWords(b);
+  if (!x.size || !y.size) return 0;
+  let common = 0;
+  for (const w of x) if (y.has(w)) common++;
+  return common / (x.size + y.size - common);
+}
+
+/**
+ * Drops claims that repeat an earlier one: same article(s) cited and mostly the same words.
+ * `seen` is shared across lists, so a point made in "rights" is not repeated in "obligations".
+ */
+export function dedupeClaims<T extends { text: string; citations: string[] }>(claims: readonly T[], seen: T[], threshold = 0.25): T[] {
+  const out: T[] = [];
+  for (const c of claims) {
+    const repeat = seen.some(
+      (s) => s.citations.some((k) => c.citations.includes(k)) && similarity(s.text, c.text) >= threshold,
+    );
+    if (repeat) continue;
+    seen.push(c);
+    out.push(c);
+  }
+  return out;
+}
 
 /** Article text sent to the model is capped so the prompt stays small. */
 const MAX_ARTICLE_CHARS = 2500;
@@ -43,10 +82,11 @@ export async function analyzeWithArticles(
 
   const allowed = new Set(articles.map((a) => a.key));
   let dropped = 0;
+  const seen: z.infer<typeof Claims> = [];
   const clean = (claims: z.infer<typeof Claims>, max: number) => {
     const r = filterClaimCitations(claims, allowed);
     dropped += r.dropped;
-    return r.claims.slice(0, max);
+    return dedupeClaims(r.claims, seen).slice(0, max);
   };
   const summary = clean(raw.summary, 3);
   const rights = clean(raw.rights, 4);

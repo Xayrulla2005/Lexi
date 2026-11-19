@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { ChatModelProvider } from "../models/provider";
-import { fieldContexts, isDontKnow, quoteIsInStory, runIntake, shortContext } from "../pipeline/intake";
+import { cleanLabel, fieldContexts, isDontKnow, keyLabel, quoteIsInStory, runIntake, shortContext } from "../pipeline/intake";
+import { dedupeClaims, similarity } from "../pipeline/legal-analysis";
 import { analyzeWithArticles } from "../pipeline/legal-analysis";
 import { getArticlesForProblem } from "../rag/catalog-retrieval";
 import { filterClaimCitations } from "../rag/citation-validator";
@@ -9,6 +10,25 @@ const fake = (reply: string): ChatModelProvider => ({ id: "fake:m", complete: as
 
 const T12 = `Men, {{fio}}, lavozimida ishlayman.\n\n{{malumot_1}}\n\ntashkilotida\n\nIsh beruvchi tomonidan 2026-yil {{malumot_3}} oyi uchun belgilangan {{summa}} so‘m ish haqim o‘z vaqtida to‘lanmadi.`;
 const STORY = "Men Namuna MChJ da hisobchiman. Sentabr oyi uchun 5 million so'm oyligimni bermayapti.";
+
+describe("labels", () => {
+  it("short field names; questions or long text fall back to the key", () => {
+    expect(cleanLabel("Ish beruvchi", "malumot_3")).toBe("Ish beruvchi");
+    expect(cleanLabel("Qaysi tashkilotda ishlaysiz?", "malumot_3")).toBe("Ma'lumot");
+    expect(cleanLabel(undefined, "summa")).toBe("Summa");
+    expect(keyLabel("fakt_2")).toBe("Fakt");
+  });
+});
+
+describe("dedupeClaims", () => {
+  it("drops a repeated point about the same article, keeps different ones", () => {
+    const a = { text: "Ish haqi kechiktirilsa, ish beruvchi har bir kechiktirilgan kun uchun kompensatsiya to'lashi shart.", citations: ["mehnat_kodeksi/333"] };
+    const b = { text: "Xodim har bir kechiktirilgan kun uchun kompensatsiya to'lanishini talab qilishga haqli.", citations: ["mehnat_kodeksi/333"] };
+    const c = { text: "Xodim hisob-kitoblar to'g'risida ma'lumot so'rashi mumkin.", citations: ["mehnat_kodeksi/253"] };
+    expect(similarity(a.text, b.text)).toBeGreaterThan(0.25);
+    expect(dedupeClaims([a, b, c], [])).toEqual([a, c]);
+  });
+});
 
 describe("shortContext", () => {
   it("keeps a few words around the blank for chat questions", () => {
@@ -38,13 +58,13 @@ describe("runIntake", () => {
         { key: "malumot_1", value: "Hisobchi", evidence: "bosh hisobchi lavozimida" }, // not in the story -> dropped
       ],
       questions: [
-        { key: "malumot_1", question: "Qaysi lavozimda ishlaysiz?" },
-        { key: "summa", question: "Qancha?" }, // already filled -> dropped
+        { key: "malumot_1", label: "Lavozim", question: "Qaysi lavozimda ishlaysiz?" },
+        { key: "summa", label: "Summa", question: "Qancha?" }, // already filled -> dropped
       ],
     });
     const r = await runIntake(fake(reply), STORY, fields, "Ish haqi");
     expect(r.extracted.map((e) => e.key)).toEqual(["malumot_3", "summa"]);
-    expect(r.questions).toEqual([{ key: "malumot_1", question: "Qaysi lavozimda ishlaysiz?" }]);
+    expect(r.questions).toEqual([{ key: "malumot_1", label: "Lavozim", question: "Qaysi lavozimda ishlaysiz?" }]);
     expect(r.degraded).toBe(false);
   });
 
