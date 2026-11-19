@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { ChatModelProvider } from "../models/provider";
-import { fieldContexts, isDontKnow, quoteIsInStory, runIntake } from "../pipeline/intake";
+import { fieldContexts, isDontKnow, quoteIsInStory, runIntake, shortContext } from "../pipeline/intake";
 import { analyzeWithArticles } from "../pipeline/legal-analysis";
 import { getArticlesForProblem } from "../rag/catalog-retrieval";
 import { filterClaimCitations } from "../rag/citation-validator";
@@ -9,6 +9,15 @@ const fake = (reply: string): ChatModelProvider => ({ id: "fake:m", complete: as
 
 const T12 = `Men, {{fio}}, lavozimida ishlayman.\n\n{{malumot_1}}\n\ntashkilotida\n\nIsh beruvchi tomonidan 2026-yil {{malumot_3}} oyi uchun belgilangan {{summa}} so‘m ish haqim o‘z vaqtida to‘lanmadi.`;
 const STORY = "Men Namuna MChJ da hisobchiman. Sentabr oyi uchun 5 million so'm oyligimni bermayapti.";
+
+describe("shortContext", () => {
+  it("keeps a few words around the blank for chat questions", () => {
+    expect(shortContext("Kimdan: …, …, tel.: … SHIKOYAT ARIZASI Men, …, lavozimida ishlayman. [____] tashkilotida … Ish beruvchi tomonidan 2026-yil … oyi")).toBe(
+      "… SHIKOYAT ARIZASI Men, …, lavozimida ishlayman. [____] tashkilotida … Ish beruvchi tomonidan 2026-yil …",
+    );
+    expect(shortContext("[____] tashkilotida")).toBe("[____] tashkilotida");
+  });
+});
 
 describe("fieldContexts", () => {
   it("describes {{malumot_N}} by the surrounding template text", () => {

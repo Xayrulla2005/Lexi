@@ -66,7 +66,17 @@ export function quoteIsInStory(story: string, evidence: string | null): boolean 
 
 /** Deterministic question for a field, from the template context (no LLM). */
 export const contextQuestion = (f: FieldContext): string =>
-  `Arizadagi quyidagi joy uchun ma'lumot bering: «${f.context}»`;
+  `Arizadagi quyidagi joy uchun ma'lumot bering: «${shortContext(f.context)}»`;
+
+/** Keeps ~6 words on each side of the blank, so the question stays readable in a chat. */
+export function shortContext(context: string, words = 6): string {
+  const [before = "", after = ""] = context.split("[____]");
+  const b = before.trim().split(" ").filter(Boolean);
+  const a = after.trim().split(" ").filter(Boolean);
+  const left = (b.length > words ? "… " : "") + b.slice(-words).join(" ");
+  const right = a.slice(0, words).join(" ") + (a.length > words ? " …" : "");
+  return `${left} [____] ${right}`.trim();
+}
 
 export function fallbackIntake(understood: string, fields: readonly FieldContext[]): IntakeResult {
   return {

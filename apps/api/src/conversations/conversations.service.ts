@@ -44,6 +44,15 @@ const OTHER_PARTY = "qarshi_taraf";
 
 const yes = (t: string) => /^(ha|xa|ha,|да|yes|roziman|mayli|albatta)\b/i.test(t.trim());
 const fieldLabel = (key: string) => key.replace(/_/g, " ");
+/**
+ * Generic template keys ("malumot_1") mean nothing to the user: label such answers by their
+ * question (short LLM questions) or by the template blank «… [____] …» (fallback questions).
+ */
+const answerLabel = (key: string, question: string | undefined): string => {
+  if (!question || !/_\d+$/.test(key)) return fieldLabel(key);
+  const blank = /«([^»]*\[____\][^»]*)»/.exec(question);
+  return blank ? `«${blank[1]}»` : question.replace(/[?？]\s*$/, "").trim();
+};
 
 /**
  * Lexi — the legal dispatcher. Server-side state machine per conversation
@@ -318,7 +327,7 @@ export class ConversationsService {
     const q = conv.pending;
     conv.pending = null;
     // Facts are labelled by their question (no template field behind them).
-    const label = q?.kind === "fact" ? q.question : fieldLabel(key);
+    const label = q?.kind === "fact" ? q.question : answerLabel(key, q?.question);
     conv.answers.push({ key, label, value: isDontKnow(text) ? null : text.trim(), source: "javob" });
     this.say(conv, `${LEXI.understood} ${this.understoodText(conv)}`);
   }
