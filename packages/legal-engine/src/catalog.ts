@@ -100,7 +100,7 @@ const orNull = (s: string): string | null => (s.trim() ? s : null);
 /** Builds the route steps' action text for an agency: name and phone only, as in the catalog. */
 const agencyAction = (a: AgencyContact): string => (a.phone ? `${a.name} — ${a.phone}` : a.name);
 
-const agencyStep = (a: AgencyContact, order: number): RouteStep => ({
+export const agencyStep = (a: AgencyContact, order: number): RouteStep => ({
   order,
   action: agencyAction(a),
   agencyId: a.id,

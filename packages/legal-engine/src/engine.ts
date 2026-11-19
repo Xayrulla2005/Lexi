@@ -1,5 +1,9 @@
 import type { ReviewStatus, RoutingDecision } from "@lex/contracts";
 import type { LegalCatalog, LegalRoute, LegalRoutingEngine, RoutingContext, RoutingResult } from "./types";
+import { agencyStep } from "./catalog";
+
+/** Police (102) — shown on every orange-risk decision. */
+export const POLICE_AGENCY_ID = "iiv";
 
 /** Below this classification confidence the decision always needs human review. */
 export const MIN_CONFIDENCE = 0.6;
@@ -66,14 +70,23 @@ export class DeterministicRoutingEngine implements LegalRoutingEngine {
     if (reasons.length) trace.push(`human review required: ${reasons.join(", ")}`);
 
     const reviewNotice = REVIEW_NOTICES[route.reviewStatus];
+    const steps = route.steps.map((s) => ({ ...s }));
+    const agencies = route.agencies.map((a) => ({ ...a }));
+    // Safety: threats/intimidation (orange) always show the police contact (102) from the catalog.
+    const police = this.emergency.agencies.find((a) => a.id === POLICE_AGENCY_ID);
+    if (routeType !== "EMERGENCY" && analysis.risk.level === "orange" && police) {
+      if (!agencies.some((a) => a.id === police.id)) agencies.push({ ...police });
+      if (!steps.some((s) => s.agencyId === police.id)) steps.push(agencyStep(police, steps.length + 1));
+      trace.push("risk orange -> police contact added");
+    }
     const decision: RoutingDecision = {
       routeType,
       routeId: routeType === "FALLBACK" ? null : route.id,
       problemId: route.problemId,
       title: route.title,
       agencyId: route.agencyId,
-      steps: route.steps.map((s) => ({ ...s })),
-      agencies: route.agencies.map((a) => ({ ...a })),
+      steps,
+      agencies,
       escalation: route.escalation.map((a) => ({ ...a })),
       legalReferences: route.legalReferences.map((r) => ({ ...r })),
       templateId: route.templateId,

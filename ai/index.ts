@@ -34,3 +34,8 @@ export {
   type RetrievedArticle,
 } from "./rag/catalog-retrieval";
 export { getIndex, retrieve, warmUp, type RetrievedChunk } from "./rag/legal-index";
+
+export { GeminiProvider, GeminiRequestError, geminiFromEnv } from "./models/gemini.provider";
+export { defaultChatProvider, llmProviderName, selectChatProvider, type LlmProviderName, type ProviderChoice } from "./models/select";
+export { classifyWithLlm, MIN_LLM_CONFIDENCE, type LlmClassification } from "./pipeline/llm-classify";
+export { CLASSIFY_PROMPT_VERSION, classifySystemPrompt } from "./prompts/classify.prompt";

@@ -47,6 +47,19 @@ export const Fact = z.object({
 });
 export type Fact = z.infer<typeof Fact>;
 
+/** How the analysis was produced. `degraded` = the chosen LLM failed or had no key, keyword fallback used. */
+export const AnalysisMeta = z.object({
+  provider: z.enum(["gemini", "huggingface", "keyword"]),
+  /** "<backend>:<model>" of the LLM actually used; null for keyword. */
+  model: z.string().nullable(),
+  degraded: z.boolean(),
+  /** One-sentence classification reason from the LLM; null for keyword. */
+  reason: z.string().nullable(),
+  latencyMs: z.number().int().nonnegative().nullable(),
+  promptVersion: z.string().nullable(),
+});
+export type AnalysisMeta = z.infer<typeof AnalysisMeta>;
+
 /** Structured AI output. The AI never decides routing — see RoutingDecision. */
 export const AnalysisResult = z.object({
   schemaVersion: z.literal(ANALYSIS_SCHEMA_VERSION),
@@ -58,6 +71,8 @@ export const AnalysisResult = z.object({
   legalReferences: z.array(LegalReference),
   followUpQuestions: z.array(z.string()),
   needsHumanReview: z.boolean(),
+  /** Optional so stored analyses from before this field still parse. */
+  meta: AnalysisMeta.optional(),
 });
 export type AnalysisResult = z.infer<typeof AnalysisResult>;
 

@@ -45,3 +45,6 @@ legal-knowledge/sources/cache/
 
 # Local ONNX model cache (bge-m3)
 ai/.model-cache/
+
+# Eval LLM response cache
+ai/eval/cache/

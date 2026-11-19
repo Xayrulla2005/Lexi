@@ -15,8 +15,10 @@
     "rag:eval": "tsx scripts/rag-eval.ts"
   },
   "dependencies": {
+    "@google/genai": "1.21.0",
     "@huggingface/transformers": "3.5.1",
-    "@lex/contracts": "workspace:*"
+    "@lex/contracts": "workspace:*",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@lex/legal-engine": "workspace:*",

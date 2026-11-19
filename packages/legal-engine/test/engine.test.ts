@@ -169,6 +169,15 @@ describe("DeterministicRoutingEngine", () => {
     }
   });
 
+  it("orange risk shows the police (102) contact and step, catalog text only", () => {
+    const risk: AnalysisResult["risk"] = { level: "orange", signals: ["do'q"], requiresImmediateAction: false };
+    const { decision } = engine.route({ analysis: analysis({ risk }) });
+    expect(decision.routeType).toBe("RULE_BASED");
+    const iiv = rawProblems.idoralar.iiv!;
+    expect(decision.agencies.some((a) => a.id === "iiv" && a.phone === "102")).toBe(true);
+    expect(decision.steps.at(-1)).toMatchObject({ agencyId: "iiv", action: `${iiv.nomi} — ${iiv.telefon}` });
+  });
+
   it("is deterministic", () => {
     const ctx = { analysis: analysis() };
     expect(engine.route(ctx)).toEqual(engine.route(ctx));
