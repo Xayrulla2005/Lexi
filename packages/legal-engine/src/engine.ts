@@ -88,6 +88,7 @@ export class DeterministicRoutingEngine implements LegalRoutingEngine {
       steps,
       agencies,
       escalation: route.escalation.map((a) => ({ ...a })),
+      notYet: route.notYet.map((a) => ({ ...a })),
       legalReferences: route.legalReferences.map((r) => ({ ...r })),
       templateId: route.templateId,
       reviewStatus: route.reviewStatus,

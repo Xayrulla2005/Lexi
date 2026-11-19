@@ -43,5 +43,7 @@ export const LegalAnalysis = z.object({
   model: z.string(),
   /** Citations removed because they pointed to articles that were not given. */
   droppedCitations: z.number().int().nonnegative(),
+  /** Situations outside the catalog: agency ids the model picked from the catalog list (validated). */
+  suggestedAgencyIds: z.array(z.string()).default([]),
 });
 export type LegalAnalysis = z.infer<typeof LegalAnalysis>;

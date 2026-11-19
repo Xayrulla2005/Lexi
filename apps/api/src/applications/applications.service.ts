@@ -6,6 +6,7 @@ import {
   Injectable,
   Logger,
   NotFoundException,
+  Optional,
 } from "@nestjs/common";
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
@@ -16,7 +17,8 @@ import {
   type EriSignature,
   type SimCitizen,
 } from "@lex/contracts";
-import { defaultChatProvider, fieldContexts, isDontKnow, runIntake } from "@lex/ai";
+import { defaultChatProvider, fieldContexts, isDontKnow, runIntake, type ProviderChoice } from "@lex/ai";
+import { LLM_CHAT } from "../llm/llm.module";
 import { CasesService } from "../cases/cases.service";
 import { JsonStore } from "../common/json-store";
 import { runtimeFile } from "../common/paths";
@@ -73,7 +75,10 @@ export class ApplicationsService {
   private readonly logger = new Logger(ApplicationsService.name);
   private readonly store = new JsonStore<StoredApplication>(runtimeFile("applications.json"), StoredApplication);
 
-  constructor(@Inject(CasesService) private readonly cases: CasesService) {}
+  constructor(
+    @Inject(CasesService) private readonly cases: CasesService,
+    @Optional() @Inject(LLM_CHAT) private readonly chatChoice: ProviderChoice | null = null,
+  ) {}
 
   /** Returns the open primary draft for this case and citizen, or creates one. */
   async createForCase(caseId: string, citizen: SimCitizen): Promise<Application> {
@@ -167,7 +172,7 @@ export class ApplicationsService {
     if (app.intake) return app;
     const decision = this.cases.get(app.caseId).routingDecision;
     const missing = app.fields.filter((f) => f.source === "MANUAL" && !f.value).map((f) => f.key);
-    const chat = defaultChatProvider();
+    const chat = this.chatChoice ?? defaultChatProvider();
     const result = await runIntake(
       chat.provider,
       this.cases.story(app.caseId),

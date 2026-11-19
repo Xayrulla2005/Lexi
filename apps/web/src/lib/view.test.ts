@@ -11,6 +11,7 @@ const decision = (overrides: Partial<RoutingDecision>): RoutingDecision => ({
   steps: [],
   agencies: [],
   escalation: [],
+  notYet: [],
   legalReferences: [],
   templateId: "T12",
   reviewStatus: "DRAFT",

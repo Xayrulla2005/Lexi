@@ -1,5 +1,7 @@
-import { Injectable } from "@nestjs/common";
-import { analyze } from "@lex/ai";
+import { Inject, Injectable, Optional } from "@nestjs/common";
+import { analyze, defaultChatProvider, type ProviderChoice } from "@lex/ai";
+import { AllowlistCitationValidator, InMemoryRetriever } from "@lex/ai";
+import { LLM_CHAT } from "../llm/llm.module";
 import type { AnalysisResult } from "@lex/contracts";
 
 /**
@@ -8,7 +10,16 @@ import type { AnalysisResult } from "@lex/contracts";
  */
 @Injectable()
 export class AiAnalysisService {
+  constructor(@Optional() @Inject(LLM_CHAT) private readonly chat: ProviderChoice | null = null) {}
+
   analyze(text: string): Promise<AnalysisResult> {
-    return analyze({ text });
+    return analyze(
+      { text },
+      {
+        retriever: new InMemoryRetriever(),
+        citationValidator: new AllowlistCitationValidator(),
+        chat: this.chat ?? defaultChatProvider(),
+      },
+    );
   }
 }

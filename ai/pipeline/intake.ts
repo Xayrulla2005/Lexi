@@ -40,12 +40,13 @@ const PLACEHOLDER = /\{\{([a-z0-9_]+)\}\}/g;
 /** Context of each field: up to `radius` characters of template text before and after it. */
 export function fieldContexts(template: string, keys: readonly string[], radius = 70): FieldContext[] {
   return keys.map((key) => {
-    const at = template.indexOf(`{{${key}}}`);
-    if (at < 0) return { key, context: `[____]` };
-    const before = template.slice(Math.max(0, at - radius), at);
-    const after = template.slice(at + key.length + 4, at + key.length + 4 + radius);
-    const clean = (s: string) => s.replace(PLACEHOLDER, "…").replace(/\s+/g, " ");
-    return { key, context: `${clean(before)}[____]${clean(after)}`.trim() };
+    // Replace placeholders first, so slicing never cuts one in half.
+    const marked = template.replace(PLACEHOLDER, (_m, k: string) => (k === key ? "\u0001" : "…")).replace(/\s+/g, " ");
+    const at = marked.indexOf("\u0001");
+    if (at < 0) return { key, context: "[____]" };
+    const before = marked.slice(Math.max(0, at - radius), at);
+    const after = marked.slice(at + 1, at + 1 + radius).split("\u0001").join("…");
+    return { key, context: `${before}[____]${after}`.trim() };
   });
 }
 

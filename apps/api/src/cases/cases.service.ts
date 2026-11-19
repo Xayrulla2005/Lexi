@@ -1,6 +1,6 @@
 import { BadRequestException, Inject, Injectable, NotFoundException, Optional } from "@nestjs/common";
 import { randomUUID } from "node:crypto";
-import { Case, type CaseChannel, type CaseMessage, type CaseStatus } from "@lex/contracts";
+import { Case, type CaseChannel, type CaseMessage, type CaseStatus, type RoutingDecision } from "@lex/contracts";
 import { JsonStore } from "../common/json-store";
 import { runtimeFile } from "../common/paths";
 import { AiAnalysisService } from "../ai-analysis/ai-analysis.service";
@@ -64,7 +64,7 @@ export class CasesService {
     return msg;
   }
 
-  async analyze(id: string): Promise<Case> {
+  async analyze(id: string, opts: { legalAnalysis?: boolean } = {}): Promise<Case> {
     const c = this.get(id);
     const story = c.messages
       .filter((m) => m.role === "user")
@@ -74,7 +74,7 @@ export class CasesService {
 
     c.analysis = await this.ai.analyze(story);
     c.routingDecision = this.routing.decide(c.analysis);
-    c.legalAnalysis = this.legal ? await this.legal.analyze(story, c.routingDecision) : null;
+    c.legalAnalysis = this.legal && opts.legalAnalysis !== false ? await this.legal.analyze(story, c.routingDecision) : null;
     c.status = "ANALYZED";
     this.save(c);
     return c;
@@ -83,6 +83,13 @@ export class CasesService {
   /** Waits until all case changes are on disk (bounded by the operation timeout). */
   persist(operation = "cases.persist"): Promise<void> {
     return this.cases.persist(operation);
+  }
+
+  /** Replaces the routing decision (e.g. after the user confirmed the problem type). */
+  setRouting(id: string, decision: RoutingDecision): void {
+    const c = this.get(id);
+    c.routingDecision = decision;
+    this.save(c);
   }
 
   setStatus(id: string, status: CaseStatus): void {

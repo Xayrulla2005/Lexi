@@ -42,3 +42,6 @@ export { CLASSIFY_PROMPT_VERSION, classifySystemPrompt } from "./prompts/classif
 export { fieldContexts, isDontKnow, runIntake, MAX_QUESTIONS, type FieldContext, type IntakeResult } from "./pipeline/intake";
 export { analyzeWithArticles } from "./pipeline/legal-analysis";
 export { filterClaimCitations, type CitedClaim } from "./rag/citation-validator";
+export { answerMeansDanger, detectTriage, emergencyAgencyOrder, type TriageResult, type TriageSignal } from "./pipeline/triage";
+export { askFactQuestions, type FactQuestions } from "./pipeline/facts";
+export type { AgencyOption } from "./prompts/legal-analysis.prompt";

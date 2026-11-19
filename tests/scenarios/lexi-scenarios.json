@@ -1,0 +1,26 @@
+{
+  "$comment": "Lexi demo scenarios (synthetic stories). Run end-to-end by tests/integration/lexi.spec.ts with a mocked LLM, and once with real Gemini via curl (docs/reports/2026-11-19-lexi-agent.md).",
+  "scenarios": [
+    {
+      "id": "L1-accident",
+      "story": "Avariya bo'ldim",
+      "triageAnswer": "Yo'q, xavfsizman",
+      "answers": ["Kecha kechqurun, Chilonzor ko'chasida", "Bilmayman"],
+      "expect": { "triageQuestion": true, "emergency": false, "problemId": null, "roadmap": "llm", "offer": false }
+    },
+    {
+      "id": "L2-unpaid-wages",
+      "story": "3 oydan beri oylik berishmayapti",
+      "answers": ["Hisobchi", "Namuna MChJ", "sentabr"],
+      "expect": { "triageQuestion": false, "emergency": false, "problemId": "P12", "roadmap": "catalog", "offer": true, "submitAndAnswer": true }
+    },
+    {
+      "id": "L3-domestic-violence",
+      "story": "Erim urdi, hozir uyda qo'rqyapman",
+      "triageAnswer": "Ha, xavf bor",
+      "answers": ["Bilmayman", "Bilmayman", "Bilmayman"],
+      "simCall": "ishonch_1146",
+      "expect": { "triageQuestion": true, "emergency": true, "problemId": "P25", "roadmap": "catalog", "offer": true }
+    }
+  ]
+}

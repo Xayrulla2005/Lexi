@@ -49,6 +49,7 @@ export async function analyze(input: AnalyzeInput, deps: AnalyzeDependencies = d
     reason: null,
     latencyMs: null,
     promptVersion: null,
+    candidates: [],
   };
 
   if (choice.provider) {
@@ -65,6 +66,7 @@ export async function analyze(input: AnalyzeInput, deps: AnalyzeDependencies = d
       meta.model = choice.provider.id ?? null;
       meta.reason = llm.reason;
       meta.promptVersion = CLASSIFY_PROMPT_VERSION;
+      meta.candidates = [llm.rawProblemId, llm.alternativeProblemId].filter((p): p is NonNullable<typeof p> => p !== null);
     } catch {
       // Provider/output error: keep the keyword result. Details are not logged here (no user text in logs).
       meta.degraded = true;

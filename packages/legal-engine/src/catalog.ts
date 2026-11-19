@@ -231,7 +231,7 @@ export function buildCatalog(problemsJson: unknown, reviewStatusJson: unknown): 
   // No primary agency: the fallback only shows contacts and never offers a submission.
   const fallback = builtIn("FALLBACK", null, [fallbackContact], [agencyStep(fallbackContact, 1)]);
 
-  return { version: src.versiya, routes, emergency, fallback };
+  return { version: src.versiya, routes, agencies: [...agencies.values()], emergency, fallback };
 }
 
 function readJson(path: string): unknown {

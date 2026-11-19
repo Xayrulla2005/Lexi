@@ -1,5 +1,6 @@
-import { Injectable, Logger } from "@nestjs/common";
-import { analyzeWithArticles, defaultChatProvider, getArticlesForProblem, retrieveForAnalysis, type RetrievedArticle } from "@lex/ai";
+import { Inject, Injectable, Logger, Optional } from "@nestjs/common";
+import { analyzeWithArticles, defaultChatProvider, getArticlesForProblem, retrieveForAnalysis, type ProviderChoice, type RetrievedArticle } from "@lex/ai";
+import { ARTICLE_RETRIEVER, type ArticleRetriever, LLM_CHAT } from "../llm/llm.module";
 import type { LegalAnalysis, RoutingDecision } from "@lex/contracts";
 
 /**
@@ -13,15 +14,20 @@ import type { LegalAnalysis, RoutingDecision } from "@lex/contracts";
 export class LegalAnalysisService {
   private readonly logger = new Logger(LegalAnalysisService.name);
 
+  constructor(
+    @Optional() @Inject(LLM_CHAT) private readonly chatChoice: ProviderChoice | null = null,
+    @Optional() @Inject(ARTICLE_RETRIEVER) private readonly retriever: ArticleRetriever | null = null,
+  ) {}
+
   async analyze(story: string, decision: RoutingDecision): Promise<LegalAnalysis | null> {
-    const chat = defaultChatProvider();
+    const chat = this.chatChoice ?? defaultChatProvider();
     // Only catalog-anchored cases: with problemId null, RAG-only articles proved misleading
     // (an extortion story got bribery articles). The fallback route sends the user to a lawyer instead.
     if (!chat.provider || decision.routeType !== "RULE_BASED" || !decision.problemId) return null;
     const t0 = performance.now();
     let articles: RetrievedArticle[];
     try {
-      articles = await retrieveForAnalysis(story, decision.problemId);
+      articles = await (this.retriever ?? retrieveForAnalysis)(story, decision.problemId);
     } catch (e) {
       // RAG model unavailable: the catalog articles alone are still exact.
       this.logger.warn(`[analysis] retrieval failed (${(e as Error).name}); using catalog articles only`);

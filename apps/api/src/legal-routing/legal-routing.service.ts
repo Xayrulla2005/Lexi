@@ -18,12 +18,36 @@ export class LegalRoutingService {
     return decision;
   }
 
+  /** Catalog problem title (`nom`), or null. */
+  problemTitle(problemId: string): string | null {
+    return this.catalog.routes.find((r) => r.problemId === problemId)?.title ?? null;
+  }
+
+  /** Catalog agency contact by id, or null. */
+  agency(id: string): AgencyContact | null {
+    return this.agencies().find((a) => a.id === id) ?? (id === OTHER_PARTY_ID ? this.otherParty() : null);
+  }
+
+  private otherParty(): AgencyContact | null {
+    for (const r of this.catalog.routes) {
+      const a = r.agencies.find((x) => x.id === OTHER_PARTY_ID);
+      if (a) return a;
+    }
+    return null;
+  }
+
+  /** Re-routes with a problem type confirmed by the user (deterministic engine, no LLM). */
+  decideFor(analysis: AnalysisResult, problemId: string): RoutingDecision {
+    const route = this.catalog.routes.find((r) => r.problemId === problemId);
+    if (!route) return this.decide(analysis);
+    return this.decide({
+      ...analysis,
+      classification: { domain: route.domain ?? analysis.classification.domain, problemId: route.problemId, confidence: 0.9 },
+    });
+  }
+
   /** All catalog agencies except the other party, sorted by name (for the agency cabinet simulator). */
   agencies(): AgencyContact[] {
-    const all = new Map<string, AgencyContact>();
-    const routes = [...this.catalog.routes, this.catalog.emergency, this.catalog.fallback];
-    for (const r of routes) for (const a of [...r.agencies, ...r.escalation, ...r.notYet]) all.set(a.id, a);
-    all.delete(OTHER_PARTY_ID);
-    return [...all.values()].sort((a, b) => a.name.localeCompare(b.name));
+    return this.catalog.agencies.filter((a) => a.id !== OTHER_PARTY_ID).sort((a, b) => a.name.localeCompare(b.name));
   }
 }

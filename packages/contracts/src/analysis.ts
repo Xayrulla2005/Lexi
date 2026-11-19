@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Classification } from "./classification";
+import { Classification, ProblemId } from "./classification";
 import { IsoDateTime, ReviewStatus, Slug } from "./common";
 
 /** 2.0: catalog-based classification (problemId), catalog risk levels, LegalReference.status. */
@@ -57,6 +57,8 @@ export const AnalysisMeta = z.object({
   reason: z.string().nullable(),
   latencyMs: z.number().int().nonnegative().nullable(),
   promptVersion: z.string().nullable(),
+  /** LLM's top-2 problem types before the confidence gate (for one disambiguating question). */
+  candidates: z.array(ProblemId).max(2).default([]),
 });
 export type AnalysisMeta = z.infer<typeof AnalysisMeta>;
 

@@ -5,14 +5,17 @@ import { AiAnalysisModule } from "./ai-analysis/ai-analysis.module";
 import { ApplicationsModule } from "./applications/applications.module";
 import { CaseTrackingModule } from "./case-tracking/case-tracking.module";
 import { CasesModule } from "./cases/cases.module";
+import { ConversationsModule } from "./conversations/conversations.module";
 import { DatabaseModule } from "./database/database.module";
 import { HealthModule } from "./health/health.module";
 import { LegalKnowledgeModule } from "./legal-knowledge/legal-knowledge.module";
 import { LegalRoutingModule } from "./legal-routing/legal-routing.module";
+import { LlmModule } from "./llm/llm.module";
 import { SimModule } from "./sim/sim.module";
 
 @Module({
   imports: [
+    LlmModule,
     DatabaseModule.forRoot(),
     HealthModule,
     CasesModule,
@@ -24,6 +27,7 @@ import { SimModule } from "./sim/sim.module";
     CaseTrackingModule,
     SimModule,
     ApplicationsModule,
+    ConversationsModule,
   ],
 })
 export class AppModule {}

@@ -56,6 +56,8 @@ export const RoutingDecision = z.object({
   agencies: z.array(AgencyContact),
   /** Where to go if the agencies above do not help (`eskalatsiya`). */
   escalation: z.array(AgencyContact),
+  /** Agencies that are too early to contact at this stage (`hali_erta`). Defaults keep stored data valid. */
+  notYet: z.array(AgencyContact).default([]),
   /** Laws cited by the catalog route (`qonunlar`); always DRAFT until reviewed. */
   legalReferences: z.array(LegalReference),
   /** Application template id (`shablon_id`); null when none. */

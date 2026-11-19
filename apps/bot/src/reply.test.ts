@@ -12,6 +12,7 @@ const decision = (o: Partial<RoutingDecision>): RoutingDecision => ({
   steps: [{ order: 1, action: "Ish beruvchiga yozma talabnoma", agencyId: null, deadlineDays: null, documentTemplateId: "T12" }],
   agencies: [],
   escalation: [],
+  notYet: [],
   legalReferences: [
     { documentId: null, documentName: "Mehnat kodeksi 253-modda", article: null, sourceUrl: null, status: "DRAFT", lastVerifiedAt: null },
   ],
@@ -50,6 +51,7 @@ const kase = (d: RoutingDecision, summary: string[] = []): Case => ({
         reviewNotice: null,
         model: "fake",
         droppedCitations: 0,
+        suggestedAgencyIds: [],
       }
     : null,
   createdAt: "2026-11-19T00:00:00.000Z",

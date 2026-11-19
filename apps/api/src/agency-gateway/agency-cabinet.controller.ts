@@ -4,12 +4,14 @@ import {
   AgencyStatusUpdateRequest,
   type AgencyContact,
   type AgencySubmission,
+  type EmergencyCall,
   type InboxItem,
   type SimClock,
 } from "@lex/contracts";
 import { ZodValidationPipe } from "../common/zod-validation.pipe";
 import { LegalRoutingService } from "../legal-routing/legal-routing.service";
 import { EriSimulatorService } from "../sim/eri.service";
+import { EmergencyCallsService } from "./emergency-calls.service";
 import { MockAgencyAdapter } from "./mock-agency.adapter";
 
 /**
@@ -23,7 +25,14 @@ export class AgencyCabinetController {
     @Inject(MockAgencyAdapter) private readonly mock: MockAgencyAdapter,
     @Inject(EriSimulatorService) private readonly eri: EriSimulatorService,
     @Inject(LegalRoutingService) private readonly routing: LegalRoutingService,
+    @Inject(EmergencyCallsService) private readonly calls: EmergencyCallsService,
   ) {}
+
+  /** "Navbatchi qism — SIMULYATOR": emergency calls sent from conversations (with consent). */
+  @Get(":agencyId/calls")
+  emergencyCalls(@Param("agencyId") agencyId: string): EmergencyCall[] {
+    return this.calls.list(agencyId);
+  }
 
   /** Catalog agencies (without the "other party"). */
   @Get("agencies")

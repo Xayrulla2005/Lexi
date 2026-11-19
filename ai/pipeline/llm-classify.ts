@@ -16,6 +16,7 @@ const RawLlmClassification = z.object({
   risk: RiskLevel,
   confidence: z.number().min(0).max(1),
   reason: z.string().trim().min(1).max(500),
+  alternativeProblemId: z.union([ProblemId, z.literal(NO_PROBLEM)]).optional(),
 });
 
 export interface LlmClassification {
@@ -26,6 +27,8 @@ export interface LlmClassification {
   reason: string;
   /** problemId the model picked before the confidence gate (for eval/debugging). */
   rawProblemId: ProblemId | null;
+  /** Second most likely type (used to ask one disambiguating question). */
+  alternativeProblemId: ProblemId | null;
 }
 
 export class LlmOutputError extends Error {
@@ -62,6 +65,10 @@ export async function classifyWithLlm(provider: ChatModelProvider, story: string
   return {
     domain: r.domain,
     rawProblemId,
+    alternativeProblemId:
+      r.alternativeProblemId && r.alternativeProblemId !== NO_PROBLEM && r.alternativeProblemId !== rawProblemId
+        ? r.alternativeProblemId
+        : null,
     // Safety gate: an unsure guess must not pick a route; the fallback route handles it.
     problemId: r.confidence < MIN_LLM_CONFIDENCE ? null : rawProblemId,
     risk: r.risk,

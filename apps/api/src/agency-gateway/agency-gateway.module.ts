@@ -5,6 +5,7 @@ import { LegalRoutingModule } from "../legal-routing/legal-routing.module";
 import { SimModule } from "../sim/sim.module";
 import { AgencyCabinetController } from "./agency-cabinet.controller";
 import { AGENCY_GATEWAY } from "./agency-gateway";
+import { EmergencyCallsService } from "./emergency-calls.service";
 import { MockAgencyAdapter } from "./mock-agency.adapter";
 import { SimulatorController } from "./simulator.controller";
 import { SubmissionsController } from "./submissions.controller";
@@ -18,7 +19,7 @@ import { SubmissionsService } from "./submissions.service";
 @Module({
   imports: [CasesModule, ApplicationsModule, SimModule, LegalRoutingModule],
   controllers: [SubmissionsController, SimulatorController, AgencyCabinetController],
-  providers: [MockAgencyAdapter, { provide: AGENCY_GATEWAY, useExisting: MockAgencyAdapter }, SubmissionsService],
-  exports: [AGENCY_GATEWAY, SubmissionsService],
+  providers: [MockAgencyAdapter, { provide: AGENCY_GATEWAY, useExisting: MockAgencyAdapter }, SubmissionsService, EmergencyCallsService],
+  exports: [AGENCY_GATEWAY, SubmissionsService, EmergencyCallsService, MockAgencyAdapter],
 })
 export class AgencyGatewayModule {}

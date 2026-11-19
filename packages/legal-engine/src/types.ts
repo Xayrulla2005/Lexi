@@ -54,6 +54,8 @@ export interface LegalCatalog {
   version: string;
   /** Catalog routes P01–P65 (EMERGENCY and FALLBACK are not included). */
   routes: readonly LegalRoute[];
+  /** Every agency of the catalog (`idoralar`), in catalog order. */
+  agencies: readonly AgencyContact[];
   emergency: LegalRoute;
   fallback: LegalRoute;
 }

@@ -10,7 +10,7 @@ import { LegalDomain, ProblemId, RiskLevel } from "@lex/contracts";
 import type { ChatMessage } from "../models/provider";
 import { repoRoot } from "../rag/paths";
 
-export const CLASSIFY_PROMPT_VERSION = "2026-11-19.3";
+export const CLASSIFY_PROMPT_VERSION = "2026-11-19.4";
 
 /** problemId value meaning "no catalog type fits" (JSON-schema enums cannot hold null reliably). */
 export const NO_PROBLEM = "NONE";
@@ -50,6 +50,7 @@ export function classificationJsonSchema(): Record<string, unknown> {
     properties: {
       domain: { type: "string", enum: [...LegalDomain.options] },
       problemId: { type: "string", enum: [...ProblemId.options, NO_PROBLEM] },
+      alternativeProblemId: { type: "string", enum: [...ProblemId.options, NO_PROBLEM] },
       risk: { type: "string", enum: [...RiskLevel.options] },
       confidence: { type: "number", minimum: 0, maximum: 1 },
       reason: { type: "string" },
@@ -69,7 +70,8 @@ Return ONLY a JSON object:
   "domain": a domain id from DOMAINS,
   "problemId": a problem id from PROBLEMS, or "${NO_PROBLEM}" if none fits,
   "risk": "red" | "orange" | "yellow" | "green",
-  "confidence": number 0..1 — how sure you are about problemId }
+  "confidence": number 0..1 — how sure you are about problemId,
+  "alternativeProblemId": the second most likely problem id, or "${NO_PROBLEM}" }
 
 How to choose problemId:
 - Pick the single problem type that best matches what happened to the person. Match by meaning, not by keywords.
