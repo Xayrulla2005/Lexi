@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Headers, Inject, Param, ParseUUIDPipe, Patch, Post, StreamableFile } from "@nestjs/common";
 import {
   ConsentRequest,
+  IntakeAnswerRequest,
   SIM_SESSION_HEADER,
   UpdateApplicationFieldsRequest,
   type Application,
@@ -57,6 +58,26 @@ export class ApplicationsController {
   ): Promise<Application> {
     const app = this.apps.consent(id, this.oneId.session(token).citizen.id);
     await this.apps.persist("application.consent");
+    return app;
+  }
+
+  /** Lexi: extract stated values from the story and prepare at most 3 questions (once). */
+  @Post("applications/:id/intake")
+  async intake(@Param("id", ParseUUIDPipe) id: string, @Headers(SIM_SESSION_HEADER) token?: string): Promise<Application> {
+    const app = await this.apps.runIntake(id, this.oneId.session(token).citizen.id);
+    await this.apps.persist("application.intake");
+    return app;
+  }
+
+  /** Answer to one question; "Bilmayman" leaves the field empty. */
+  @Post("applications/:id/answer")
+  async answer(
+    @Param("id", ParseUUIDPipe) id: string,
+    @Body(new ZodValidationPipe(IntakeAnswerRequest)) body: IntakeAnswerRequest,
+    @Headers(SIM_SESSION_HEADER) token?: string,
+  ): Promise<Application> {
+    const app = this.apps.answer(id, this.oneId.session(token).citizen.id, body.key, body.answer);
+    await this.apps.persist("application.answer");
     return app;
   }
 

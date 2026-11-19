@@ -16,3 +16,4 @@ export * from "./submission";
 export * from "./legal-source";
 export * from "./sim";
 export * from "./application";
+export * from "./legal-analysis";

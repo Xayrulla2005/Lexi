@@ -99,6 +99,9 @@ export const api = {
   openApplicationPdf: (id: string) => openPdf(`/applications/${id}/pdf`),
   /** SIMULYATOR: ERI (test kaliti bilan imzo). */
   sign: (id: string) => call<Application>(`/applications/${id}/sign`, {}),
+  /** Lexi: hikoyadan ma'lumot olish va savollar; javob berish. */
+  intake: (id: string) => call<Application>(`/applications/${id}/intake`, {}),
+  answer: (id: string, key: string, answer: string) => call<Application>(`/applications/${id}/answer`, { key, answer }),
   /** SIMULYATOR: idora kabineti. */
   cabinet: {
     agencies: () => call<AgencyContact[]>("/sim/idora/agencies"),

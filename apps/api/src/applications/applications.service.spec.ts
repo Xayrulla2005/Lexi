@@ -82,4 +82,21 @@ describe("ApplicationsService", () => {
     expect(() => apps.updateFields(app.id, citizen.id, { summa: "1" })).toThrow(ConflictException);
     expect((await apps.pdf(app.id)).toString()).toBe("%PDF-test");
   });
+
+  it("intake without an LLM: template questions (max 3); answers fill fields, 'Bilmayman' leaves them empty", async () => {
+    const { apps, citizen, caseId } = await setup();
+    const app = await apps.createForCase(caseId, citizen);
+    const withIntake = await apps.runIntake(app.id, citizen.id);
+    expect(withIntake.intake?.questions).toHaveLength(3);
+    expect(withIntake.intake?.understood).toBe("Ish haqini o'z vaqtida to'lamaslik");
+    expect(withIntake.intake?.model).toBe("keyword");
+
+    const [q1, q2] = withIntake.intake!.questions;
+    const answered = apps.answer(app.id, citizen.id, q1!.key, "Hisobchi");
+    expect(answered.fields.find((f) => f.key === q1!.key)).toMatchObject({ value: "Hisobchi", provenance: "javob" });
+    const skipped = apps.answer(app.id, citizen.id, q2!.key, "Bilmayman");
+    expect(skipped.fields.find((f) => f.key === q2!.key)?.value).toBeNull();
+    expect(skipped.intake?.questions.map((q) => q.status)).toEqual(["answered", "skipped", "open"]);
+  });
 });
+

@@ -16,6 +16,7 @@ import {
   type EriSignature,
   type SimCitizen,
 } from "@lex/contracts";
+import { defaultChatProvider, fieldContexts, isDontKnow, runIntake } from "@lex/ai";
 import { CasesService } from "../cases/cases.service";
 import { JsonStore } from "../common/json-store";
 import { runtimeFile } from "../common/paths";
@@ -148,9 +149,59 @@ export class ApplicationsService {
     }
     const fields = app.fields.map((f): ApplicationField => {
       const v = values[f.key];
-      return v === undefined ? f : { ...f, value: v.trim() || null };
+      if (v === undefined) return f;
+      const value = v.trim() || null;
+      // Typed in the form or answered to Lexi: the user's own answer.
+      return { ...f, value, provenance: value === null ? null : value === f.value ? f.provenance : "javob" };
     });
     return this.save({ ...app, fields, consentAt: null });
+  }
+
+  /**
+   * Lexi's intake: values stated in the story fill the empty MANUAL fields (provenance "hikoya");
+   * for the rest at most 3 questions are prepared. Runs once per application.
+   */
+  async runIntake(id: string, citizenId: string): Promise<Application> {
+    const app = this.owned(id, citizenId);
+    this.assertEditable(app);
+    if (app.intake) return app;
+    const decision = this.cases.get(app.caseId).routingDecision;
+    const missing = app.fields.filter((f) => f.source === "MANUAL" && !f.value).map((f) => f.key);
+    const chat = defaultChatProvider();
+    const result = await runIntake(
+      chat.provider,
+      this.cases.story(app.caseId),
+      fieldContexts(app.template, missing),
+      decision?.title ?? app.agency.name,
+    );
+    const found = new Map(result.extracted.map((e) => [e.key, e.value]));
+    const fields = app.fields.map((f): ApplicationField => {
+      const v = found.get(f.key);
+      return v !== undefined && f.source === "MANUAL" && !f.value ? { ...f, value: v, provenance: "hikoya" } : f;
+    });
+    return this.save({
+      ...this.stored(id),
+      fields,
+      consentAt: null,
+      intake: {
+        understood: result.understood,
+        questions: result.questions.map((q) => ({ ...q, status: "open" as const })),
+        model: chat.provider?.id ?? "keyword",
+        degraded: result.degraded,
+      },
+    });
+  }
+
+  /** Answer to one of Lexi's questions. "Bilmayman" leaves the field empty (shown in yellow). */
+  answer(id: string, citizenId: string, key: string, answer: string): Application {
+    const app = this.owned(id, citizenId);
+    this.assertEditable(app);
+    const q = app.intake?.questions.find((x) => x.key === key);
+    if (!app.intake || !q) throw new BadRequestException(`No question for field ${key}`);
+    const skip = isDontKnow(answer);
+    const updated = skip ? app : this.updateFields(id, citizenId, { [key]: answer });
+    const questions = app.intake.questions.map((x) => (x.key === key ? { ...x, status: skip ? ("skipped" as const) : ("answered" as const) } : x));
+    return this.save({ ...this.stored(id), fields: updated.fields, consentAt: null, intake: { ...app.intake, questions } });
   }
 
   consent(id: string, citizenId: string): Application {
@@ -230,10 +281,10 @@ export class ApplicationsService {
     const template = p.adapt ? p.adapt(loaded) : loaded;
     const fields = fieldKeys(template).map((key): ApplicationField => {
       const oneId = ONEID_FIELDS[key];
-      if (oneId) return { key, value: oneId(p.citizen), source: "ONEID" };
+      if (oneId) return { key, value: oneId(p.citizen), source: "ONEID", provenance: null };
       const system = SYSTEM_FIELDS[key];
-      if (system) return { key, value: system(), source: "SYSTEM" };
-      return { key, value: null, source: "MANUAL" };
+      if (system) return { key, value: system(), source: "SYSTEM", provenance: null };
+      return { key, value: null, source: "MANUAL", provenance: null };
     });
     const now = new Date().toISOString();
     return this.save({
@@ -250,6 +301,7 @@ export class ApplicationsService {
       consentAt: null,
       signature: null,
       submissionId: null,
+      intake: null,
       createdAt: now,
       updatedAt: now,
       signedPdfBase64: null,

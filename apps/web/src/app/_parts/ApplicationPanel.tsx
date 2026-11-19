@@ -10,6 +10,7 @@ import { fieldLabel, templateParts } from "@/lib/view";
 import { texts } from "@/content/texts.uz";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { LexiChat } from "./LexiChat";
 
 interface Props {
   application: Application;
@@ -55,12 +56,17 @@ export function ApplicationPanel({ application: app, onChange, onSend }: Props) 
         {texts.application.to} <b>{app.agency.name}</b>
       </p>
 
+      <LexiChat application={app} onChange={onChange} locked={locked} />
+
       {manual.length > 0 && !locked && (
         <>
           <h4>{texts.application.fieldsTitle}</h4>
           {manual.map((f) => (
             <label key={f.key} style={{ display: "block", marginBottom: 8 }}>
-              <span style={{ display: "block", color: "var(--muted)", fontSize: 14 }}>{fieldLabel(f.key)}</span>
+              <span style={{ display: "block", color: "var(--muted)", fontSize: 14 }}>
+                {fieldLabel(f.key)}
+                {f.provenance && ` · ${f.provenance === "hikoya" ? texts.lexi.fromStory : texts.lexi.fromAnswer}`}
+              </span>
               <input
                 value={draft[f.key] ?? ""}
                 onChange={(e) => setDraft({ ...draft, [f.key]: e.target.value })}

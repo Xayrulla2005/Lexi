@@ -1,9 +1,10 @@
-import { BadRequestException, Inject, Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Inject, Injectable, NotFoundException, Optional } from "@nestjs/common";
 import { randomUUID } from "node:crypto";
 import { Case, type CaseChannel, type CaseMessage, type CaseStatus } from "@lex/contracts";
 import { JsonStore } from "../common/json-store";
 import { runtimeFile } from "../common/paths";
 import { AiAnalysisService } from "../ai-analysis/ai-analysis.service";
+import { LegalAnalysisService } from "../legal-knowledge/legal-analysis.service";
 import { LegalRoutingService } from "../legal-routing/legal-routing.service";
 
 /**
@@ -19,7 +20,17 @@ export class CasesService {
   constructor(
     @Inject(AiAnalysisService) private readonly ai: AiAnalysisService,
     @Inject(LegalRoutingService) private readonly routing: LegalRoutingService,
+    /** Optional so unit tests can build the service without the LLM/RAG stack. */
+    @Optional() @Inject(LegalAnalysisService) private readonly legal: LegalAnalysisService | null = null,
   ) {}
+
+  /** The user's own messages joined (the story told so far). */
+  story(id: string): string {
+    return this.get(id)
+      .messages.filter((m) => m.role === "user")
+      .map((m) => m.text)
+      .join("\n");
+  }
 
   create(channel: CaseChannel, userId: string | null): Case {
     const now = new Date().toISOString();
@@ -31,6 +42,7 @@ export class CasesService {
       messages: [],
       analysis: null,
       routingDecision: null,
+      legalAnalysis: null,
       createdAt: now,
       updatedAt: now,
     };
@@ -62,6 +74,7 @@ export class CasesService {
 
     c.analysis = await this.ai.analyze(story);
     c.routingDecision = this.routing.decide(c.analysis);
+    c.legalAnalysis = this.legal ? await this.legal.analyze(story, c.routingDecision) : null;
     c.status = "ANALYZED";
     this.save(c);
     return c;

@@ -13,11 +13,17 @@ export type ApplicationFieldSource = z.infer<typeof ApplicationFieldSource>;
 
 export const FieldKey = z.string().regex(/^[a-z0-9_]+$/);
 
+/** Where a MANUAL value came from: the user's story ("hikoya") or an answer/form input ("javob"). */
+export const FieldProvenance = z.enum(["hikoya", "javob"]);
+export type FieldProvenance = z.infer<typeof FieldProvenance>;
+
 export const ApplicationField = z.object({
   key: FieldKey,
   /** null while not filled in. */
   value: z.string().nullable(),
   source: ApplicationFieldSource,
+  /** For MANUAL fields: who supplied the value. Defaults keep stored data valid. */
+  provenance: FieldProvenance.nullable().default(null),
 });
 export type ApplicationField = z.infer<typeof ApplicationField>;
 
@@ -43,6 +49,30 @@ export const SignatureVerification = z.object({
 });
 export type SignatureVerification = z.infer<typeof SignatureVerification>;
 
+export const IntakeQuestion = z.object({
+  key: FieldKey,
+  question: z.string().min(1),
+  status: z.enum(["open", "answered", "skipped"]),
+});
+export type IntakeQuestion = z.infer<typeof IntakeQuestion>;
+
+/** Lexi's clarifying conversation for an application (at most 3 questions, one at a time). */
+export const ApplicationIntake = z.object({
+  /** Shown as "Sizni shunday tushundim: …". */
+  understood: z.string().min(1),
+  questions: z.array(IntakeQuestion).max(3),
+  /** "<backend>:<model>" or "keyword" when no LLM was used. */
+  model: z.string(),
+  degraded: z.boolean(),
+});
+export type ApplicationIntake = z.infer<typeof ApplicationIntake>;
+
+export const IntakeAnswerRequest = z.object({
+  key: FieldKey,
+  answer: z.string().trim().min(1).max(2000),
+});
+export type IntakeAnswerRequest = z.infer<typeof IntakeAnswerRequest>;
+
 /** PRIMARY — to the route's primary agency; ESCALATION — draft for the first escalation agency after OVERDUE. */
 export const ApplicationKind = z.enum(["PRIMARY", "ESCALATION"]);
 export type ApplicationKind = z.infer<typeof ApplicationKind>;
@@ -67,6 +97,8 @@ export const Application = z.object({
   consentAt: IsoDateTime.nullable(),
   signature: EriSignature.nullable(),
   submissionId: z.string().uuid().nullable(),
+  /** null until the intake has run. */
+  intake: ApplicationIntake.nullable().default(null),
   createdAt: IsoDateTime,
   updatedAt: IsoDateTime,
 });

@@ -36,3 +36,28 @@ export class AllowlistCitationValidator implements CitationValidator {
     return { accepted, rejected };
   }
 }
+
+/** A sentence produced by the model with the article keys it relies on. */
+export interface CitedClaim {
+  text: string;
+  citations: string[];
+}
+
+/**
+ * Keeps only citations to articles that were actually given to the model; a claim left
+ * without any valid citation is removed (no unsupported legal statements reach users).
+ * Returns the cleaned claims and how many citations were dropped.
+ */
+export function filterClaimCitations(
+  claims: readonly CitedClaim[],
+  allowedKeys: ReadonlySet<string>,
+): { claims: CitedClaim[]; dropped: number } {
+  let dropped = 0;
+  const out: CitedClaim[] = [];
+  for (const c of claims) {
+    const valid = [...new Set(c.citations.map((k) => k.trim()))].filter((k) => allowedKeys.has(k));
+    dropped += c.citations.length - valid.length;
+    if (valid.length && c.text.trim()) out.push({ text: c.text.trim(), citations: valid });
+  }
+  return { claims: out, dropped };
+}

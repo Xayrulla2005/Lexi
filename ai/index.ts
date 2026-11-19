@@ -39,3 +39,6 @@ export { GeminiProvider, GeminiRequestError, geminiFromEnv } from "./models/gemi
 export { defaultChatProvider, llmProviderName, selectChatProvider, type LlmProviderName, type ProviderChoice } from "./models/select";
 export { classifyWithLlm, MIN_LLM_CONFIDENCE, type LlmClassification } from "./pipeline/llm-classify";
 export { CLASSIFY_PROMPT_VERSION, classifySystemPrompt } from "./prompts/classify.prompt";
+export { fieldContexts, isDontKnow, runIntake, MAX_QUESTIONS, type FieldContext, type IntakeResult } from "./pipeline/intake";
+export { analyzeWithArticles } from "./pipeline/legal-analysis";
+export { filterClaimCitations, type CitedClaim } from "./rag/citation-validator";

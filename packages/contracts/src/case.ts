@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { AnalysisResult } from "./analysis";
 import { IsoDateTime } from "./common";
+import { LegalAnalysis } from "./legal-analysis";
 import { RoutingDecision } from "./routing";
 
 export const CaseChannel = z.enum(["web", "bot"]);
@@ -26,6 +27,8 @@ export const Case = z.object({
   messages: z.array(CaseMessage),
   analysis: AnalysisResult.nullable(),
   routingDecision: RoutingDecision.nullable(),
+  /** LLM explanation grounded in the articles; null without an LLM or for emergencies. */
+  legalAnalysis: LegalAnalysis.nullable().default(null),
   createdAt: IsoDateTime,
   updatedAt: IsoDateTime,
 });

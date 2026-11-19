@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Notice } from "@/components/ui/Notice";
 import { RiskBadge } from "@/components/ui/RiskBadge";
+import { AnalysisPanel } from "./_parts/AnalysisPanel";
 import { ApplicationPanel } from "./_parts/ApplicationPanel";
 import { SubmissionTracker } from "./_parts/SubmissionTracker";
 
@@ -23,7 +24,12 @@ export default function ChatPage() {
   const [needLogin, setNeedLogin] = useState(false);
   const [failed, setFailed] = useState(false);
 
-  useEffect(() => setSession(loadSession()), []);
+  useEffect(() => {
+    setSession(loadSession());
+    // Link from the Telegram bot: /?text=...&problemId=... pre-fills the story.
+    const fromBot = new URLSearchParams(window.location.search).get("text");
+    if (fromBot) setText(fromBot);
+  }, []);
 
   async function onSend() {
     if (!text.trim()) return;
@@ -143,6 +149,7 @@ export default function ChatPage() {
         </Card>
       )}
 
+      {result?.legalAnalysis && <AnalysisPanel analysis={result.legalAnalysis} />}
       {application && <ApplicationPanel application={application} onChange={setApplication} onSend={sendApplication} />}
       {tracked.map((id) => (
         <SubmissionTracker key={id} submissionId={id} onOpenEscalation={openEscalation} />
