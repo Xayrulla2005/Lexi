@@ -52,7 +52,8 @@ export async function classifyWithLlm(provider: ChatModelProvider, story: string
     json: true,
     jsonSchema: classificationJsonSchema(),
     temperature: 0,
-    maxTokens: 400,
+    // No maxTokens: "thinking" models count reasoning tokens against the output limit,
+    // and a small cap truncated the JSON (seen with gemini-2.5-flash at 400).
   });
   const parsed = RawLlmClassification.safeParse(parseJsonObject(reply));
   if (!parsed.success) throw new LlmOutputError(`model reply failed validation: ${parsed.error.issues[0]?.path.join(".") ?? "?"}`);

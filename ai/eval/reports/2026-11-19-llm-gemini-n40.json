@@ -1,0 +1,272 @@
+{
+  "label": "llm-gemini",
+  "classifier": "gemini:gemini-3.5-flash-lite",
+  "generatedAt": "2026-11-19T06:14:22.055Z",
+  "dataset": "ai/eval/datasets/test_cases.csv",
+  "sample": {
+    "size": 40,
+    "of": 261,
+    "ids": [
+      "P01_A1",
+      "P07_A1",
+      "P14_A1",
+      "P20_A1",
+      "P27_A1",
+      "P33_A1",
+      "P40_A1",
+      "P46_A1",
+      "P52_A1",
+      "P58_A1",
+      "P65_A1",
+      "P02_V3",
+      "P05_V1",
+      "P07_V1",
+      "P09_V2",
+      "P11_V2",
+      "P13_V3",
+      "P15_V3",
+      "P18_V1",
+      "P20_V1",
+      "P22_V2",
+      "P24_V3",
+      "P26_V3",
+      "P29_V1",
+      "P31_V1",
+      "P33_V2",
+      "P35_V2",
+      "P37_V3",
+      "P39_V3",
+      "P42_V1",
+      "P44_V1",
+      "P46_V2",
+      "P48_V2",
+      "P50_V3",
+      "P52_V3",
+      "P55_V1",
+      "P57_V1",
+      "P59_V2",
+      "P61_V2",
+      "P63_V3"
+    ]
+  },
+  "summary": {
+    "cases": 40,
+    "problemIdAccuracy": 92.5,
+    "domainAccuracy": 97.5,
+    "redRecall": 100,
+    "redCases": 4,
+    "firstAgencyAccuracy": 92.5
+  },
+  "perStyle": {
+    "rasmiy": {
+      "cases": 11,
+      "problemIdAccuracy": 100,
+      "domainAccuracy": 100,
+      "redRecall": 100,
+      "redCases": 1,
+      "firstAgencyAccuracy": 100
+    },
+    "qisqa": {
+      "cases": 10,
+      "problemIdAccuracy": 90,
+      "domainAccuracy": 100,
+      "redRecall": null,
+      "redCases": 0,
+      "firstAgencyAccuracy": 90
+    },
+    "sheva": {
+      "cases": 9,
+      "problemIdAccuracy": 100,
+      "domainAccuracy": 100,
+      "redRecall": 100,
+      "redCases": 3,
+      "firstAgencyAccuracy": 88.9
+    },
+    "aralash": {
+      "cases": 4,
+      "problemIdAccuracy": 100,
+      "domainAccuracy": 100,
+      "redRecall": null,
+      "redCases": 0,
+      "firstAgencyAccuracy": 100
+    },
+    "kirill": {
+      "cases": 6,
+      "problemIdAccuracy": 66.7,
+      "domainAccuracy": 83.3,
+      "redRecall": null,
+      "redCases": 0,
+      "firstAgencyAccuracy": 83.3
+    }
+  },
+  "keywordOnSameSample": {
+    "summary": {
+      "cases": 40,
+      "problemIdAccuracy": 5,
+      "domainAccuracy": 12.5,
+      "redRecall": 0,
+      "redCases": 4,
+      "firstAgencyAccuracy": 7.5
+    },
+    "perStyle": {
+      "rasmiy": {
+        "cases": 11,
+        "problemIdAccuracy": 0,
+        "domainAccuracy": 9.1,
+        "redRecall": 0,
+        "redCases": 1,
+        "firstAgencyAccuracy": 0
+      },
+      "qisqa": {
+        "cases": 10,
+        "problemIdAccuracy": 20,
+        "domainAccuracy": 20,
+        "redRecall": null,
+        "redCases": 0,
+        "firstAgencyAccuracy": 20
+      },
+      "sheva": {
+        "cases": 9,
+        "problemIdAccuracy": 0,
+        "domainAccuracy": 22.2,
+        "redRecall": 0,
+        "redCases": 3,
+        "firstAgencyAccuracy": 11.1
+      },
+      "aralash": {
+        "cases": 4,
+        "problemIdAccuracy": 0,
+        "domainAccuracy": 0,
+        "redRecall": null,
+        "redCases": 0,
+        "firstAgencyAccuracy": 0
+      },
+      "kirill": {
+        "cases": 6,
+        "problemIdAccuracy": 0,
+        "domainAccuracy": 0,
+        "redRecall": null,
+        "redCases": 0,
+        "firstAgencyAccuracy": 0
+      }
+    }
+  },
+  "comparison": [
+    {
+      "metric": "problemIdAccuracy",
+      "keyword": 5,
+      "llm": 92.5
+    },
+    {
+      "metric": "domainAccuracy",
+      "keyword": 12.5,
+      "llm": 97.5
+    },
+    {
+      "metric": "firstAgencyAccuracy",
+      "keyword": 7.5,
+      "llm": 92.5
+    },
+    {
+      "metric": "redRecall",
+      "keyword": 0,
+      "llm": 100
+    }
+  ],
+  "topConfusions": [
+    {
+      "pair": "P02 -> P04",
+      "n": 1
+    },
+    {
+      "pair": "P29 -> P25",
+      "n": 1
+    },
+    {
+      "pair": "P50 -> P44",
+      "n": 1
+    }
+  ],
+  "latency": {
+    "liveCalls": 39,
+    "cacheHits": 0,
+    "p50": 4774,
+    "p90": 33294,
+    "max": 36563
+  },
+  "degraded": 1,
+  "errors": [
+    {
+      "id": "P02_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P02",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": "P04",
+        "domain": "fuqarolik_nizo",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "sud_fuqarolik"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P29_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P29",
+        "domain": "zoravonlik",
+        "red": false,
+        "firstAgency": "profilaktika_inspektori"
+      },
+      "predicted": {
+        "problemId": "P25",
+        "domain": "zoravonlik",
+        "riskLevel": "red",
+        "routeType": "EMERGENCY",
+        "firstAgency": "iiv"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P50_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P50",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": "P44",
+        "domain": "qoshnichilik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "profilaktika_inspektori"
+      },
+      "degraded": true
+    },
+    {
+      "id": "P61_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P61",
+        "domain": "chet_eldagilar",
+        "red": true,
+        "firstAgency": "konsullik"
+      },
+      "predicted": {
+        "problemId": "P61",
+        "domain": "chet_eldagilar",
+        "riskLevel": "red",
+        "routeType": "EMERGENCY",
+        "firstAgency": "iiv"
+      },
+      "degraded": false
+    }
+  ]
+}
