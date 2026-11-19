@@ -1,5 +1,5 @@
 /** XAYRULLA: API bilan aloqa. Dilfuza bu faylga tegmaydi. */
-import type { Case, RiskLevel } from "@lex/contracts";
+import type { Case, Conversation, RiskLevel } from "@lex/contracts";
 
 const API = process.env.API_URL ?? "http://localhost:3001";
 
@@ -25,4 +25,9 @@ export const api = {
   createCase: (userId: string) => call<Case>("/cases", { channel: "bot", userId }),
   addMessage: (id: string, text: string) => call(`/cases/${id}/messages`, { text }),
   analyze: (id: string) => call<Case>(`/cases/${id}/analyze`, {}),
+  /** Lexi conversation (same engine as the web). */
+  startConversation: () => call<Conversation>("/conversations", { channel: "bot" }),
+  getConversation: (id: string) => call<Conversation>(`/conversations/${id}`),
+  say: (id: string, text: string) => call<Conversation>(`/conversations/${id}/messages`, { text }),
+  act: (id: string, action: string) => call<Conversation>(`/conversations/${id}/actions`, { action }),
 };
