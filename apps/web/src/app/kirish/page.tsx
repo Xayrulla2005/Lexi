@@ -12,9 +12,13 @@ import { SimBanner } from "@/components/ui/SimBanner";
 export default function OneIdSimulatorPage() {
   const [citizens, setCitizens] = useState<SimCitizen[]>([]);
   const [session, setSession] = useState<SimSession | null>(null);
+  const [returnTo, setReturnTo] = useState("/");
 
   useEffect(() => {
     setSession(loadSession());
+    // Coming from a Lexi conversation (/kirish?c=<id>): go back to it after login.
+    const c = new URLSearchParams(window.location.search).get("c");
+    if (c && /^[0-9a-f-]{36}$/.test(c)) setReturnTo(`/?c=${c}`);
     api.citizens().then(setCitizens).catch(() => setCitizens([]));
   }, []);
 
@@ -39,7 +43,7 @@ export default function OneIdSimulatorPage() {
         <Card>
           {texts.oneid.loggedInAs} <b>{session.citizen.fio}</b>
           <div style={{ display: "flex", gap: 8, marginTop: 12, flexWrap: "wrap" }}>
-            <a href="/"><Button>{texts.oneid.back}</Button></a>
+            <a href={returnTo}><Button>{returnTo === "/" ? texts.oneid.back : texts.chat.back}</Button></a>
             <Button tone="plain" onClick={logout}>{texts.oneid.logout}</Button>
           </div>
         </Card>

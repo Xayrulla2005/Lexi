@@ -7,6 +7,8 @@ import {
   type Application,
   type Case,
   type ConsentRequest,
+  type Conversation,
+  type EmergencyCall,
   type InboxItem,
   type SimClock,
   type SimCitizen,
@@ -103,7 +105,15 @@ export const api = {
   intake: (id: string) => call<Application>(`/applications/${id}/intake`, {}),
   answer: (id: string, key: string, answer: string) => call<Application>(`/applications/${id}/answer`, { key, answer }),
   /** SIMULYATOR: idora kabineti. */
+  /** Lexi suhbati. */
+  conversation: {
+    start: () => call<Conversation>("/conversations", { channel: "web" }),
+    get: (id: string) => call<Conversation>(`/conversations/${id}`),
+    say: (id: string, text: string) => call<Conversation>(`/conversations/${id}/messages`, { text }),
+    act: (id: string, action: string) => call<Conversation>(`/conversations/${id}/actions`, { action }),
+  },
   cabinet: {
+    calls: (agencyId: string) => call<EmergencyCall[]>(`/sim/idora/${agencyId}/calls`),
     agencies: () => call<AgencyContact[]>("/sim/idora/agencies"),
     inbox: (agencyId: string) => call<AgencySubmission[]>(`/sim/idora/${agencyId}/inbox`),
     open: (id: string) => call<InboxItem>(`/sim/idora/submissions/${id}`),

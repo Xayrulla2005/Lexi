@@ -16,9 +16,11 @@ interface Props {
   application: Application;
   onChange: (app: Application) => void;
   onSend: (app: Application) => Promise<void>;
+  /** Lexi's intake block; off inside the Lexi conversation (it already asked). */
+  withLexi?: boolean;
 }
 
-export function ApplicationPanel({ application: app, onChange, onSend }: Props) {
+export function ApplicationPanel({ application: app, onChange, onSend, withLexi = true }: Props) {
   const manual = app.fields.filter((f) => f.source === "MANUAL");
   const [draft, setDraft] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
@@ -56,7 +58,7 @@ export function ApplicationPanel({ application: app, onChange, onSend }: Props) 
         {texts.application.to} <b>{app.agency.name}</b>
       </p>
 
-      <LexiChat application={app} onChange={onChange} locked={locked} />
+      {withLexi && <LexiChat application={app} onChange={onChange} locked={locked} />}
 
       {manual.length > 0 && !locked && (
         <>

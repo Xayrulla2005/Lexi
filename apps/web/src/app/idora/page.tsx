@@ -4,7 +4,7 @@
  * Haqiqiy davlat tizimlarining dizayni ishlatilmaydi.
  */
 import { useCallback, useEffect, useState } from "react";
-import type { AgencyContact, AgencySubmission, InboxItem, SimClock } from "@lex/contracts";
+import type { AgencyContact, AgencySubmission, EmergencyCall, InboxItem, SimClock } from "@lex/contracts";
 import { api } from "@/lib/api";
 import { fieldLabel } from "@/lib/view";
 import { texts } from "@/content/texts.uz";
@@ -13,6 +13,8 @@ import { Card } from "@/components/ui/Card";
 import { SimBanner } from "@/components/ui/SimBanner";
 
 const POLL_MS = 2000;
+/** Emergency services: their cabinet shows the "Navbatchi qism" call list. */
+const DUTY_AGENCIES = new Set(["iiv", "tez_yordam", "ishonch_1146"]);
 
 export default function AgencyCabinetPage() {
   const [agencies, setAgencies] = useState<AgencyContact[]>([]);
@@ -22,6 +24,7 @@ export default function AgencyCabinetPage() {
   const [answer, setAnswer] = useState("");
   const [busy, setBusy] = useState(false);
   const [clock, setClock] = useState<SimClock | null>(null);
+  const [calls, setCalls] = useState<EmergencyCall[]>([]);
 
   useEffect(() => {
     api.cabinet.agencies().then(setAgencies).catch(() => setAgencies([]));
@@ -52,18 +55,36 @@ export default function AgencyCabinetPage() {
         .inbox(agencyId)
         .then((list) => !stopped && setInbox(list))
         .catch(() => {});
+    const loadCalls = () =>
+      DUTY_AGENCIES.has(agencyId)
+        ? api.cabinet
+            .calls(agencyId)
+            .then((list) => !stopped && setCalls(list))
+            .catch(() => {})
+        : setCalls([]);
+    void loadCalls();
+    const tc = setInterval(loadCalls, POLL_MS);
     void load();
     const t = setInterval(load, POLL_MS);
     return () => {
       stopped = true;
       clearInterval(t);
+      clearInterval(tc);
     };
   }, [agencyId]);
 
   const open = useCallback(async (id: string) => {
-    setItem(await api.cabinet.open(id));
+    const it = await api.cabinet.open(id);
+    setItem(it);
+    setAgencyId(it.submission.agencyId);
     setAnswer("");
   }, []);
+
+  // Deep link from the Lexi conversation: /idora?submission=<id> opens exactly that package.
+  useEffect(() => {
+    const id = new URLSearchParams(window.location.search).get("submission");
+    if (id && /^[0-9a-f-]{36}$/.test(id)) void open(id).catch(() => undefined);
+  }, [open]);
 
   async function act(action: () => Promise<AgencySubmission>) {
     if (!item) return;
@@ -111,6 +132,22 @@ export default function AgencyCabinetPage() {
         </select>
       </label>
 
+      {DUTY_AGENCIES.has(agencyId) && (
+        <Card>
+          <SimBanner text={texts.cabinet.dutyTitle} />
+          {calls.length === 0 && <p>{texts.cabinet.dutyEmpty}</p>}
+          {calls.map((c) => (
+            <div key={c.id} style={{ borderBottom: "1px solid var(--border)", padding: "8px 0" }}>
+              <b>{new Date(c.createdAt).toLocaleString("uz-UZ")}</b> · {texts.chat.callStatus}
+              <div style={{ fontSize: 14 }}>{c.description}</div>
+              <div style={{ fontSize: 14, color: "var(--muted)" }}>
+                {texts.cabinet.citizen} {c.citizen ? `${c.citizen.fio} (${c.citizen.pinfl})` : "—"}
+              </div>
+            </div>
+          ))}
+        </Card>
+      )}
+
       <h2>{texts.cabinet.inbox}</h2>
       {inbox.length === 0 && <p>{texts.cabinet.empty}</p>}
       {inbox.map((x) => (
@@ -150,6 +187,35 @@ export default function AgencyCabinetPage() {
           </p>
           <Button tone="plain" onClick={() => api.cabinet.openPdf(s.id)}>{texts.cabinet.pdf}</Button>
 
+          <h4>{texts.cabinet.packageTitle}</h4>
+          <ol style={{ fontSize: 14 }}>
+            <li>
+              {texts.cabinet.packagePdf} —{" "}
+              <a href="#" onClick={(e) => { e.preventDefault(); void api.cabinet.openPdf(s.id); }}>{texts.cabinet.pdf}</a>
+            </li>
+            <li>
+              {texts.cabinet.packageSignature}: {item.signature.algorithm}, SHA-256 {item.signature.digest.slice(0, 16)}… —{" "}
+              {item.signatureCheck.message}
+            </li>
+            <li>
+              {texts.cabinet.packageCaseInfo}: {item.caseInfo.problemId ?? "—"} ·{" "}
+              {Object.keys(item.caseInfo.fields).map(fieldLabel).join(", ")}
+            </li>
+            <li>
+              {texts.cabinet.packageConsent}: {new Date(item.consentAt).toLocaleString("uz-UZ")}
+            </li>
+            <li>
+              {texts.cabinet.packageCitizen}: {item.citizen.fio} ({item.citizen.pinfl})
+            </li>
+          </ol>
+          <h4>{texts.cabinet.chronology}</h4>
+          <ul style={{ fontSize: 14 }}>
+            {s.history.map((h) => (
+              <li key={`${h.status}-${h.at}`}>
+                {new Date(h.at).toLocaleString("uz-UZ")} — {texts.tracking.status[h.status] ?? h.status}
+              </li>
+            ))}
+          </ul>
           <h4>{texts.cabinet.caseInfo}</h4>
           <ul>
             {item.caseInfo.problemId && (

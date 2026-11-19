@@ -1,45 +1,80 @@
 "use client";
-/** XAYRULLA: sahifa mantig'i. Sevinchoy ko'rinishni components/ui va styles orqali o'zgartiradi. */
-import { useEffect, useState } from "react";
-import type { AgencyContact, Application, Case, SimSession } from "@lex/contracts";
+/**
+ * XAYRULLA: bosh sahifa — Lexi bilan bitta suhbat oynasi. Kartalar suhbat ichida ketma-ket chiqadi.
+ * Sevinchoy ko'rinishni components/ui va styles orqali o'zgartiradi.
+ */
+import { useCallback, useEffect, useRef, useState } from "react";
+import type { ChatAction, Conversation, SimSession } from "@lex/contracts";
 import { api } from "@/lib/api";
 import { loadSession } from "@/lib/session";
-import { isUrl, lawNames, phoneParts, riskTone, routeKind } from "@/lib/view";
 import { texts } from "@/content/texts.uz";
 import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
-import { Notice } from "@/components/ui/Notice";
-import { RiskBadge } from "@/components/ui/RiskBadge";
-import { AnalysisPanel } from "./_parts/AnalysisPanel";
-import { ApplicationPanel } from "./_parts/ApplicationPanel";
-import { SubmissionTracker } from "./_parts/SubmissionTracker";
+import { CardView } from "./_parts/ChatCards";
+
+const STORAGE_KEY = "lex.conversation";
+const POLL_MS = 3000;
+
+function rememberConversation(id: string | null) {
+  try {
+    if (id) localStorage.setItem(STORAGE_KEY, id);
+    else localStorage.removeItem(STORAGE_KEY);
+  } catch {
+    // Storage unavailable: the conversation still works for this page view.
+  }
+}
 
 export default function ChatPage() {
+  const [conv, setConv] = useState<Conversation | null>(null);
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
-  const [result, setResult] = useState<Case | null>(null);
-  const [tracked, setTracked] = useState<string[]>([]);
-  const [session, setSession] = useState<SimSession | null>(null);
-  const [application, setApplication] = useState<Application | null>(null);
-  const [needLogin, setNeedLogin] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [session, setSession] = useState<SimSession | null>(null);
+  const bottom = useRef<HTMLDivElement>(null);
+
+  const startNew = useCallback(async () => {
+    const c = await api.conversation.start();
+    rememberConversation(c.id);
+    window.history.replaceState(null, "", `/?c=${c.id}`);
+    setConv(c);
+  }, []);
 
   useEffect(() => {
     setSession(loadSession());
-    // Link from the Telegram bot: /?text=...&problemId=... pre-fills the story.
-    const fromBot = new URLSearchParams(window.location.search).get("text");
-    if (fromBot) setText(fromBot);
-  }, []);
+    const params = new URLSearchParams(window.location.search);
+    let id = params.get("c");
+    if (!id) {
+      try {
+        id = localStorage.getItem(STORAGE_KEY);
+      } catch {
+        id = null;
+      }
+    }
+    const prefill = params.get("text"); // from the Telegram bot
+    if (prefill) setText(prefill);
+    (id ? api.conversation.get(id).catch(() => null) : Promise.resolve(null))
+      .then((c) => (c ? (rememberConversation(c.id), setConv(c)) : startNew()))
+      .catch(() => setFailed(true));
+  }, [startNew]);
 
-  async function onSend() {
-    if (!text.trim()) return;
+  // TRACKING: status changes arrive as new Lexi messages.
+  useEffect(() => {
+    if (!conv) return;
+    const t = setInterval(() => {
+      api.conversation
+        .get(conv.id)
+        .then((c) => setConv((prev) => (prev && c.messages.length !== prev.messages.length ? c : prev)))
+        .catch(() => undefined);
+    }, POLL_MS);
+    return () => clearInterval(t);
+  }, [conv?.id]);
+
+  useEffect(() => bottom.current?.scrollIntoView({ behavior: "smooth" }), [conv?.messages.length]);
+
+  async function run(fn: () => Promise<Conversation>) {
     setBusy(true);
-    setTracked([]);
-    setApplication(null);
-    setNeedLogin(false);
     setFailed(false);
     try {
-      setResult(await api.ask(text));
+      setConv(await fn());
     } catch {
       setFailed(true);
     } finally {
@@ -47,139 +82,109 @@ export default function ChatPage() {
     }
   }
 
-  const decision = result?.routingDecision;
-  const canSubmit = decision?.routeType === "RULE_BASED" && !!decision.agencyId && !!decision.templateId;
-  const kind = decision ? routeKind(decision) : null;
-  const laws = decision && result?.analysis ? lawNames(decision, result.analysis.legalReferences) : [];
+  const send = (value: string) => {
+    if (!conv || !value.trim()) return;
+    setText("");
+    void run(() => api.conversation.say(conv.id, value.trim()));
+  };
 
-  /** "Arizani yuborish" first opens the application view; nothing is sent from here. */
-  async function onSubmit() {
-    if (!result) return;
-    if (!session) {
-      setNeedLogin(true);
-      return;
-    }
-    setFailed(false);
-    try {
-      setApplication(await api.createApplication(result.id));
-    } catch {
-      setFailed(true);
-    }
-  }
+  const onAction = (a: ChatAction) => {
+    if (!conv) return;
+    if (a.kind === "reply") send(a.value);
+    else if (a.kind === "action") void run(() => api.conversation.act(conv.id, a.value));
+  };
 
-  async function sendApplication(app: Application) {
-    const submission = await api.submit(app.id);
-    setTracked((ids) => [...ids, submission.id]);
-    setApplication(await api.application(app.id));
-  }
-
-  async function openEscalation(applicationId: string) {
-    setApplication(await api.application(applicationId));
-  }
+  const refresh = () => conv && void run(() => api.conversation.get(conv.id));
 
   return (
-    <main>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
+    <main style={{ display: "flex", flexDirection: "column", minHeight: "100vh", paddingBottom: 0 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
         <div>
           <h1>{texts.appName}</h1>
           <p style={{ color: "var(--muted)", marginTop: 0 }}>{texts.tagline}</p>
         </div>
-        <a href="tel:102"><Button tone="danger">{texts.emergency}</Button></a>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <a href="tel:102"><Button tone="danger">{texts.emergency}</Button></a>
+          <Button tone="plain" onClick={() => void startNew()}>{texts.chat.newChat}</Button>
+        </div>
       </div>
-      <p style={{ marginTop: 0 }}>
+      <p style={{ marginTop: 0, fontSize: 14 }}>
         {session ? (
           <>
-            {texts.application.loggedInAs} <b>{session.citizen.fio}</b> · <a href="/kirish">{texts.oneid.logout}</a>
+            {texts.application.loggedInAs} <b>{session.citizen.fio}</b>
           </>
         ) : (
-          <a href="/kirish">{texts.oneid.login}</a>
+          <a href={conv ? `/kirish?c=${conv.id}` : "/kirish"}>{texts.oneid.login}</a>
         )}
       </p>
 
-      <Card>
-        <textarea
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder={texts.inputPlaceholder}
-          rows={4}
-          style={{ width: "100%", fontSize: 17, padding: 12, borderRadius: 10, border: "1px solid var(--border)" }}
-        />
-        <div style={{ marginTop: 12 }}>
-          <Button onClick={onSend} disabled={busy}>{busy ? texts.thinking : texts.send}</Button>
-        </div>
+      <section style={{ flex: 1 }}>
+        {conv?.messages.map((m) => {
+          const mine = m.role === "user";
+          return (
+            <div key={m.id} style={{ display: "flex", justifyContent: mine ? "flex-end" : "flex-start", margin: "10px 0" }}>
+              <div style={{ maxWidth: "92%" }}>
+                <div
+                  style={{
+                    background: mine ? "var(--ink)" : "var(--surface)",
+                    color: mine ? "#fff" : "var(--ink)",
+                    border: mine ? "none" : "1px solid var(--border)",
+                    borderRadius: 14,
+                    padding: "10px 14px",
+                    whiteSpace: "pre-wrap",
+                  }}
+                >
+                  {!mine && <b style={{ display: "block", fontSize: 13, color: "var(--muted)" }}>{texts.chat.lexi}</b>}
+                  {m.text}
+                </div>
+                {m.card && <CardView card={m.card} onRefresh={refresh} />}
+                {m.actions.length > 0 && (
+                  <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 6 }}>
+                    {m.actions.map((a) =>
+                      a.kind === "tel" ? (
+                        <a key={a.value + a.label} href={`tel:${a.value.replace(/[^\d+]/g, "")}`}>
+                          <Button tone="danger">{a.label}</Button>
+                        </a>
+                      ) : a.kind === "link" ? (
+                        <a key={a.value + a.label} href={a.value} target="_blank" rel="noreferrer">
+                          <Button tone="plain">{a.label}</Button>
+                        </a>
+                      ) : (
+                        <Button key={a.value + a.label} tone="plain" disabled={busy} onClick={() => onAction(a)}>
+                          {a.label}
+                        </Button>
+                      ),
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+        {busy && <p style={{ color: "var(--muted)" }}>{texts.chat.thinking}</p>}
         {failed && <p style={{ color: "var(--red)", fontWeight: 600 }}>⚠ {texts.application.retry}</p>}
-      </Card>
+        <div ref={bottom} />
+      </section>
 
-      {result?.analysis && decision && (
-        <Card>
-          <RiskBadge level={riskTone(result.analysis.risk.level)} />
-          {kind && <p style={{ color: "var(--muted)" }}>{texts.routeKind[kind]}</p>}
-          {decision.reviewNotice && <Notice title={texts.reviewWarningTitle}>{decision.reviewNotice}</Notice>}
-          <h3>{texts.resultTitle}</h3>
-          <ol>{decision.steps.map((s) => <li key={s.order}>{s.action}</li>)}</ol>
-          {decision.agencies.length > 0 && (
-            <>
-              <h3>{texts.agenciesTitle}</h3>
-              <AgencyList agencies={decision.agencies} />
-            </>
-          )}
-          {decision.escalation.length > 0 && (
-            <>
-              <h3>{texts.escalationTitle}</h3>
-              <AgencyList agencies={decision.escalation} />
-            </>
-          )}
-          {laws.length > 0 && (
-            <>
-              <h3>{texts.lawTitle}</h3>
-              <ul>{laws.map((name) => <li key={name}>{name}</li>)}</ul>
-            </>
-          )}
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            {canSubmit && <Button onClick={onSubmit}>{texts.sendAppeal}</Button>}
-            {decision.requiresHumanReview && (
-              <a href="https://advice.uz" target="_blank" rel="noreferrer"><Button tone="plain">{texts.lawyer}</Button></a>
-            )}
-          </div>
-          {needLogin && (
-            <p>
-              {texts.application.needLogin} <a href="/kirish">{texts.oneid.login}</a>
-            </p>
-          )}
-        </Card>
-      )}
-
-      {result?.legalAnalysis && <AnalysisPanel analysis={result.legalAnalysis} />}
-      {application && <ApplicationPanel application={application} onChange={setApplication} onSend={sendApplication} />}
-      {tracked.map((id) => (
-        <SubmissionTracker key={id} submissionId={id} onOpenEscalation={openEscalation} />
-      ))}
+      <div style={{ position: "sticky", bottom: 0, background: "var(--bg)", padding: "10px 0 6px" }}>
+        <div style={{ display: "flex", gap: 8 }}>
+          <textarea
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                send(text);
+              }
+            }}
+            placeholder={texts.chat.placeholder}
+            rows={2}
+            style={{ flex: 1, fontSize: 17, padding: 10, borderRadius: 10, border: "1px solid var(--border)" }}
+          />
+          <Button onClick={() => send(text)} disabled={busy || !conv}>{texts.chat.send}</Button>
+        </div>
+        <p style={{ color: "var(--muted)", fontSize: 12, margin: "6px 0 0", textAlign: "center" }}>{texts.chat.footer}</p>
+      </div>
     </main>
-  );
-}
-
-/** Agency name with its catalog phone(s) and link, shown verbatim. */
-function AgencyList({ agencies }: { agencies: readonly AgencyContact[] }) {
-  return (
-    <ul>
-      {agencies.map((a) => (
-        <li key={a.id}>
-          <b>{a.name}</b>
-          {a.phone &&
-            phoneParts(a.phone).map((p) => (
-              <span key={p.label}>
-                {" · "}
-                {p.href ? <a href={p.href}>{p.label}</a> : p.label}
-              </span>
-            ))}
-          {a.link && (
-            <>
-              {" · "}
-              {isUrl(a.link) ? <a href={a.link} target="_blank" rel="noreferrer">{a.link}</a> : a.link}
-            </>
-          )}
-        </li>
-      ))}
-    </ul>
   );
 }
