@@ -1,0 +1,881 @@
+{
+  "label": "llm-gemini",
+  "classifier": "gemini:gemini-3.5-flash-lite",
+  "generatedAt": "2026-11-19T06:31:20.794Z",
+  "dataset": "ai/eval/datasets/test_cases.csv",
+  "sample": {
+    "size": 261,
+    "of": 261,
+    "ids": [
+      "P01_A1",
+      "P02_A1",
+      "P03_A1",
+      "P04_A1",
+      "P05_A1",
+      "P06_A1",
+      "P07_A1",
+      "P08_A1",
+      "P09_A1",
+      "P10_A1",
+      "P11_A1",
+      "P12_A1",
+      "P13_A1",
+      "P14_A1",
+      "P15_A1",
+      "P16_A1",
+      "P17_A1",
+      "P18_A1",
+      "P19_A1",
+      "P20_A1",
+      "P21_A1",
+      "P22_A1",
+      "P23_A1",
+      "P24_A1",
+      "P25_A1",
+      "P26_A1",
+      "P27_A1",
+      "P28_A1",
+      "P29_A1",
+      "P30_A1",
+      "P31_A1",
+      "P32_A1",
+      "P33_A1",
+      "P34_A1",
+      "P35_A1",
+      "P36_A1",
+      "P37_A1",
+      "P38_A1",
+      "P39_A1",
+      "P40_A1",
+      "P41_A1",
+      "P42_A1",
+      "P43_A1",
+      "P44_A1",
+      "P45_A1",
+      "P46_A1",
+      "P47_A1",
+      "P48_A1",
+      "P49_A1",
+      "P49_A2",
+      "P50_A1",
+      "P51_A1",
+      "P52_A1",
+      "P53_A1",
+      "P54_A1",
+      "P55_A1",
+      "P56_A1",
+      "P57_A1",
+      "P58_A1",
+      "P59_A1",
+      "P60_A1",
+      "P61_A1",
+      "P62_A1",
+      "P63_A1",
+      "P64_A1",
+      "P65_A1",
+      "P01_V1",
+      "P01_V2",
+      "P01_V3",
+      "P02_V1",
+      "P02_V2",
+      "P02_V3",
+      "P03_V1",
+      "P03_V2",
+      "P03_V3",
+      "P04_V1",
+      "P04_V2",
+      "P04_V3",
+      "P05_V1",
+      "P05_V2",
+      "P05_V3",
+      "P06_V1",
+      "P06_V2",
+      "P06_V3",
+      "P07_V1",
+      "P07_V2",
+      "P07_V3",
+      "P08_V1",
+      "P08_V2",
+      "P08_V3",
+      "P09_V1",
+      "P09_V2",
+      "P09_V3",
+      "P10_V1",
+      "P10_V2",
+      "P10_V3",
+      "P11_V1",
+      "P11_V2",
+      "P11_V3",
+      "P12_V1",
+      "P12_V2",
+      "P12_V3",
+      "P13_V1",
+      "P13_V2",
+      "P13_V3",
+      "P14_V1",
+      "P14_V2",
+      "P14_V3",
+      "P15_V1",
+      "P15_V2",
+      "P15_V3",
+      "P16_V1",
+      "P16_V2",
+      "P16_V3",
+      "P17_V1",
+      "P17_V2",
+      "P17_V3",
+      "P18_V1",
+      "P18_V2",
+      "P18_V3",
+      "P19_V1",
+      "P19_V2",
+      "P19_V3",
+      "P20_V1",
+      "P20_V2",
+      "P20_V3",
+      "P21_V1",
+      "P21_V2",
+      "P21_V3",
+      "P22_V1",
+      "P22_V2",
+      "P22_V3",
+      "P23_V1",
+      "P23_V2",
+      "P23_V3",
+      "P24_V1",
+      "P24_V2",
+      "P24_V3",
+      "P25_V1",
+      "P25_V2",
+      "P25_V3",
+      "P26_V1",
+      "P26_V2",
+      "P26_V3",
+      "P27_V1",
+      "P27_V2",
+      "P27_V3",
+      "P28_V1",
+      "P28_V2",
+      "P28_V3",
+      "P29_V1",
+      "P29_V2",
+      "P29_V3",
+      "P30_V1",
+      "P30_V2",
+      "P30_V3",
+      "P31_V1",
+      "P31_V2",
+      "P31_V3",
+      "P32_V1",
+      "P32_V2",
+      "P32_V3",
+      "P33_V1",
+      "P33_V2",
+      "P33_V3",
+      "P34_V1",
+      "P34_V2",
+      "P34_V3",
+      "P35_V1",
+      "P35_V2",
+      "P35_V3",
+      "P36_V1",
+      "P36_V2",
+      "P36_V3",
+      "P37_V1",
+      "P37_V2",
+      "P37_V3",
+      "P38_V1",
+      "P38_V2",
+      "P38_V3",
+      "P39_V1",
+      "P39_V2",
+      "P39_V3",
+      "P40_V1",
+      "P40_V2",
+      "P40_V3",
+      "P41_V1",
+      "P41_V2",
+      "P41_V3",
+      "P42_V1",
+      "P42_V2",
+      "P42_V3",
+      "P43_V1",
+      "P43_V2",
+      "P43_V3",
+      "P44_V1",
+      "P44_V2",
+      "P44_V3",
+      "P45_V1",
+      "P45_V2",
+      "P45_V3",
+      "P46_V1",
+      "P46_V2",
+      "P46_V3",
+      "P47_V1",
+      "P47_V2",
+      "P47_V3",
+      "P48_V1",
+      "P48_V2",
+      "P48_V3",
+      "P49_V1",
+      "P49_V2",
+      "P49_V3",
+      "P50_V1",
+      "P50_V2",
+      "P50_V3",
+      "P51_V1",
+      "P51_V2",
+      "P51_V3",
+      "P52_V1",
+      "P52_V2",
+      "P52_V3",
+      "P53_V1",
+      "P53_V2",
+      "P53_V3",
+      "P54_V1",
+      "P54_V2",
+      "P54_V3",
+      "P55_V1",
+      "P55_V2",
+      "P55_V3",
+      "P56_V1",
+      "P56_V2",
+      "P56_V3",
+      "P57_V1",
+      "P57_V2",
+      "P57_V3",
+      "P58_V1",
+      "P58_V2",
+      "P58_V3",
+      "P59_V1",
+      "P59_V2",
+      "P59_V3",
+      "P60_V1",
+      "P60_V2",
+      "P60_V3",
+      "P61_V1",
+      "P61_V2",
+      "P61_V3",
+      "P62_V1",
+      "P62_V2",
+      "P62_V3",
+      "P63_V1",
+      "P63_V2",
+      "P63_V3",
+      "P64_V1",
+      "P64_V2",
+      "P64_V3",
+      "P65_V1",
+      "P65_V2",
+      "P65_V3"
+    ]
+  },
+  "summary": {
+    "cases": 261,
+    "problemIdAccuracy": 93.1,
+    "domainAccuracy": 98.1,
+    "redRecall": 90,
+    "redCases": 20,
+    "firstAgencyAccuracy": 94.6
+  },
+  "perStyle": {
+    "rasmiy": {
+      "cases": 66,
+      "problemIdAccuracy": 93.9,
+      "domainAccuracy": 100,
+      "redRecall": 100,
+      "redCases": 5,
+      "firstAgencyAccuracy": 97
+    },
+    "qisqa": {
+      "cases": 65,
+      "problemIdAccuracy": 92.3,
+      "domainAccuracy": 95.4,
+      "redRecall": 80,
+      "redCases": 5,
+      "firstAgencyAccuracy": 90.8
+    },
+    "sheva": {
+      "cases": 65,
+      "problemIdAccuracy": 93.8,
+      "domainAccuracy": 98.5,
+      "redRecall": 100,
+      "redCases": 5,
+      "firstAgencyAccuracy": 95.4
+    },
+    "aralash": {
+      "cases": 33,
+      "problemIdAccuracy": 93.9,
+      "domainAccuracy": 100,
+      "redRecall": 66.7,
+      "redCases": 3,
+      "firstAgencyAccuracy": 97
+    },
+    "kirill": {
+      "cases": 32,
+      "problemIdAccuracy": 90.6,
+      "domainAccuracy": 96.9,
+      "redRecall": 100,
+      "redCases": 2,
+      "firstAgencyAccuracy": 93.8
+    }
+  },
+  "keywordOnSameSample": {
+    "summary": {
+      "cases": 261,
+      "problemIdAccuracy": 5.4,
+      "domainAccuracy": 11.9,
+      "redRecall": 15,
+      "redCases": 20,
+      "firstAgencyAccuracy": 10.7
+    },
+    "perStyle": {
+      "rasmiy": {
+        "cases": 66,
+        "problemIdAccuracy": 4.5,
+        "domainAccuracy": 12.1,
+        "redRecall": 0,
+        "redCases": 5,
+        "firstAgencyAccuracy": 12.1
+      },
+      "qisqa": {
+        "cases": 65,
+        "problemIdAccuracy": 6.2,
+        "domainAccuracy": 12.3,
+        "redRecall": 20,
+        "redCases": 5,
+        "firstAgencyAccuracy": 10.8
+      },
+      "sheva": {
+        "cases": 65,
+        "problemIdAccuracy": 6.2,
+        "domainAccuracy": 12.3,
+        "redRecall": 20,
+        "redCases": 5,
+        "firstAgencyAccuracy": 10.8
+      },
+      "aralash": {
+        "cases": 33,
+        "problemIdAccuracy": 0,
+        "domainAccuracy": 9.1,
+        "redRecall": 0,
+        "redCases": 3,
+        "firstAgencyAccuracy": 6.1
+      },
+      "kirill": {
+        "cases": 32,
+        "problemIdAccuracy": 9.4,
+        "domainAccuracy": 12.5,
+        "redRecall": 50,
+        "redCases": 2,
+        "firstAgencyAccuracy": 12.5
+      }
+    }
+  },
+  "comparison": [
+    {
+      "metric": "problemIdAccuracy",
+      "keyword": 5.4,
+      "llm": 93.1
+    },
+    {
+      "metric": "domainAccuracy",
+      "keyword": 11.9,
+      "llm": 98.1
+    },
+    {
+      "metric": "firstAgencyAccuracy",
+      "keyword": 10.7,
+      "llm": 94.6
+    },
+    {
+      "metric": "redRecall",
+      "keyword": 15,
+      "llm": 90
+    }
+  ],
+  "topConfusions": [
+    {
+      "pair": "P49 -> P12",
+      "n": 4
+    },
+    {
+      "pair": "P29 -> P25",
+      "n": 2
+    },
+    {
+      "pair": "P50 -> P26",
+      "n": 2
+    },
+    {
+      "pair": "P02 -> P04",
+      "n": 1
+    },
+    {
+      "pair": "P04 -> P31",
+      "n": 1
+    },
+    {
+      "pair": "P04 -> P52",
+      "n": 1
+    },
+    {
+      "pair": "P06 -> P05",
+      "n": 1
+    },
+    {
+      "pair": "P13 -> null",
+      "n": 1
+    },
+    {
+      "pair": "P25 -> P29",
+      "n": 1
+    },
+    {
+      "pair": "P48 -> P13",
+      "n": 1
+    }
+  ],
+  "latency": {
+    "liveCalls": 8,
+    "cacheHits": 249,
+    "p50": 4106,
+    "p90": 4609,
+    "max": 4609
+  },
+  "degraded": 4,
+  "errors": [
+    {
+      "id": "P06_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P06",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": "P05",
+        "domain": "fuqarolik_nizo",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "sud_fuqarolik"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P49_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P49",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": "P12",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P49_A2",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P49",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": "P13",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P50_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P50",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": "P26",
+        "domain": "oila",
+        "riskLevel": "orange",
+        "routeType": "RULE_BASED",
+        "firstAgency": "vasiylik"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P61_A1",
+      "style": "rasmiy",
+      "expected": {
+        "problemId": "P61",
+        "domain": "chet_eldagilar",
+        "red": true,
+        "firstAgency": "konsullik"
+      },
+      "predicted": {
+        "problemId": "P61",
+        "domain": "chet_eldagilar",
+        "riskLevel": "red",
+        "routeType": "EMERGENCY",
+        "firstAgency": "iiv"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P02_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P02",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": "P04",
+        "domain": "fuqarolik_nizo",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "sud_fuqarolik"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P04_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P04",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": "P52",
+        "domain": "istemolchi",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "raqobat_qomitasi"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P04_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P04",
+        "domain": "fuqarolik_nizo",
+        "red": false,
+        "firstAgency": "sud_fuqarolik"
+      },
+      "predicted": {
+        "problemId": "P31",
+        "domain": "jinoyat",
+        "riskLevel": "orange",
+        "routeType": "RULE_BASED",
+        "firstAgency": "iiv"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P13_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P13",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": null,
+        "domain": "davlat_organlari",
+        "riskLevel": "yellow",
+        "routeType": "FALLBACK",
+        "firstAgency": null
+      },
+      "degraded": true
+    },
+    {
+      "id": "P17_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P17",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": "P17",
+        "domain": "mehnat",
+        "riskLevel": "red",
+        "routeType": "EMERGENCY",
+        "firstAgency": "iiv"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P25_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P25",
+        "domain": "zoravonlik",
+        "red": true,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": "P25",
+        "domain": "zoravonlik",
+        "riskLevel": "orange",
+        "routeType": "RULE_BASED",
+        "firstAgency": "iiv"
+      },
+      "degraded": true
+    },
+    {
+      "id": "P25_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P25",
+        "domain": "zoravonlik",
+        "red": true,
+        "firstAgency": "iiv"
+      },
+      "predicted": {
+        "problemId": "P29",
+        "domain": "zoravonlik",
+        "riskLevel": "orange",
+        "routeType": "RULE_BASED",
+        "firstAgency": "profilaktika_inspektori"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P29_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P29",
+        "domain": "zoravonlik",
+        "red": false,
+        "firstAgency": "profilaktika_inspektori"
+      },
+      "predicted": {
+        "problemId": "P25",
+        "domain": "zoravonlik",
+        "riskLevel": "red",
+        "routeType": "EMERGENCY",
+        "firstAgency": "iiv"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P29_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P29",
+        "domain": "zoravonlik",
+        "red": false,
+        "firstAgency": "profilaktika_inspektori"
+      },
+      "predicted": {
+        "problemId": "P25",
+        "domain": "zoravonlik",
+        "riskLevel": "red",
+        "routeType": "EMERGENCY",
+        "firstAgency": "iiv"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P48_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P48",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": "P13",
+        "domain": "mehnat",
+        "riskLevel": "orange",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P49_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P49",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": "P12",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P49_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P49",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": "P12",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P49_V3",
+      "style": "aralash",
+      "expected": {
+        "problemId": "P49",
+        "domain": "mehnat",
+        "red": false,
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "predicted": {
+        "problemId": "P12",
+        "domain": "mehnat",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "mehnat_inspeksiyasi"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P50_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P50",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": "P25",
+        "domain": "zoravonlik",
+        "riskLevel": "orange",
+        "routeType": "RULE_BASED",
+        "firstAgency": "iiv"
+      },
+      "degraded": true
+    },
+    {
+      "id": "P50_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P50",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": "P26",
+        "domain": "oila",
+        "riskLevel": "orange",
+        "routeType": "RULE_BASED",
+        "firstAgency": "vasiylik"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P50_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P50",
+        "domain": "oila",
+        "red": false,
+        "firstAgency": "vasiylik"
+      },
+      "predicted": {
+        "problemId": "P44",
+        "domain": "qoshnichilik",
+        "riskLevel": "yellow",
+        "routeType": "RULE_BASED",
+        "firstAgency": "profilaktika_inspektori"
+      },
+      "degraded": true
+    },
+    {
+      "id": "P61_V1",
+      "style": "qisqa",
+      "expected": {
+        "problemId": "P61",
+        "domain": "chet_eldagilar",
+        "red": true,
+        "firstAgency": "konsullik"
+      },
+      "predicted": {
+        "problemId": "P61",
+        "domain": "chet_eldagilar",
+        "riskLevel": "red",
+        "routeType": "EMERGENCY",
+        "firstAgency": "iiv"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P61_V2",
+      "style": "sheva",
+      "expected": {
+        "problemId": "P61",
+        "domain": "chet_eldagilar",
+        "red": true,
+        "firstAgency": "konsullik"
+      },
+      "predicted": {
+        "problemId": "P61",
+        "domain": "chet_eldagilar",
+        "riskLevel": "red",
+        "routeType": "EMERGENCY",
+        "firstAgency": "iiv"
+      },
+      "degraded": false
+    },
+    {
+      "id": "P61_V3",
+      "style": "kirill",
+      "expected": {
+        "problemId": "P61",
+        "domain": "chet_eldagilar",
+        "red": true,
+        "firstAgency": "konsullik"
+      },
+      "predicted": {
+        "problemId": "P61",
+        "domain": "chet_eldagilar",
+        "riskLevel": "red",
+        "routeType": "EMERGENCY",
+        "firstAgency": "iiv"
+      },
+      "degraded": false
+    }
+  ]
+}
