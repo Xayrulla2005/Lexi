@@ -41,6 +41,12 @@ const AUTO_FIELDS = new Set(["fio", "manzil", "telefon", "ariza_sanasi"]);
 /** At most this many detail questions per conversation. */
 const MAX_DETAIL_QUESTIONS = 4;
 const OTHER_PARTY = "qarshi_taraf";
+/**
+ * Outside the catalog, when the LLM picks no agency but triage found a signal: catalog agencies
+ * for that signal (ids only — names and phones come from the catalog). Others fall back to the
+ * emergency contacts order.
+ */
+const SIGNAL_AGENCIES: Partial<Record<string, string[]>> = { accident: ["yhxx", "sugurta"] };
 
 const yes = (t: string) => /^(ha|xa|ha,|да|yes|roziman|mayli|albatta)\b/i.test(t.trim());
 
@@ -408,7 +414,20 @@ export class ConversationsService {
       conv.stage = "DONE";
       return;
     }
-    if (!conv.triage.signals.length && !(analysis && analysis.rights.length)) {
+    if (conv.triage.signals.length) {
+      // Never end silently after a danger signal: catalog agencies for the signal.
+      const signals = conv.triage.signals as Parameters<typeof emergencyAgencyOrder>[0];
+      const ids = [...new Set(signals.flatMap((s) => SIGNAL_AGENCIES[s] ?? emergencyAgencyOrder([s])))];
+      const contacts = ids.map((id) => this.routing.agency(id)).filter((a): a is AgencyContact => a !== null);
+      if (contacts.length) {
+        const steps = contacts.map((a, i) => ({ order: i + 1, title: a.name, agency: a, documents: [], deadline: null }));
+        this.say(conv, LEXI.roadmapLlmIntro, { type: "roadmap", steps, notYet: [], source: "catalog" });
+        this.say(conv, LEXI.noApplication);
+      }
+      conv.stage = "DONE";
+      return;
+    }
+    if (!(analysis && analysis.rights.length)) {
       // Not a legal question: the free legal advice line from the catalog.
       const adliya = this.routing.agency("adliya");
       this.say(conv, LEXI.notLegal, adliya ? { type: "roadmap", steps: [{ order: 1, title: adliya.name, agency: adliya, documents: [], deadline: null }], notYet: [], source: "catalog" } : null);

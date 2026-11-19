@@ -53,7 +53,8 @@ const mockLlm: ChatModelProvider = {
         rights: claims,
         obligations: k ? [{ text: "Hujjatlarni saqlab qo'ying.", citations: [k] }] : [],
         deadlines: [],
-        agencies: system.includes("AGENCIES") ? ["yhxx", "sugurta", "invented_agency"] : [],
+        // "mashinam" stories: the model picks no agency (tests the catalog fallback after a triage signal).
+        agencies: system.includes("AGENCIES") && !/mashinam/i.test(user) ? ["yhxx", "sugurta", "invented_agency"] : [],
       });
     }
     throw new Error("unexpected prompt");
@@ -195,6 +196,16 @@ describe("Lexi scenarios (integration, mocked LLM)", () => {
     c = await say(c.id, "erim pichoq bilan o'ldiraman deyapti");
     const first = c.messages.findIndex((m) => m.card?.type === "emergency");
     expect(first).toBe(2); // greeting, user story, emergency card
+  });
+
+  it("after a triage signal the conversation never ends without catalog agencies", async () => {
+    let c = (await http().post("/conversations").send({ channel: "web" }).expect(201)).body as Conversation;
+    c = await say(c.id, "Mashinam bilan avariya bo'ldim");
+    c = await say(c.id, "Yo'q, xavfsizman");
+    while (c.pending && (c.pending.kind === "fact" || c.pending.kind === "field")) c = await say(c.id, "Bilmayman");
+    const roadmap = c.messages.find((m) => m.card?.type === "roadmap")?.card;
+    expect(roadmap?.type === "roadmap" && roadmap.steps.map((s) => s.agency?.id)).toEqual(["yhxx", "sugurta"]);
+    expect(c.messages.filter((m) => m.text === "Yo'l xaritasi:" && !m.card)).toHaveLength(0);
   });
 
   it("an unclear safety answer counts as danger", async () => {
