@@ -17,7 +17,7 @@ import type { CitationValidator, DocumentRetriever } from "../rag/interfaces";
 import { InMemoryRetriever } from "../rag/retrieve";
 import { classify } from "./classify";
 import { classifyWithLlm } from "./llm-classify";
-import { normalize } from "./normalize";
+import { normalize, transliterate } from "./normalize";
 import { keywordRisk, maxRisk } from "./risk";
 
 export const HUMAN_REVIEW_CONFIDENCE = 0.6;
@@ -55,7 +55,9 @@ export async function analyze(input: AnalyzeInput, deps: AnalyzeDependencies = d
   if (choice.provider) {
     const t0 = performance.now();
     try {
-      const llm = await classifyWithLlm(choice.provider, parsed.text);
+      // Give the model one script: the catalog and prompt are Latin Uzbek, so Cyrillic
+      // input is transliterated first (case and punctuation preserved for readability).
+      const llm = await classifyWithLlm(choice.provider, transliterate(parsed.text));
       classification = { domain: llm.domain, problemId: llm.problemId, confidence: llm.confidence };
       const level = maxRisk(keyword.level, llm.risk);
       risk = {
