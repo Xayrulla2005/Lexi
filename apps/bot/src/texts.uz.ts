@@ -48,5 +48,6 @@ export const texts = {
   statusLabel: "Holat:",
   callSentTitle: "Chaqiruv yuborildi (SIMULYATOR)",
   unknownValue: "ma'lum emas",
+  generalLabel: "(umumiy yo'nalish)",
   signOnWeb: "📝 Vebda imzolab yuborish",
 };

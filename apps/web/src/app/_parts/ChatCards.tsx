@@ -123,6 +123,23 @@ export function CardView({ card, onRefresh }: { card: ChatCard; onRefresh: () =>
             {card.steps.map((s) => (
               <li key={s.order} style={{ marginBottom: 6 }}>
                 {s.agency && s.title === s.agency.name ? <Agency a={s.agency} /> : <span>{s.title}</span>}
+                {s.citations && s.citations.length > 0 && (
+                  <span style={{ fontSize: 12, marginLeft: 4 }}>
+                    {s.citations
+                      .map((k) => card.articles?.find((a) => a.key === k))
+                      .filter((a): a is ArticleText => !!a)
+                      .map((a) => (
+                        <a key={a.key} href={a.sourceUrl} target="_blank" rel="noreferrer" title={`${a.document}, ${a.article}-modda. ${a.title}`} style={{ marginLeft: 2 }}>
+                          [{a.article}-m.]
+                        </a>
+                      ))}
+                  </span>
+                )}
+                {s.general && (
+                  <span style={{ fontSize: 12, marginLeft: 6, padding: "0 6px", borderRadius: 999, border: "1px dashed var(--border)", color: "var(--muted)" }}>
+                    {texts.chat.general}
+                  </span>
+                )}
                 {s.agency && s.title !== s.agency.name && (
                   <div style={{ fontSize: 14 }}>
                     <Agency a={s.agency} />
@@ -170,6 +187,12 @@ export function CardView({ card, onRefresh }: { card: ChatCard; onRefresh: () =>
       return (
         <div style={box}>
           <a href={card.url}>{texts.chat.loginLink}</a>
+        </div>
+      );
+    case "answer":
+      return (
+        <div style={box}>
+          <Claims title={texts.chat.answerTitle} claims={card.claims} articles={card.articles} />
         </div>
       );
     case "facts":

@@ -137,6 +137,8 @@ export const texts = {
     emergencyTitle: "Shoshilinch yordam",
     callSentTitle: "Chaqiruv yuborildi (SIMULYATOR)",
     unknownValue: "ma'lum emas",
+    general: "umumiy yo'nalish",
+    answerTitle: "Qisqa javob",
     callStatus: "Ekipaj yuborildi",
     statusTitle: "Ariza holati",
     loginTitle: "Kirish kerak",

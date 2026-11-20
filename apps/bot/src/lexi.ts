@@ -35,14 +35,25 @@ export function renderCard(card: ChatCard, t: typeof Texts, webUrl: string, conv
       ].join("\n");
     }
     case "roadmap": {
+      const cite = (keys: readonly string[] | undefined) =>
+        (keys ?? []).map((k) => card.articles?.find((a) => a.key === k)).filter(Boolean).map((a) => ` [${a?.article}-m.]`).join("");
       const lines = card.steps.flatMap((s) => [
-        `${s.order}. ${s.agency && s.title === s.agency.name ? agencyLine(s.agency) : s.title}`,
+        `${s.order}. ${s.agency && s.title === s.agency.name ? agencyLine(s.agency) : s.title}${cite(s.citations)}${s.general ? ` ${t.generalLabel}` : ""}`,
         ...(s.agency && s.title !== s.agency.name ? [`   ${agencyLine(s.agency)}`] : []),
         ...(s.documents.length ? [`   ${t.documentsLabel} ${s.documents.join(", ")}`] : []),
         ...(s.deadline ? [`   ${t.deadlineLabel} ${s.deadline}`] : []),
       ]);
       if (card.notYet.length) lines.push(`${t.notYetLabel} ${card.notYet.map((a) => a.name).join(", ")}`);
+      if (card.articles?.length) lines.push(t.sourcesTitle, ...card.articles.map((a) => `${a.article}-m.: ${a.document} — ${a.sourceUrl}`));
       return lines.join("\n");
+    }
+    case "answer": {
+      const label = (keys: string[]) =>
+        keys.map((k) => card.articles.find((a) => a.key === k)).filter(Boolean).map((a) => `[${a?.article}-m.]`).join(" ");
+      return [
+        ...card.claims.map((c) => `• ${c.text} ${label(c.citations)}`),
+        ...(card.articles.length ? [t.sourcesTitle, ...card.articles.map((a) => `${a.article}-m.: ${a.document} — ${a.sourceUrl}`)] : []),
+      ].join("\n");
     }
     case "application":
     case "login":

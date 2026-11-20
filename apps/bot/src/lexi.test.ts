@@ -53,6 +53,32 @@ describe("renderMessage", () => {
     expect(r.text).toBe("Sizdan olingan ma'lumotlar:\n\n• Ish beruvchi: Namuna MChJ\n• Summa: ma'lum emas");
   });
 
+  it("procedure roadmap: citation tags and the 'umumiy yo'nalish' label; answer card with sources", () => {
+    const article = { key: "k/1", article: "1", title: "T", document: "Kodeks", sourceUrl: "https://lex.uz/1", text: "..." };
+    const road = renderMessage(
+      msg({
+        card: {
+          type: "roadmap",
+          source: "procedure",
+          notYet: [],
+          articles: [article],
+          steps: [
+            { order: 1, title: "Ariza bering", agency: null, documents: [], deadline: null, citations: ["k/1"], general: false },
+            { order: 2, title: "Ko'rikdan o'ting", agency: null, documents: [], deadline: null, citations: [], general: true },
+          ],
+        },
+      }),
+      texts,
+      "https://lex.example",
+      ID,
+    );
+    expect(road.text).toContain("1. Ariza bering [1-m.]");
+    expect(road.text).toContain(`2. Ko'rikdan o'ting ${texts.generalLabel}`);
+    const ans = renderMessage(msg({ card: { type: "answer", claims: [{ text: "Gap.", citations: ["k/1"] }], articles: [article] } }), texts, "https://lex.example", ID);
+    expect(ans.text).toContain("• Gap. [1-m.]");
+    expect(ans.text).toContain("1-m.: Kodeks — https://lex.uz/1");
+  });
+
   it("parses callback data", () => {
     expect(parseCallback("a:1c1c7a8e-5f0b-4b8a-9a35-0b7b6f1e2c11:2")).toEqual({ messageId: "1c1c7a8e-5f0b-4b8a-9a35-0b7b6f1e2c11", index: 2 });
     expect(parseCallback("send_yes")).toBeNull();
