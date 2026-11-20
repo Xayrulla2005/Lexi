@@ -32,3 +32,23 @@ describe("emergencyAgencyOrder", () => {
     expect(emergencyAgencyOrder(["violence"])).toEqual(["iiv", "ishonch_1146", "tez_yordam"]);
   });
 });
+
+describe("triage with Cyrillic/Russian input (transliterate -> normalize)", () => {
+  it.each([
+    ["Он сказал: убью тебя", "threat"],
+    ["ОН КРИЧИТ УБЬЮ", "threat"],
+    ["Я попал в аварию", "accident"],
+    ["Авария бўлди", "accident"],
+    ["Муж избил меня", "violence"],
+    ["Меня избили на улице", "violence"],
+    ["В доме пожар", "fire"],
+    ["Эрим урди, қўрқяпман", "violence"],
+    ["Угрожают убить", "threat"],
+  ])("%s -> %s", (text, signal) => {
+    expect(detectTriage(text).signals).toContain(signal);
+  });
+
+  it("Russian threat to kill is red (emergency card at once)", () => {
+    expect(detectTriage("Он сказал: убью тебя").red).toBe(true);
+  });
+});

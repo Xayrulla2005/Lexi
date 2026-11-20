@@ -13,7 +13,7 @@ const W = "(?:^|[^a-z'])";
 const rx = (body: string) => new RegExp(`${W}(?:${body})`);
 
 const RULES: Readonly<Record<TriageSignal, RegExp>> = {
-  accident: rx("avariya|avtohalokat|halokat|yo'l-transport|yo'l transport|ythh|dtp|to'qnash|urib ketdi|urilib ketdi|mashina urdi"),
+  accident: rx("avari(?:ya|yu|yi|ye|i)|avtohalokat|halokat|yo'l-transport|yo'l transport|ythh|dtp|to'qnash|urib ketdi|urilib ketdi|mashina urdi"),
   injury: rx("jarohat|yarador|qon ket|qonab|singan|sindi|travma|shikast|lat ye|bexush|hushidan"),
   violence: rx("urdi|uryapti|urayapti|uradi|kaltak|zo'ravon|do'ppos|izbil|izbi"),
   threat: rx("tahdid|do'?q(?![a-z])|qo'?rqit|o'?ldir|so'?yaman|pichoq|qurol|ugroj|ugroz|ubyu|ubyot|qo'?rq(?:yapman|aman)"),
