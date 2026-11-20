@@ -10,7 +10,7 @@ import { LegalDomain, ProblemId, RiskLevel } from "@lex/contracts";
 import type { ChatMessage } from "../models/provider";
 import { repoRoot } from "../rag/paths";
 
-export const CLASSIFY_PROMPT_VERSION = "2026-11-19.3";
+export const CLASSIFY_PROMPT_VERSION = "2026-11-20.1";
 
 /** problemId value meaning "no catalog type fits" (JSON-schema enums cannot hold null reliably). */
 export const NO_PROBLEM = "NONE";
@@ -78,6 +78,20 @@ How to choose problemId:
 - Property crimes differ by how the property was taken: secretly, without the owner noticing = theft (o'g'irlik);
   openly, snatched in front of the owner or others = open robbery (talonchilik); with violence or a threat
   dangerous to life or health = assault robbery (bosqinchilik); by deception = fraud (firibgarlik).
+- Contract disputes: pick the sale-contract type (oldi-sotdi) ONLY when goods were bought or sold (a car,
+  an apartment, a product). Any other unkept agreement — a service, repair, construction, rent or work order —
+  is the general "contract terms not fulfilled" type, NOT the sale-contract one.
+- Harm inside the family: real physical violence or beating is family/domestic violence (oilaviy zo'ravonlik, red).
+  Insults, threats, intimidation or psychological pressure with NO physical harm is the separate psychological-pressure
+  type (ruhiy bosim, orange) — do not mark it as physical violence.
+- Parental problems: a parent who neglects a child or fails parental duties (no care, no support, abandonment)
+  is the "parental duties not fulfilled" type; a parent who abuses parental rights — misusing their authority,
+  e.g. blocking the other parent's contact with the child or turning the child against them — is the separate
+  "abuse of parental rights" type.
+- Workplace problems: when an employer breaks several labour rules at once — e.g. unpaid or late wages TOGETHER
+  with forced overtime, denied leave, no written contract or unsafe conditions — choose the broad "employer
+  violates labour law" type, not the narrow "wages not paid on time" type. Use the narrow wages type only when
+  late or unpaid wages are the sole complaint.
 
 Risk levels (choose the highest that applies):
 - red: a person's life or health is in danger now or very soon — threats to kill or seriously injure, weapons
