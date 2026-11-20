@@ -68,7 +68,10 @@ export default function ChatPage() {
     return () => clearInterval(t);
   }, [conv?.id]);
 
-  useEffect(() => bottom.current?.scrollIntoView({ behavior: "smooth" }), [conv?.messages.length]);
+  // Block body: newer browsers return a Promise from scrollIntoView, and an effect may only return a cleanup.
+  useEffect(() => {
+    bottom.current?.scrollIntoView({ behavior: "smooth" });
+  }, [conv?.messages.length]);
 
   async function run(fn: () => Promise<Conversation>) {
     setBusy(true);
