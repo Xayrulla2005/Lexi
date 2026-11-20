@@ -19,7 +19,7 @@ import { cleanLabel } from "./intake";
 import { contentWords, dedupeClaims } from "./legal-analysis";
 import { normalize } from "./normalize";
 
-export const INTENTS_PROMPT_VERSION = "2026-11-20.1";
+export const INTENTS_PROMPT_VERSION = "2026-11-20.2";
 
 export const INTENTS = ["dispute", "procedure", "question", "not_legal"] as const;
 export type Intent = (typeof INTENTS)[number];
@@ -165,9 +165,13 @@ const PLAN_SYSTEM = `You give a citizen in Uzbekistan a short step-by-step roadm
 Return ONLY JSON: { "steps": [{ "title": one sentence — what to do, "agencyId": an id from AGENCIES or null,
   "citations": [ARTICLES keys that directly support this step], "documents": [documents], "deadline": text or null }] }
 Rules:
-- 3–6 steps in the order the person does them: what to do -> where -> which documents -> time limits.
-- "citations": only keys from ARTICLES, and only when the article directly supports the step. A step that no article
-  supports is allowed as general guidance with "citations": [].
+- 3–6 steps in the order the person does them, covering the whole procedure from start to the result (where to apply,
+  what the person receives at the end): what to do -> where -> which documents -> time limits.
+- First check each ARTICLE: is it about THIS procedure? Articles on another topic (e.g. employment-contract articles when
+  the person asks how to open a company, or joint-property rules when they ask how to accept an inheritance) must NOT
+  be cited or used to choose the steps.
+- "citations": only keys from ARTICLES, and only when the article directly supports the step. The usual steps of the
+  procedure that no given article supports are still written, as general guidance with "citations": [].
 - "documents", fees and "deadline": ONLY if a cited article names them; otherwise [] and null. Never invent documents,
   amounts, fees, deadlines, phone numbers, websites or agencies.
 - "agencyId": ONLY an id from AGENCIES; null if none fits. Prefer the agency that actually performs the procedure.
