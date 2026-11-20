@@ -9,7 +9,8 @@
  * --provider gemini|huggingface|keyword  (default: keyword)
  * --limit N   evenly spaced sample of N stories (deterministic); the keyword classifier is
  *             always measured on the same sample, so the comparison is like for like.
- * LLM replies are cached in ai/eval/cache/ (git-ignored); at most 2 requests run at once.
+ * LLM replies are cached in ai/eval/cache/ (git-ignored); at most 2 requests run at once
+ * (--concurrency 1 for one at a time).
  *
  * Metrics: problemId accuracy (null counts as a prediction), domain accuracy, red-risk
  * recall, first-agency accuracy, per style; top-10 confusions; LLM latency; degraded count.
@@ -73,7 +74,8 @@ function metrics(c: Counts) {
 }
 
 const STYLE_ORDER = ["rasmiy", "qisqa", "sheva", "aralash", "kirill"];
-const CONCURRENCY = 2;
+/** Free tier: at most 2 requests at once; `--concurrency 1` runs strictly one by one. */
+const CONCURRENCY = Math.min(2, Math.max(1, Number(arg("concurrency") ?? 2) || 2));
 
 /** Evenly spaced, deterministic sample (keeps the mix of problems and styles). */
 function sample<T>(rows: readonly T[], limit: number | null): T[] {
