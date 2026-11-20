@@ -8,7 +8,10 @@ import { SubmissionStatus } from "./submission";
 /**
  * Lexi — a legal DISPATCHER conversation, not a chatbot. Every case goes through:
  * TRIAGE -> DETAILS -> EXPLAIN -> ROADMAP -> ACTION (with consent) -> TRACKING.
+ * Procedures ("how do I …") and questions ("is it allowed …") get their own short flows.
  */
+export const ConversationIntent = z.enum(["dispute", "procedure", "question", "not_legal"]);
+export type ConversationIntent = z.infer<typeof ConversationIntent>;
 export const ConversationStage = z.enum(["TRIAGE", "DETAILS", "EXPLAIN", "ROADMAP", "ACTION", "TRACKING", "DONE"]);
 export type ConversationStage = z.infer<typeof ConversationStage>;
 
@@ -62,6 +65,10 @@ export const RoadmapStep = z.object({
   documents: z.array(z.string()),
   /** Only when an article or the catalog states it. */
   deadline: z.string().nullable(),
+  /** Article keys that support this step (procedure roadmaps). */
+  citations: z.array(z.string()).optional(),
+  /** true = not confirmed by an article in the base: shown as "umumiy yo'nalish". */
+  general: z.boolean().optional(),
 });
 export type RoadmapStep = z.infer<typeof RoadmapStep>;
 
@@ -79,9 +86,16 @@ export const ChatCard = z.discriminatedUnion("type", [
     steps: z.array(RoadmapStep),
     /** hali_erta: "Hozircha bu yerga bormang". */
     notYet: z.array(AgencyContact),
-    /** catalog = deterministic route; llm = agencies chosen by the LLM from the catalog list. */
-    source: z.enum(["catalog", "llm"]),
+    /**
+     * catalog = deterministic route; llm = agencies chosen by the LLM from the catalog list;
+     * procedure = steps for a life procedure (cited steps, the rest marked general).
+     */
+    source: z.enum(["catalog", "llm", "procedure"]),
+    /** Articles cited by the steps (procedure roadmaps). */
+    articles: z.array(ArticleText).optional(),
   }),
+  /** Short cited answer to a legal question (2–4 sentences). */
+  z.object({ type: z.literal("answer"), claims: z.array(AnalysisClaim), articles: z.array(ArticleText) }),
   z.object({ type: z.literal("application"), applicationId: z.string().uuid() }),
   z.object({
     type: z.literal("status"),
@@ -119,7 +133,7 @@ export type ConversationAnswer = z.infer<typeof ConversationAnswer>;
 
 /** What Lexi is waiting for. */
 export const PendingQuestion = z.object({
-  kind: z.enum(["triage", "choose_problem", "field", "fact", "offer", "escalate", "call_confirm"]),
+  kind: z.enum(["triage", "choose_problem", "field", "fact", "offer", "escalate", "call_confirm", "intent", "clarify", "violation"]),
   key: z.string().nullable(),
   /** Short field name for the "✓ label: value" confirmation (DETAILS questions). */
   label: z.string().optional(),
@@ -136,6 +150,8 @@ export const Conversation = z.object({
   stage: ConversationStage,
   /** The first message (the story). */
   story: z.string(),
+  /** What kind of request this is; null until decided (or for conversations stored before intents). */
+  intent: ConversationIntent.nullable().default(null),
   caseId: z.string().uuid().nullable(),
   problemId: z.string().nullable(),
   triage: z.object({
@@ -146,7 +162,7 @@ export const Conversation = z.object({
   }),
   pending: PendingQuestion.nullable(),
   /** Questions still to ask (DETAILS), in order. */
-  queue: z.array(z.object({ key: z.string(), label: z.string(), question: z.string(), kind: z.enum(["field", "fact"]) })),
+  queue: z.array(z.object({ key: z.string(), label: z.string(), question: z.string(), kind: z.enum(["field", "fact", "clarify"]) })),
   answers: z.array(ConversationAnswer),
   /** "Sizni shunday tushundim: …" base text. */
   understood: z.string().nullable(),

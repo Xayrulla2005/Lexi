@@ -3,8 +3,14 @@ import { randomUUID } from "node:crypto";
 import {
   analyzeWithArticles,
   answerMeansDanger,
+  answerQuestion,
   askFactQuestions,
+  clarifyProcedure,
+  detectIntent,
   detectTriage,
+  guessIntent,
+  planProcedure,
+  type Intent,
   emergencyAgencyOrder,
   fieldContexts,
   getArticlesForProblem,
@@ -47,6 +53,14 @@ const OTHER_PARTY = "qarshi_taraf";
  * emergency contacts order.
  */
 const SIGNAL_AGENCIES: Partial<Record<string, string[]>> = { accident: ["yhxx", "sugurta"] };
+/**
+ * Emergency lines (102 / 103 / 1146 and services reached through them). Their phones are
+ * recommended only with a triage danger signal or orange/red risk; otherwise the agency is
+ * still named (e.g. "how do I get a job at IIV") but without the emergency number.
+ */
+const EMERGENCY_AGENCIES = new Set(["iiv", "iiv_kiber", "profilaktika_inspektori", "yhxx", "tez_yordam", "ishonch_1146"]);
+const OFFICIAL_SOURCE = "davlat_xizmatlari";
+const MAX_CLARIFY = 2;
 
 const yes = (t: string) => /^(ha|xa|ha,|да|yes|roziman|mayli|albatta)\b/i.test(t.trim());
 
@@ -89,6 +103,7 @@ export class ConversationsService {
       citizenId: null,
       stage: "TRIAGE",
       story: "",
+      intent: null,
       caseId: null,
       problemId: null,
       triage: { signals: [], red: false, asked: false, danger: null },
@@ -151,8 +166,18 @@ export class ConversationsService {
         conv.triage.danger = answerMeansDanger(text);
         if (conv.triage.danger) this.emergencyCard(conv, LEXI.emergencyAfterAnswer);
         else this.say(conv, LEXI.safeOk);
+        conv.intent = "dispute";
         return this.classify(conv);
       }
+      case "intent": {
+        conv.pending = null;
+        return this.dispatch(conv, this.matchIntent(text));
+      }
+      case "clarify":
+        this.recordAnswer(conv, p.key ?? "", text);
+        return this.nextQuestion(conv);
+      case "violation":
+        return this.restartAsDispute(conv, text);
       case "choose_problem": {
         conv.pending = null;
         const chosen = this.matchOption(text, p.options);
@@ -176,6 +201,11 @@ export class ConversationsService {
     if (action === "offer_no" && conv.pending?.kind === "offer") return this.offerNo(conv);
     if (action === "escalate_yes" && conv.pending?.kind === "escalate") return this.escalateYes(conv);
     if (action === "escalate_no" && conv.pending?.kind === "escalate") return this.escalateNo(conv);
+    if (action === "to_procedure" && conv.intent === "question") return this.startProcedure(conv);
+    if (action.startsWith("intent:") && conv.pending?.kind === "intent") {
+      conv.pending = null;
+      return this.dispatch(conv, this.matchIntent(action.slice("intent:".length)));
+    }
     if (action === "call_cancel") {
       this.say(conv, LEXI.callCancelled);
       return;
@@ -209,10 +239,13 @@ export class ConversationsService {
     conv.triage.red = t.red;
     if (t.red) {
       conv.triage.danger = true;
+      conv.intent = "dispute";
       this.emergencyCard(conv, LEXI.emergencyRed);
       return this.classify(conv);
     }
     if (t.signals.length) {
+      // A danger signal is always handled as a dispute (safety first).
+      conv.intent = "dispute";
       conv.triage.asked = true;
       conv.pending = { kind: "triage", key: null, question: LEXI.triageQuestion, options: [] };
       this.say(conv, LEXI.triageQuestion, null, [
@@ -221,7 +254,156 @@ export class ConversationsService {
       ]);
       return;
     }
-    return this.classify(conv);
+    if (conv.intent === "dispute") return this.classify(conv);
+    return this.decideIntent(conv);
+  }
+
+  // INTENT: dispute / procedure / question / not_legal (asked with three buttons when unclear)
+  private async decideIntent(conv: Conversation): Promise<void> {
+    const r = await detectIntent(this.chat.provider, conv.story);
+    if (r.intent) return this.dispatch(conv, r.intent);
+    conv.pending = { kind: "intent", key: null, question: LEXI.intentAsk, options: [] };
+    this.say(conv, LEXI.intentAsk, null, [
+      { label: LEXI.intentDispute, kind: "action", value: "intent:dispute" },
+      { label: LEXI.intentProcedure, kind: "action", value: "intent:procedure" },
+      { label: LEXI.intentQuestion, kind: "action", value: "intent:question" },
+    ]);
+  }
+
+  private matchIntent(text: string): Intent {
+    const t = text.trim().toLowerCase();
+    if (t === "dispute" || t === LEXI.intentDispute.toLowerCase()) return "dispute";
+    if (t === "procedure" || t === LEXI.intentProcedure.toLowerCase()) return "procedure";
+    if (t === "question" || t === LEXI.intentQuestion.toLowerCase()) return "question";
+    return guessIntent(text);
+  }
+
+  private async dispatch(conv: Conversation, intent: Intent): Promise<void> {
+    conv.intent = intent;
+    switch (intent) {
+      case "dispute":
+        return this.classify(conv);
+      case "procedure":
+        return this.startProcedure(conv);
+      case "question":
+        return this.answerQuestionFlow(conv);
+      case "not_legal": {
+        conv.stage = "DONE";
+        const adliya = this.routing.agency("adliya");
+        this.say(
+          conv,
+          LEXI.notLegalPolite,
+          adliya ? { type: "roadmap", steps: [{ order: 1, title: adliya.name, agency: adliya, documents: [], deadline: null }], notYet: [], source: "catalog" } : null,
+        );
+        return;
+      }
+    }
+  }
+
+  /** Emergency numbers only with a danger signal or orange/red risk. */
+  private emergencyContext(conv: Conversation): boolean {
+    if (conv.triage.signals.length || conv.triage.danger) return true;
+    const level = conv.caseId ? this.cases.get(conv.caseId).analysis?.risk.level : undefined;
+    return level === "orange" || level === "red";
+  }
+
+  private calm(conv: Conversation, a: AgencyContact): AgencyContact {
+    return EMERGENCY_AGENCIES.has(a.id) && !this.emergencyContext(conv) ? { ...a, phone: null } : a;
+  }
+
+  // PROCEDURE: up to 2 clarifying questions, then a roadmap (cited steps; the rest "umumiy yo'nalish").
+  private async startProcedure(conv: Conversation): Promise<void> {
+    conv.intent = "procedure";
+    conv.stage = "DETAILS";
+    const res = await clarifyProcedure(this.chat.provider, conv.story, MAX_CLARIFY);
+    conv.queue = res.questions.map((q, i) => ({ key: `aniqlik_${i + 1}`, label: q.label, question: q.question, kind: "clarify" as const }));
+    return this.nextQuestion(conv);
+  }
+
+  private async procedureRoadmap(conv: Conversation): Promise<void> {
+    conv.stage = "ROADMAP";
+    const facts = conv.answers.filter((a) => a.value).map((a) => `${a.label}: ${a.value}`);
+    const fullStory = facts.length ? `${conv.story}\n\nAniqlik:\n${facts.join("\n")}` : conv.story;
+    let articles: RetrievedArticle[] = [];
+    try {
+      articles = await this.retriever(fullStory, null);
+    } catch (e) {
+      this.logger.warn(`[lexi] retrieval failed (${(e as Error).name})`);
+    }
+    const options = this.routing.agencies().filter((a) => a.id !== OTHER_PARTY).map((a) => ({ id: a.id, name: a.name }));
+    const plan = this.chat.provider ? await planProcedure(this.chat.provider, fullStory, articles, options) : { steps: [], degraded: true };
+
+    const steps: RoadmapStep[] = plan.steps.map((s, i) => {
+      const agency = s.agencyId ? this.routing.agency(s.agencyId) : null;
+      return {
+        order: i + 1,
+        title: s.title,
+        agency: agency ? this.calm(conv, agency) : null,
+        documents: s.documents,
+        deadline: s.deadline,
+        citations: s.citations,
+        general: s.citations.length === 0,
+      };
+    });
+    const official = this.routing.agency(OFFICIAL_SOURCE);
+    if (official && !steps.some((s) => s.agency?.id === OFFICIAL_SOURCE)) {
+      steps.push({ order: steps.length + 1, title: LEXI.officialSource, agency: official, documents: [], deadline: null });
+    }
+    const cited = new Set(steps.flatMap((s) => s.citations ?? []));
+    const card: ChatCard = {
+      type: "roadmap",
+      steps,
+      notYet: [],
+      source: "procedure",
+      articles: articles
+        .filter((a) => cited.has(a.key))
+        .map((a) => ({ key: a.key, article: a.article, title: a.title, document: a.document, sourceUrl: a.sourceUrl, text: a.text })),
+    };
+    this.say(conv, plan.steps.length ? LEXI.procedureIntro : LEXI.procedureNoPlan, card);
+    if (plan.steps.length) this.say(conv, LEXI.procedureCheck);
+    conv.stage = "DONE";
+    conv.pending = { kind: "violation", key: null, question: LEXI.violationOffer, options: [] };
+    this.say(conv, LEXI.violationOffer);
+  }
+
+  // QUESTION: 2–4 cited sentences, or an honest "not found"; then an optional roadmap.
+  private async answerQuestionFlow(conv: Conversation): Promise<void> {
+    conv.stage = "EXPLAIN";
+    let articles: RetrievedArticle[] = [];
+    try {
+      articles = await this.retriever(conv.story, null);
+    } catch (e) {
+      this.logger.warn(`[lexi] retrieval failed (${(e as Error).name})`);
+    }
+    const ans = await answerQuestion(this.chat.provider, conv.story, articles);
+    if (ans.claims.length) {
+      const cited = new Set(ans.claims.flatMap((c) => c.citations));
+      this.say(conv, LEXI.questionIntro, {
+        type: "answer",
+        claims: ans.claims,
+        articles: articles
+          .filter((a) => cited.has(a.key))
+          .map((a) => ({ key: a.key, article: a.article, title: a.title, document: a.document, sourceUrl: a.sourceUrl, text: a.text })),
+      });
+    } else {
+      this.say(conv, LEXI.questionNotFound);
+    }
+    conv.stage = "DONE";
+    this.say(conv, LEXI.toProcedureAsk, null, [{ label: LEXI.toProcedureYes, kind: "action", value: "to_procedure" }]);
+  }
+
+  /** "My rights were violated in this procedure": the same conversation continues as a dispute. */
+  private async restartAsDispute(conv: Conversation, text: string): Promise<void> {
+    conv.pending = null;
+    conv.story = `${conv.story}\n${text}`;
+    conv.intent = "dispute";
+    conv.caseId = null;
+    conv.problemId = null;
+    conv.queue = [];
+    conv.answers = [];
+    conv.understood = null;
+    conv.stage = "TRIAGE";
+    return this.triage(conv);
   }
 
   private emergencyCard(conv: Conversation, text: string): void {
@@ -328,6 +510,7 @@ export class ConversationsService {
       this.say(conv, q.question, null, [{ label: LEXI.dontKnow, kind: "reply", value: LEXI.dontKnow }]);
       return;
     }
+    if (conv.intent === "procedure") return this.procedureRoadmap(conv);
     return this.explain(conv);
   }
 
@@ -385,10 +568,10 @@ export class ConversationsService {
       const firstTitle = d.steps[0]?.action ?? d.title ?? "";
       const steps: RoadmapStep[] = firstTitle ? [{ order: 1, title: firstTitle, agency: null, documents, deadline }] : [];
       for (const a of d.agencies) {
-        steps.push({ order: steps.length + 1, title: a.name, agency: a, documents: [], deadline: null });
+        steps.push({ order: steps.length + 1, title: a.name, agency: this.calm(conv, a), documents: [], deadline: null });
       }
       const next = d.escalation[0];
-      if (next) steps.push({ order: steps.length + 1, title: `Javob bo'lmasa: ${next.name}`, agency: next, documents: [], deadline: null });
+      if (next) steps.push({ order: steps.length + 1, title: `Javob bo'lmasa: ${next.name}`, agency: this.calm(conv, next), documents: [], deadline: null });
       // No empty "Yo'l xaritasi:" message without a card.
       if (steps.length) this.say(conv, LEXI.roadmapIntro, { type: "roadmap", steps, notYet: d.notYet, source: "catalog" });
 
@@ -408,7 +591,7 @@ export class ConversationsService {
       .map((id) => this.routing.agency(id))
       .filter((a): a is AgencyContact => a !== null && a.id !== OTHER_PARTY);
     if (picked.length) {
-      const steps = picked.map((a, i) => ({ order: i + 1, title: a.name, agency: a, documents: [], deadline: null }));
+      const steps = picked.map((a, i) => ({ order: i + 1, title: a.name, agency: this.calm(conv, a), documents: [], deadline: null }));
       this.say(conv, LEXI.roadmapLlmIntro, { type: "roadmap", steps, notYet: [], source: "llm" });
       this.say(conv, LEXI.noApplication);
       conv.stage = "DONE";

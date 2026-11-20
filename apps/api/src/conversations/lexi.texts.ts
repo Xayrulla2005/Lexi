@@ -40,6 +40,23 @@ export const LEXI = {
     "Ariza tayyor. Tekshirib chiqing, «Ma'lumotlarim to'g'ri…» belgisini qo'ying, ERI bilan imzolang va yuboring. Rozilikdan oldin hech narsa yuborilmaydi.",
   offerDeclined: "Mayli, ariza yubormayman. Yo'l xaritasi yuqorida turibdi.",
   notLegal: "Bu huquqiy masalaga o'xshamaydi. Agar baribir maslahat kerak bo'lsa:",
+  notLegalPolite:
+    "Bu savol huquqiy masalaga o'xshamaydi — men huquqiy yo'l-yo'riq beraman. Huquqiy masala bo'lsa, bemalol yozing. Bepul huquqiy maslahat:",
+  intentAsk: "Sizga qanday yordam kerak?",
+  intentDispute: "Muammo yoki nizo",
+  intentProcedure: "Jarayon / qanday qilish",
+  intentQuestion: "Savol",
+  procedureIntro: "Yo'l xaritasi (qadam-baqadam):",
+  procedureNoPlan: "Bu jarayon bo'yicha bazamizdagi moddalarda aniq qadamlar topilmadi. Rasmiy manbadan aniqlang:",
+  officialSource: "Hujjatlar ro'yxati, to'lov va muddatlarni rasmiy manbadan aniqlang",
+  procedureCheck:
+    "Hujjatlar, to'lov va muddatlar faqat modda tasdiqlagan joyda ko'rsatildi; qolganini rasmiy manbadan aniqlang. «Umumiy yo'nalish» belgili qadamlar bazadagi moddalar bilan tasdiqlanmagan.",
+  violationOffer:
+    "Agar bu jarayonda huquqingiz buzilsa (asossiz rad etishsa, ortiqcha pul so'rashsa), yozing — murojaat tayyorlab beraman.",
+  questionIntro: "Qonun bo'yicha qisqa javob:",
+  questionNotFound: "Bazamizdagi moddalarda bu savolga aniq javob topilmadi. Taxmin qilib javob bermayman.",
+  toProcedureAsk: "Batafsil yo'l xaritasi kerakmi?",
+  toProcedureYes: "Ha, yo'l xaritasi",
   afterFlow: "Yangi masala bo'lsa, «Yangi suhbat» tugmasini bosing. Arizangiz holatini shu yerda kuzatib boraman.",
   cabinetLink: "Idora kabinetida qanday ko'rinishini ko'rish",
   status: {

@@ -32,6 +32,29 @@ const mockLlm: ChatModelProvider = {
   async complete(messages: readonly ChatMessage[]): Promise<string> {
     const system = messages[0]?.content ?? "";
     const user = messages.at(-1)?.content ?? "";
+    if (system.startsWith("You sort a citizen's message")) {
+      if (/ishga kir|firma|meros/i.test(user)) return JSON.stringify({ intent: "procedure", confidence: 0.9 });
+      if (/beriladimi|mumkinmi/i.test(user)) return JSON.stringify({ intent: "question", confidence: 0.9 });
+      if (/ob-havo/i.test(user)) return JSON.stringify({ intent: "not_legal", confidence: 0.9 });
+      if (/yordam kerak/i.test(user)) return JSON.stringify({ intent: "dispute", confidence: 0.3 }); // unclear
+      return JSON.stringify({ intent: "dispute", confidence: 0.9 });
+    }
+    if (system.startsWith("A citizen in Uzbekistan asks how to do a procedure")) {
+      return JSON.stringify({ questions: [{ label: "Lavozim", question: "Qaysi lavozimga?" }] });
+    }
+    if (system.startsWith("You give a citizen in Uzbekistan a short step-by-step roadmap")) {
+      const k = [...user.matchAll(/^### ([a-z_]+\/[0-9-]+) —/gm)].map((m) => m[1] as string)[0];
+      return JSON.stringify({
+        steps: [
+          { title: "Kadrlar bo'limiga ariza topshiring.", agencyId: "iiv", citations: k ? [k] : [], documents: [], deadline: null },
+          { title: "Tibbiy ko'rikdan o'ting.", agencyId: "invented_agency", citations: ["invented/1"], documents: ["tibbiy ma'lumotnoma"], deadline: "10 kun" },
+        ],
+      });
+    }
+    if (system.startsWith("You answer a citizen's legal question")) {
+      const k = [...user.matchAll(/^### ([a-z_]+\/[0-9-]+) —/gm)].map((m) => m[1] as string)[0];
+      return JSON.stringify({ answer: k ? [{ text: "Bu moddaga ko'ra kompensatsiya to'lanadi.", citations: [k] }, { text: "To'qima gap.", citations: ["invented/9"] }] : [] });
+    }
     if (system.startsWith("You classify")) {
       if (/oylik/i.test(user)) return JSON.stringify({ reason: "Ish haqi to'lanmagan.", domain: "mehnat", problemId: "P12", risk: "yellow", confidence: 0.95, alternativeProblemId: "P49" });
       if (/erim/i.test(user)) return JSON.stringify({ reason: "Oilaviy zo'ravonlik.", domain: "zoravonlik", problemId: "P25", risk: "red", confidence: 0.95, alternativeProblemId: "P29" });
@@ -74,7 +97,9 @@ describe("Lexi scenarios (integration, mocked LLM)", () => {
       .overrideProvider(LLM_CHAT)
       .useValue(mockChat)
       .overrideProvider(ARTICLE_RETRIEVER)
-      .useValue(async (_story: string, problemId: string | null) => (problemId ? getArticlesForProblem(problemId) : []))
+      .useValue(async (story: string, problemId: string | null) =>
+        problemId ? getArticlesForProblem(problemId) : /ishga kir|bo'shat/i.test(story) ? getArticlesForProblem("P12") : [],
+      )
       .compile();
     app = moduleRef.createNestApplication<INestApplication<App>>();
     await app.init();
@@ -206,6 +231,82 @@ describe("Lexi scenarios (integration, mocked LLM)", () => {
     const roadmap = c.messages.find((m) => m.card?.type === "roadmap")?.card;
     expect(roadmap?.type === "roadmap" && roadmap.steps.map((s) => s.agency?.id)).toEqual(["yhxx", "sugurta"]);
     expect(c.messages.filter((m) => m.text === "Yo'l xaritasi:" && !m.card)).toHaveLength(0);
+  });
+
+  describe("intents", () => {
+    const start = async (text: string) => {
+      const c = (await http().post("/conversations").send({ channel: "web" }).expect(201)).body as Conversation;
+      return say(c.id, text);
+    };
+    const hasEmergencyNumber = (c: Conversation) =>
+      c.messages.some(
+        (m) =>
+          m.card?.type === "emergency" ||
+          m.actions.some((a) => a.kind === "tel") ||
+          (m.card?.type === "roadmap" && m.card.steps.some((s) => /\b(102|103|1146)\b/.test(s.agency?.phone ?? ""))),
+      );
+
+    it("procedure: 'iiv ga ishga kirish' -> clarify, cited + general steps, no 102, no application, violation -> dispute", async () => {
+      let c = await start("iiv ga ishga kirishim uchun yordam ber");
+      expect(c.intent).toBe("procedure");
+      expect(c.pending?.kind).toBe("clarify");
+      expect(c.messages.at(-1)?.text).toBe("Qaysi lavozimga?");
+      c = await say(c.id, "Patrul xizmati");
+      expect(c.messages.some((m) => m.text === "✓ Lavozim: Patrul xizmati")).toBe(true);
+
+      const roadmap = c.messages.find((m) => m.card?.type === "roadmap")?.card;
+      if (roadmap?.type !== "roadmap") throw new Error("no roadmap");
+      expect(roadmap.source).toBe("procedure");
+      const [first, second, official] = roadmap.steps;
+      expect(first?.agency?.id).toBe("iiv");
+      expect(first?.agency?.phone).toBeNull(); // no 102 without a danger signal
+      expect(first?.general).toBe(false);
+      expect(first?.citations?.length).toBeGreaterThan(0);
+      expect(roadmap.articles?.map((a) => a.key)).toEqual(first?.citations);
+      // Uncited step: general direction, invented agency/citation dropped, no documents or deadline.
+      expect(second).toMatchObject({ general: true, agency: null, citations: [], documents: [], deadline: null });
+      expect(official?.agency?.id).toBe("davlat_xizmatlari");
+      expect(hasEmergencyNumber(c)).toBe(false);
+      expect(c.messages.some((m) => m.card?.type === "facts" || m.card?.type === "application")).toBe(false);
+      expect(c.messages.some((m) => m.actions.some((a) => a.value === "offer_yes"))).toBe(false);
+      expect(c.messages.at(-1)?.text).toMatch(/^Agar bu jarayonda huquqingiz buzilsa/);
+      expect(c.pending?.kind).toBe("violation");
+
+      c = await say(c.id, "Hujjatimni asossiz rad etishdi");
+      expect(c.intent).toBe("dispute");
+      expect(c.caseId).not.toBeNull();
+    });
+
+    it("question: 2–4 cited sentences, invented citations dropped, optional roadmap button", async () => {
+      let c = await start("Ishdan bo'shatishsa kompensatsiya beriladimi?");
+      expect(c.intent).toBe("question");
+      const answer = c.messages.find((m) => m.card?.type === "answer")?.card;
+      if (answer?.type !== "answer") throw new Error("no answer");
+      expect(answer.claims.map((x) => x.text)).toEqual(["Bu moddaga ko'ra kompensatsiya to'lanadi."]);
+      expect(answer.articles.length).toBe(1);
+      expect(c.messages.at(-1)?.actions[0]?.value).toBe("to_procedure");
+      expect(hasEmergencyNumber(c)).toBe(false);
+      c = await act(c.id, "to_procedure");
+      expect(c.intent).toBe("procedure");
+      expect(c.pending?.kind).toBe("clarify");
+    });
+
+    it("not legal: polite answer with the free legal advice line, nothing else", async () => {
+      const c = await start("Bugun ob-havo qanday bo'ladi");
+      expect(c.intent).toBe("not_legal");
+      const card = c.messages.at(-1)?.card;
+      expect(card?.type === "roadmap" && card.steps.map((s) => s.agency?.id)).toEqual(["adliya"]);
+      expect(hasEmergencyNumber(c)).toBe(false);
+    });
+
+    it("unclear: three buttons; 'Savol' leads to the question flow (honest 'not found')", async () => {
+      let c = await start("yordam kerak");
+      expect(c.pending?.kind).toBe("intent");
+      expect(c.messages.at(-1)?.actions.map((a) => a.label)).toEqual(["Muammo yoki nizo", "Jarayon / qanday qilish", "Savol"]);
+      c = await act(c.id, "intent:question");
+      expect(c.intent).toBe("question");
+      expect(c.messages.some((m) => m.text.startsWith("Bazamizdagi moddalarda bu savolga aniq javob topilmadi"))).toBe(true);
+    });
   });
 
   it("an unclear safety answer counts as danger", async () => {
