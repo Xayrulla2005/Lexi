@@ -10,7 +10,8 @@ import type { RetrievedArticle } from "../rag/catalog-retrieval";
 import { filterClaimCitations } from "../rag/citation-validator";
 import { normalize } from "./normalize";
 
-const contentWords = (text: string) =>
+/** Content-word stems (4 letters) of a text; used for overlap checks. */
+export const contentWords = (text: string): Set<string> =>
   new Set(
     normalize(text)
       .replace(/[ʻʼ’`']/g, "")

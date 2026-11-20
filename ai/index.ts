@@ -45,3 +45,13 @@ export { filterClaimCitations, type CitedClaim } from "./rag/citation-validator"
 export { answerMeansDanger, detectTriage, emergencyAgencyOrder, type TriageResult, type TriageSignal } from "./pipeline/triage";
 export { askFactQuestions, type FactQuestions } from "./pipeline/facts";
 export type { AgencyOption } from "./prompts/legal-analysis.prompt";
+export {
+  answerQuestion,
+  clarifyProcedure,
+  detectIntent,
+  guessIntent,
+  INTENTS,
+  planProcedure,
+  type Intent,
+  type ProcedureStep,
+} from "./pipeline/intents";

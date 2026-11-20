@@ -4,7 +4,7 @@
  */
 import type { ChatMessage } from "../models/provider";
 
-export const LEGAL_ANALYSIS_PROMPT_VERSION = "2026-11-19.3";
+export const LEGAL_ANALYSIS_PROMPT_VERSION = "2026-11-20.1";
 
 export interface PromptArticle {
   key: string;
@@ -34,8 +34,10 @@ export interface AgencyOption {
 
 const SYSTEM = `You explain a citizen's legal situation in Uzbekistan in simple Uzbek (Latin).
 Use ONLY the ARTICLES below. Every claim must cite the key(s) of the article(s) it is based on, e.g. "mehnat_kodeksi/253".
-If an article does not support a claim, do not make the claim. If an article does not fit the citizen's situation,
-ignore it; if none fits, return empty arrays. Never invent laws, article numbers, deadlines,
+If an article does not support a claim, do not make the claim. Use an article ONLY if it applies directly to the
+citizen's situation as described; an article about a different situation (e.g. a divorce procedure when the story is
+about violence, or a general clause that merely mentions a similar word) must be ignored even if it was given to you.
+If none fits, return empty arrays. Never invent laws, article numbers, deadlines,
 amounts or agencies. The articles are drafts that a lawyer has not reviewed yet; do not call them final.
 
 Return ONLY a JSON object with arrays of { "text": one sentence, "citations": [article keys] }:
