@@ -1,7 +1,7 @@
 {
   "label": "llm-gemini",
   "classifier": "gemini:gemini-3.5-flash-lite",
-  "generatedAt": "2026-11-20T05:34:45.791Z",
+  "generatedAt": "2026-11-20T06:15:58.677Z",
   "dataset": "ai/eval/datasets/test_cases.csv",
   "sample": {
     "size": 40,
@@ -51,11 +51,11 @@
   },
   "summary": {
     "cases": 40,
-    "problemIdAccuracy": 82.5,
-    "domainAccuracy": 90,
-    "redRecall": 75,
+    "problemIdAccuracy": 92.5,
+    "domainAccuracy": 100,
+    "redRecall": 100,
     "redCases": 4,
-    "firstAgencyAccuracy": 85
+    "firstAgencyAccuracy": 95
   },
   "perStyle": {
     "rasmiy": {
@@ -68,19 +68,19 @@
     },
     "qisqa": {
       "cases": 10,
-      "problemIdAccuracy": 80,
-      "domainAccuracy": 90,
+      "problemIdAccuracy": 90,
+      "domainAccuracy": 100,
       "redRecall": null,
       "redCases": 0,
-      "firstAgencyAccuracy": 80
+      "firstAgencyAccuracy": 90
     },
     "sheva": {
       "cases": 9,
-      "problemIdAccuracy": 77.8,
-      "domainAccuracy": 88.9,
-      "redRecall": 66.7,
+      "problemIdAccuracy": 100,
+      "domainAccuracy": 100,
+      "redRecall": 100,
       "redCases": 3,
-      "firstAgencyAccuracy": 77.8
+      "firstAgencyAccuracy": 88.9
     },
     "aralash": {
       "cases": 4,
@@ -92,11 +92,11 @@
     },
     "kirill": {
       "cases": 6,
-      "problemIdAccuracy": 50,
-      "domainAccuracy": 66.7,
+      "problemIdAccuracy": 66.7,
+      "domainAccuracy": 100,
       "redRecall": null,
       "redCases": 0,
-      "firstAgencyAccuracy": 66.7
+      "firstAgencyAccuracy": 100
     }
   },
   "keywordOnSameSample": {
@@ -155,22 +155,22 @@
     {
       "metric": "problemIdAccuracy",
       "keyword": 5,
-      "llm": 82.5
+      "llm": 92.5
     },
     {
       "metric": "domainAccuracy",
       "keyword": 12.5,
-      "llm": 90
+      "llm": 100
     },
     {
       "metric": "firstAgencyAccuracy",
       "keyword": 7.5,
-      "llm": 85
+      "llm": 95
     },
     {
       "metric": "redRecall",
       "keyword": 0,
-      "llm": 75
+      "llm": 100
     }
   ],
   "topConfusions": [
@@ -183,34 +183,18 @@
       "n": 1
     },
     {
-      "pair": "P50 -> P44",
-      "n": 1
-    },
-    {
-      "pair": "P57 -> null",
-      "n": 1
-    },
-    {
-      "pair": "P59 -> null",
-      "n": 1
-    },
-    {
-      "pair": "P61 -> P12",
-      "n": 1
-    },
-    {
-      "pair": "P63 -> null",
+      "pair": "P50 -> P26",
       "n": 1
     }
   ],
   "latency": {
-    "liveCalls": 32,
-    "cacheHits": 3,
-    "p50": 1609,
-    "p90": 5082,
-    "max": 70322
+    "liveCalls": 0,
+    "cacheHits": 40,
+    "p50": null,
+    "p90": null,
+    "max": null
   },
-  "degraded": 5,
+  "degraded": 0,
   "errors": [
     {
       "id": "P02_V3",
@@ -258,49 +242,13 @@
         "firstAgency": "vasiylik"
       },
       "predicted": {
-        "problemId": "P44",
-        "domain": "qoshnichilik",
-        "riskLevel": "yellow",
+        "problemId": "P26",
+        "domain": "oila",
+        "riskLevel": "orange",
         "routeType": "RULE_BASED",
-        "firstAgency": "profilaktika_inspektori"
+        "firstAgency": "vasiylik"
       },
-      "degraded": true
-    },
-    {
-      "id": "P57_V1",
-      "style": "qisqa",
-      "expected": {
-        "problemId": "P57",
-        "domain": "ijtimoiy_taminot",
-        "red": false,
-        "firstAgency": "ijtimoiy_himoya"
-      },
-      "predicted": {
-        "problemId": null,
-        "domain": "davlat_organlari",
-        "riskLevel": "yellow",
-        "routeType": "FALLBACK",
-        "firstAgency": null
-      },
-      "degraded": true
-    },
-    {
-      "id": "P59_V2",
-      "style": "sheva",
-      "expected": {
-        "problemId": "P59",
-        "domain": "davlat_organlari",
-        "red": false,
-        "firstAgency": "davlat_xizmatlari"
-      },
-      "predicted": {
-        "problemId": null,
-        "domain": "davlat_organlari",
-        "riskLevel": "yellow",
-        "routeType": "FALLBACK",
-        "firstAgency": null
-      },
-      "degraded": true
+      "degraded": false
     },
     {
       "id": "P61_V2",
@@ -312,31 +260,13 @@
         "firstAgency": "konsullik"
       },
       "predicted": {
-        "problemId": "P12",
-        "domain": "mehnat",
-        "riskLevel": "yellow",
-        "routeType": "RULE_BASED",
-        "firstAgency": "mehnat_inspeksiyasi"
+        "problemId": "P61",
+        "domain": "chet_eldagilar",
+        "riskLevel": "red",
+        "routeType": "EMERGENCY",
+        "firstAgency": "iiv"
       },
-      "degraded": true
-    },
-    {
-      "id": "P63_V3",
-      "style": "kirill",
-      "expected": {
-        "problemId": "P63",
-        "domain": "talim",
-        "red": false,
-        "firstAgency": "talim_boshqarmasi"
-      },
-      "predicted": {
-        "problemId": null,
-        "domain": "davlat_organlari",
-        "riskLevel": "yellow",
-        "routeType": "FALLBACK",
-        "firstAgency": null
-      },
-      "degraded": true
+      "degraded": false
     }
   ]
 }

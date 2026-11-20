@@ -5,7 +5,7 @@
  * AI output is advisory: routing is decided by @lex/legal-engine.
  */
 export { analyze, HUMAN_REVIEW_CONFIDENCE, type AnalyzeDependencies } from "./pipeline/analyze";
-export { normalize } from "./pipeline/normalize";
+export { normalize, transliterate } from "./pipeline/normalize";
 export { keywordRisk, maxRisk } from "./pipeline/risk";
 export { classify } from "./pipeline/classify";
 
