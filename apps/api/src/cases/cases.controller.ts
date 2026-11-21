@@ -18,14 +18,14 @@ export class CasesController {
     @Body(new ZodValidationPipe(CreateCaseRequest)) body: CreateCaseRequest,
     @CurrentCitizen() auth: AuthenticatedCitizen,
   ): Promise<Case> {
-    const c = this.cases.create(body.channel, auth.citizen.id);
+    const c = this.cases.create(body.channel, auth.principal.id);
     await this.cases.persist("case.create");
     return c;
   }
 
   @Get(":id")
   get(@Param("id", ParseUUIDPipe) id: string, @CurrentCitizen() auth: AuthenticatedCitizen): Case {
-    return this.cases.owned(id, auth.citizen.id);
+    return this.cases.owned(id, auth.principal.id);
   }
 
   @Post(":id/messages")
@@ -35,7 +35,7 @@ export class CasesController {
     @CurrentCitizen() auth: AuthenticatedCitizen,
   ): Promise<CaseMessage> {
     // TODO(Xayrulla+Jayhun): voice input -> SpeechToTextProvider (ai/models) -> text
-    this.cases.owned(id, auth.citizen.id);
+    this.cases.owned(id, auth.principal.id);
     const msg = this.cases.addMessage(id, body.text);
     await this.cases.persist("case.message");
     return msg;
@@ -45,7 +45,7 @@ export class CasesController {
   @HttpCode(200)
   @RateLimit("ai")
   async analyze(@Param("id", ParseUUIDPipe) id: string, @CurrentCitizen() auth: AuthenticatedCitizen): Promise<Case> {
-    this.cases.owned(id, auth.citizen.id);
+    this.cases.owned(id, auth.principal.id);
     const c = await this.cases.analyze(id);
     await this.cases.persist("case.analyze");
     return c;

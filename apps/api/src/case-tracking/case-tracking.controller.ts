@@ -17,6 +17,6 @@ export class CaseTrackingController {
 
   @Get(":id")
   status(@Param("id", ParseUUIDPipe) id: string, @CurrentCitizen() auth: AuthenticatedCitizen): Promise<SubmissionTracking> {
-    return this.submissions.tracking(id, auth.citizen.id);
+    return this.submissions.tracking(id, auth.principal.id);
   }
 }

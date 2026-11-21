@@ -22,7 +22,19 @@ describe("ApplicationsService ownership", () => {
   it("only the case owner can create an application from it", async () => {
     const { apps, caseId } = await setup();
     const other = new OneIdSimulatorService().citizen("test_fuqaro_2");
-    await expect(apps.createForCase(caseId, other)).rejects.toBeInstanceOf(ForbiddenException);
+    await expect(apps.createForCase(caseId, other.id, other)).rejects.toBeInstanceOf(ForbiddenException);
+  });
+
+  it("keeps the owner (principal) separate from the OneID identity that fills and signs", async () => {
+    const { cases, apps, citizen } = await setup();
+    const c = cases.create("web", "acc_demo");
+    cases.addMessage(c.id, "3 oydan beri oylik berishmayapti");
+    await cases.analyze(c.id);
+    const app = await apps.createForCase(c.id, "acc_demo", citizen);
+    expect(app.citizenId).toBe("acc_demo");
+    expect(app.identityId).toBe(citizen.id);
+    expect(app.fields.find((f) => f.key === "fio")?.value).toBe(citizen.fio);
+    expect(() => apps.owned(app.id, citizen.id)).toThrow(ForbiddenException);
   });
 });
 
@@ -31,7 +43,7 @@ const MANUAL = { malumot_1: "Hisobchi", malumot_2: "“Namuna” MChJ", malumot_
 describe("ApplicationsService", () => {
   it("builds the P12 application from T12 and fills OneID/system fields only", async () => {
     const { apps, citizen, caseId } = await setup();
-    const app = await apps.createForCase(caseId, citizen);
+    const app = await apps.createForCase(caseId, citizen.id, citizen);
     expect(app.templateId).toBe("T12");
     expect(app.agency.id).toBe("mehnat_inspeksiyasi");
     const byKey = Object.fromEntries(app.fields.map((f) => [f.key, f]));
@@ -42,7 +54,7 @@ describe("ApplicationsService", () => {
 
   it("keeps the template text unchanged (only the leading comment is dropped)", async () => {
     const { apps, citizen, caseId } = await setup();
-    const app = await apps.createForCase(caseId, citizen);
+    const app = await apps.createForCase(caseId, citizen.id, citizen);
     const file = readFileSync(join(REPO_ROOT, "legal-knowledge/templates/T12.md"), "utf8").replace(/\r\n/g, "\n");
     expect(file.endsWith(app.template)).toBe(true);
     expect(apps.text(app)).toContain("ish haqim o‘z vaqtida to‘lanmadi");
@@ -50,7 +62,7 @@ describe("ApplicationsService", () => {
 
   it("requires every field before consent and resets consent when a field changes", async () => {
     const { apps, citizen, caseId } = await setup();
-    const app = await apps.createForCase(caseId, citizen);
+    const app = await apps.createForCase(caseId, citizen.id, citizen);
     expect(() => apps.consent(app.id, citizen.id)).toThrow(BadRequestException);
     apps.updateFields(app.id, citizen.id, MANUAL);
     const consented = apps.consent(app.id, citizen.id);
@@ -61,14 +73,14 @@ describe("ApplicationsService", () => {
 
   it("does not let the user overwrite OneID fields or touch another citizen's application", async () => {
     const { apps, citizen, caseId } = await setup();
-    const app = await apps.createForCase(caseId, citizen);
+    const app = await apps.createForCase(caseId, citizen.id, citizen);
     expect(() => apps.updateFields(app.id, citizen.id, { fio: "Boshqa" })).toThrow(BadRequestException);
     expect(() => apps.updateFields(app.id, "test_fuqaro_2", { summa: "1" })).toThrow(ForbiddenException);
   });
 
   it("renders a PDF with an embedded Unicode font", async () => {
     const { apps, citizen, caseId } = await setup();
-    const app = apps.updateFields((await apps.createForCase(caseId, citizen)).id, citizen.id, MANUAL);
+    const app = apps.updateFields((await apps.createForCase(caseId, citizen.id, citizen)).id, citizen.id, MANUAL);
     const pdf = await apps.pdf(app.id);
     expect(pdf.subarray(0, 5).toString()).toBe("%PDF-");
     expect(pdf.toString("latin1")).toContain("DejaVuSans");
@@ -76,7 +88,7 @@ describe("ApplicationsService", () => {
 
   it("signs only the content it read: an edit during signing -> 409, nothing attached (optimistic lock)", async () => {
     const { apps, citizen, caseId } = await setup();
-    const app = apps.updateFields((await apps.createForCase(caseId, citizen)).id, citizen.id, MANUAL);
+    const app = apps.updateFields((await apps.createForCase(caseId, citizen.id, citizen)).id, citizen.id, MANUAL);
     apps.consent(app.id, citizen.id);
     const eri = {
       sign: async (_citizenId: string, _pdf: Buffer) => {
@@ -101,7 +113,7 @@ describe("ApplicationsService", () => {
 
   it("state machine: sign needs consent (400); signed/submitted are final (409)", async () => {
     const { apps, citizen, caseId } = await setup();
-    const app = apps.updateFields((await apps.createForCase(caseId, citizen)).id, citizen.id, MANUAL);
+    const app = apps.updateFields((await apps.createForCase(caseId, citizen.id, citizen)).id, citizen.id, MANUAL);
     expect(app.state).toBe("DRAFT");
     expect(() => apps.markSubmitted(app.id, "8c1c7a8e-5f0b-4b8a-9a35-0b7b6f1e2c11")).toThrow(BadRequestException);
     await expect(apps.sign(app.id, citizen.id, { sign: async () => Promise.reject(new Error("not reached")) })).rejects.toBeInstanceOf(
@@ -111,7 +123,7 @@ describe("ApplicationsService", () => {
 
   it("locks the application after signing", async () => {
     const { apps, citizen, caseId } = await setup();
-    const app = apps.updateFields((await apps.createForCase(caseId, citizen)).id, citizen.id, MANUAL);
+    const app = apps.updateFields((await apps.createForCase(caseId, citizen.id, citizen)).id, citizen.id, MANUAL);
     apps.consent(app.id, citizen.id);
     apps.attachSignature(app.id, Buffer.from("%PDF-test"), {
       simulated: true,
@@ -129,7 +141,7 @@ describe("ApplicationsService", () => {
 
   it("intake without an LLM: template questions (max 3); answers fill fields, 'Bilmayman' leaves them empty", async () => {
     const { apps, citizen, caseId } = await setup();
-    const app = await apps.createForCase(caseId, citizen);
+    const app = await apps.createForCase(caseId, citizen.id, citizen);
     const withIntake = await apps.runIntake(app.id, citizen.id);
     expect(withIntake.intake?.questions).toHaveLength(3);
     expect(withIntake.intake?.understood).toBe("Ish haqini o'z vaqtida to'lamaslik");

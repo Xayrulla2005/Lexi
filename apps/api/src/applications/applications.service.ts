@@ -104,6 +104,9 @@ interface CreateParams {
   parentSubmissionId: string | null;
   templateId: string;
   agency: AgencyContact;
+  /** Owner id (principal). */
+  ownerId: string;
+  /** OneID identity: profile fields and signer. */
   citizen: SimCitizen;
   /** Turns the loaded template into the application text (escalation header + fact line). */
   adapt?: (template: string) => string;
@@ -129,20 +132,20 @@ export class ApplicationsService {
   ) {}
 
   /** Returns the open primary draft for this case and citizen, or creates one. */
-  async createForCase(caseId: string, citizen: SimCitizen): Promise<Application> {
+  async createForCase(caseId: string, ownerId: string, citizen: SimCitizen): Promise<Application> {
     // Only the case owner may turn it into an application (403 otherwise).
-    const d = this.cases.owned(caseId, citizen.id).routingDecision;
+    const d = this.cases.owned(caseId, ownerId).routingDecision;
     if (!d || d.routeType !== "RULE_BASED" || !d.templateId || !d.agencyId) {
       throw new BadRequestException("This case has no catalog route with an application template");
     }
     const existing = this.store
       .values()
-      .find((a) => a.caseId === caseId && a.citizenId === citizen.id && a.kind === "PRIMARY" && !a.submissionId);
+      .find((a) => a.caseId === caseId && a.citizenId === ownerId && a.kind === "PRIMARY" && !a.submissionId);
     if (existing) return this.view(existing);
 
     const agency = d.agencies.find((a) => a.id === d.agencyId);
     if (!agency) throw new BadRequestException(`Agency ${d.agencyId} missing from the routing decision`);
-    return this.create({ caseId, kind: "PRIMARY", parentSubmissionId: null, templateId: d.templateId, agency, citizen });
+    return this.create({ caseId, ownerId, kind: "PRIMARY", parentSubmissionId: null, templateId: d.templateId, agency, citizen });
   }
 
   /** Draft of the same application for another agency (escalation). Never submitted automatically. */
@@ -161,6 +164,7 @@ export class ApplicationsService {
     };
     const draft = await this.create({
       caseId: source.caseId,
+      ownerId: source.citizenId,
       kind: "ESCALATION",
       parentSubmissionId: parent.id,
       templateId: source.templateId,
@@ -171,7 +175,7 @@ export class ApplicationsService {
     // Reuse the user's manual answers; consent and signature must be given again.
     const manual: Record<string, string> = {};
     for (const f of source.fields) if (f.source === "MANUAL" && f.value) manual[f.key] = f.value;
-    return Object.keys(manual).length ? this.updateFields(draft.id, citizen.id, manual) : draft;
+    return Object.keys(manual).length ? this.updateFields(draft.id, source.citizenId, manual) : draft;
   }
 
   /** The escalation draft prepared for an overdue submission, if any. */
@@ -312,7 +316,8 @@ export class ApplicationsService {
       assertTransition(app, "sign");
       if (app.missingFields.length) throw new BadRequestException(`Fill in the fields first: ${app.missingFields.join(", ")}`);
       const pdf = await timer.step("pdf", () => renderApplicationPdf(this.text(app)));
-      const signature = await timer.step("eri", () => eri.sign(citizenId, pdf));
+      // The signer is the OneID identity attached to the application (the owner for older records).
+      const signature = await timer.step("eri", () => eri.sign(app.identityId ?? citizenId, pdf));
       // Optimistic lock: the signed bytes must be what the application holds now. If it was
       // edited (consent reset) or signed by a parallel request meanwhile, this signature is dropped.
       const signed = await timer.step("save", () => this.attachSignature(id, pdf, signature, app.updatedAt));
@@ -414,7 +419,8 @@ export class ApplicationsService {
       caseId: p.caseId,
       kind: p.kind,
       parentSubmissionId: p.parentSubmissionId,
-      citizenId: p.citizen.id,
+      citizenId: p.ownerId,
+      identityId: p.citizen.id,
       templateId: p.templateId,
       agency: p.agency,
       template,

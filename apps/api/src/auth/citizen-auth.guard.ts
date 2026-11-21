@@ -10,6 +10,7 @@ import { AUTH_PROVIDER, type AuthenticatedCitizen, type AuthProvider, type Reque
 
 interface AuthRequest {
   headers: RequestHeaders;
+  method?: string;
   citizenAuth?: AuthenticatedCitizen | null;
 }
 
@@ -20,7 +21,7 @@ export class CitizenAuthGuard implements CanActivate {
 
   canActivate(ctx: ExecutionContext): boolean {
     const req = ctx.switchToHttp().getRequest<AuthRequest>();
-    req.citizenAuth = this.auth.authenticate(req.headers);
+    req.citizenAuth = this.auth.authenticate(req);
     if (!req.citizenAuth) throw new UnauthorizedException("Authentication required");
     return true;
   }
@@ -33,7 +34,7 @@ export class OptionalCitizenAuthGuard implements CanActivate {
 
   canActivate(ctx: ExecutionContext): boolean {
     const req = ctx.switchToHttp().getRequest<AuthRequest>();
-    req.citizenAuth = this.auth.authenticate(req.headers);
+    req.citizenAuth = this.auth.authenticate(req);
     return true;
   }
 }

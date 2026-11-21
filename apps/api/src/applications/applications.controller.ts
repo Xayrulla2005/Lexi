@@ -7,7 +7,7 @@ import {
   type AuditEvent,
   type SignatureVerification,
 } from "@lex/contracts";
-import type { AuthenticatedCitizen } from "../auth/auth-provider";
+import { type AuthenticatedCitizen, requireIdentity } from "../auth/auth-provider";
 import { CitizenAuthGuard, CurrentCitizen } from "../auth/citizen-auth.guard";
 import { RateLimit } from "../common/rate-limit";
 import { ZodValidationPipe } from "../common/zod-validation.pipe";
@@ -27,19 +27,19 @@ export class ApplicationsController {
 
   @Post("cases/:id/application")
   async create(@Param("id", ParseUUIDPipe) caseId: string, @CurrentCitizen() auth: AuthenticatedCitizen): Promise<Application> {
-    const app = await this.apps.createForCase(caseId, auth.citizen);
+    const app = await this.apps.createForCase(caseId, auth.principal.id, requireIdentity(auth));
     await this.apps.persist("application.create");
     return app;
   }
 
   @Get("applications")
   mine(@CurrentCitizen() auth: AuthenticatedCitizen): Application[] {
-    return this.apps.listForCitizen(auth.citizen.id);
+    return this.apps.listForCitizen(auth.principal.id);
   }
 
   @Get("applications/:id")
   get(@Param("id", ParseUUIDPipe) id: string, @CurrentCitizen() auth: AuthenticatedCitizen): Application {
-    return this.apps.owned(id, auth.citizen.id);
+    return this.apps.owned(id, auth.principal.id);
   }
 
   @Patch("applications/:id/fields")
@@ -48,7 +48,7 @@ export class ApplicationsController {
     @Body(new ZodValidationPipe(UpdateApplicationFieldsRequest)) body: UpdateApplicationFieldsRequest,
     @CurrentCitizen() auth: AuthenticatedCitizen,
   ): Promise<Application> {
-    const app = this.apps.updateFields(id, auth.citizen.id, body.values);
+    const app = this.apps.updateFields(id, auth.principal.id, body.values);
     await this.apps.persist("application.fields");
     return app;
   }
@@ -60,7 +60,7 @@ export class ApplicationsController {
     @Body(new ZodValidationPipe(ConsentRequest)) _body: ConsentRequest,
     @CurrentCitizen() auth: AuthenticatedCitizen,
   ): Promise<Application> {
-    const app = this.apps.consent(id, auth.citizen.id);
+    const app = this.apps.consent(id, auth.principal.id);
     await this.apps.persist("application.consent");
     return app;
   }
@@ -69,7 +69,7 @@ export class ApplicationsController {
   @Post("applications/:id/intake")
   @RateLimit("ai")
   async intake(@Param("id", ParseUUIDPipe) id: string, @CurrentCitizen() auth: AuthenticatedCitizen): Promise<Application> {
-    const app = await this.apps.runIntake(id, auth.citizen.id);
+    const app = await this.apps.runIntake(id, auth.principal.id);
     await this.apps.persist("application.intake");
     return app;
   }
@@ -81,7 +81,7 @@ export class ApplicationsController {
     @Body(new ZodValidationPipe(IntakeAnswerRequest)) body: IntakeAnswerRequest,
     @CurrentCitizen() auth: AuthenticatedCitizen,
   ): Promise<Application> {
-    const app = this.apps.answer(id, auth.citizen.id, body.key, body.answer);
+    const app = this.apps.answer(id, auth.principal.id, body.key, body.answer);
     await this.apps.persist("application.answer");
     return app;
   }
@@ -89,7 +89,7 @@ export class ApplicationsController {
   /** SIMULATED ERI: signs the SHA-256 of the final PDF with the test citizen's Ed25519 key. */
   @Post("applications/:id/sign")
   sign(@Param("id", ParseUUIDPipe) id: string, @CurrentCitizen() auth: AuthenticatedCitizen): Promise<Application> {
-    return this.apps.sign(id, auth.citizen.id, this.eri);
+    return this.apps.sign(id, auth.principal.id, this.eri);
   }
 
   @Get("applications/:id/verify")
@@ -97,7 +97,7 @@ export class ApplicationsController {
     @Param("id", ParseUUIDPipe) id: string,
     @CurrentCitizen() auth: AuthenticatedCitizen,
   ): Promise<SignatureVerification> {
-    const app = this.apps.owned(id, auth.citizen.id);
+    const app = this.apps.owned(id, auth.principal.id);
     if (!app.signature) return { valid: false, message: "Imzo buzilgan" };
     return this.eri.verify(await this.apps.pdf(id), app.signature);
   }
@@ -105,13 +105,13 @@ export class ApplicationsController {
   /** The application's audit trail (consent, signature, submission, receipt, statuses). Owner only. */
   @Get("applications/:id/audit")
   auditTrail(@Param("id", ParseUUIDPipe) id: string, @CurrentCitizen() auth: AuthenticatedCitizen): AuditEvent[] {
-    const app = this.apps.owned(id, auth.citizen.id);
+    const app = this.apps.owned(id, auth.principal.id);
     return this.audit.forApplication(id, app.submissionId ? [app.submissionId] : []);
   }
 
   @Get("applications/:id/pdf")
   async pdf(@Param("id", ParseUUIDPipe) id: string, @CurrentCitizen() auth: AuthenticatedCitizen): Promise<StreamableFile> {
-    this.apps.owned(id, auth.citizen.id);
+    this.apps.owned(id, auth.principal.id);
     return new StreamableFile(await this.apps.pdf(id), {
       type: "application/pdf",
       disposition: 'inline; filename="ariza.pdf"',

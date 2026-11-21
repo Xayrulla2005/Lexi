@@ -17,8 +17,9 @@ import { ZodValidationPipe } from "../common/zod-validation.pipe";
 import { type AccessContext, ConversationsService } from "./conversations.service";
 
 const ctx = (auth: AuthenticatedCitizen | null, token: string | undefined): AccessContext => ({
-  citizenId: auth?.citizen.id ?? null,
+  citizenId: auth?.principal.id ?? null,
   token: token || undefined,
+  identity: auth?.citizen ?? null,
 });
 
 /**
@@ -38,7 +39,7 @@ export class ConversationsController {
     @Body(new ZodValidationPipe(StartConversationRequest)) body: StartConversationRequest,
     @CurrentCitizen() auth: AuthenticatedCitizen | null,
   ): Promise<StartedConversation> {
-    return this.conversations.start(body.channel, auth?.citizen.id ?? null);
+    return this.conversations.start(body.channel, auth?.principal.id ?? null);
   }
 
   /** Polled by the web/bot: includes new tracking messages. */

@@ -95,7 +95,10 @@ export const Application = z.object({
   kind: ApplicationKind,
   /** For ESCALATION drafts: the overdue submission that triggered it. */
   parentSubmissionId: z.string().uuid().nullable(),
+  /** Owner (account or OneID principal id). */
   citizenId: Slug,
+  /** OneID identity (SIMULATOR today) whose profile fills the form and who signs; null for old records. */
+  identityId: Slug.nullable().default(null),
   templateId: Slug,
   /** Receiving agency (catalog contact). */
   agency: AgencyContact,

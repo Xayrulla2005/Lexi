@@ -33,7 +33,7 @@ export class DocumentsController {
 
   @Get()
   list(@Param("id", ParseUUIDPipe) id: string, @CurrentCitizen() auth: AuthenticatedCitizen): ApplicationDocuments {
-    return this.docs.list(id, auth.citizen.id);
+    return this.docs.list(id, auth.principal.id);
   }
 
   /** Raw file body (Content-Type: application/pdf | image/png | image/jpeg), ≤ 5 MB. */
@@ -47,7 +47,7 @@ export class DocumentsController {
     @Headers(DOCUMENT_NAME_HEADER) name?: string,
     @Headers(DOCUMENT_CHECKLIST_HEADER) checklistItem?: string,
   ): Promise<ApplicationDocument> {
-    return this.docs.add(id, auth.citizen.id, body, contentType, name, checklistItem);
+    return this.docs.add(id, auth.principal.id, body, contentType, name, checklistItem);
   }
 
   /** Always a download (never rendered inline), not cached. */
@@ -58,7 +58,7 @@ export class DocumentsController {
     @Param("documentId", ParseUUIDPipe) documentId: string,
     @CurrentCitizen() auth: AuthenticatedCitizen,
   ): Promise<StreamableFile> {
-    const { doc, bytes } = await this.docs.read(id, documentId, auth.citizen.id);
+    const { doc, bytes } = await this.docs.read(id, documentId, auth.principal.id);
     return new StreamableFile(bytes, { type: doc.contentType, disposition: attachment(doc.fileName), length: bytes.length });
   }
 
@@ -69,6 +69,6 @@ export class DocumentsController {
     @Param("documentId", ParseUUIDPipe) documentId: string,
     @CurrentCitizen() auth: AuthenticatedCitizen,
   ): Promise<void> {
-    await this.docs.remove(id, documentId, auth.citizen.id);
+    await this.docs.remove(id, documentId, auth.principal.id);
   }
 }

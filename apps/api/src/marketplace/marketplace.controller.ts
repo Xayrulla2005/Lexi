@@ -26,7 +26,7 @@ export class ProfessionalsController {
   ): LegalProfessional[] {
     if (q.caseId) {
       if (!auth) throw new UnauthorizedException("Authentication required");
-      return this.market.recommendForCase(q.caseId, auth.citizen.id, q.region);
+      return this.market.recommendForCase(q.caseId, auth.principal.id, q.region);
     }
     return this.market.search(q.domain, q.region);
   }
@@ -50,22 +50,22 @@ export class ConsultationsController {
     @Body(new ZodValidationPipe(CreateConsultationRequest)) body: CreateConsultationRequest,
     @CurrentCitizen() auth: AuthenticatedCitizen,
   ): Promise<ConsultationRequest> {
-    return this.market.request(auth.citizen.id, body);
+    return this.market.request(auth.principal.id, body);
   }
 
   @Get()
   mine(@CurrentCitizen() auth: AuthenticatedCitizen): ConsultationRequest[] {
-    return this.market.mine(auth.citizen.id);
+    return this.market.mine(auth.principal.id);
   }
 
   @Get(":id")
   get(@Param("id", ParseUUIDPipe) id: string, @CurrentCitizen() auth: AuthenticatedCitizen): ConsultationRequest {
-    return this.market.owned(id, auth.citizen.id);
+    return this.market.owned(id, auth.principal.id);
   }
 
   @Post(":id/cancel")
   @HttpCode(200)
   cancel(@Param("id", ParseUUIDPipe) id: string, @CurrentCitizen() auth: AuthenticatedCitizen): Promise<ConsultationRequest> {
-    return this.market.transition(id, "CANCELLED", { by: "citizen", citizenId: auth.citizen.id });
+    return this.market.transition(id, "CANCELLED", { by: "citizen", citizenId: auth.principal.id });
   }
 }

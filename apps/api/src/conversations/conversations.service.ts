@@ -53,7 +53,6 @@ import { JsonStore } from "../common/json-store";
 import { runtimeFile } from "../common/paths";
 import { LegalRoutingService } from "../legal-routing/legal-routing.service";
 import { ARTICLE_RETRIEVER, type ArticleRetriever, LLM_CHAT } from "../llm/llm.module";
-import { OneIdSimulatorService } from "../sim/oneid.service";
 import { issueHandoff, issueToken, revoke, StoredConversation, validSecret } from "./conversation-access";
 import { LEXI } from "./lexi.texts";
 
@@ -64,6 +63,8 @@ import { LEXI } from "./lexi.texts";
 export interface AccessContext {
   citizenId: string | null;
   token: string | undefined;
+  /** OneID identity of this request (applications, emergency simulator); null for email-only accounts. */
+  identity?: SimCitizen | null;
 }
 
 /** Article as shown on a card, with its source metadata (nothing that is not in the data). */
@@ -121,6 +122,8 @@ const yes = (t: string) => /^(ha|xa|ha,|да|yes|roziman|mayli|albatta)\b/i.test
 @Injectable()
 export class ConversationsService {
   private readonly logger = new Logger(ConversationsService.name);
+  /** The identity of the request that opened this conversation object (per request, never stored). */
+  private readonly identities = new WeakMap<Conversation, SimCitizen | null>();
   private readonly store = new JsonStore<StoredConversation>(runtimeFile("conversations.json"), StoredConversation);
 
   constructor(
@@ -129,7 +132,6 @@ export class ConversationsService {
     @Inject(ApplicationsService) private readonly apps: ApplicationsService,
     @Inject(SubmissionsService) private readonly submissions: SubmissionsService,
     @Inject(EmergencyCallsService) private readonly calls: EmergencyCallsService,
-    @Inject(OneIdSimulatorService) private readonly oneId: OneIdSimulatorService,
     @Inject(LLM_CHAT) private readonly chat: ProviderChoice,
     @Inject(ARTICLE_RETRIEVER) private readonly retriever: ArticleRetriever,
   ) {}
@@ -238,6 +240,7 @@ export class ConversationsService {
     if (!(ctx.citizenId && owner === ctx.citizenId) && !tokenOk) throw new NotFoundException("Conversation not found");
     const conv = structuredClone(stored.conversation);
     if (!owner && ctx.citizenId && tokenOk) conv.citizenId = ctx.citizenId;
+    this.identities.set(conv, ctx.identity ?? null);
     return conv;
   }
 
@@ -728,13 +731,14 @@ export class ConversationsService {
       return;
     }
     conv.pending = null;
-    // The case was created while the conversation may still have been anonymous: bind it once.
-    this.cases.assignOwner(conv.caseId as string, citizen.id);
-    let app = await this.apps.createForCase(conv.caseId as string, citizen);
+    // Owner = the conversation's principal; the OneID identity fills the form and signs.
+    const owner = conv.citizenId ?? citizen.id;
+    this.cases.assignOwner(conv.caseId as string, owner);
+    let app = await this.apps.createForCase(conv.caseId as string, owner, citizen);
     const manual = new Set(app.fields.filter((f) => f.source === "MANUAL").map((f) => f.key));
     const values: Record<string, string> = {};
     for (const a of conv.answers) if (a.value && manual.has(a.key)) values[a.key] = a.value;
-    if (Object.keys(values).length) app = this.apps.updateFields(app.id, citizen.id, values);
+    if (Object.keys(values).length) app = this.apps.updateFields(app.id, owner, values);
     await this.apps.persist("lexi.application");
     conv.applicationId = app.id;
     conv.stage = "ACTION";
@@ -821,7 +825,7 @@ export class ConversationsService {
   // ------------------------------------------------------------------ helpers
 
   private citizen(conv: Conversation): SimCitizen | null {
-    return conv.citizenId ? this.oneId.citizen(conv.citizenId) : null;
+    return this.identities.get(conv) ?? null;
   }
 
   /** After cited law: how current and how verified the sources are, and that this is information, not advice. */

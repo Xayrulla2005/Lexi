@@ -1,5 +1,5 @@
 import { SIM_SESSION_HEADER } from "@lex/contracts";
-import type { AuthenticatedCitizen, AuthProvider, RequestHeaders } from "../auth/auth-provider";
+import type { AuthenticatedCitizen, AuthProvider, AuthRequest } from "../auth/auth-provider";
 import { headerValue } from "../auth/auth-provider";
 import { simModeEnabled } from "../auth/sim-mode";
 import type { OneIdSimulatorService } from "./oneid.service";
@@ -14,9 +14,16 @@ export class OneIdSimulatorAuthProvider implements AuthProvider {
 
   constructor(private readonly oneId: OneIdSimulatorService) {}
 
-  authenticate(headers: RequestHeaders): AuthenticatedCitizen | null {
+  authenticate(req: AuthRequest): AuthenticatedCitizen | null {
     if (!simModeEnabled()) return null;
-    const session = this.oneId.find(headerValue(headers, SIM_SESSION_HEADER));
-    return session ? { citizen: session.citizen, provider: this.id, simulated: true } : null;
+    const session = this.oneId.find(headerValue(req.headers, SIM_SESSION_HEADER));
+    if (!session) return null;
+    const c = session.citizen;
+    return {
+      principal: { id: c.id, kind: "oneid-simulator", displayName: c.fio, email: null },
+      citizen: c,
+      provider: this.id,
+      simulated: true,
+    };
   }
 }

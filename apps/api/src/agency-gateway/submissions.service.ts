@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Inject,
   Injectable,
   Logger,
@@ -103,9 +104,9 @@ export class SubmissionsService implements OnModuleInit {
    * - The connector call carries a stable key (the application id), so a retry after a crash
    *   between the connector call and saving the result does not create a second submission.
    */
-  submit(applicationId: string, citizen: SimCitizen, idempotencyKey?: string): Promise<SubmitResult> {
-    const keyHash = this.keyHash(citizen.id, idempotencyKey);
-    return this.locks.run(`application:${applicationId}`, () => this.submitLocked(applicationId, citizen, keyHash));
+  submit(applicationId: string, ownerId: string, citizen: SimCitizen, idempotencyKey?: string): Promise<SubmitResult> {
+    const keyHash = this.keyHash(ownerId, idempotencyKey);
+    return this.locks.run(`application:${applicationId}`, () => this.submitLocked(applicationId, ownerId, citizen, keyHash));
   }
 
   private keyHash(citizenId: string, key: string | undefined): string | null {
@@ -115,11 +116,13 @@ export class SubmissionsService implements OnModuleInit {
     return hashSecret(`${citizenId}:${parsed.data}`);
   }
 
-  private async submitLocked(applicationId: string, citizen: SimCitizen, keyHash: string | null): Promise<SubmitResult> {
+  private async submitLocked(applicationId: string, ownerId: string, citizen: SimCitizen, keyHash: string | null): Promise<SubmitResult> {
     const timer = new StepTimer(`submit ${applicationId.slice(0, 8)}`, this.logger);
     let outcome = "ok";
     try {
-      const app = await timer.step("load", () => this.apps.owned(applicationId, citizen.id));
+      const app = await timer.step("load", () => this.apps.owned(applicationId, ownerId));
+      // The identity that submits must be the one the application was prepared and signed with.
+      if (app.identityId && app.identityId !== citizen.id) throw new ForbiddenException("Another OneID identity signed this application");
 
       const known = keyHash ? this.idempotency.get(keyHash) : undefined;
       if (known && Date.parse(known.createdAt) + IDEMPOTENCY_TTL_MS > Date.now()) {
@@ -129,7 +132,7 @@ export class SubmissionsService implements OnModuleInit {
           outcome = "replayed";
           this.audit.record({
             type: "SUBMISSION_REPLAYED",
-            actor: { type: "citizen", id: citizen.id },
+            actor: { type: "citizen", id: ownerId },
             applicationId,
             submissionId: original.id,
             caseId: app.caseId,
@@ -178,9 +181,9 @@ export class SubmissionsService implements OnModuleInit {
         this.apps.markSubmitted(app.id, submission.id);
         this.cases.setStatus(c.id, "SUBMITTED");
         if (keyHash) {
-          this.idempotency.set(keyHash, { citizenId: citizen.id, applicationId: app.id, submissionId: submission.id, createdAt: new Date().toISOString() });
+          this.idempotency.set(keyHash, { citizenId: ownerId, applicationId: app.id, submissionId: submission.id, createdAt: new Date().toISOString() });
         }
-        const actor: AuditActor = { type: "citizen", id: citizen.id };
+        const actor: AuditActor = { type: "citizen", id: ownerId };
         const ids = { applicationId: app.id, submissionId: submission.id, caseId: c.id };
         this.audit.record({
           type: "SUBMISSION_CREATED",
@@ -230,7 +233,7 @@ export class SubmissionsService implements OnModuleInit {
     if (app.kind !== "PRIMARY") return;
     const target = this.cases.get(s.caseId).routingDecision?.escalation[0];
     if (!target) return;
-    const draft = await this.apps.createEscalationDraft(app, target, s, this.oneId.citizen(app.citizenId));
+    const draft = await this.apps.createEscalationDraft(app, target, s, this.oneId.citizen(app.identityId ?? app.citizenId));
     await this.apps.persist("escalation.draft");
     this.logger.log(`OVERDUE ${s.receiptId}: escalation draft ${draft.id} for ${target.id} (not submitted)`);
   }
