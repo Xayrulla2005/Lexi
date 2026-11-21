@@ -14,10 +14,21 @@ export interface BotButton {
 
 const MAX_LEN = 3900;
 
+/**
+ * Link that opens this conversation on the web. The bot never puts its access token in a link:
+ * it adds a one-time handoff code (?h=) that the web exchanges for its own token.
+ */
+export const webLink = (webUrl: string, conversationId: string, handoff?: string): string =>
+  `${webUrl}/?c=${conversationId}${handoff ? `&h=${encodeURIComponent(handoff)}` : ""}`;
+
+/** Messages whose rendering contains a web link (they need a handoff code). */
+export const needsWebLink = (m: ConversationMessage): boolean =>
+  m.card?.type === "application" || m.card?.type === "login" || m.actions.some((a) => a.kind === "action" && a.value === "offer_yes");
+
 const agencyLine = (a: { name: string; phone: string | null; link: string | null }) =>
   [a.name, a.phone, a.link].filter(Boolean).join(" — ");
 
-export function renderCard(card: ChatCard, t: typeof Texts, webUrl: string, conversationId: string): string {
+export function renderCard(card: ChatCard, t: typeof Texts, webUrl: string, conversationId: string, handoff?: string): string {
   switch (card.type) {
     case "emergency":
       return [`⚠ ${t.emergencyTitle}`, ...card.contacts.map((a) => `• ${agencyLine(a)}`)].join("\n");
@@ -57,7 +68,7 @@ export function renderCard(card: ChatCard, t: typeof Texts, webUrl: string, conv
     }
     case "application":
     case "login":
-      return `${t.openOnWeb} ${webUrl}/?c=${conversationId}`;
+      return `${t.openOnWeb} ${webLink(webUrl, conversationId, handoff)}`;
     case "status":
       return `${t.statusLabel} ${card.status} · ${card.receiptId} · ${card.agencyName}`;
     case "facts":
@@ -73,9 +84,10 @@ export function renderMessage(
   t: typeof Texts,
   webUrl: string,
   conversationId: string,
+  handoff?: string,
 ): { text: string; buttons: BotButton[] } {
   const parts = [m.text];
-  if (m.card) parts.push("", renderCard(m.card, t, webUrl, conversationId));
+  if (m.card) parts.push("", renderCard(m.card, t, webUrl, conversationId, handoff));
   const buttons: BotButton[] = [];
   m.actions.forEach((a, i) => {
     if (a.kind === "tel") return; // phones are in the text
@@ -85,7 +97,7 @@ export function renderMessage(
     }
     if (a.kind === "action" && a.value === "offer_yes") {
       // OneID + consent + ERI happen on the web, in this same conversation.
-      buttons.push({ label: t.signOnWeb, url: `${webUrl}/?c=${conversationId}` });
+      buttons.push({ label: t.signOnWeb, url: webLink(webUrl, conversationId, handoff) });
       return;
     }
     buttons.push({ label: a.label, callback: `a:${m.id}:${i}` });

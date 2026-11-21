@@ -2,7 +2,10 @@ import "./load-env";
 import "reflect-metadata";
 import { type INestApplication, Logger } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
+import type { NestExpressApplication } from "@nestjs/platform-express";
+import type { Server } from "node:http";
 import { AppModule } from "./app.module";
+import { hardenHttp } from "./common/http-hardening";
 
 /** Upper bound for a graceful shutdown before the process exits anyway. */
 const SHUTDOWN_TIMEOUT_MS = 5000;
@@ -29,7 +32,9 @@ function exitOnSignals(app: INestApplication): void {
 }
 
 async function bootstrap(): Promise<void> {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  // Before routes are registered (listen -> init): headers, body limits, trust proxy.
+  hardenHttp(app);
   const origins = (process.env.CORS_ORIGIN ?? "http://localhost:3000")
     .split(",")
     .map((o) => o.trim())
@@ -39,6 +44,10 @@ async function bootstrap(): Promise<void> {
 
   const port = Number(process.env.PORT ?? 3001);
   await app.listen(port);
+  // Slow-client protection: a request (headers + body) must arrive within these bounds.
+  const server = app.getHttpServer() as Server;
+  server.headersTimeout = 20_000;
+  server.requestTimeout = 60_000;
   Logger.log(`API listening on http://localhost:${port}`, "Bootstrap");
 }
 

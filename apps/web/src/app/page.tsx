@@ -6,22 +6,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { ChatAction, Conversation, SimSession } from "@lex/contracts";
 import { api } from "@/lib/api";
+import { loadConversationAccess, saveConversationAccess } from "@/lib/access";
 import { loadSession } from "@/lib/session";
 import { texts } from "@/content/texts.uz";
 import { Button } from "@/components/ui/Button";
 import { CardView } from "./_parts/ChatCards";
 
-const STORAGE_KEY = "lex.conversation";
 const POLL_MS = 3000;
-
-function rememberConversation(id: string | null) {
-  try {
-    if (id) localStorage.setItem(STORAGE_KEY, id);
-    else localStorage.removeItem(STORAGE_KEY);
-  } catch {
-    // Storage unavailable: the conversation still works for this page view.
-  }
-}
 
 export default function ChatPage() {
   const [conv, setConv] = useState<Conversation | null>(null);
@@ -32,27 +23,33 @@ export default function ChatPage() {
   const bottom = useRef<HTMLDivElement>(null);
 
   const startNew = useCallback(async () => {
-    const c = await api.conversation.start();
-    rememberConversation(c.id);
-    window.history.replaceState(null, "", `/?c=${c.id}`);
-    setConv(c);
+    const { conversation, access } = await api.conversation.start();
+    // The access token (not the id) opens the conversation; only this browser keeps it.
+    saveConversationAccess({ id: conversation.id, token: access.token });
+    window.history.replaceState(null, "", `/?c=${conversation.id}`);
+    setConv(conversation);
   }, []);
 
   useEffect(() => {
     setSession(loadSession());
     const params = new URLSearchParams(window.location.search);
-    let id = params.get("c");
-    if (!id) {
-      try {
-        id = localStorage.getItem(STORAGE_KEY);
-      } catch {
-        id = null;
-      }
-    }
+    const id = params.get("c") ?? loadConversationAccess()?.id ?? null;
+    const handoff = params.get("h"); // one-time code from the Telegram bot link
     const prefill = params.get("text"); // from the Telegram bot
     if (prefill) setText(prefill);
-    (id ? api.conversation.get(id).catch(() => null) : Promise.resolve(null))
-      .then((c) => (c ? (rememberConversation(c.id), setConv(c)) : startNew()))
+    const claimed =
+      id && handoff
+        ? api.conversation
+            .claim(id, handoff)
+            .then((a) => saveConversationAccess({ id, token: a.token }))
+            .catch(() => undefined)
+        : Promise.resolve();
+    claimed
+      .then(() => {
+        if (id) window.history.replaceState(null, "", `/?c=${id}`); // the code is single-use: drop it from the URL
+        return id ? api.conversation.get(id).catch(() => null) : null;
+      })
+      .then((c) => (c ? setConv(c) : startNew()))
       .catch(() => setFailed(true));
   }, [startNew]);
 

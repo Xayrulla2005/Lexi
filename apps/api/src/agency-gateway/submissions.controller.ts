@@ -1,14 +1,16 @@
-import { Body, Controller, Headers, Inject, Post } from "@nestjs/common";
-import { SIM_SESSION_HEADER, SubmitToAgencyRequest, type AgencySubmission } from "@lex/contracts";
+import { Body, Controller, Headers, Inject, Post, Res, UseGuards } from "@nestjs/common";
+import type { Response } from "express";
+import { IDEMPOTENCY_KEY_HEADER, SubmitToAgencyRequest, type AgencySubmission } from "@lex/contracts";
+import type { AuthenticatedCitizen } from "../auth/auth-provider";
+import { CitizenAuthGuard, CurrentCitizen } from "../auth/citizen-auth.guard";
 import { ZodValidationPipe } from "../common/zod-validation.pipe";
-import { OneIdSimulatorService } from "../sim/oneid.service";
 import { SubmissionsService } from "./submissions.service";
 
 @Controller("submissions")
+@UseGuards(CitizenAuthGuard)
 export class SubmissionsController {
   constructor(
     @Inject(SubmissionsService) private readonly submissions: SubmissionsService,
-    @Inject(OneIdSimulatorService) private readonly oneId: OneIdSimulatorService,
   ) {}
 
   /**
@@ -17,10 +19,14 @@ export class SubmissionsController {
    * the deterministic routing decision names.
    */
   @Post()
-  submit(
+  async submit(
     @Body(new ZodValidationPipe(SubmitToAgencyRequest)) body: SubmitToAgencyRequest,
-    @Headers(SIM_SESSION_HEADER) token?: string,
+    @CurrentCitizen() auth: AuthenticatedCitizen,
+    @Res({ passthrough: true }) res: Response,
+    @Headers(IDEMPOTENCY_KEY_HEADER) idempotencyKey?: string,
   ): Promise<AgencySubmission> {
-    return this.submissions.submit(body.applicationId, this.oneId.session(token).citizen);
+    const { submission, replayed } = await this.submissions.submit(body.applicationId, auth.citizen, idempotencyKey);
+    if (replayed) res.setHeader("Idempotent-Replayed", "true");
+    return submission;
   }
 }

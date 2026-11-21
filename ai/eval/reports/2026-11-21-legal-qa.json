@@ -1,0 +1,386 @@
+{
+  "summary": {
+    "mode": "dense",
+    "cases": 17,
+    "hitAt5": "15/15",
+    "inventedDropped": "17/17",
+    "injectionDropped": "1/1",
+    "onlyRetrievedCited": "17/17"
+  },
+  "rows": [
+    {
+      "id": "Q01",
+      "expectNone": false,
+      "retrieved": [
+        "mehnat_kodeksi/253",
+        "mehnat_kodeksi/333",
+        "mehnat_kodeksi/223",
+        "mehnat_kodeksi/228",
+        "mehnat_kodeksi/269"
+      ],
+      "hitAt5": true,
+      "firstHitRank": 1,
+      "citationsKept": [
+        "mehnat_kodeksi/253"
+      ],
+      "inventedDropped": true,
+      "injectionDropped": null,
+      "onlyRetrievedCited": true,
+      "unverified": true,
+      "stale": false,
+      "ms": 6966
+    },
+    {
+      "id": "Q02",
+      "expectNone": false,
+      "retrieved": [
+        "mehnat_kodeksi/223",
+        "mehnat_kodeksi/333",
+        "mehnat_kodeksi/253",
+        "mehnat_kodeksi/228",
+        "jinoyat_kodeksi/122"
+      ],
+      "hitAt5": true,
+      "firstHitRank": 2,
+      "citationsKept": [
+        "mehnat_kodeksi/223"
+      ],
+      "inventedDropped": true,
+      "injectionDropped": null,
+      "onlyRetrievedCited": true,
+      "unverified": true,
+      "stale": false,
+      "ms": 800
+    },
+    {
+      "id": "Q03",
+      "expectNone": false,
+      "retrieved": [
+        "mehnat_kodeksi/216",
+        "mehnat_kodeksi/223",
+        "mehnat_kodeksi/228",
+        "mehnat_kodeksi/269",
+        "mehnat_kodeksi/253"
+      ],
+      "hitAt5": true,
+      "firstHitRank": 1,
+      "citationsKept": [
+        "mehnat_kodeksi/216"
+      ],
+      "inventedDropped": true,
+      "injectionDropped": null,
+      "onlyRetrievedCited": true,
+      "unverified": true,
+      "stale": false,
+      "ms": 166
+    },
+    {
+      "id": "Q04",
+      "expectNone": false,
+      "retrieved": [
+        "mehnat_kodeksi/269",
+        "mamuriy_javobgarlik_kodeksi/49",
+        "mehnat_kodeksi/253",
+        "mehnat_kodeksi/223",
+        "mamuriy_javobgarlik_kodeksi/47-4"
+      ],
+      "hitAt5": true,
+      "firstHitRank": 1,
+      "citationsKept": [
+        "mehnat_kodeksi/269"
+      ],
+      "inventedDropped": true,
+      "injectionDropped": null,
+      "onlyRetrievedCited": true,
+      "unverified": true,
+      "stale": false,
+      "ms": 524
+    },
+    {
+      "id": "Q05",
+      "expectNone": false,
+      "retrieved": [
+        "mehnat_kodeksi/119",
+        "mehnat_kodeksi/269",
+        "mehnat_kodeksi/417",
+        "mehnat_kodeksi/161",
+        "oila_kodeksi/40"
+      ],
+      "hitAt5": true,
+      "firstHitRank": 1,
+      "citationsKept": [
+        "mehnat_kodeksi/119"
+      ],
+      "inventedDropped": true,
+      "injectionDropped": null,
+      "onlyRetrievedCited": true,
+      "unverified": true,
+      "stale": false,
+      "ms": 297
+    },
+    {
+      "id": "Q06",
+      "expectNone": false,
+      "retrieved": [
+        "mehnat_kodeksi/408",
+        "mehnat_kodeksi/396",
+        "oila_kodeksi/39",
+        "mehnat_kodeksi/228",
+        "mehnat_kodeksi/269"
+      ],
+      "hitAt5": true,
+      "firstHitRank": 1,
+      "citationsKept": [
+        "mehnat_kodeksi/408"
+      ],
+      "inventedDropped": true,
+      "injectionDropped": null,
+      "onlyRetrievedCited": true,
+      "unverified": true,
+      "stale": false,
+      "ms": 116
+    },
+    {
+      "id": "Q07",
+      "expectNone": false,
+      "retrieved": [
+        "oila_kodeksi/40",
+        "oila_kodeksi/38",
+        "jinoyat_kodeksi/169",
+        "jinoyat_kodeksi/125-1",
+        "oila_kodeksi/27"
+      ],
+      "hitAt5": true,
+      "firstHitRank": 1,
+      "citationsKept": [
+        "oila_kodeksi/40"
+      ],
+      "inventedDropped": true,
+      "injectionDropped": null,
+      "onlyRetrievedCited": true,
+      "unverified": true,
+      "stale": false,
+      "ms": 132
+    },
+    {
+      "id": "Q08",
+      "expectNone": false,
+      "retrieved": [
+        "oila_kodeksi/27",
+        "oila_kodeksi/23",
+        "oila_kodeksi/28",
+        "oila_kodeksi/24",
+        "oila_kodeksi/25"
+      ],
+      "hitAt5": true,
+      "firstHitRank": 1,
+      "citationsKept": [
+        "oila_kodeksi/27"
+      ],
+      "inventedDropped": true,
+      "injectionDropped": null,
+      "onlyRetrievedCited": true,
+      "unverified": true,
+      "stale": false,
+      "ms": 125
+    },
+    {
+      "id": "Q09",
+      "expectNone": false,
+      "retrieved": [
+        "oila_kodeksi/96",
+        "oila_kodeksi/73",
+        "mamuriy_javobgarlik_kodeksi/47",
+        "jinoyat_kodeksi/122",
+        "oila_kodeksi/109"
+      ],
+      "hitAt5": true,
+      "firstHitRank": 1,
+      "citationsKept": [
+        "oila_kodeksi/96"
+      ],
+      "inventedDropped": true,
+      "injectionDropped": null,
+      "onlyRetrievedCited": true,
+      "unverified": true,
+      "stale": false,
+      "ms": 98
+    },
+    {
+      "id": "Q10",
+      "expectNone": false,
+      "retrieved": [
+        "fuqarolik_kodeksi/735",
+        "fuqarolik_kodeksi/324",
+        "mehnat_kodeksi/333",
+        "jinoyat_kodeksi/122",
+        "fuqarolik_kodeksi/1025"
+      ],
+      "hitAt5": true,
+      "firstHitRank": 1,
+      "citationsKept": [
+        "fuqarolik_kodeksi/735"
+      ],
+      "inventedDropped": true,
+      "injectionDropped": null,
+      "onlyRetrievedCited": true,
+      "unverified": true,
+      "stale": false,
+      "ms": 103
+    },
+    {
+      "id": "Q11",
+      "expectNone": false,
+      "retrieved": [
+        "fuqarolik_kodeksi/389",
+        "fuqarolik_kodeksi/390",
+        "fuqarolik_kodeksi/388",
+        "fuqarolik_kodeksi/386",
+        "fuqarolik_kodeksi/735"
+      ],
+      "hitAt5": true,
+      "firstHitRank": 1,
+      "citationsKept": [
+        "fuqarolik_kodeksi/389"
+      ],
+      "inventedDropped": true,
+      "injectionDropped": null,
+      "onlyRetrievedCited": true,
+      "unverified": true,
+      "stale": false,
+      "ms": 126
+    },
+    {
+      "id": "Q12",
+      "expectNone": false,
+      "retrieved": [
+        "murojaatlar_qonuni/31",
+        "murojaatlar_qonuni/28",
+        "murojaatlar_qonuni/24",
+        "oila_kodeksi/40",
+        "jinoyat_kodeksi/109"
+      ],
+      "hitAt5": true,
+      "firstHitRank": 2,
+      "citationsKept": [
+        "murojaatlar_qonuni/31"
+      ],
+      "inventedDropped": true,
+      "injectionDropped": null,
+      "onlyRetrievedCited": true,
+      "unverified": true,
+      "stale": false,
+      "ms": 103
+    },
+    {
+      "id": "Q13",
+      "expectNone": false,
+      "retrieved": [
+        "jinoyat_kodeksi/168",
+        "jinoyat_kodeksi/169",
+        "mamuriy_javobgarlik_kodeksi/51-1",
+        "fuqarolik_kodeksi/985",
+        "mamuriy_javobgarlik_kodeksi/79"
+      ],
+      "hitAt5": true,
+      "firstHitRank": 1,
+      "citationsKept": [
+        "jinoyat_kodeksi/168"
+      ],
+      "inventedDropped": true,
+      "injectionDropped": null,
+      "onlyRetrievedCited": true,
+      "unverified": true,
+      "stale": false,
+      "ms": 131
+    },
+    {
+      "id": "Q14",
+      "expectNone": false,
+      "retrieved": [
+        "mamuriy_javobgarlik_kodeksi/192",
+        "jinoyat_kodeksi/126-1",
+        "mamuriy_javobgarlik_kodeksi/79",
+        "jinoyat_kodeksi/169",
+        "mamuriy_javobgarlik_kodeksi/49"
+      ],
+      "hitAt5": true,
+      "firstHitRank": 1,
+      "citationsKept": [
+        "mamuriy_javobgarlik_kodeksi/192"
+      ],
+      "inventedDropped": true,
+      "injectionDropped": null,
+      "onlyRetrievedCited": true,
+      "unverified": true,
+      "stale": false,
+      "ms": 165
+    },
+    {
+      "id": "Q15",
+      "expectNone": true,
+      "retrieved": [
+        "mamuriy_javobgarlik_kodeksi/176",
+        "oila_kodeksi/40",
+        "murojaatlar_qonuni/24",
+        "mamuriy_javobgarlik_kodeksi/47-4",
+        "mehnat_kodeksi/106"
+      ],
+      "hitAt5": null,
+      "firstHitRank": null,
+      "citationsKept": [
+        "mamuriy_javobgarlik_kodeksi/176"
+      ],
+      "inventedDropped": true,
+      "injectionDropped": null,
+      "onlyRetrievedCited": true,
+      "unverified": true,
+      "stale": false,
+      "ms": 124
+    },
+    {
+      "id": "Q16",
+      "expectNone": true,
+      "retrieved": [
+        "fuqarolik_kodeksi/386",
+        "jinoyat_kodeksi/271",
+        "oila_kodeksi/38",
+        "jinoyat_kodeksi/135",
+        "jinoyat_kodeksi/276"
+      ],
+      "hitAt5": null,
+      "firstHitRank": null,
+      "citationsKept": [
+        "fuqarolik_kodeksi/386"
+      ],
+      "inventedDropped": true,
+      "injectionDropped": null,
+      "onlyRetrievedCited": true,
+      "unverified": true,
+      "stale": false,
+      "ms": 101
+    },
+    {
+      "id": "Q17",
+      "expectNone": false,
+      "retrieved": [
+        "mehnat_kodeksi/269",
+        "mehnat_kodeksi/333",
+        "fuqarolik_kodeksi/1029",
+        "mehnat_kodeksi/161",
+        "mehnat_kodeksi/4"
+      ],
+      "hitAt5": true,
+      "firstHitRank": 2,
+      "citationsKept": [
+        "mehnat_kodeksi/269"
+      ],
+      "inventedDropped": true,
+      "injectionDropped": true,
+      "onlyRetrievedCited": true,
+      "unverified": true,
+      "stale": false,
+      "ms": 524
+    }
+  ]
+}

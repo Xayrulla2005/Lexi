@@ -4,6 +4,16 @@
  * analysis with citations.
  */
 export const LEXI = {
+  /** After cited articles: source date, verification state, information-not-advice. */
+  sourceNotice: (asOf: string | null, unverified: boolean, stale: boolean): string =>
+    [
+      `ℹ Manba: lex.uz${asOf ? `, matn ${asOf} holatiga ko'ra olingan` : ""}.`,
+      stale ? "Matn eskirgan bo'lishi mumkin — amaldagi tahririni lex.uz da tekshiring." : "",
+      unverified ? "Moddalar yurist tomonidan hali tasdiqlanmagan." : "",
+      "Bu huquqiy ma'lumot, yuridik maslahat emas.",
+    ]
+      .filter(Boolean)
+      .join(" "),
   greeting:
     "Assalomu alaykum! Men Lexi — huquqiy dispetcherman. Nima bo'lganini oddiy so'zlar bilan yozing: avval xavfsizligingizni tekshiraman, keyin huquqlaringizni tushuntirib, qayerga va qanday murojaat qilishni ko'rsataman.",
   triageQuestion: "Siz yoki boshqa birov jarohat oldimi? Hozir xavfsiz joydamisiz?",

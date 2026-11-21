@@ -66,6 +66,16 @@ function Claims({ title, claims, articles }: { title: string; claims: readonly A
             {article.document}, {article.article}-modda. {article.title}
           </b>
           <div style={{ margin: "6px 0" }}>{article.text}</div>
+          <div style={{ color: "var(--muted)", fontSize: 13, margin: "4px 0" }}>
+            {[
+              article.adoptedOn && `${texts.chat.sourceAdopted} ${article.adoptedOn}`,
+              article.retrievedAt && `${texts.chat.sourceRetrieved} ${article.retrievedAt.slice(0, 10)}`,
+              article.reviewStatus !== "VERIFIED" && texts.chat.sourceUnverified,
+            ]
+              .filter(Boolean)
+              .join(" · ")}
+            {article.stale && <div style={{ color: "var(--red)" }}>⚠ {texts.chat.sourceStale}</div>}
+          </div>
           <a href={article.sourceUrl} target="_blank" rel="noreferrer">{texts.chat.lexUz}</a>
         </div>
       )}

@@ -8,7 +8,8 @@ export function loadSession(): SimSession | null {
     const raw = sessionStorage.getItem(KEY);
     if (!raw) return null;
     const parsed = SimSession.safeParse(JSON.parse(raw));
-    return parsed.success ? parsed.data : null;
+    // Expired on the server anyway: drop it so the UI does not show a stale login.
+    return parsed.success && Date.parse(parsed.data.expiresAt) > Date.now() ? parsed.data : null;
   } catch {
     return null;
   }

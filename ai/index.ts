@@ -34,6 +34,7 @@ export {
   type RetrievedArticle,
 } from "./rag/catalog-retrieval";
 export { getIndex, retrieve, warmUp, type RetrievedChunk } from "./rag/legal-index";
+export { adoptedOn, groundingFlags, isStale, sanitizeSourceText, STALE_AFTER_DAYS, type GroundingFlags } from "./rag/source-metadata";
 
 export { GeminiProvider, GeminiRequestError, geminiFromEnv } from "./models/gemini.provider";
 export { defaultChatProvider, llmProviderName, selectChatProvider, type LlmProviderName, type ProviderChoice } from "./models/select";

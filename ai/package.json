@@ -12,7 +12,8 @@
     "rag:sources": "tsx scripts/rag-sources.ts",
     "rag:index": "tsx scripts/rag-index.ts",
     "rag:query": "tsx scripts/rag-query.ts",
-    "rag:eval": "tsx scripts/rag-eval.ts"
+    "rag:eval": "tsx scripts/rag-eval.ts",
+    "rag:qa-eval": "tsx scripts/legal-qa-eval.ts"
   },
   "dependencies": {
     "@google/genai": "1.21.0",

@@ -3,7 +3,7 @@ import "./load-env";
 import { Bot, type Context, InlineKeyboard } from "grammy";
 import type { Conversation } from "@lex/contracts";
 import { api } from "./api";
-import { parseCallback, renderMessage } from "./lexi";
+import { needsWebLink, parseCallback, renderMessage } from "./lexi";
 import { texts } from "./texts.uz";
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
@@ -16,15 +16,26 @@ const TRACK_MS = 15_000;
 
 const bot = new Bot(token);
 
-/** chat id -> conversation id and how many messages were already shown. TODO: persist. */
-const chats = new Map<number, { conversationId: string; shown: number }>();
+/**
+ * chat id -> conversation id, its access token and how many messages were already shown.
+ * The token stays in this process only (never sent to Telegram). TODO: persist.
+ */
+interface ChatState {
+  conversationId: string;
+  token: string;
+  shown: number;
+}
+const chats = new Map<number, ChatState>();
 
 /** Sends the Lexi messages the chat has not seen yet (questions come one at a time). */
 async function showNew(chatId: number, conv: Conversation, send: (text: string, kb?: InlineKeyboard) => Promise<unknown>) {
-  const state = chats.get(chatId) ?? { conversationId: conv.id, shown: 0 };
+  const state = chats.get(chatId);
+  if (!state) return;
   const fresh = conv.messages.slice(state.shown).filter((m) => m.role === "lexi");
+  // "Open on the web" links carry a one-time code (15 min), never the token.
+  const handoff = fresh.some(needsWebLink) ? (await api.handoff(conv.id, state.token).catch(() => null))?.code : undefined;
   for (const m of fresh) {
-    const { text, buttons } = renderMessage(m, texts, webUrl, conv.id);
+    const { text, buttons } = renderMessage(m, texts, webUrl, conv.id, handoff);
     const kb = new InlineKeyboard();
     buttons.forEach((b, i) => {
       if (b.url) kb.url(b.label, b.url);
@@ -39,34 +50,34 @@ async function showNew(chatId: number, conv: Conversation, send: (text: string, 
       await send([text, ...links].join("\n"));
     }
   }
-  chats.set(chatId, { conversationId: conv.id, shown: conv.messages.length });
+  chats.set(chatId, { ...state, shown: conv.messages.length });
 }
 
 const sender = (ctx: Context) => (text: string, kb?: InlineKeyboard) =>
   ctx.reply(text, { reply_markup: kb, link_preview_options: { is_disabled: true } });
 
-async function conversationFor(chatId: number): Promise<Conversation> {
+async function conversationFor(chatId: number): Promise<{ conv: Conversation; token: string }> {
   const known = chats.get(chatId);
-  if (known) return api.getConversation(known.conversationId);
-  const conv = await api.startConversation();
-  chats.set(chatId, { conversationId: conv.id, shown: 0 });
-  return conv;
+  if (known) return { conv: await api.getConversation(known.conversationId, known.token), token: known.token };
+  const { conversation, access } = await api.startConversation();
+  chats.set(chatId, { conversationId: conversation.id, token: access.token, shown: 0 });
+  return { conv: conversation, token: access.token };
 }
 
 bot.command("start", async (ctx) => {
   chats.delete(ctx.chat.id);
   await ctx.reply(sttEnabled ? texts.start : texts.startTextOnly);
-  const conv = await api.startConversation();
+  const { conversation, access } = await api.startConversation();
   // The web greeting is replaced by the bot greeting above.
-  chats.set(ctx.chat.id, { conversationId: conv.id, shown: conv.messages.length });
+  chats.set(ctx.chat.id, { conversationId: conversation.id, token: access.token, shown: conversation.messages.length });
 });
 
 bot.on("message:voice", (ctx) => ctx.reply(texts.voiceSoon)); // TODO: STT (ai/models SpeechToTextProvider)
 
 bot.on("message:text", async (ctx) => {
   try {
-    const conv = await conversationFor(ctx.chat.id);
-    const next = await api.say(conv.id, ctx.message.text);
+    const { conv, token } = await conversationFor(ctx.chat.id);
+    const next = await api.say(conv.id, token, ctx.message.text);
     await showNew(ctx.chat.id, next, sender(ctx));
   } catch (e) {
     // Never log the user's text: only the error message.
@@ -81,10 +92,10 @@ bot.on("callback_query:data", async (ctx) => {
   const parsed = parseCallback(ctx.callbackQuery.data);
   if (!chatId || !parsed) return;
   try {
-    const conv = await conversationFor(chatId);
+    const { conv, token } = await conversationFor(chatId);
     const action = conv.messages.find((m) => m.id === parsed.messageId)?.actions[parsed.index];
     if (!action) return;
-    const next = action.kind === "reply" ? await api.say(conv.id, action.value) : await api.act(conv.id, action.value);
+    const next = action.kind === "reply" ? await api.say(conv.id, token, action.value) : await api.act(conv.id, token, action.value);
     await showNew(chatId, next, sender(ctx));
   } catch (e) {
     console.error((e as Error).message);
@@ -96,7 +107,7 @@ bot.on("callback_query:data", async (ctx) => {
 setInterval(() => {
   for (const [chatId, state] of chats) {
     api
-      .getConversation(state.conversationId)
+      .getConversation(state.conversationId, state.token)
       .then((conv) => (conv.applicationId ? showNew(chatId, conv, (text, kb) => bot.api.sendMessage(chatId, text, { reply_markup: kb })) : undefined))
       .catch(() => undefined);
   }

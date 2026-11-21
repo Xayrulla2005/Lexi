@@ -13,13 +13,17 @@ import { Test } from "@nestjs/testing";
 import request from "supertest";
 import type { App } from "supertest/types";
 import { AppModule } from "../../apps/api/src/app.module";
+import { relaxRateLimits } from "./test-env";
 
 const H = "x-sim-session";
+const A = "x-sim-agency-session";
 const MANUAL = { malumot_1: "Hisobchi", malumot_2: "Namuna MChJ", malumot_3: "sentabr", summa: "5 000 000" };
-const ENV_KEYS = ["DEMO_SPEED", "SIM_RESPONSE_DAYS", "SIM_KEYS_DIR", "DATABASE_URL"] as const;
+const ENV_KEYS = ["DEMO_SPEED", "SIM_RESPONSE_DAYS", "SIM_KEYS_DIR", "DATABASE_URL", "SIM_MODE"] as const;
 
 async function startApp(env: Partial<Record<(typeof ENV_KEYS)[number], string | undefined>>): Promise<INestApplication<App>> {
   delete process.env.DATABASE_URL;
+  relaxRateLimits();
+  process.env.SIM_MODE = "true";
   process.env.SIM_KEYS_DIR = mkdtempSync(join(tmpdir(), "lex-keys-"));
   for (const [k, v] of Object.entries(env)) {
     if (v === undefined) delete process.env[k];
@@ -36,9 +40,9 @@ async function signedApplication(app: INestApplication<App>) {
   const http = () => request(app.getHttpServer());
   const { body: session } = await http().post("/sim/oneid/login").send({ citizenId: "test_fuqaro_1" }).expect(201);
   const token: string = session.token;
-  const { body: c } = await http().post("/cases").send({ channel: "web" }).expect(201);
-  await http().post(`/cases/${c.id}/messages`).send({ text: "3 oydan beri oylik berishmayapti" }).expect(201);
-  const { body: analyzed } = await http().post(`/cases/${c.id}/analyze`).expect(200);
+  const { body: c } = await http().post("/cases").set(H, token).send({ channel: "web" }).expect(201);
+  await http().post(`/cases/${c.id}/messages`).set(H, token).send({ text: "3 oydan beri oylik berishmayapti" }).expect(201);
+  const { body: analyzed } = await http().post(`/cases/${c.id}/analyze`).set(H, token).expect(200);
   expect(analyzed.routingDecision.routeId).toBe("P12");
 
   const { body: draft } = await http().post(`/cases/${c.id}/application`).set(H, token).expect(201);
@@ -67,17 +71,20 @@ describe("Simulator flow (integration)", () => {
     }
   });
 
-  it("requires a OneID simulator session for applications", async () => {
-    const { body: c } = await request(app.getHttpServer()).post("/cases").send({ channel: "web" }).expect(201);
-    await request(app.getHttpServer()).post(`/cases/${c.id}/application`).expect(401);
+  it("requires a OneID simulator session for cases and applications", async () => {
+    const http = () => request(app.getHttpServer());
+    await http().post("/cases").send({ channel: "web" }).expect(401);
+    const { body: session } = await http().post("/sim/oneid/login").send({ citizenId: "test_fuqaro_1" }).expect(201);
+    const { body: c } = await http().post("/cases").set(H, session.token).send({ channel: "web" }).expect(201);
+    await http().post(`/cases/${c.id}/application`).expect(401);
   });
 
   it("rejects submission without consent in the body, and unsigned applications", async () => {
     const http = () => request(app.getHttpServer());
     const { body: session } = await http().post("/sim/oneid/login").send({ citizenId: "test_fuqaro_2" }).expect(201);
-    const { body: c } = await http().post("/cases").send({ channel: "web" }).expect(201);
-    await http().post(`/cases/${c.id}/messages`).send({ text: "oylik bermayapti" }).expect(201);
-    await http().post(`/cases/${c.id}/analyze`).expect(200);
+    const { body: c } = await http().post("/cases").set(H, session.token).send({ channel: "web" }).expect(201);
+    await http().post(`/cases/${c.id}/messages`).set(H, session.token).send({ text: "oylik bermayapti" }).expect(201);
+    await http().post(`/cases/${c.id}/analyze`).set(H, session.token).expect(200);
     const { body: draft } = await http().post(`/cases/${c.id}/application`).set(H, session.token).expect(201);
 
     await http().post("/submissions").set(H, session.token).send({ applicationId: draft.id }).expect(400);
@@ -97,20 +104,22 @@ describe("Simulator flow (integration)", () => {
     expect(sub.agencyId).toBe("mehnat_inspeksiyasi");
     expect(sub.receiptId).toMatch(/^SIM-MI-/);
 
-    const { body: inbox } = await http().get("/sim/idora/mehnat_inspeksiyasi/inbox").expect(200);
+    const { body: officer } = await http().post("/sim/idora/login").send({ agencyId: "mehnat_inspeksiyasi" }).expect(201);
+    const mi: string = officer.token;
+    const { body: inbox } = await http().get("/sim/idora/mehnat_inspeksiyasi/inbox").set(A, mi).expect(200);
     expect(inbox.map((s: { id: string }) => s.id)).toContain(sub.id);
 
-    const { body: item } = await http().get(`/sim/idora/submissions/${sub.id}`).expect(200);
+    const { body: item } = await http().get(`/sim/idora/submissions/${sub.id}`).set(A, mi).expect(200);
     expect(item.signatureCheck).toEqual({ valid: true, message: "Imzo haqiqiy" });
     expect(item.caseInfo.problemId).toBe("P12");
     expect(item.caseInfo.fields.summa).toBe("5 000 000");
     expect(item.citizen.pinfl).toBe("00000000000001");
-    const pdf = await http().get(`/sim/idora/submissions/${sub.id}/pdf`).expect(200);
+    const pdf = await http().get(`/sim/idora/submissions/${sub.id}/pdf`).set(A, mi).expect(200);
     expect(pdf.headers["content-type"]).toContain("application/pdf");
 
-    await http().post(`/sim/idora/submissions/${sub.id}/status`).send({ status: "RECEIVED" }).expect(201);
-    await http().post(`/sim/idora/submissions/${sub.id}/status`).send({ status: "IN_REVIEW" }).expect(201);
-    await http().post(`/sim/idora/submissions/${sub.id}/respond`).send({ text: "Murojaatingiz ko'rib chiqildi." }).expect(201);
+    await http().post(`/sim/idora/submissions/${sub.id}/status`).set(A, mi).send({ status: "RECEIVED" }).expect(201);
+    await http().post(`/sim/idora/submissions/${sub.id}/status`).set(A, mi).send({ status: "IN_REVIEW" }).expect(201);
+    await http().post(`/sim/idora/submissions/${sub.id}/respond`).set(A, mi).send({ text: "Murojaatingiz ko'rib chiqildi." }).expect(201);
 
     const { body: tracked } = await http().get(`/submissions/${sub.id}`).set(H, token).expect(200);
     expect(tracked.status).toBe("ANSWERED");
@@ -133,11 +142,12 @@ describe("Simulator flow (integration)", () => {
     const { body: still } = await http().get(`/submissions/${sub.id}`).set(H, token).expect(200);
     expect(still.status).toBe("SUBMITTED");
 
-    const { body: advanced } = await http().post(`/sim/idora/submissions/${sub.id}/advance`).expect(201);
+    const { body: officer } = await http().post("/sim/idora/login").send({ agencyId: "mehnat_inspeksiyasi" }).expect(201);
+    const { body: advanced } = await http().post(`/sim/idora/submissions/${sub.id}/advance`).set(A, officer.token).expect(201);
     expect(advanced.status).toBe("OVERDUE");
     expect(advanced.simulatedDays).toBe(15);
     // Answered/overdue submissions cannot be advanced again.
-    await http().post(`/sim/idora/submissions/${sub.id}/advance`).expect(409);
+    await http().post(`/sim/idora/submissions/${sub.id}/advance`).set(A, officer.token).expect(409);
 
     await new Promise((r) => setTimeout(r, 100)); // escalation draft is written by a status listener
     const { body: tracked } = await http().get(`/submissions/${sub.id}`).set(H, token).expect(200);

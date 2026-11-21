@@ -3,6 +3,7 @@ import { randomUUID } from "node:crypto";
 import { EmergencyCall, type SimCitizen } from "@lex/contracts";
 import { JsonStore } from "../common/json-store";
 import { runtimeFile } from "../common/paths";
+import { simModeEnabled } from "../auth/sim-mode";
 import { LegalRoutingService } from "../legal-routing/legal-routing.service";
 
 /** Catalog emergency services that the simulator can "call". */
@@ -20,6 +21,7 @@ export class EmergencyCallsService {
   constructor(@Inject(LegalRoutingService) private readonly routing: LegalRoutingService) {}
 
   async create(agencyId: string, description: string, conversationId: string, citizen: SimCitizen | null): Promise<EmergencyCall> {
+    if (!simModeEnabled()) throw new BadRequestException("Emergency call simulator is off (SIM_MODE)");
     if (!(EMERGENCY_SIM_AGENCIES as readonly string[]).includes(agencyId)) {
       throw new BadRequestException(`${agencyId} is not an emergency service`);
     }

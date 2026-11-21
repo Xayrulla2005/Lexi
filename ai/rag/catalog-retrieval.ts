@@ -10,6 +10,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { ARTICLES_DIR, readArticle, retrieve, type RetrievedChunk } from "./legal-index";
 import { repoRoot } from "./paths";
+import { adoptedOn } from "./source-metadata";
 
 export const NEEDED_ARTICLES_FILE = join(repoRoot(), "legal-knowledge", "sources", "needed-articles.json");
 
@@ -31,6 +32,10 @@ export interface RetrievedArticle {
   sourceUrl: string;
   /** Always DRAFT until the legal reviewer verifies the text. */
   status: string;
+  /** When the text was fetched from lex.uz (ISO), null if unknown. */
+  retrievedAt: string | null;
+  /** Document date from the lex.uz listing (yyyy-mm-dd), null if unknown. */
+  adoptedOn: string | null;
   /** Article text (catalog) or the best-matching chunk text (rag). */
   text: string;
   source: ArticleSource;
@@ -77,6 +82,8 @@ export function getArticlesForProblem(problemId: string): RetrievedArticle[] {
         document: art.document,
         sourceUrl: art.sourceUrl,
         status: art.status,
+        retrievedAt: art.retrievedAt || null,
+        adoptedOn: adoptedOn(c.key),
         text: [art.headingLine, ...art.paragraphs].join("\n"),
         source: "catalog",
         score: null,
@@ -84,6 +91,13 @@ export function getArticlesForProblem(problemId: string): RetrievedArticle[] {
     }
   }
   return out;
+}
+
+/** retrieved_at of an article file (RAG hits carry only the chunk), null if the file is missing. */
+function retrievedAtOf(key: string): string | null {
+  const [code, id] = key.split("/");
+  const file = join(ARTICLES_DIR, code ?? "", `${id ?? ""}.md`);
+  return existsSync(file) ? readArticle(file, code ?? "").retrievedAt || null : null;
 }
 
 /** Chunk -> article key ("mehnat_kodeksi/253" from "mehnat_kodeksi/253#2"). */
@@ -108,6 +122,8 @@ async function ragArticles(story: string, k: number, exclude: ReadonlySet<string
       document: c.document,
       sourceUrl: c.sourceUrl,
       status: c.status,
+      retrievedAt: retrievedAtOf(key),
+      adoptedOn: adoptedOn(c.code),
       text: c.text,
       source: "rag",
       score: c.score,

@@ -13,6 +13,8 @@ const ART: RetrievedArticle = {
   document: "Mehnat kodeksi",
   sourceUrl: "https://lex.uz/x",
   status: "DRAFT",
+  retrievedAt: "2026-11-17T08:13:19.585Z",
+  adoptedOn: "2022-10-28",
   text: "Ishga qabul qilishda xodim pasport va mehnat daftarchasini taqdim etadi. Ariza 3 kun ichida ko'rib chiqiladi.",
   source: "catalog",
   score: null,

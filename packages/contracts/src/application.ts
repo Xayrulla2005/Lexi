@@ -77,8 +77,19 @@ export type IntakeAnswerRequest = z.infer<typeof IntakeAnswerRequest>;
 export const ApplicationKind = z.enum(["PRIMARY", "ESCALATION"]);
 export type ApplicationKind = z.infer<typeof ApplicationKind>;
 
+/**
+ * Lifecycle (derived from the data, never set by a client):
+ *   DRAFT --consent--> CONSENTED --sign--> SIGNED --submit--> SUBMITTED
+ * Editing a CONSENTED application returns it to DRAFT (consent reset). SIGNED and SUBMITTED
+ * are final for the content: no edit, consent or second signature.
+ */
+export const ApplicationState = z.enum(["DRAFT", "CONSENTED", "SIGNED", "SUBMITTED"]);
+export type ApplicationState = z.infer<typeof ApplicationState>;
+
 /** An application built from legal-knowledge/templates/<templateId>.md. The template text is never changed. */
 export const Application = z.object({
+  /** Computed by the server on every read (see ApplicationState). */
+  state: ApplicationState.default("DRAFT"),
   id: z.string().uuid(),
   caseId: z.string().uuid(),
   kind: ApplicationKind,

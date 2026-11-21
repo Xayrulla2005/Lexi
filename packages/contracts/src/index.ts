@@ -18,3 +18,6 @@ export * from "./sim";
 export * from "./application";
 export * from "./legal-analysis";
 export * from "./conversation";
+export * from "./audit";
+export * from "./documents";
+export * from "./marketplace";

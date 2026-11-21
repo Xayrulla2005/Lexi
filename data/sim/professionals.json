@@ -1,0 +1,10 @@
+{
+  "$comment": "SIMULYATOR. To'qima yurist va advokatlar — haqiqiy shaxslar emas, guvohnomalari tekshirilmagan (UNVERIFIED). Faqat SIM_MODE=true da ko'rsatiladi.",
+  "professionals": [
+    { "id": "test_yurist_1", "fullName": "Namunova Malika (to'qima)", "kind": "yurist", "specializations": ["mehnat", "ijtimoiy_taminot"], "region": "Toshkent shahri", "languages": ["o'zbek", "rus"], "verificationStatus": "UNVERIFIED", "profileStatus": "ACTIVE", "simulated": true },
+    { "id": "test_advokat_1", "fullName": "Sinovov Bahrom (to'qima)", "kind": "advokat", "specializations": ["oila", "zoravonlik"], "region": "Toshkent shahri", "languages": ["o'zbek"], "verificationStatus": "PENDING", "profileStatus": "ACTIVE", "simulated": true },
+    { "id": "test_yurist_2", "fullName": "Misolova Dilbar (to'qima)", "kind": "yurist", "specializations": ["fuqarolik_nizo", "istemolchi", "uy_joy_ijara"], "region": "Samarqand viloyati", "languages": ["o'zbek", "rus"], "verificationStatus": "UNVERIFIED", "profileStatus": "ACTIVE", "simulated": true },
+    { "id": "test_advokat_2", "fullName": "Tajribov Jamshid (to'qima)", "kind": "advokat", "specializations": ["jinoyat", "korrupsiya", "bank_firibgarlik"], "region": "Farg'ona viloyati", "languages": ["o'zbek"], "verificationStatus": "UNVERIFIED", "profileStatus": "ACTIVE", "simulated": true },
+    { "id": "test_yurist_3", "fullName": "Faolsiz Anvar (to'qima)", "kind": "yurist", "specializations": ["mehnat"], "region": "Toshkent shahri", "languages": ["o'zbek"], "verificationStatus": "UNVERIFIED", "profileStatus": "INACTIVE", "simulated": true }
+  ]
+}

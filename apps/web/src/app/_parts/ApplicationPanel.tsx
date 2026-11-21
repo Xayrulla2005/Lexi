@@ -10,6 +10,7 @@ import { fieldLabel, templateParts } from "@/lib/view";
 import { texts } from "@/content/texts.uz";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { DocumentsPanel } from "./DocumentsPanel";
 import { LexiChat } from "./LexiChat";
 
 interface Props {
@@ -98,6 +99,8 @@ export function ApplicationPanel({ application: app, onChange, onSend, withLexi 
       <div style={{ marginTop: 8 }}>
         <Button tone="plain" onClick={() => api.openApplicationPdf(app.id)}>{texts.application.openPdf}</Button>
       </div>
+
+      <DocumentsPanel application={app} locked={locked} onChange={onChange} />
 
       <label style={{ display: "flex", gap: 8, alignItems: "flex-start", marginTop: 16 }}>
         <input

@@ -3,6 +3,7 @@ import { Fact } from "./analysis";
 import { EriSignature, SignatureVerification } from "./application";
 import { ProblemId } from "./classification";
 import { IsoDateTime, Slug } from "./common";
+import { ApplicationDocument } from "./documents";
 import { SimCitizen } from "./sim";
 
 /** MOCK = hackathon simulator. OFFICIAL = reserved; no official government integration exists. */
@@ -74,6 +75,8 @@ export const SubmissionPackage = z.object({
   caseInfo: CaseInfo,
   consentAt: IsoDateTime,
   citizen: SimCitizen,
+  /** Attached documents (metadata; integrity-checked by sha256 before sending). */
+  documents: z.array(ApplicationDocument).default([]),
 });
 export type SubmissionPackage = z.infer<typeof SubmissionPackage>;
 

@@ -14,7 +14,7 @@ import { AgencySubmission, SubmissionPackage, type SimClock, type SubmissionStat
 import { JsonStore } from "../common/json-store";
 import { runtimeFile } from "../common/paths";
 import { LegalRoutingService } from "../legal-routing/legal-routing.service";
-import type { AgencyGateway, StatusListener } from "./agency-gateway";
+import type { AgencyGateway, StatusListener, SubmitOptions } from "./agency-gateway";
 import { ADVANCE_DAYS, loadSimConfig, type SimConfig } from "./sim-config";
 
 const RECEIPT_PREFIX: Record<string, string> = {
@@ -45,6 +45,8 @@ const StoredSubmission = z.object({
   shiftDays: z.number().nonnegative().default(0),
   /** Deadline fixed at submission: catalog `javob_muddati` of the agency, else SIM_RESPONSE_DAYS. */
   responseDays: z.number().positive().nullable().default(null),
+  /** SubmitOptions.idempotencyKey of the call that created it (null for older records). */
+  idempotencyKey: z.string().nullable().default(null),
 });
 type StoredSubmission = z.infer<typeof StoredSubmission>;
 
@@ -101,7 +103,10 @@ export class MockAgencyAdapter implements AgencyGateway, OnModuleInit, OnModuleD
     };
   }
 
-  async submit(pkg: SubmissionPackage): Promise<AgencySubmission> {
+  async submit(pkg: SubmissionPackage, options: SubmitOptions): Promise<AgencySubmission> {
+    // Idempotent: the same key never creates a second submission (and no second receipt).
+    const existing = this.store.values().find((s) => s.idempotencyKey === options.idempotencyKey);
+    if (existing) return this.view(existing);
     const at = new Date().toISOString();
     const counter = this.store.values().length + 451;
     const submission: SubmissionCore = {
@@ -117,7 +122,13 @@ export class MockAgencyAdapter implements AgencyGateway, OnModuleInit, OnModuleD
       history: [{ status: "SUBMITTED", at }],
       response: null,
     };
-    const stored: StoredSubmission = { submission, pkg, shiftDays: 0, responseDays: this.responseDaysFor(pkg.agencyId) };
+    const stored: StoredSubmission = {
+      submission,
+      pkg,
+      shiftDays: 0,
+      responseDays: this.responseDaysFor(pkg.agencyId),
+      idempotencyKey: options.idempotencyKey,
+    };
     this.store.set(submission.id, stored);
     await this.store.persist("gateway.submit");
     return this.view(stored);

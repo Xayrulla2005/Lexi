@@ -12,11 +12,19 @@ async function setup() {
   const cases = new CasesService(new AiAnalysisService(), new LegalRoutingService());
   const apps = new ApplicationsService(cases);
   const citizen = new OneIdSimulatorService().citizen("test_fuqaro_1");
-  const c = cases.create("web", null);
+  const c = cases.create("web", citizen.id);
   cases.addMessage(c.id, "3 oydan beri oylik berishmayapti");
   await cases.analyze(c.id);
   return { cases, apps, citizen, caseId: c.id };
 }
+
+describe("ApplicationsService ownership", () => {
+  it("only the case owner can create an application from it", async () => {
+    const { apps, caseId } = await setup();
+    const other = new OneIdSimulatorService().citizen("test_fuqaro_2");
+    await expect(apps.createForCase(caseId, other)).rejects.toBeInstanceOf(ForbiddenException);
+  });
+});
 
 const MANUAL = { malumot_1: "Hisobchi", malumot_2: "“Namuna” MChJ", malumot_3: "sentabr", summa: "5 000 000" };
 
@@ -66,9 +74,45 @@ describe("ApplicationsService", () => {
     expect(pdf.toString("latin1")).toContain("DejaVuSans");
   });
 
+  it("signs only the content it read: an edit during signing -> 409, nothing attached (optimistic lock)", async () => {
+    const { apps, citizen, caseId } = await setup();
+    const app = apps.updateFields((await apps.createForCase(caseId, citizen)).id, citizen.id, MANUAL);
+    apps.consent(app.id, citizen.id);
+    const eri = {
+      sign: async (_citizenId: string, _pdf: Buffer) => {
+        apps.updateFields(app.id, citizen.id, { summa: "9 999 999" }); // a parallel edit while the ERI runs
+        return {
+          simulated: true as const,
+          algorithm: "Ed25519" as const,
+          hashAlgorithm: "SHA-256" as const,
+          digest: "0".repeat(64),
+          signature: "AA==",
+          publicKey: "test",
+          signerCitizenId: citizen.id,
+          signedAt: new Date().toISOString(),
+        };
+      },
+    };
+    await expect(apps.sign(app.id, citizen.id, eri)).rejects.toBeInstanceOf(ConflictException);
+    const after = apps.get(app.id);
+    expect(after.signature).toBeNull();
+    expect(after.state).toBe("DRAFT");
+  });
+
+  it("state machine: sign needs consent (400); signed/submitted are final (409)", async () => {
+    const { apps, citizen, caseId } = await setup();
+    const app = apps.updateFields((await apps.createForCase(caseId, citizen)).id, citizen.id, MANUAL);
+    expect(app.state).toBe("DRAFT");
+    expect(() => apps.markSubmitted(app.id, "8c1c7a8e-5f0b-4b8a-9a35-0b7b6f1e2c11")).toThrow(BadRequestException);
+    await expect(apps.sign(app.id, citizen.id, { sign: async () => Promise.reject(new Error("not reached")) })).rejects.toBeInstanceOf(
+      BadRequestException,
+    );
+  });
+
   it("locks the application after signing", async () => {
     const { apps, citizen, caseId } = await setup();
     const app = apps.updateFields((await apps.createForCase(caseId, citizen)).id, citizen.id, MANUAL);
+    apps.consent(app.id, citizen.id);
     apps.attachSignature(app.id, Buffer.from("%PDF-test"), {
       simulated: true,
       algorithm: "Ed25519",

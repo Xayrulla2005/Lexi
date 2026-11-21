@@ -63,3 +63,13 @@ export function escalationTemplate(template: string, targetAgencyName: string, p
   text = sig ? `${text.slice(0, sig.index)}${fact}\n\n${text.slice(sig.index)}` : `${text.trimEnd()}\n\n${fact}\n`;
   return text;
 }
+
+/** Items of the template's "Ilova: a, b, c." line (the document checklist); placeholders are skipped. */
+export function checklistOf(template: string): string[] {
+  const line = /^Ilova:\s*(.+)$/m.exec(template)?.[1] ?? "";
+  return line
+    .replace(/\.\s*$/, "")
+    .split(/,\s*/)
+    .map((x) => x.trim())
+    .filter((x) => x && !x.includes("{{"));
+}

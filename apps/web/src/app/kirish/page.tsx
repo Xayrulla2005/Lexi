@@ -1,7 +1,7 @@
 "use client";
 /** XAYRULLA: OneID SIMULYATORI — test fuqaroni tanlash. Haqiqiy OneID bilan aloqasi yo'q. */
 import { useEffect, useState } from "react";
-import type { SimCitizen, SimSession } from "@lex/contracts";
+import type { SimCitizenSummary, SimSession } from "@lex/contracts";
 import { api } from "@/lib/api";
 import { loadSession, saveSession } from "@/lib/session";
 import { texts } from "@/content/texts.uz";
@@ -10,7 +10,7 @@ import { Card } from "@/components/ui/Card";
 import { SimBanner } from "@/components/ui/SimBanner";
 
 export default function OneIdSimulatorPage() {
-  const [citizens, setCitizens] = useState<SimCitizen[]>([]);
+  const [citizens, setCitizens] = useState<SimCitizenSummary[]>([]);
   const [session, setSession] = useState<SimSession | null>(null);
   const [returnTo, setReturnTo] = useState("/");
 
@@ -29,8 +29,13 @@ export default function OneIdSimulatorPage() {
   }
 
   function logout() {
-    saveSession(null);
-    setSession(null);
+    void api
+      .logout()
+      .catch(() => undefined)
+      .finally(() => {
+        saveSession(null);
+        setSession(null);
+      });
   }
 
   return (
@@ -51,11 +56,9 @@ export default function OneIdSimulatorPage() {
 
       {citizens.map((c) => (
         <Card key={c.id}>
-          <b>{c.fio}</b>
-          <p style={{ margin: "6px 0", color: "var(--muted)" }}>
-            {texts.oneid.pinfl}: {c.pinfl} · {c.telefon}
-            <br />
-            {c.manzil}
+          {/* Only the name before login: PINFL, phone and address are shown to the citizen after login. */}
+          <p style={{ margin: "0 0 8px" }}>
+            <b>{c.fio}</b>
           </p>
           <Button tone="plain" onClick={() => choose(c.id)}>{texts.oneid.choose}</Button>
         </Card>

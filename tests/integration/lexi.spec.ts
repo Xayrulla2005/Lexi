@@ -11,8 +11,9 @@ import { Test } from "@nestjs/testing";
 import request from "supertest";
 import type { App } from "supertest/types";
 import { getArticlesForProblem, type ChatMessage, type ChatModelProvider, type ProviderChoice } from "@lex/ai";
-import type { Conversation } from "@lex/contracts";
+import type { Conversation, StartedConversation } from "@lex/contracts";
 import { AppModule } from "../../apps/api/src/app.module";
+import { relaxRateLimits, restoreRateLimits } from "./test-env";
 import { ARTICLE_RETRIEVER, LLM_CHAT } from "../../apps/api/src/llm/llm.module";
 
 interface Scenario {
@@ -25,6 +26,8 @@ interface Scenario {
 }
 const { scenarios } = JSON.parse(readFileSync(join(__dirname, "../scenarios/lexi-scenarios.json"), "utf8")) as { scenarios: Scenario[] };
 const H = "x-sim-session";
+const T = "x-conversation-token";
+const A = "x-sim-agency-session";
 
 /** Deterministic stand-in for Gemini: answers by prompt type, never looks at test expectations. */
 const mockLlm: ChatModelProvider = {
@@ -91,7 +94,9 @@ describe("Lexi scenarios (integration, mocked LLM)", () => {
 
   beforeAll(async () => {
     delete process.env.DATABASE_URL;
+    relaxRateLimits();
     delete process.env.DEMO_SPEED;
+    process.env.SIM_MODE = "true";
     process.env.SIM_KEYS_DIR = mkdtempSync(join(tmpdir(), "lex-keys-"));
     const moduleRef = await Test.createTestingModule({ imports: [AppModule] })
       .overrideProvider(LLM_CHAT)
@@ -106,20 +111,30 @@ describe("Lexi scenarios (integration, mocked LLM)", () => {
   });
   afterAll(async () => {
     await app.close();
+    restoreRateLimits();
   });
 
+  /** Conversation access tokens by conversation id (what the web keeps in storage). */
+  const tokens = new Map<string, string>();
+  const startConversation = async (): Promise<Conversation> => {
+    const started = (await http().post("/conversations").send({ channel: "web" }).expect(201)).body as StartedConversation;
+    tokens.set(started.conversation.id, started.access.token);
+    return started.conversation;
+  };
   const say = async (id: string, text: string, token?: string): Promise<Conversation> => {
-    const r = http().post(`/conversations/${id}/messages`).send({ text });
+    const r = http().post(`/conversations/${id}/messages`).set(T, tokens.get(id) ?? "").send({ text });
     return (await (token ? r.set(H, token) : r).expect(200)).body as Conversation;
   };
   const act = async (id: string, action: string, token?: string, status = 200): Promise<Conversation> => {
-    const r = http().post(`/conversations/${id}/actions`).send({ action });
+    const r = http().post(`/conversations/${id}/actions`).set(T, tokens.get(id) ?? "").send({ action });
     return (await (token ? r.set(H, token) : r).expect(status)).body as Conversation;
   };
+  const officer = async (agencyId: string): Promise<string> =>
+    (await http().post("/sim/idora/login").send({ agencyId }).expect(201)).body.token as string;
   const cards = (c: Conversation) => c.messages.map((m) => m.card?.type).filter(Boolean);
 
   it.each(scenarios.map((s) => [s.id, s] as const))("%s", async (_id, s) => {
-    let c = (await http().post("/conversations").send({ channel: "web" }).expect(201)).body as Conversation;
+    let c = await startConversation();
     c = await say(c.id, s.story);
 
     // a) TRIAGE
@@ -177,7 +192,7 @@ describe("Lexi scenarios (integration, mocked LLM)", () => {
       c = await act(c.id, `call:${s.simCall}`);
       c = await act(c.id, `call_confirm:${s.simCall}`);
       expect(cards(c)).toContain("emergency_call");
-      const { body: calls } = await http().get(`/sim/idora/${s.simCall}/calls`).expect(200);
+      const { body: calls } = await http().get(`/sim/idora/${s.simCall}/calls`).set(A, await officer(s.simCall)).expect(200);
       expect(calls.map((x: { conversationId: string; status: string }) => [x.conversationId, x.status])).toContainEqual([c.id, "CREW_DISPATCHED"]);
     }
 
@@ -205,26 +220,27 @@ describe("Lexi scenarios (integration, mocked LLM)", () => {
       c = (await http().get(`/conversations/${c.id}`).set(H, token).expect(200)).body as Conversation;
       const submitted = c.messages.at(-1);
       expect(submitted?.card?.type).toBe("status");
-      expect(submitted?.actions[0]?.value).toBe(`/idora?submission=${sub.id}`);
+      expect(submitted?.actions[0]?.value).toBe(`/idora?agency=mehnat_inspeksiyasi&submission=${sub.id}`);
 
-      await http().post(`/sim/idora/submissions/${sub.id}/status`).send({ status: "RECEIVED" }).expect(201);
+      const mi = await officer("mehnat_inspeksiyasi");
+      await http().post(`/sim/idora/submissions/${sub.id}/status`).set(A, mi).send({ status: "RECEIVED" }).expect(201);
       c = (await http().get(`/conversations/${c.id}`).set(H, token).expect(200)).body as Conversation;
       expect(c.messages.at(-1)?.text).toBe("Davlat mehnat inspeksiyasi arizangizni qabul qildi.");
-      await http().post(`/sim/idora/submissions/${sub.id}/respond`).send({ text: "Tekshiruv tayinlandi." }).expect(201);
+      await http().post(`/sim/idora/submissions/${sub.id}/respond`).set(A, mi).send({ text: "Tekshiruv tayinlandi." }).expect(201);
       c = (await http().get(`/conversations/${c.id}`).set(H, token).expect(200)).body as Conversation;
       expect(c.messages.at(-1)?.text).toBe("Davlat mehnat inspeksiyasidan javob keldi: «Tekshiruv tayinlandi.»");
     }
   });
 
   it("a red keyword shows the emergency card at once, before any question", async () => {
-    let c = (await http().post("/conversations").send({ channel: "web" }).expect(201)).body as Conversation;
+    let c = await startConversation();
     c = await say(c.id, "erim pichoq bilan o'ldiraman deyapti");
     const first = c.messages.findIndex((m) => m.card?.type === "emergency");
     expect(first).toBe(2); // greeting, user story, emergency card
   });
 
   it("after a triage signal the conversation never ends without catalog agencies", async () => {
-    let c = (await http().post("/conversations").send({ channel: "web" }).expect(201)).body as Conversation;
+    let c = await startConversation();
     c = await say(c.id, "Mashinam bilan avariya bo'ldim");
     c = await say(c.id, "Yo'q, xavfsizman");
     while (c.pending && (c.pending.kind === "fact" || c.pending.kind === "field")) c = await say(c.id, "Bilmayman");
@@ -235,7 +251,7 @@ describe("Lexi scenarios (integration, mocked LLM)", () => {
 
   describe("intents", () => {
     const start = async (text: string) => {
-      const c = (await http().post("/conversations").send({ channel: "web" }).expect(201)).body as Conversation;
+      const c = await startConversation();
       return say(c.id, text);
     };
     const hasEmergencyNumber = (c: Conversation) =>
@@ -310,7 +326,7 @@ describe("Lexi scenarios (integration, mocked LLM)", () => {
   });
 
   it("an unclear safety answer counts as danger", async () => {
-    let c = (await http().post("/conversations").send({ channel: "web" }).expect(201)).body as Conversation;
+    let c = await startConversation();
     c = await say(c.id, "Avariya bo'ldim");
     c = await say(c.id, "bilmadim, oyog'im og'riyapti");
     expect(cards(c)).toContain("emergency");

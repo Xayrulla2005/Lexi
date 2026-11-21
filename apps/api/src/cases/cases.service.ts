@@ -1,4 +1,4 @@
-import { BadRequestException, Inject, Injectable, NotFoundException, Optional } from "@nestjs/common";
+import { BadRequestException, ForbiddenException, Inject, Injectable, NotFoundException, Optional } from "@nestjs/common";
 import { randomUUID } from "node:crypto";
 import { Case, type CaseChannel, type CaseMessage, type CaseStatus, type RoutingDecision } from "@lex/contracts";
 import { JsonStore } from "../common/json-store";
@@ -53,6 +53,23 @@ export class CasesService {
   get(id: string): Case {
     const c = this.cases.get(id);
     if (!c) throw new NotFoundException("Case not found");
+    return c;
+  }
+
+  /** The case if it belongs to this citizen; 403 for another citizen's (or an unowned) case. */
+  owned(id: string, citizenId: string): Case {
+    const c = this.get(id);
+    if (c.userId !== citizenId) throw new ForbiddenException("Case belongs to another citizen");
+    return c;
+  }
+
+  /** Sets the owner once (a conversation that was anonymous until login). Never changes an existing owner. */
+  assignOwner(id: string, citizenId: string): Case {
+    const c = this.get(id);
+    if (c.userId === citizenId) return c;
+    if (c.userId !== null) throw new ForbiddenException("Case belongs to another citizen");
+    c.userId = citizenId;
+    this.save(c);
     return c;
   }
 

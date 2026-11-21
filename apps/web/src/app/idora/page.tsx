@@ -5,7 +5,8 @@
  */
 import { useCallback, useEffect, useState } from "react";
 import type { AgencyContact, AgencySubmission, EmergencyCall, InboxItem, SimClock } from "@lex/contracts";
-import { api } from "@/lib/api";
+import { api, ApiError } from "@/lib/api";
+import { agencySession, saveAgencySession } from "@/lib/access";
 import { fieldLabel } from "@/lib/view";
 import { texts } from "@/content/texts.uz";
 import { Button } from "@/components/ui/Button";
@@ -25,6 +26,46 @@ export default function AgencyCabinetPage() {
   const [busy, setBusy] = useState(false);
   const [clock, setClock] = useState<SimClock | null>(null);
   const [calls, setCalls] = useState<EmergencyCall[]>([]);
+  // SIMULATOR cabinet session of the selected agency's demo officer (this tab only).
+  const [authed, setAuthed] = useState(false);
+  const [passcode, setPasscode] = useState("");
+  const [loginFailed, setLoginFailed] = useState(false);
+
+  useEffect(() => setAuthed(agencySession(agencyId) !== null), [agencyId]);
+
+  /** A 401 means the officer session expired or is unknown: ask to log in again. */
+  const onAuthError = useCallback(
+    (e: unknown) => {
+      if (e instanceof ApiError && e.status === 401) {
+        saveAgencySession(agencyId, null);
+        setAuthed(false);
+      }
+    },
+    [agencyId],
+  );
+
+  async function login() {
+    setBusy(true);
+    setLoginFailed(false);
+    try {
+      const s = await api.cabinet.login(agencyId, passcode.trim() || undefined);
+      saveAgencySession(s.agencyId, s.token);
+      setPasscode("");
+      setAuthed(true);
+    } catch {
+      setLoginFailed(true);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function logout() {
+    saveAgencySession(agencyId, null);
+    setAuthed(false);
+    setItem(null);
+    setInbox([]);
+    setCalls([]);
+  }
 
   useEffect(() => {
     api.cabinet.agencies().then(setAgencies).catch(() => setAgencies([]));
@@ -34,9 +75,9 @@ export default function AgencyCabinetPage() {
   async function advance(id: string) {
     setBusy(true);
     try {
-      await api.cabinet.advance(id);
+      await api.cabinet.advance(agencyId, id);
       setInbox(await api.cabinet.inbox(agencyId));
-      if (item?.submission.id === id) setItem(await api.cabinet.open(id));
+      if (item?.submission.id === id) setItem(await api.cabinet.open(agencyId, id));
     } finally {
       setBusy(false);
     }
@@ -49,18 +90,19 @@ export default function AgencyCabinetPage() {
     texts.cabinet.simDays.replace("{n}", String(x.simulatedDays)).replace("{m}", String(x.responseDays));
 
   useEffect(() => {
+    if (!authed) return;
     let stopped = false;
     const load = () =>
       api.cabinet
         .inbox(agencyId)
         .then((list) => !stopped && setInbox(list))
-        .catch(() => {});
+        .catch(onAuthError);
     const loadCalls = () =>
       DUTY_AGENCIES.has(agencyId)
         ? api.cabinet
             .calls(agencyId)
             .then((list) => !stopped && setCalls(list))
-            .catch(() => {})
+            .catch(onAuthError)
         : setCalls([]);
     void loadCalls();
     const tc = setInterval(loadCalls, POLL_MS);
@@ -71,20 +113,32 @@ export default function AgencyCabinetPage() {
       clearInterval(t);
       clearInterval(tc);
     };
-  }, [agencyId]);
+  }, [agencyId, authed, onAuthError]);
 
-  const open = useCallback(async (id: string) => {
-    const it = await api.cabinet.open(id);
-    setItem(it);
-    setAgencyId(it.submission.agencyId);
-    setAnswer("");
-  }, []);
+  const open = useCallback(
+    async (id: string) => {
+      const it = await api.cabinet.open(agencyId, id);
+      setItem(it);
+      setAnswer("");
+    },
+    [agencyId],
+  );
 
-  // Deep link from the Lexi conversation: /idora?submission=<id> opens exactly that package.
+  // Deep link from the Lexi conversation: /idora?agency=<id>&submission=<id> opens that package
+  // once this agency's officer is logged in.
+  const [deepLink, setDeepLink] = useState<string | null>(null);
   useEffect(() => {
-    const id = new URLSearchParams(window.location.search).get("submission");
-    if (id && /^[0-9a-f-]{36}$/.test(id)) void open(id).catch(() => undefined);
-  }, [open]);
+    const q = new URLSearchParams(window.location.search);
+    const agency = q.get("agency");
+    const id = q.get("submission");
+    if (agency && /^[a-z0-9_]+$/.test(agency)) setAgencyId(agency);
+    if (id && /^[0-9a-f-]{36}$/.test(id)) setDeepLink(id);
+  }, []);
+  useEffect(() => {
+    if (!authed || !deepLink) return;
+    void open(deepLink).catch(onAuthError);
+    setDeepLink(null);
+  }, [authed, deepLink, open, onAuthError]);
 
   async function act(action: () => Promise<AgencySubmission>) {
     if (!item) return;
@@ -121,6 +175,8 @@ export default function AgencyCabinetPage() {
           onChange={(e) => {
             setAgencyId(e.target.value);
             setItem(null);
+            setInbox([]);
+            setCalls([]);
           }}
           style={{ fontSize: 16, padding: 6, maxWidth: "100%" }}
         >
@@ -132,7 +188,30 @@ export default function AgencyCabinetPage() {
         </select>
       </label>
 
-      {DUTY_AGENCIES.has(agencyId) && (
+      {!authed ? (
+        <Card>
+          <b>{texts.cabinet.loginTitle}</b>
+          <p style={{ color: "var(--muted)", fontSize: 14 }}>{texts.cabinet.loginHint}</p>
+          <input
+            type="password"
+            value={passcode}
+            onChange={(e) => setPasscode(e.target.value)}
+            placeholder={texts.cabinet.passcode}
+            autoComplete="off"
+            style={{ fontSize: 16, padding: 8, borderRadius: 8, border: "1px solid var(--border)", maxWidth: "100%" }}
+          />
+          <div style={{ marginTop: 8 }}>
+            <Button onClick={() => void login()} disabled={busy}>{texts.cabinet.login}</Button>
+          </div>
+          {loginFailed && <p style={{ color: "var(--red)" }}>{texts.cabinet.loginFailed}</p>}
+        </Card>
+      ) : (
+        <p>
+          <Button tone="plain" onClick={logout}>{texts.cabinet.logout}</Button>
+        </p>
+      )}
+
+      {authed && DUTY_AGENCIES.has(agencyId) && (
         <Card>
           <SimBanner text={texts.cabinet.dutyTitle} />
           {calls.length === 0 && <p>{texts.cabinet.dutyEmpty}</p>}
@@ -148,15 +227,15 @@ export default function AgencyCabinetPage() {
         </Card>
       )}
 
-      <h2>{texts.cabinet.inbox}</h2>
-      {inbox.length === 0 && <p>{texts.cabinet.empty}</p>}
+      {authed && <h2>{texts.cabinet.inbox}</h2>}
+      {authed && inbox.length === 0 && <p>{texts.cabinet.empty}</p>}
       {inbox.map((x) => (
         <Card key={x.id}>
           <b>{x.receiptId}</b> · {new Date(x.submittedAt).toLocaleString("uz-UZ")} ·{" "}
           {texts.tracking.status[x.status] ?? x.status}
           <div style={{ color: "var(--muted)", fontSize: 14 }}>{simDays(x)}</div>
           <div style={{ marginTop: 8, display: "flex", gap: 8, flexWrap: "wrap" }}>
-            <Button tone="plain" onClick={() => open(x.id)}>{texts.cabinet.open}</Button>
+            <Button tone="plain" onClick={() => void open(x.id).catch(onAuthError)}>{texts.cabinet.open}</Button>
             {canAdvance(x) && (
               <Button tone="plain" onClick={() => advance(x.id)} disabled={busy}>
                 {texts.cabinet.advance}
@@ -185,13 +264,13 @@ export default function AgencyCabinetPage() {
             <br />
             {texts.cabinet.consentAt} {new Date(item.consentAt).toLocaleString("uz-UZ")}
           </p>
-          <Button tone="plain" onClick={() => api.cabinet.openPdf(s.id)}>{texts.cabinet.pdf}</Button>
+          <Button tone="plain" onClick={() => api.cabinet.openPdf(agencyId, s.id)}>{texts.cabinet.pdf}</Button>
 
           <h4>{texts.cabinet.packageTitle}</h4>
           <ol style={{ fontSize: 14 }}>
             <li>
               {texts.cabinet.packagePdf} —{" "}
-              <a href="#" onClick={(e) => { e.preventDefault(); void api.cabinet.openPdf(s.id); }}>{texts.cabinet.pdf}</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); void api.cabinet.openPdf(agencyId, s.id); }}>{texts.cabinet.pdf}</a>
             </li>
             <li>
               {texts.cabinet.packageSignature}: {item.signature.algorithm}, SHA-256 {item.signature.digest.slice(0, 16)}… —{" "}
@@ -236,10 +315,10 @@ export default function AgencyCabinetPage() {
           </ul>
 
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            <Button onClick={() => act(() => api.cabinet.setStatus(s.id, "RECEIVED"))} disabled={busy || !canAccept}>
+            <Button onClick={() => act(() => api.cabinet.setStatus(agencyId, s.id, "RECEIVED"))} disabled={busy || !canAccept}>
               {texts.cabinet.accept}
             </Button>
-            <Button onClick={() => act(() => api.cabinet.setStatus(s.id, "IN_REVIEW"))} disabled={busy || !canReview}>
+            <Button onClick={() => act(() => api.cabinet.setStatus(agencyId, s.id, "IN_REVIEW"))} disabled={busy || !canReview}>
               {texts.cabinet.review}
             </Button>
           </div>
@@ -254,7 +333,7 @@ export default function AgencyCabinetPage() {
                 rows={4}
                 style={{ width: "100%", fontSize: 16, padding: 10, borderRadius: 10, border: "1px solid var(--border)" }}
               />
-              <Button onClick={() => act(() => api.cabinet.respond(s.id, answer))} disabled={busy || !answer.trim()}>
+              <Button onClick={() => act(() => api.cabinet.respond(agencyId, s.id, answer))} disabled={busy || !answer.trim()}>
                 {texts.cabinet.sendAnswer}
               </Button>
             </>

@@ -1,14 +1,19 @@
 /** XAYRULLA: API bilan aloqa. Dilfuza bu faylga tegmaydi. */
-import type { Case, Conversation, RiskLevel } from "@lex/contracts";
+import {
+  CONVERSATION_TOKEN_HEADER,
+  type Conversation,
+  type ConversationHandoff,
+  type RiskLevel,
+  type StartedConversation,
+} from "@lex/contracts";
 
 const API = process.env.API_URL ?? "http://localhost:3001";
 
-async function call<T>(path: string, body?: unknown, method = body ? "POST" : "GET"): Promise<T> {
-  const res = await fetch(`${API}${path}`, {
-    method,
-    headers: { "content-type": "application/json" },
-    body: body ? JSON.stringify(body) : undefined,
-  });
+async function call<T>(path: string, body?: unknown, token?: string): Promise<T> {
+  const method = body ? "POST" : "GET";
+  const headers: Record<string, string> = { "content-type": "application/json" };
+  if (token) headers[CONVERSATION_TOKEN_HEADER] = token;
+  const res = await fetch(`${API}${path}`, { method, headers, body: body ? JSON.stringify(body) : undefined });
   if (!res.ok) throw new Error(`${method} ${path}: ${res.status}`);
   return res.json() as Promise<T>;
 }
@@ -21,13 +26,12 @@ export const RISK_TONE: Record<RiskLevel, "red" | "orange" | "yellow" | "green">
   green: "green",
 };
 
+/** Lexi conversation (same engine as the web). Every call after start needs the conversation's access token. */
 export const api = {
-  createCase: (userId: string) => call<Case>("/cases", { channel: "bot", userId }),
-  addMessage: (id: string, text: string) => call(`/cases/${id}/messages`, { text }),
-  analyze: (id: string) => call<Case>(`/cases/${id}/analyze`, {}),
-  /** Lexi conversation (same engine as the web). */
-  startConversation: () => call<Conversation>("/conversations", { channel: "bot" }),
-  getConversation: (id: string) => call<Conversation>(`/conversations/${id}`),
-  say: (id: string, text: string) => call<Conversation>(`/conversations/${id}/messages`, { text }),
-  act: (id: string, action: string) => call<Conversation>(`/conversations/${id}/actions`, { action }),
+  startConversation: () => call<StartedConversation>("/conversations", { channel: "bot" }),
+  getConversation: (id: string, token: string) => call<Conversation>(`/conversations/${id}`, undefined, token),
+  say: (id: string, token: string, text: string) => call<Conversation>(`/conversations/${id}/messages`, { text }, token),
+  act: (id: string, token: string, action: string) => call<Conversation>(`/conversations/${id}/actions`, { action }, token),
+  /** One-time code for the "open on the web" link; the token itself never leaves the bot. */
+  handoff: (id: string, token: string) => call<ConversationHandoff>(`/conversations/${id}/handoff`, {}, token),
 };

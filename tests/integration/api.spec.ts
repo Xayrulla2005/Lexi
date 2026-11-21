@@ -11,6 +11,7 @@ import { Test } from "@nestjs/testing";
 import request from "supertest";
 import type { App } from "supertest/types";
 import { AppModule } from "../../apps/api/src/app.module";
+import { relaxRateLimits, restoreRateLimits } from "./test-env";
 
 interface Scenario {
   id: string;
@@ -27,6 +28,8 @@ describe("API (integration)", () => {
 
   beforeAll(async () => {
     delete process.env.DATABASE_URL;
+    relaxRateLimits();
+    process.env.SIM_MODE = "true"; // cases need an authenticated citizen (OneID simulator)
     const moduleRef = await Test.createTestingModule({ imports: [AppModule] }).compile();
     app = moduleRef.createNestApplication();
     await app.init();
@@ -34,12 +37,16 @@ describe("API (integration)", () => {
 
   afterAll(async () => {
     await app.close();
+    restoreRateLimits();
   });
 
   async function analyzedCase(text: string) {
-    const created = await request(app.getHttpServer()).post("/cases").send({ channel: "web" }).expect(201);
-    await request(app.getHttpServer()).post(`/cases/${created.body.id}/messages`).send({ text }).expect(201);
-    const res = await request(app.getHttpServer()).post(`/cases/${created.body.id}/analyze`).expect(200);
+    const http = () => request(app.getHttpServer());
+    const { body: session } = await http().post("/sim/oneid/login").send({ citizenId: "test_fuqaro_1" }).expect(201);
+    const H = { "x-sim-session": session.token as string };
+    const created = await http().post("/cases").set(H).send({ channel: "web" }).expect(201);
+    await http().post(`/cases/${created.body.id}/messages`).set(H).send({ text }).expect(201);
+    const res = await http().post(`/cases/${created.body.id}/analyze`).set(H).expect(200);
     return res.body;
   }
 

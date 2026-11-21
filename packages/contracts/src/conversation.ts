@@ -52,6 +52,14 @@ export const ArticleText = z.object({
   sourceUrl: z.string(),
   /** Verbatim article text (catalog / lex.uz), shown when the citation is clicked. */
   text: z.string(),
+  /** Document date in the lex.uz listing (yyyy-mm-dd); null if unknown. Issuer/effective date are not in the data. */
+  adoptedOn: z.string().nullable().default(null),
+  /** When the text was taken from lex.uz; null if unknown. */
+  retrievedAt: z.string().nullable().default(null),
+  /** DRAFT until a lawyer verifies the text. */
+  reviewStatus: z.string().default("DRAFT"),
+  /** The text may be outdated (retrieved long ago or date unknown): check the current version on lex.uz. */
+  stale: z.boolean().default(false),
 });
 export type ArticleText = z.infer<typeof ArticleText>;
 
@@ -177,6 +185,29 @@ export type Conversation = z.infer<typeof Conversation>;
 
 export const StartConversationRequest = z.object({ channel: z.enum(["web", "bot"]).default("web") });
 export type StartConversationRequest = z.infer<typeof StartConversationRequest>;
+
+/**
+ * Conversation access token (opaque secret, not the conversation id). Sent back on every
+ * conversation request in this header. The server keeps only its SHA-256 hash.
+ */
+export const CONVERSATION_TOKEN_HEADER = "x-conversation-token";
+
+export const ConversationAccess = z.object({
+  token: z.string().min(32),
+  expiresAt: IsoDateTime,
+});
+export type ConversationAccess = z.infer<typeof ConversationAccess>;
+
+/** POST /conversations: the new conversation and its access token (returned only here and by /claim). */
+export const StartedConversation = z.object({ conversation: Conversation, access: ConversationAccess });
+export type StartedConversation = z.infer<typeof StartedConversation>;
+
+/** One-time, short-lived code to open the same conversation on another device (bot -> web). */
+export const ConversationHandoff = z.object({ code: z.string().min(32), expiresAt: IsoDateTime });
+export type ConversationHandoff = z.infer<typeof ConversationHandoff>;
+
+export const ClaimConversationRequest = z.object({ code: z.string().min(32).max(128) });
+export type ClaimConversationRequest = z.infer<typeof ClaimConversationRequest>;
 
 export const ConversationMessageRequest = z.object({ text: z.string().trim().min(1).max(5000) });
 export type ConversationMessageRequest = z.infer<typeof ConversationMessageRequest>;

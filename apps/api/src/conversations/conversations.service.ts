@@ -1,4 +1,12 @@
-import { BadRequestException, Inject, Injectable, Logger, NotFoundException } from "@nestjs/common";
+import {
+  BadRequestException,
+  ForbiddenException,
+  Inject,
+  Injectable,
+  Logger,
+  NotFoundException,
+  UnauthorizedException,
+} from "@nestjs/common";
 import { randomUUID } from "node:crypto";
 import {
   analyzeWithArticles,
@@ -9,6 +17,8 @@ import {
   detectIntent,
   detectTriage,
   guessIntent,
+  groundingFlags,
+  isStale,
   planProcedure,
   type Intent,
   emergencyAgencyOrder,
@@ -29,18 +39,46 @@ import {
   type RoadmapStep,
   type RoutingDecision,
   type SimCitizen,
+  type ConversationAccess,
+  type ConversationHandoff,
+  type StartedConversation,
 } from "@lex/contracts";
 import { EmergencyCallsService } from "../agency-gateway/emergency-calls.service";
+import { simModeEnabled } from "../auth/sim-mode";
 import { SubmissionsService } from "../agency-gateway/submissions.service";
 import { ApplicationsService } from "../applications/applications.service";
-import { fieldKeys, loadTemplate } from "../applications/template";
+import { checklistOf, fieldKeys, loadTemplate } from "../applications/template";
 import { CasesService } from "../cases/cases.service";
 import { JsonStore } from "../common/json-store";
 import { runtimeFile } from "../common/paths";
 import { LegalRoutingService } from "../legal-routing/legal-routing.service";
 import { ARTICLE_RETRIEVER, type ArticleRetriever, LLM_CHAT } from "../llm/llm.module";
 import { OneIdSimulatorService } from "../sim/oneid.service";
+import { issueHandoff, issueToken, revoke, StoredConversation, validSecret } from "./conversation-access";
 import { LEXI } from "./lexi.texts";
+
+/**
+ * Who is asking: the citizen resolved by the auth provider (never from the body or URL)
+ * and the conversation access token from the x-conversation-token header.
+ */
+export interface AccessContext {
+  citizenId: string | null;
+  token: string | undefined;
+}
+
+/** Article as shown on a card, with its source metadata (nothing that is not in the data). */
+const cardArticle = (a: RetrievedArticle) => ({
+  key: a.key,
+  article: a.article,
+  title: a.title,
+  document: a.document,
+  sourceUrl: a.sourceUrl,
+  text: a.text,
+  adoptedOn: a.adoptedOn,
+  retrievedAt: a.retrievedAt,
+  reviewStatus: a.status,
+  stale: isStale(a.retrievedAt),
+});
 
 /** Template fields filled automatically (OneID / server), never asked. */
 const AUTO_FIELDS = new Set(["fio", "manzil", "telefon", "ariza_sanasi"]);
@@ -76,11 +114,14 @@ const yes = (t: string) => /^(ha|xa|ha,|да|yes|roziman|mayli|albatta)\b/i.test
  * - Nothing is sent without the user's explicit consent (application consent + ERI; emergency
  *   simulator calls need a confirmation click).
  * - The user's text is never logged.
+ * - Access: knowing the id is not enough. A request needs the conversation's access token
+ *   (stored as a hash) or the session of the citizen who owns it. The owner is bound once
+ *   (token + session, first login) and never changes; another citizen gets 403.
  */
 @Injectable()
 export class ConversationsService {
   private readonly logger = new Logger(ConversationsService.name);
-  private readonly store = new JsonStore<Conversation>(runtimeFile("conversations.json"), Conversation);
+  private readonly store = new JsonStore<StoredConversation>(runtimeFile("conversations.json"), StoredConversation);
 
   constructor(
     @Inject(CasesService) private readonly cases: CasesService,
@@ -95,12 +136,12 @@ export class ConversationsService {
 
   // ------------------------------------------------------------------ public API
 
-  async start(channel: Conversation["channel"]): Promise<Conversation> {
+  async start(channel: Conversation["channel"], citizenId: string | null = null): Promise<StartedConversation> {
     const now = new Date().toISOString();
     const conv: Conversation = {
       id: randomUUID(),
       channel,
-      citizenId: null,
+      citizenId,
       stage: "TRIAGE",
       story: "",
       intent: null,
@@ -119,33 +160,85 @@ export class ConversationsService {
       updatedAt: now,
     };
     this.say(conv, LEXI.greeting);
-    return this.save(conv);
+    const issued = issueToken({ conversation: conv, tokens: [], handoffs: [] });
+    this.store.set(conv.id, { conversation: Conversation.parse(conv), tokens: issued.list, handoffs: [] });
+    const saved = await this.save(conv);
+    return { conversation: saved, access: { token: issued.secret, expiresAt: issued.expiresAt } };
   }
 
   /** Current state; also turns submission status changes into Lexi messages (TRACKING). */
-  async get(id: string, token?: string): Promise<Conversation> {
-    const conv = this.load(id);
-    this.bindCitizen(conv, token);
+  async get(id: string, ctx: AccessContext): Promise<Conversation> {
+    const conv = this.open(id, ctx);
     const before = conv.messages.length;
     await this.refreshTracking(conv);
-    return conv.messages.length !== before ? this.save(conv) : conv;
+    return this.save(conv, conv.messages.length !== before);
   }
 
-  async message(id: string, text: string, token?: string): Promise<Conversation> {
-    const conv = this.load(id);
-    this.bindCitizen(conv, token);
+  async message(id: string, text: string, ctx: AccessContext): Promise<Conversation> {
+    const conv = this.open(id, ctx);
     this.push(conv, "user", text, null, []);
     await this.handleText(conv, text);
     await this.refreshTracking(conv);
     return this.save(conv);
   }
 
-  async action(id: string, action: string, token?: string): Promise<Conversation> {
-    const conv = this.load(id);
-    this.bindCitizen(conv, token);
+  async action(id: string, action: string, ctx: AccessContext): Promise<Conversation> {
+    const conv = this.open(id, ctx);
     await this.handleAction(conv, action);
     await this.refreshTracking(conv);
     return this.save(conv);
+  }
+
+  /** One-time code to continue this conversation on another device (bot -> web). */
+  async handoff(id: string, ctx: AccessContext): Promise<ConversationHandoff> {
+    this.open(id, ctx);
+    const stored = this.stored(id);
+    const issued = issueHandoff(stored);
+    this.store.set(id, { ...stored, handoffs: issued.list });
+    await this.store.persist("conversation.handoff");
+    return { code: issued.secret, expiresAt: issued.expiresAt };
+  }
+
+  /** Exchanges a handoff code (single use) for a new access token. Unknown, used or expired code -> 404. */
+  async claim(id: string, code: string): Promise<ConversationAccess> {
+    const stored = this.store.get(id);
+    const used = stored ? revoke(stored.handoffs, code) : null;
+    if (!stored || !used) throw new NotFoundException("Conversation not found");
+    const issued = issueToken(stored);
+    this.store.set(id, { ...stored, handoffs: used, tokens: issued.list });
+    await this.store.persist("conversation.claim");
+    return { token: issued.secret, expiresAt: issued.expiresAt };
+  }
+
+  /** Revokes the presented access token (logout on this device). */
+  async revokeToken(id: string, ctx: AccessContext): Promise<void> {
+    const stored = this.store.get(id);
+    const tokens = stored && ctx.token ? revoke(stored.tokens, ctx.token) : null;
+    if (!stored || !tokens) throw new NotFoundException("Conversation not found");
+    this.store.set(id, { ...stored, tokens });
+    await this.store.persist("conversation.revoke");
+  }
+
+  /**
+   * Access check, then binding:
+   * - no token and no session -> 401;
+   * - an authenticated citizen who is not the owner -> 403 (a token never moves a conversation);
+   * - the owner's session, or a valid token -> allowed;
+   * - otherwise -> 404 (existence is not revealed).
+   * An unowned conversation is bound to the citizen only when the same request also proves
+   * possession of the conversation (valid token).
+   */
+  private open(id: string, ctx: AccessContext): Conversation {
+    if (!ctx.citizenId && !ctx.token) throw new UnauthorizedException("Conversation token or session required");
+    const stored = this.store.get(id);
+    if (!stored) throw new NotFoundException("Conversation not found");
+    const owner = stored.conversation.citizenId;
+    if (ctx.citizenId && owner && ctx.citizenId !== owner) throw new ForbiddenException("Conversation belongs to another citizen");
+    const tokenOk = validSecret(stored.tokens, ctx.token);
+    if (!(ctx.citizenId && owner === ctx.citizenId) && !tokenOk) throw new NotFoundException("Conversation not found");
+    const conv = structuredClone(stored.conversation);
+    if (!owner && ctx.citizenId && tokenOk) conv.citizenId = ctx.citizenId;
+    return conv;
   }
 
   // ------------------------------------------------------------------ state machine
@@ -210,6 +303,7 @@ export class ConversationsService {
       this.say(conv, LEXI.callCancelled);
       return;
     }
+    if (/^call(_confirm)?:/.test(action) && !simModeEnabled()) throw new BadRequestException("Emergency call simulator is off");
     const call = /^call:([a-z0-9_]+)$/.exec(action);
     if (call) {
       const agency = this.routing.agency(call[1] as string);
@@ -357,9 +451,10 @@ export class ConversationsService {
       source: "procedure",
       articles: articles
         .filter((a) => cited.has(a.key))
-        .map((a) => ({ key: a.key, article: a.article, title: a.title, document: a.document, sourceUrl: a.sourceUrl, text: a.text })),
+        .map(cardArticle),
     };
     this.say(conv, plan.steps.length ? LEXI.procedureIntro : LEXI.procedureNoPlan, card);
+    this.sourceNotice(conv, articles.filter((a) => cited.has(a.key)));
     if (plan.steps.length) this.say(conv, LEXI.procedureCheck);
     conv.stage = "DONE";
     conv.pending = { kind: "violation", key: null, question: LEXI.violationOffer, options: [] };
@@ -383,8 +478,9 @@ export class ConversationsService {
         claims: ans.claims,
         articles: articles
           .filter((a) => cited.has(a.key))
-          .map((a) => ({ key: a.key, article: a.article, title: a.title, document: a.document, sourceUrl: a.sourceUrl, text: a.text })),
+          .map(cardArticle),
       });
+      this.sourceNotice(conv, articles.filter((a) => cited.has(a.key)));
     } else {
       this.say(conv, LEXI.questionNotFound);
     }
@@ -413,7 +509,8 @@ export class ConversationsService {
       .filter((a): a is AgencyContact => a !== null);
     const actions: ChatAction[] = [
       ...contacts.filter((a) => a.phone).map((a) => ({ label: `📞 ${a.phone} — ${a.name}`, kind: "tel" as const, value: a.phone as string })),
-      ...contacts.map((a) => ({ label: LEXI.callButton(a.name), kind: "action" as const, value: `call:${a.id}` })),
+      // Simulated dispatch ("Chaqiruv") exists only in SIM_MODE; phone numbers are always shown.
+      ...(simModeEnabled() ? contacts.map((a) => ({ label: LEXI.callButton(a.name), kind: "action" as const, value: `call:${a.id}` })) : []),
     ];
     this.say(conv, text, { type: "emergency", contacts, signals: conv.triage.signals }, actions);
     this.say(conv, LEXI.emergencyContinue);
@@ -551,8 +648,9 @@ export class ConversationsService {
         deadlines: analysis.deadlines,
         articles: articles
           .filter((a) => cited.has(a.key))
-          .map((a) => ({ key: a.key, article: a.article, title: a.title, document: a.document, sourceUrl: a.sourceUrl, text: a.text })),
+          .map(cardArticle),
       });
+      this.sourceNotice(conv, articles.filter((a) => cited.has(a.key)));
     } else if (onCatalog || conv.triage.signals.length) {
       this.say(conv, LEXI.noArticles);
     }
@@ -620,13 +718,7 @@ export class ConversationsService {
 
   /** "Ilova: a, b, c." line of the application template. */
   private async templateDocuments(templateId: string): Promise<string[]> {
-    const template = await loadTemplate(templateId);
-    const line = /^Ilova:\s*(.+)$/m.exec(template)?.[1] ?? "";
-    return line
-      .replace(/\.\s*$/, "")
-      .split(/,\s*/)
-      .map((s) => s.trim())
-      .filter((s) => s && !s.includes("{{"));
+    return checklistOf(await loadTemplate(templateId));
   }
 
   private async offerYes(conv: Conversation): Promise<void> {
@@ -636,6 +728,8 @@ export class ConversationsService {
       return;
     }
     conv.pending = null;
+    // The case was created while the conversation may still have been anonymous: bind it once.
+    this.cases.assignOwner(conv.caseId as string, citizen.id);
     let app = await this.apps.createForCase(conv.caseId as string, citizen);
     const manual = new Set(app.fields.filter((f) => f.source === "MANUAL").map((f) => f.key));
     const values: Record<string, string> = {};
@@ -672,7 +766,7 @@ export class ConversationsService {
       receiptId: t.receiptId,
       agencyName: t.agencyName,
       status: t.status,
-      cabinetUrl: `/idora?submission=${t.id}`,
+      cabinetUrl: `/idora?agency=${t.agencyId}&submission=${t.id}`,
     };
     const cabinet: ChatAction = { label: LEXI.cabinetLink, kind: "link", value: card.cabinetUrl };
     switch (t.status) {
@@ -726,17 +820,15 @@ export class ConversationsService {
 
   // ------------------------------------------------------------------ helpers
 
-  private bindCitizen(conv: Conversation, token: string | undefined): void {
-    if (!token) return;
-    try {
-      conv.citizenId = this.oneId.session(token).citizen.id;
-    } catch {
-      // Unknown/expired simulator session: stay anonymous.
-    }
-  }
-
   private citizen(conv: Conversation): SimCitizen | null {
     return conv.citizenId ? this.oneId.citizen(conv.citizenId) : null;
+  }
+
+  /** After cited law: how current and how verified the sources are, and that this is information, not advice. */
+  private sourceNotice(conv: Conversation, cited: readonly RetrievedArticle[]): void {
+    if (!cited.length) return;
+    const f = groundingFlags(cited);
+    this.say(conv, LEXI.sourceNotice(f.asOf, f.unverified, f.stale));
   }
 
   private say(conv: Conversation, text: string, card: ChatCard | null = null, actions: ChatAction[] = []): void {
@@ -747,16 +839,22 @@ export class ConversationsService {
     conv.messages.push({ id: randomUUID(), role, text, at: new Date().toISOString(), card, actions });
   }
 
-  private load(id: string): Conversation {
-    const c = this.store.get(id);
-    if (!c) throw new NotFoundException("Conversation not found");
-    return structuredClone(c);
+  private stored(id: string): StoredConversation {
+    const s = this.store.get(id);
+    if (!s) throw new NotFoundException("Conversation not found");
+    return s;
   }
 
-  private async save(conv: Conversation): Promise<Conversation> {
+  /**
+   * Saves the conversation; access secrets stay as they are in the store.
+   * `changed = false` (a read without new messages) still persists a first-time owner binding.
+   */
+  private async save(conv: Conversation, changed = true): Promise<Conversation> {
+    const stored = this.stored(conv.id);
+    if (!changed && stored.conversation.citizenId === conv.citizenId) return stored.conversation;
     conv.updatedAt = new Date().toISOString();
     const parsed = Conversation.parse(conv);
-    this.store.set(parsed.id, parsed);
+    this.store.set(parsed.id, { ...stored, conversation: parsed });
     await this.store.persist("conversation.save");
     return parsed;
   }

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { ConversationMessage } from "@lex/contracts";
-import { parseCallback, renderMessage } from "./lexi";
+import { needsWebLink, parseCallback, renderMessage } from "./lexi";
 import { texts } from "./texts.uz";
 
 const ID = "8c1c7a8e-5f0b-4b8a-9a35-0b7b6f1e2c11";
@@ -54,7 +54,18 @@ describe("renderMessage", () => {
   });
 
   it("procedure roadmap: citation tags and the 'umumiy yo'nalish' label; answer card with sources", () => {
-    const article = { key: "k/1", article: "1", title: "T", document: "Kodeks", sourceUrl: "https://lex.uz/1", text: "..." };
+    const article = {
+      key: "k/1",
+      article: "1",
+      title: "T",
+      document: "Kodeks",
+      sourceUrl: "https://lex.uz/1",
+      text: "...",
+      adoptedOn: null,
+      retrievedAt: null,
+      reviewStatus: "DRAFT",
+      stale: false,
+    };
     const road = renderMessage(
       msg({
         card: {
@@ -77,6 +88,16 @@ describe("renderMessage", () => {
     const ans = renderMessage(msg({ card: { type: "answer", claims: [{ text: "Gap.", citations: ["k/1"] }], articles: [article] } }), texts, "https://lex.example", ID);
     expect(ans.text).toContain("• Gap. [1-m.]");
     expect(ans.text).toContain("1-m.: Kodeks — https://lex.uz/1");
+  });
+
+  it("web links carry a one-time handoff code, never an access token", () => {
+    const offer = msg({ actions: [{ label: "Ha", kind: "action", value: "offer_yes" }] });
+    expect(needsWebLink(offer)).toBe(true);
+    expect(needsWebLink(msg({}))).toBe(false);
+    const r = renderMessage(offer, texts, "https://lex.example", ID, "code_123");
+    expect(r.buttons[0]?.url).toBe(`https://lex.example/?c=${ID}&h=code_123`);
+    const login = renderMessage(msg({ card: { type: "login", url: `/kirish?c=${ID}` } }), texts, "https://lex.example", ID, "code_123");
+    expect(login.text).toContain(`/?c=${ID}&h=code_123`);
   });
 
   it("parses callback data", () => {

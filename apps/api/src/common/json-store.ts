@@ -51,6 +51,17 @@ export class JsonStore<T> {
     return value;
   }
 
+  /** Removes an entry (the file is rewritten without it). */
+  delete(id: string): boolean {
+    const had = this.items.delete(id);
+    if (had) this.schedule();
+    return had;
+  }
+
+  entries(): [string, T][] {
+    return [...this.items.entries()];
+  }
+
   values(): T[] {
     return [...this.items.values()];
   }

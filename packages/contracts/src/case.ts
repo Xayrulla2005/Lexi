@@ -34,9 +34,9 @@ export const Case = z.object({
 });
 export type Case = z.infer<typeof Case>;
 
+/** The owner is taken from the authenticated session on the server, never from the body. */
 export const CreateCaseRequest = z.object({
   channel: CaseChannel.default("web"),
-  userId: z.string().min(1).optional(),
 });
 export type CreateCaseRequest = z.infer<typeof CreateCaseRequest>;
 

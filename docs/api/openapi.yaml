@@ -24,7 +24,7 @@ paths:
                   uptimeSeconds: { type: integer }
   /cases:
     post:
-      summary: Create a case
+      summary: Create a case (authenticated citizen)
       requestBody:
         required: true
         content:
@@ -33,7 +33,9 @@ paths:
               type: object
               properties:
                 channel: { type: string, enum: [web, bot], default: web }
-                userId: { type: string }
+      description: |
+        Requires an authenticated citizen (SIM_MODE: x-sim-session). The owner is taken from
+        the session, never from the body. Every /cases/{id} route is owner-only (403 otherwise).
       responses:
         "201":
           description: Created
@@ -41,6 +43,7 @@ paths:
             application/json:
               schema: { $ref: "#/components/schemas/Case" }
         "400": { $ref: "#/components/responses/ValidationError" }
+        "401": { description: Not authenticated }
   /cases/{id}:
     get:
       summary: Get a case with analysis and routing decision
@@ -114,19 +117,6 @@ paths:
             application/json:
               schema: { $ref: "#/components/schemas/AgencySubmission" }
         "404": { description: Not found }
-  /simulator/{agencyId}/submissions:
-    get:
-      summary: Simulator panel — submissions received by a mock agency
-      parameters:
-        - { name: agencyId, in: path, required: true, schema: { type: string, example: mehnat_inspeksiyasi } }
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items: { $ref: "#/components/schemas/AgencySubmission" }
 components:
   parameters:
     Id:
