@@ -86,3 +86,23 @@ export function submitKey(applicationId: string): string {
     return `submit-${applicationId}`;
   }
 }
+
+const PRO_KEY = "lex.sim.professional";
+
+/** SIMULATOR lawyer-cabinet session token (this tab only). */
+export function professionalSession(): string | null {
+  try {
+    return sessionStorage.getItem(PRO_KEY);
+  } catch {
+    return null;
+  }
+}
+
+export function saveProfessionalSession(token: string | null): void {
+  try {
+    if (token) sessionStorage.setItem(PRO_KEY, token);
+    else sessionStorage.removeItem(PRO_KEY);
+  } catch {
+    // Storage unavailable: the user logs in again on reload.
+  }
+}

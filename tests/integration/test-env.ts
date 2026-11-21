@@ -1,3 +1,4 @@
+import { getArticlesForProblem } from "@lex/ai";
 import { RATE_DEFAULTS } from "../../apps/api/src/common/rate-limit";
 
 /**
@@ -11,3 +12,6 @@ export function relaxRateLimits(): void {
 export function restoreRateLimits(): void {
   for (const key of Object.keys(RATE_DEFAULTS)) delete process.env[key];
 }
+
+/** Catalog articles only: no embedding model in tests (it is slow and unreliable under Jest). */
+export const catalogRetriever = async (_story: string, problemId: string | null) => (problemId ? getArticlesForProblem(problemId) : []);

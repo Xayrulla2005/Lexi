@@ -22,8 +22,8 @@ export const AuditEventType = z.enum([
 export type AuditEventType = z.infer<typeof AuditEventType>;
 
 export const AuditActor = z.object({
-  type: z.enum(["citizen", "agency", "system"]),
-  /** Citizen id, agency id, or null for the system. */
+  type: z.enum(["citizen", "agency", "professional", "system"]),
+  /** Citizen id, agency id, professional id, or null for the system. */
   id: z.string().nullable(),
 });
 export type AuditActor = z.infer<typeof AuditActor>;

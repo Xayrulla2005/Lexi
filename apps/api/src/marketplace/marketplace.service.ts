@@ -6,6 +6,7 @@ import { z } from "zod";
 import {
   ConsultationRequest,
   LegalProfessional,
+  type AssignedConsultation,
   type ConsultationStatus,
   type CreateConsultationRequest,
   type LegalDomain,
@@ -17,7 +18,13 @@ import { CasesService } from "../cases/cases.service";
 import { JsonStore } from "../common/json-store";
 import { runtimeFile, simDataDir } from "../common/paths";
 
-const DirectoryFile = z.object({ $comment: z.string().optional(), professionals: z.array(LegalProfessional) });
+/** A simulated (fictional) profile can never be VERIFIED: the directory refuses to load otherwise. */
+const DirectoryFile = z.object({
+  $comment: z.string().optional(),
+  professionals: z.array(
+    LegalProfessional.refine((p) => !(p.simulated && p.verificationStatus === "VERIFIED"), { message: "simulated profile marked VERIFIED" }),
+  ),
+});
 
 /** Allowed consultation transitions: target -> statuses it may come from, and who may do it. */
 const TRANSITIONS: Readonly<Record<Exclude<ConsultationStatus, "REQUESTED">, { from: readonly ConsultationStatus[]; by: "citizen" | "professional" }>> = {
@@ -26,6 +33,8 @@ const TRANSITIONS: Readonly<Record<Exclude<ConsultationStatus, "REQUESTED">, { f
   COMPLETED: { from: ["ACCEPTED"], by: "professional" },
   CANCELLED: { from: ["REQUESTED", "ACCEPTED"], by: "citizen" },
 };
+
+const assignedView = ({ citizenId: _citizen, ...rest }: ConsultationRequest): AssignedConsultation => rest;
 
 const VERIFICATION_ORDER: Readonly<Record<ProfessionalVerification, number>> = { VERIFIED: 0, PENDING: 1, UNVERIFIED: 2, REJECTED: 3 };
 
@@ -119,6 +128,23 @@ export class MarketplaceService {
     return c;
   }
 
+  /** Consultations assigned to this professional, newest first (without the citizen's identity). */
+  assignedTo(professionalId: string): AssignedConsultation[] {
+    return this.consultations
+      .values()
+      .filter((c) => c.professionalId === professionalId)
+      .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+      .map(assignedView);
+  }
+
+  /** One consultation for its assigned professional: 404 unknown, 403 another professional's. */
+  assigned(id: string, professionalId: string): AssignedConsultation {
+    const c = this.consultations.get(id);
+    if (!c) throw new NotFoundException("Consultation not found");
+    if (c.professionalId !== professionalId) throw new ForbiddenException("Another professional's consultation");
+    return assignedView(c);
+  }
+
   /**
    * Status change by the citizen (cancel) or the professional (accept/decline/complete).
    * The professional side has no authenticated HTTP route yet (no professional accounts):
@@ -137,7 +163,7 @@ export class MarketplaceService {
     this.consultations.set(id, next);
     this.audit.record({
       type: "CONSULTATION_STATUS_CHANGED",
-      actor: actor.by === "citizen" ? { type: "citizen", id: actor.citizenId } : { type: "agency", id: null },
+      actor: actor.by === "citizen" ? { type: "citizen", id: actor.citizenId } : { type: "professional", id: actor.professionalId },
       caseId: c.caseId,
       data: { consultationId: id, from: c.status, to, by: actor.by },
     });

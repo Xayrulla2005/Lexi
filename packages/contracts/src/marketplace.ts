@@ -69,3 +69,29 @@ export const CreateConsultationRequest = z.object({
   consent: z.literal(true, { errorMap: () => ({ message: "Explicit consent to share the request is required" }) }),
 });
 export type CreateConsultationRequest = z.infer<typeof CreateConsultationRequest>;
+
+/** SIMULATOR lawyer-cabinet session header (demo professionals only, SIM_MODE). */
+export const SIM_PROFESSIONAL_SESSION_HEADER = "x-sim-professional-session";
+
+export const SimProfessionalLoginRequest = z.object({
+  professionalId: Slug,
+  /** Required only when the server sets SIM_PROFESSIONAL_PASSCODE. */
+  passcode: z.string().max(200).optional(),
+});
+export type SimProfessionalLoginRequest = z.infer<typeof SimProfessionalLoginRequest>;
+
+export const SimProfessionalSession = z.object({
+  token: z.string().min(32),
+  professionalId: Slug,
+  fullName: z.string().min(1),
+  expiresAt: IsoDateTime,
+  simulated: z.literal(true),
+});
+export type SimProfessionalSession = z.infer<typeof SimProfessionalSession>;
+
+/** What the assigned professional sees: no citizen identity, only the request itself. */
+export const AssignedConsultation = ConsultationRequest.omit({ citizenId: true });
+export type AssignedConsultation = z.infer<typeof AssignedConsultation>;
+
+export const ConsultationDecision = z.object({ action: z.enum(["accept", "decline", "complete"]) });
+export type ConsultationDecision = z.infer<typeof ConsultationDecision>;

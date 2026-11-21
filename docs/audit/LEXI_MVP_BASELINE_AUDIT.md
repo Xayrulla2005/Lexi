@@ -508,3 +508,27 @@ Verify every checkpoint with: `pnpm lint && pnpm typecheck && pnpm test && pnpm 
 4. Integration tests: cross-citizen access is denied; the cabinet is absent when `SIM_MODE` is off.
 
 This closes the three highest-impact findings without new dependencies. It also defines the user and ownership seam that the database, audit and marketplace work all depend on.
+
+---
+
+## Addendum (2026-11-21): status after Phases 1–10
+
+This baseline is historical. Current status by area (details and evidence: `LEXI_MVP_IMPLEMENTATION_REPORT.md` §22–27):
+
+| Baseline finding / area | Status now |
+|---|---|
+| SEC-01 conversation access by UUID / takeover | COMPLETE (opaque hashed tokens, owner bound once) |
+| SEC-02 public simulator cabinet | COMPLETE (SIM_MODE gating + per-agency sessions) |
+| SEC-03 no rate limiting | COMPLETE for a single process; multi-instance NOT VERIFIED |
+| SEC-04 no real authentication | PARTIAL — AuthProvider boundary + OIDC validation; real OneID BLOCKED |
+| SEC-05 unauthenticated /cases | COMPLETE |
+| SEC-06 double submission | COMPLETE for a single process (lock + Idempotency-Key); DB locking NOT VERIFIED |
+| SEC-07 sessions without expiry, plaintext | COMPLETE (hashed, expiring, revocable); legacy `data/runtime/sessions.json` left on disk for the owner to delete |
+| SEC-08 plaintext PII at rest / JSON storage | PARTIAL — PostgreSQL schema and repositories exist, services not yet migrated, live DB NOT VERIFIED |
+| SEC-09 public retrieval endpoint | COMPLETE |
+| SEC-10 legal content DRAFT | unchanged (needs lawyer review) |
+| SEC-11 security headers | COMPLETE (API helmet, web CSP) |
+| Documents / ApplicationDocument | COMPLETE |
+| AuditEvent | COMPLETE (JSON, hash chain); PostgreSQL append-only trigger NOT VERIFIED |
+| Legal marketplace | COMPLETE as SIMULATOR; professional verification BLOCKED (no admin auth) |
+| Government integration | MOCK only — no real or sandbox connector |

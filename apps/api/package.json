@@ -7,7 +7,10 @@
     "build": "tsc -p tsconfig.build.json",
     "start": "node dist/main.js",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "jest"
+    "test": "jest",
+    "db:migrate": "typeorm migration:run -d dist/database/data-source.js",
+    "db:migrate:show": "typeorm migration:show -d dist/database/data-source.js",
+    "db:import-json": "tsx src/database/import-runtime-json.ts"
   },
   "dependencies": {
     "@huggingface/transformers": "3.5.1",

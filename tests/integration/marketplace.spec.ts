@@ -13,7 +13,8 @@ import type { App } from "supertest/types";
 import type { ConsultationRequest, LegalProfessional } from "@lex/contracts";
 import { AppModule } from "../../apps/api/src/app.module";
 import { MarketplaceService } from "../../apps/api/src/marketplace/marketplace.service";
-import { relaxRateLimits } from "./test-env";
+import { ARTICLE_RETRIEVER } from "../../apps/api/src/llm/llm.module";
+import { catalogRetriever, relaxRateLimits } from "./test-env";
 
 const H = "x-sim-session";
 const KEYS = ["SIM_MODE", "RUNTIME_DIR", "SIM_KEYS_DIR", "DATABASE_URL"] as const;
@@ -22,7 +23,7 @@ async function startApp(env: Record<string, string>): Promise<INestApplication<A
   for (const k of KEYS) delete process.env[k];
   relaxRateLimits();
   Object.assign(process.env, { SIM_KEYS_DIR: mkdtempSync(join(tmpdir(), "lex-keys-")) }, env);
-  const moduleRef = await Test.createTestingModule({ imports: [AppModule] }).compile();
+  const moduleRef = await Test.createTestingModule({ imports: [AppModule] }).overrideProvider(ARTICLE_RETRIEVER).useValue(catalogRetriever).compile();
   const app = moduleRef.createNestApplication<INestApplication<App>>();
   await app.init();
   return app;

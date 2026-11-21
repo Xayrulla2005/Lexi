@@ -28,7 +28,7 @@
       "onlyRetrievedCited": true,
       "unverified": true,
       "stale": false,
-      "ms": 6966
+      "ms": 5696
     },
     {
       "id": "Q02",
@@ -50,7 +50,7 @@
       "onlyRetrievedCited": true,
       "unverified": true,
       "stale": false,
-      "ms": 800
+      "ms": 102
     },
     {
       "id": "Q03",
@@ -72,7 +72,7 @@
       "onlyRetrievedCited": true,
       "unverified": true,
       "stale": false,
-      "ms": 166
+      "ms": 114
     },
     {
       "id": "Q04",
@@ -94,7 +94,7 @@
       "onlyRetrievedCited": true,
       "unverified": true,
       "stale": false,
-      "ms": 524
+      "ms": 151
     },
     {
       "id": "Q05",
@@ -116,7 +116,7 @@
       "onlyRetrievedCited": true,
       "unverified": true,
       "stale": false,
-      "ms": 297
+      "ms": 150
     },
     {
       "id": "Q06",
@@ -138,7 +138,7 @@
       "onlyRetrievedCited": true,
       "unverified": true,
       "stale": false,
-      "ms": 116
+      "ms": 97
     },
     {
       "id": "Q07",
@@ -160,7 +160,7 @@
       "onlyRetrievedCited": true,
       "unverified": true,
       "stale": false,
-      "ms": 132
+      "ms": 102
     },
     {
       "id": "Q08",
@@ -182,7 +182,7 @@
       "onlyRetrievedCited": true,
       "unverified": true,
       "stale": false,
-      "ms": 125
+      "ms": 111
     },
     {
       "id": "Q09",
@@ -204,7 +204,7 @@
       "onlyRetrievedCited": true,
       "unverified": true,
       "stale": false,
-      "ms": 98
+      "ms": 100
     },
     {
       "id": "Q10",
@@ -226,7 +226,7 @@
       "onlyRetrievedCited": true,
       "unverified": true,
       "stale": false,
-      "ms": 103
+      "ms": 107
     },
     {
       "id": "Q11",
@@ -248,7 +248,7 @@
       "onlyRetrievedCited": true,
       "unverified": true,
       "stale": false,
-      "ms": 126
+      "ms": 134
     },
     {
       "id": "Q12",
@@ -270,7 +270,7 @@
       "onlyRetrievedCited": true,
       "unverified": true,
       "stale": false,
-      "ms": 103
+      "ms": 162
     },
     {
       "id": "Q13",
@@ -292,7 +292,7 @@
       "onlyRetrievedCited": true,
       "unverified": true,
       "stale": false,
-      "ms": 131
+      "ms": 83
     },
     {
       "id": "Q14",
@@ -314,7 +314,7 @@
       "onlyRetrievedCited": true,
       "unverified": true,
       "stale": false,
-      "ms": 165
+      "ms": 261
     },
     {
       "id": "Q15",
@@ -336,7 +336,7 @@
       "onlyRetrievedCited": true,
       "unverified": true,
       "stale": false,
-      "ms": 124
+      "ms": 145
     },
     {
       "id": "Q16",
@@ -358,7 +358,7 @@
       "onlyRetrievedCited": true,
       "unverified": true,
       "stale": false,
-      "ms": 101
+      "ms": 116
     },
     {
       "id": "Q17",
@@ -380,7 +380,7 @@
       "onlyRetrievedCited": true,
       "unverified": true,
       "stale": false,
-      "ms": 524
+      "ms": 201
     }
   ]
 }

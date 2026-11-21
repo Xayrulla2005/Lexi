@@ -5,8 +5,12 @@ import {
   DOCUMENT_NAME_HEADER,
   IDEMPOTENCY_KEY_HEADER,
   SIM_AGENCY_SESSION_HEADER,
+  SIM_PROFESSIONAL_SESSION_HEADER,
   SIM_SESSION_HEADER,
   type AgencyContact,
+  type AssignedConsultation,
+  type LegalProfessional,
+  type SimProfessionalSession,
   type AgencyStatusUpdateRequest,
   type AgencySubmission,
   type Application,
@@ -25,7 +29,7 @@ import {
   type SubmissionTracking,
   type SubmitToAgencyRequest,
 } from "@lex/contracts";
-import { agencySession, conversationToken, submitKey } from "./access";
+import { agencySession, conversationToken, professionalSession, submitKey } from "./access";
 import { loadSession } from "./session";
 
 const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
@@ -44,6 +48,12 @@ const convHeaders = (id: string): Record<string, string> => {
 };
 
 /** SIMULATOR: the cabinet session of this agency's demo officer. */
+/** SIMULATOR: the lawyer-cabinet session. */
+const proHeaders = (): Record<string, string> => {
+  const token = typeof window === "undefined" ? null : professionalSession();
+  return token ? { [SIM_PROFESSIONAL_SESSION_HEADER]: token } : {};
+};
+
 const agencyHeaders = (agencyId: string): Record<string, string> => {
   const token = typeof window === "undefined" ? null : agencySession(agencyId);
   return token ? { [SIM_AGENCY_SESSION_HEADER]: token } : {};
@@ -171,6 +181,15 @@ export const api = {
     act: (id: string, action: string) => call<Conversation>(`/conversations/${id}/actions`, { action }, "POST", convHeaders(id)),
     /** One-time code from the Telegram bot link (?h=...) -> this browser's own token. */
     claim: (id: string, code: string) => call<ConversationAccess>(`/conversations/${id}/claim`, { code }),
+  },
+  /** SIMULYATOR: yurist kabineti (to'qima yuristlar). */
+  pro: {
+    directory: () => call<LegalProfessional[]>("/professionals"),
+    login: (professionalId: string, passcode?: string) =>
+      call<SimProfessionalSession>("/sim/professionals/login", passcode ? { professionalId, passcode } : { professionalId }),
+    list: () => call<AssignedConsultation[]>("/sim/professionals/consultations", undefined, "GET", proHeaders()),
+    decide: (id: string, action: "accept" | "decline" | "complete") =>
+      call<AssignedConsultation>(`/sim/professionals/consultations/${id}/decision`, { action }, "POST", proHeaders()),
   },
   /** SIMULYATOR: idora kabineti. Har bir so'rov shu idora xodimi sessiyasi bilan. */
   cabinet: {

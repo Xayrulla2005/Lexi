@@ -564,3 +564,187 @@ Git: commit va push yo'q. Kuzatilayotgan fayllar diff'i — 59 ta fayl, ~1602+/4
   - huquqiy kontent `DRAFT`;
   - retrieval'da relevance chegarasi yo'q;
   - eski `data/runtime/sessions.json` diskda ochiq matnda qolgan (o'qilmaydi; qo'lda o'chirish tavsiya etiladi).
+
+---
+
+# Phase 8 (yakuni), Phase 9, Phase 10 — 2026-11-21
+
+**Qayerdan davom etildi:**
+- Branch `main`, HEAD `2f76431` ("feat: implement Lexi security and legal workflows" — Phase 0–7, egasi tomonidan commit va push qilingan).
+- Remote `origin` = `https://github.com/Xayrulla2005/Lexi.git`.
+- Ish boshida 18 ta commit qilinmagan yozuv (Phase 8 yakuni va Phase 9). Hammasi saqlandi; reset, stash yoki clean ishlatilmadi.
+- Import sxemasi o'zgarishi (`StoredConversation`) diskda saqlangan edi. Yarim yozilgan fayllar topilmadi.
+
+**Status belgilari:** COMPLETE — kod bor va testlar o'tdi · PARTIAL — bir qismi · BLOCKED — tashqi sabab bilan bajarib bo'lmaydi · NOT VERIFIED — kod bor, lekin real muhitda tekshirilmagan.
+
+## 22. Phase 8 — Marketplace (yakuni)
+
+| Band | Status | Isbot |
+|---|---|---|
+| 8.8 Fuqaro egaligi (konsultatsiya) | COMPLETE | `marketplace.spec`, `marketplace-pro.spec`: boshqa fuqaro → 403 (o'qish, bekor qilish), begona case'ni bog'lash → 403 |
+| 8.8 Yurist egaligi | COMPLETE (SIMULATOR) | faqat o'ziga biriktirilganlar; boshqa yuristniki → 403, noma'lum → 404; rol va ID body'dan olinmaydi |
+| 8.9 Yuristni tasdiqlash (verification) | **BLOCKED** | Admin autentifikatsiyasi yo'q. Shu sababli tasdiqlash endpoint'i ataylab qilinmadi (test: `/verify` → 404). To'qima profil VERIFIED bo'lsa, katalog yuklanmaydi. |
+| 8.10 Hayot sikli | COMPLETE | REQUESTED→ACCEPTED→COMPLETED, REQUESTED→DECLINED, REQUESTED/ACCEPTED→CANCELLED; yaroqsiz o'tish → 409; parallel qarorlar → bittasi 200, qolgani 409; audit |
+| 8.11 Yurist interfeysi | COMPLETE (SIMULATOR) | web `/yurist`: kirish, biriktirilgan ro'yxat, qabul qilish/rad etish/yakunlash, 401/403/409 xabarlari, "SIMULYATOR" banneri |
+| 8.12 Testlar | COMPLETE | `marketplace.spec` 4 ta + `marketplace-pro.spec` 8 ta |
+
+**Yangi endpoint'lar** (hammasi `SIM_MODE` da; aks holda 404):
+- `POST /sim/professionals/login`, `POST /sim/professionals/logout`;
+- `GET /sim/professionals/consultations`, `GET /sim/professionals/consultations/:id`;
+- `POST /sim/professionals/consultations/:id/decision` (`accept` | `decline` | `complete`).
+
+**Ruxsat qoidalari:**
+- Yurist id'si faqat sessiyadan olinadi (`x-sim-professional-session`, 256 bit, hash bilan saqlanadi, 8 soat).
+- Yurist fuqaroning id'sini ko'rmaydi.
+- Fuqaro, idora va yurist tokenlari bir-birining o'rnida qabul qilinmaydi.
+- Bu davomda tuzatildi: yurist amallari audit'da avval `agency` deb yozilardi. Endi `professional` actor turi (kontrakt va migratsiya yangilandi).
+
+Yurist akkauntlari to'qima, haqiqiy advokatlar emas. Haqiqiy yurist registratsiyasi va credential tekshiruvi — **BLOCKED** (admin auth va rasmiy reyestr yo'q).
+
+## 23. Phase 9 — Database / repository / persistence
+
+**Status: PARTIAL.**
+
+| Band | Status | Izoh |
+|---|---|---|
+| Migratsiya (`migrations/1763712000000-LexiInitialSchema.ts`) | COMPLETE (kod), NOT VERIFIED (live) | quyida |
+| TypeORM CLI (`data-source.ts`, `db:migrate`, `db:migrate:show`) | COMPLETE (kod), NOT VERIFIED | `.env` da `DATABASE_URL` yo'q, shuning uchun `migration:show` "DATABASE_URL is not set" bilan to'xtadi |
+| PG repository'lar (`pg-repositories.ts`) | COMPLETE (kod va unit test), NOT VERIFIED (live) | 9 ta test; SQL'ni yozib oluvchi executor bilan, real DB'siz |
+| JSON → DB import (`import-runtime-json.ts`) | PARTIAL | dry-run COMPLETE; `--apply` ataylab o'chirilgan (test DB'siz yoqilmaydi) |
+| Servislarni PG ga ulash | **BLOCKED** | live DB yo'q; servislar hamon JSON'da (pastda) |
+| Ko'p instansiyali concurrency | NOT VERIFIED | kod: row lock, CAS, advisory lock; real Postgres'da tekshirilmagan |
+
+**Migratsiyani ko'rib chiqish (shu sessiyada tuzatildi):**
+- Egalik endi DB darajasida ham majburiy: `application_documents` va `idempotency_keys` → `(application_id, citizen_id)` → `applications(id, citizen_id)` composite FK (hujjat yoki kalitning egasi ariza egasi bilan bir xil bo'lishi shart).
+- `applications.submission_id` va `parent_submission_id` ↔ `agency_submissions` FK'lari qo'shildi (aylanma bog'liqlik, `DO` bloki bilan, idempotent).
+- Audit: `BEFORE UPDATE OR DELETE` ga qo'shimcha `BEFORE TRUNCATE` trigger; actor turlariga `professional` qo'shildi.
+- Mavjud, o'zgarmagan kafolatlar:
+  - har bir arizaga bitta yuborish (`application_id UNIQUE`);
+  - `receipt_id` va connector idempotency kaliti UNIQUE;
+  - idempotency kaliti `sha256(citizen:key)` — fuqaro doirasida;
+  - `version` ustunlari;
+  - audit `seq` PK va `hash` UNIQUE;
+  - ochiq matndagi token ustuni yo'q;
+  - `down()` destruktiv emas (xato tashlaydi).
+- Migratsiya ilovada (`DatabaseModule`) va CLI'da (`data-source.ts`) bir xil ro'yxatdan o'tgan.
+- Eski `CaseEntity`/`AgencySubmissionEntity` (camelCase ustunlar) migratsiya sxemasiga **mos kelmaydi**. Endi ular ro'yxatdan o'tkazilmaydi (`ENTITIES = []`, `LEGACY_ENTITIES` faqat ma'lumot uchun).
+
+**Repository'larni ko'rib chiqish (shu sessiyada tuzatildi):**
+- **Xato topildi:** `typeormExecutor` da tranzaksiya ichidagi ichki `transaction()` asl DataSource'da *yangi* tranzaksiya ochardi. Natijada ichki so'rovlar tashqi row lock va advisory lock'dan tashqarida ishlardi.
+- Endi ichki chaqiruv o'sha manager'ni (o'sha ulanishni) ishlatadi; testi bor.
+- Qolganlari tekshirildi:
+  - barcha qiymatlar `$n` parametr (SQL injection testi);
+  - ariza: `SELECT … FOR UPDATE` + `citizen_id` filtri;
+  - o'tishlar: `version` + ruxsat etilgan holat + ega bo'yicha CAS;
+  - idempotency: `INSERT … ON CONFLICT DO NOTHING`;
+  - audit: `pg_advisory_xact_lock` + oxirgi hash'ga zanjir;
+  - konsultatsiya: egasi ustuni `WHERE` da. Ustun nomi koddagi ikki konstantadan tanlanadi, kiritilgan ma'lumotdan emas.
+
+**Import dry-run** (`pnpm --filter @lex/api db:import-json`):
+- Faqat sonlar chiqadi: cases 7 to'g'ri, conversations 5 to'g'ri; noto'g'ri yozuv va dublikat yo'q.
+- Qolgan fayllar diskda yo'q.
+- `sessions.json` va boshqa sessiya fayllari ochilmaydi (`NEVER_READ`). Manba JSON fayllari o'zgartirilmaydi.
+
+**Hali JSON'da ishlaydigan servislar:**
+- `CasesService`, `ConversationsService`, `ApplicationsService`, `DocumentsService` (metadata);
+- `MockAgencyAdapter`, `SubmissionsService` (idempotency yozuvlari);
+- `AuditService`, `MarketplaceService`;
+- `OneIdSimulatorService` va simulyator sessiyalari.
+
+**Qolgan migratsiya qadamlari** (live test DB'dan keyin):
+1. `DATABASE_URL` ni test DB'ga sozlash va `db:migrate:show`, keyin `db:migrate`.
+2. Servislarni repository interfeysi orqali async qilish va PG implementatsiyasini ulash. Bir vaqtda bitta servis, JSON va PG aralash holat qoldirmasdan.
+3. `--apply` import'ini real sxemaga qarshi yozish va test qilish.
+4. Ko'p instansiyali testlar (ikki API jarayoni, bitta DB).
+
+## 24. Phase 10 — Yakuniy xavfsizlik va regressiya auditi
+
+**Status: PARTIAL.** Kod va testlar bo'yicha audit bajarildi; live DB va real integratsiyalar tekshirilmadi.
+
+| # | Tekshiruv | Status | Isbot |
+|---|---|---|---|
+| 1 | Autentifikatsiya, sessiya muddati | COMPLETE (SIMULATOR) | `oneid.service.spec`, `sessions.spec` |
+| 2 | Sessiyani bekor qilish va rotation | COMPLETE | `sessions.spec` |
+| 3 | Suhbat egaligi va token bog'lanishi | COMPLETE | `security.spec` |
+| 4 | Fuqarolar orasidagi izolyatsiya (case, ariza, PDF, yuborish) | COMPLETE | `security.spec`, `gateway.spec` |
+| 5 | Yuristlar orasidagi izolyatsiya | COMPLETE (SIMULATOR) | `marketplace-pro.spec` |
+| 6 | Idoralar orasidagi izolyatsiya | COMPLETE (SIMULATOR) | `security.spec` |
+| 7 | Hujjat egaligi va fayl butunligi | COMPLETE | `documents.spec` |
+| 8 | Tahrirdan keyin rozilikni bekor qilish | COMPLETE | `gateway.spec`, `documents.spec` |
+| 9 | Imzo aniq hujjatga bog'langan | COMPLETE | `applications.service.spec` (optimistic lock), ERI digest |
+| 10 | Idempotent yuborish | COMPLETE (bitta jarayon), NOT VERIFIED (ko'p instansiya) | `gateway.spec` |
+| 11 | Parallel holat o'tishlari | COMPLETE (bitta jarayon), NOT VERIFIED (DB) | `gateway.spec`, `marketplace-pro.spec` |
+| 12 | Audit zanjiri, faqat qo'shish | COMPLETE (JSON), NOT VERIFIED (PG trigger) | `audit.service.spec`, migratsiya testi |
+| 13 | `SIM_MODE` o'chiq bo'lsa simulyator yo'q | COMPLETE | `security`, `marketplace`, `marketplace-pro` |
+| 14 | Rate limit va trust proxy | COMPLETE (bitta jarayon) | `rate-limit.spec`, `http-hardening.spec` |
+| 15 | Body limiti va security header'lar | COMPLETE | `rate-limit.spec`, real server smoke testi (Phase 3) |
+| 16 | OIDC tekshiruv chegarasi | COMPLETE (chegara), BLOCKED (real OneID) | `oidc.spec` |
+| 17 | RAG iqtibos va injection | COMPLETE | `source-metadata.test`, `rag:qa-eval` |
+| 18 | Marketplace profil tasdiqlash holati | BLOCKED (admin), xavfsiz default | `marketplace-pro.spec` |
+| 19 | DB egaligi, cheklovlar, tranzaksiyalar | NOT VERIFIED (live), unit COMPLETE | `pg-repositories.spec` |
+| 20 | Maxfiy ma'lumot bilan ishlash | COMPLETE | audit'da kontent yo'q (testlar); `sessions.json` git-ignored (`.gitignore:41`) va o'qilmaydi |
+
+**Audit davomida topilib tuzatilgan defektlar:**
+1. `typeormExecutor` ichki tranzaksiyasi lock'dan tashqarida ishlardi (§23).
+2. DB darajasida hujjat va idempotency egaligi majburiy emas edi → composite FK.
+3. `applications` ↔ `agency_submissions` FK yo'q edi.
+4. Audit jadvalini `TRUNCATE` qilish mumkin edi → trigger.
+5. Yurist amali audit'da `agency` deb yozilardi → `professional`.
+6. Eski TypeORM entity'lari sxemaga mos emas edi → ro'yxatdan chiqarildi.
+7. `marketplace` testlari embedding modeliga bog'liq bo'lib, sekin ishlar va timeout berardi → boshqa spec'lardagi kabi katalog retriever. Test zaiflashtirilmadi, assert'lar o'zgarmadi.
+
+## 25. Yakuniy tekshiruv natijalari (haqiqiy exit kodlari)
+
+| Buyruq | Exit | Natija |
+|---|---|---|
+| `pnpm lint` | 0 | o'tdi. Birinchi yugurishda 1 ta xato (`Function` turi) → tuzatildi, qayta yugurildi. |
+| `pnpm build` | 0 | o'tdi (web: `/`, `/idora`, `/kirish`, `/yurist`) |
+| `pnpm typecheck` | 0 | o'tdi |
+| `pnpm test` | 0 | **274 ta o'tdi**: contracts 8, web 7, bot 9, legal-engine 14, ai 105, api 131 |
+| `pnpm gen:contracts --check` | 0 | up to date |
+| `pnpm import:data` | 0 | 33/33, 261/261 |
+| `pnpm --filter @lex/ai rag:qa-eval` | 0 | dense: hit@5 15/15; to'qima iqtibos olib tashlandi 17/17; injection 1/1 |
+| `pnpm --filter @lex/api db:import-json` (dry-run) | 0 | cases 7, conversations 5 to'g'ri; noto'g'ri va dublikat 0 |
+| `pnpm --filter @lex/api db:migrate:show` | 1 | BLOCKED: `DATABASE_URL` sozlanmagan |
+
+## 26. Production-readiness bahosi
+
+**Production'ga tayyor EMAS.**
+
+| Soha | Holat |
+|---|---|
+| Identifikatsiya | faqat OneID SIMULATOR; real OneID — BLOCKED |
+| ERI imzo | SIMULATOR (Ed25519 test kalitlari) |
+| Davlat idoralari integratsiyasi | MOCK (`SIM-…` kvitansiyalar); real yoki sandbox yo'q |
+| Yuristlar | to'qima; tasdiqlash — BLOCKED |
+| Saqlash | JSON fayllar (bitta jarayon); PostgreSQL — PARTIAL, live NOT VERIFIED |
+| Huquqiy kontent | barcha moddalar `DRAFT`, yurist tasdiqlamagan |
+
+Bitta jarayonli demo sifatida xavfsizlik nazoratlari (egalik, rozilik, imzo, idempotentlik, audit, rate limit, header'lar, simulyator izolyatsiyasi) testlar bilan tasdiqlangan.
+
+## 27. Egasi bajarishi kerak bo'lgan qo'lda amallar
+
+1. **Lokal PostgreSQL** (5432-port ochiq, lekin login va parol berilmagan): test bazasini yarating va `.env` ga `DATABASE_URL=postgres://<user>:<parol>@localhost:5432/<test_db>` qo'shing. Production bazasi bo'lmasin.
+2. So'ng tekshiring: `pnpm --filter @lex/api build && pnpm --filter @lex/api db:migrate:show`. Migratsiyani (`db:migrate`) faqat shu test bazasiga, ongli ravishda ishga tushiring.
+3. Demo uchun `.env` ga `SIM_MODE=true` (ixtiyoriy: `SIM_AGENCY_PASSCODE`, `SIM_PROFESSIONAL_PASSCODE`) qo'shing va API'ni qayta ishga tushiring.
+4. `data/runtime/sessions.json` ni (ochiq matndagi eski tokenlar) kerak emasligiga ishonch hosil qilib, qo'lda o'chiring. U git-ignored va endi o'qilmaydi.
+5. `.env.example` ga yangi env nomlarini qo'shing:
+   - `SIM_MODE`, `SIM_AGENCY_PASSCODE`, `SIM_PROFESSIONAL_PASSCODE`, `TRUST_PROXY`;
+   - `RATE_LIMIT_*`;
+   - `ONEID_OIDC_*` (bo'sh).
+6. Phase 8–9 o'zgarishlarini ko'rib chiqib, commit qiling (avtomatik commit va push qilinmadi).
+
+**Shu davomdagi o'zgargan fayllar** (commit qilinmagan, jami 24 ta yozuv, hisobotlar bilan):
+- Kod:
+  - `apps/api/package.json`;
+  - `apps/api/src/{audit/audit.service.ts, database/database.module.ts, marketplace/marketplace.module.ts, marketplace/marketplace.service.ts}`;
+  - `packages/contracts/src/{audit.ts, marketplace.ts}`;
+  - `apps/web/src/{content/texts.uz.ts, lib/access.ts, lib/api.ts}`.
+- Yangi:
+  - `apps/api/src/database/{data-source.ts, import-runtime-json.ts, pg-repositories.ts, pg-repositories.spec.ts, migrations/1763712000000-LexiInitialSchema.ts}`;
+  - `apps/api/src/marketplace/{professional-cabinet.controller.ts, sim-professional-sessions.ts}`;
+  - `apps/web/src/app/yurist/page.tsx`;
+  - `tests/integration/marketplace-pro.spec.ts`.
+- Testlar: `tests/integration/{test-env.ts, marketplace.spec.ts}`.
+- Hisobotlar: `docs/audit/LEXI_MVP_IMPLEMENTATION_REPORT.md`, `docs/audit/LEXI_MVP_BASELINE_AUDIT.md` (qo'shimcha).
+- Eval: `ai/eval/reports/2026-11-21-legal-qa.json` qayta yaratildi; natija o'zgarmadi.

@@ -22,6 +22,23 @@ const canonical = (e: Omit<AuditEvent, "hash">): string =>
 
 const sha256 = (s: string): string => createHash("sha256").update(s, "utf8").digest("hex");
 
+/** The next event of the chain after `last` (shared by the JSON store and the PostgreSQL repository). */
+export function buildAuditEvent(last: Pick<AuditEvent, "seq" | "hash"> | null, input: AuditInput, now = new Date()): AuditEvent {
+  const base: Omit<AuditEvent, "hash"> = {
+    id: randomUUID(),
+    seq: (last?.seq ?? 0) + 1,
+    at: now.toISOString(),
+    type: input.type,
+    actor: input.actor,
+    applicationId: input.applicationId ?? null,
+    submissionId: input.submissionId ?? null,
+    caseId: input.caseId ?? null,
+    data: input.data ?? {},
+    prevHash: last?.hash ?? GENESIS,
+  };
+  return AuditEvent.parse({ ...base, hash: sha256(canonical(base)) });
+}
+
 /**
  * Append-only audit log (data/runtime/audit-events.json). There is no update or delete:
  * events are only added. Each event's hash covers the previous event's hash, so a changed,
@@ -38,19 +55,7 @@ export class AuditService {
   }
 
   record(input: AuditInput): AuditEvent {
-    const base: Omit<AuditEvent, "hash"> = {
-      id: randomUUID(),
-      seq: (this.last?.seq ?? 0) + 1,
-      at: new Date().toISOString(),
-      type: input.type,
-      actor: input.actor,
-      applicationId: input.applicationId ?? null,
-      submissionId: input.submissionId ?? null,
-      caseId: input.caseId ?? null,
-      data: input.data ?? {},
-      prevHash: this.last?.hash ?? GENESIS,
-    };
-    const event = AuditEvent.parse({ ...base, hash: sha256(canonical(base)) });
+    const event = buildAuditEvent(this.last, input);
     this.store.set(event.id, event);
     this.last = event;
     return event;
@@ -60,6 +65,11 @@ export class AuditService {
   forApplication(applicationId: string, submissionIds: readonly string[] = []): AuditEvent[] {
     const subs = new Set(submissionIds);
     return this.ordered().filter((e) => e.applicationId === applicationId || (e.submissionId !== null && subs.has(e.submissionId)));
+  }
+
+  /** Events matching a filter, in order (for reports and tests; read-only copies). */
+  find(match: (e: AuditEvent) => boolean): AuditEvent[] {
+    return this.ordered().filter(match);
   }
 
   /** Recomputes the chain. `brokenAt` is the first seq whose hash or link does not match. */
